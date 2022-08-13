@@ -1,0 +1,25 @@
+{% extends 'cjkcms/pages/base.html' %}
+
+{% block navbar %}
+    {% include 'cjkcms/snippets/navbar.html' %}
+{% endblock %}
+
+{% block index_filters %}
+    {% if page.index_show_subpages and page.index_classifiers.exists %}
+    <div class="container">
+        {% include "cjkcms/includes/classifier_dropdowns.html" with formclass="form-inline" %}
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block index_content %}
+    {% if page.index_show_subpages %}
+    <div class="container">
+        {{block.super}}
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block footer %}
+{% include 'cjkcms/snippets/footer.html' %}
+{% endblock %}

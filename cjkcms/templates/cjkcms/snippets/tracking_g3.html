@@ -1,0 +1,8 @@
+<script async src="https://www.googletagmanager.com/gtag/js?id={{settings.cjkcms.AnalyticsSettings.ga_tracking_id}}"></script>
+<script>
+  cr_track_clicks = {{settings.cjkcms.AnalyticsSettings.ga_track_button_clicks|yesno:"true,false"}};
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{settings.cjkcms.AnalyticsSettings.ga_tracking_id}}');
+</script>

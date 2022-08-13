@@ -1,0 +1,16 @@
+{% extends "cjkcms/blocks/grid_block.html" %}
+{% load wagtailcore_tags %}
+
+{% block grid_content %}
+<div class="row {{self.settings.custom_css_class}} position-relative" data-masonry='{"percentPosition": true }'>
+      {% for block in self.content %}
+      <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute;left:0;top:0;">
+        {% include_block block %}
+      </div>
+      {% endfor %}
+</div>
+{% endblock %}
+
+{% block custom_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% load wagtailcore_tags wagtailsettings_tags wagtailimages_tags cjkcms_tags i18n %}
+{% wagtail_site as site %}
+
+{% if not settings.cjkcms.LayoutSettings.navbar_wrapper_fluid %}
+<div class="container">
+{% endif %}
+
+<nav class="navbar {% get_navbar_css %}">
+
+  <div
+  {% if not settings.cjkcms.LayoutSettings.navbar_content_fluid %}
+    class="container"
+  {% else %}
+    class="container-fluid"
+  {% endif %}
+  >
+
+    <a class="navbar-brand" href="/">
+      {% if settings.cjkcms.LayoutSettings.logo %}
+        {% image settings.cjkcms.LayoutSettings.logo original as logo %}
+        <img src="{{logo.url}}" alt="{{site.site_name}}" style="height:3.125rem;" />
+      {% else %}
+        {{site.site_name}}
+      {% endif %}
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-mdb-target="#navbar" data-mdb-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar">
+      {% get_navbars as navbars %}
+      {% for navbar in navbars %}
+      <ul class="navbar-nav me-auto mb-2 mb-md-0 {{navbar.custom_css_class}}"
+        {% if navbar.custom_id %}id="{{navbar.custom_id}}"{% endif %} >
+        {% for item in navbar.menu_items %}
+                {% include_block item with liclass="nav-item" aclass="nav-link" ga_event_category="Navbar" %}
+        {% endfor %}
+      </ul>
+      {% endfor %}
+
+      {% if settings.cjkcms.LayoutSettings.navbar_langselector %}
+        {% include 'cjkcms/snippets/lang_selector.html' %}
+      {% endif %}
+
+      {% if settings.cjkcms.LayoutSettings.navbar_search %}
+        {% include 'cjkcms/snippets/navbar_search.html' %}
+      {% endif %}
+    </div>
+
+  </div><!-- /.container/container-fluid -->
+
+</nav>
+
+{% if not settings.cjkcms.LayoutSettings.navbar_wrapper_fluid %}
+</div><!-- /.container -->
+{% endif %}
+
+{# Navbar offset #}
+{% if settings.cjkcms.LayoutSettings.navbar_fixed %}
+    {% if settings.cjkcms.LayoutSettings.logo %}
+      <div class="{{settings.cjkcms.LayoutSettings.navbar_format}}-fixed-img-offset {{settings.cjkcms.LayoutSettings.navbar_collapse_mode}}"></div>
+    {% else %}
+      <div class="{{settings.cjkcms.LayoutSettings.navbar_format}}-fixed-offset {{settings.cjkcms.LayoutSettings.navbar_collapse_mode}}"></div>
+    {% endif %}
+{% endif %}

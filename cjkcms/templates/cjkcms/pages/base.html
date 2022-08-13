@@ -1,0 +1,148 @@
+{% spaceless %}
+{% load i18n static friendly_loader cjkcms_tags wagtailcore_tags wagtailimages_tags wagtailsettings_tags wagtailuserbar %}
+{% get_settings %}{% get_current_language as LANGUAGE_CODE %}
+{% if settings.cjkcms.LayoutSettings.frontend_theme %}{% friendly_load webpack_loader static %}{% endif %}
+{% wagtail_site as site %}
+<!doctype html>
+{% endspaceless %}
+<html prefix="og: http://ogp.me/ns#" lang="{{ LANGUAGE_CODE }}" >
+{% block base_head %}
+  <head>
+        <script>{# Pass in CMS variables to JavaScript #}
+            cjkcms_site_url = "{{site.root_url}}";
+            cjkcms_external_new_tab = {{settings.cjkcms.GeneralSettings.external_new_tab|yesno:"true,false"}};
+        </script>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        {% include "wagtailseo/meta.html" %} {# SEO Metadata #}
+
+        {% block frontend_assets %}
+            {% include "cjkcms/snippets/frontend_assets.html" %}
+        {% endblock %}
+
+        {% block cjkcms_assets %}
+        {% if "DEBUG"|django_settings %}
+        <link rel="stylesheet" type="text/css" href="{% static 'cjkcms/css/cjkcms-front.css' %}">
+        {% else %}
+        {# @TOD - fix! temporary solution: use same as debug; using .min. would require recompilation of scss #}
+        <link rel="stylesheet" type="text/css" href="{% static 'cjkcms/css/cjkcms-front.css' %}">
+        {% endif %}
+        {% endblock %}
+
+        {% block custom_assets %}
+            {# optional client project scripts #}
+            {# <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}"> #}
+        {% endblock %}
+
+        {% block favicon %}
+            {% if settings.cjkcms.LayoutSettings.favicon %}
+                {# See https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/ #}
+                {% image settings.cjkcms.LayoutSettings.favicon fill-120x120 format-png as favicon_iphone %}
+                {% image settings.cjkcms.LayoutSettings.favicon fill-180x180 format-png as favicon_iphone_plus %}
+                {% image settings.cjkcms.LayoutSettings.favicon fill-152x152 format-png as favicon_ipad %}
+                {% image settings.cjkcms.LayoutSettings.favicon fill-167x167 format-png as favicon_ipad_pro %}
+                <link rel="icon" type="image/png" href="{{ favicon_iphone_plus.url }}" />
+                <link rel="apple-touch-icon" href="{{ favicon_iphone_plus.url }}">
+                <link rel="apple-touch-icon" sizes="120x120" href="{{ favicon_iphone.url }}">
+                <link rel="apple-touch-icon" sizes="180x180" href="{{ favicon_iphone_plus.url }}">
+                <link rel="apple-touch-icon" sizes="152x152" href="{{ favicon_ipad.url }}">
+                <link rel="apple-touch-icon" sizes="167x167" href="{{ favicon_ipad_pro.url }}">
+            {% endif %}
+        {% endblock %}
+
+        {% block extra_head %}{% endblock %}
+
+        {% block tracking %}
+            {% if settings.cjkcms.AnalyticsSettings.ga_tracking_id  %}
+                {% include "cjkcms/snippets/tracking_g3.html" %}
+            {% endif %}
+            {% if settings.cjkcms.AnalyticsSettings.g4_tracking_id  %}
+                {% include "cjkcms/snippets/tracking_g4.html" %}
+            {% endif %}
+        {% endblock %}
+    </head>
+{% endblock base_head %}
+
+    <body class="cjkcms-{{page.content_type.model}} {% if page.get_parent %}parent-page-{{page.get_parent.id}}{% endif %} {% block body_class %}{% endblock %}" id="page-{{page.id}}">
+
+        {% include "cjkcms/includes/cjkcms_banner.html" %}
+
+        {% wagtailuserbar %}
+
+        {% block ada_skip %}
+            {% if settings.cjkcms.ADASettings.skip_navigation %}
+                <a href='#content' title='Skip Navigation'>Skip Navigation</a>
+            {% endif %}
+        {% endblock %}
+
+        {% block navbar %}{% endblock %}
+        <div id="content">
+            {% block content %}
+                {% block messages %}
+                    {% if messages %}
+                        <div class="container">
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags|map_to_bootstrap_alert }}" role="alert">{{ message }}</div>
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endblock %}
+                {% block content_pre_body %}{% endblock %}
+
+                {% block content_body %}
+                {% include_block page.body with settings=settings %}
+                {% endblock %}
+
+                {% block content_post_body %}{% endblock %}
+
+                {% block index_filters %}
+                {% if page.index_show_subpages and page.index_classifiers.exists %}
+                    {% include "cjkcms/includes/classifier_dropdowns.html" with formclass="form-inline" %}
+                {% endif %}
+                {% endblock %}
+
+                {% block index_content %}
+                {% if page.index_show_subpages %}
+                    <ul>
+                    {% for child in index_paginated %}
+                        <li><a href="{% pageurl child %}">{{child.title}}</a></li>
+                    {% endfor %}
+                    </ul>
+                    {% include "cjkcms/includes/pagination.html" with items=index_paginated %}
+                {% endif %}
+                {% endblock %}
+
+            {% endblock %}
+        </div>
+
+        <div id="content-walls">
+            {% block content_walls %}
+                {% for content_wall in content_walls %}
+                    {% include_block content_wall with settings=settings %}
+                {% endfor %}
+            {% endblock %}
+        </div>
+
+        {% block footer %}{% endblock %}
+
+        {% block required_scripts %}
+
+        {% endblock %}
+
+        {% block frontend_scripts %}
+            {% include "cjkcms/snippets/frontend_scripts.html" %}
+        {% endblock %}
+
+        {% block cjkcms_scripts %}
+        <script type="text/javascript" src="{% static 'cjkcms/js/cjkcms-front.js' %}"></script>
+        {% endblock %}
+
+        {% block custom_scripts %}
+        {# Leave blank for client sites to implement. #}
+        {# <script type="text/javascript" src="{% static 'js/custom.js' %}"></script> #}
+        {% endblock %}
+
+        {% include "wagtailseo/struct_data.html" %}
+    </body>
+</html>

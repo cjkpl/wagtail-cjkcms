@@ -1,0 +1,34 @@
+{% extends "cjkcms/pages/web_page.html" %}
+
+{% load wagtailcore_tags cjkcms_tags django_bootstrap5 %}
+
+{% block content_body %}
+
+{{ block.super }}
+
+{% if page.form_live %}
+<div class="container">
+    <form class='{{ page.form_css_class }}' id='{{ page.form_id }}' action="{% pageurl self %}" method="POST" {% if form|is_file_form %}enctype="multipart/form-data"{% endif %}>
+        {% csrf_token %}
+
+        {% bootstrap_form form layout='horizontal' %}
+
+        {% block captcha %}
+            {% if page.spam_protection %}
+                {% include 'cjkcms/includes/form_honeypot.html' %}
+            {% endif %}
+        {% endblock %}
+
+        <div class="form-group mt-5 row">
+            <div class="{{'horizontal_label_class'|bootstrap_setting}}"></div>
+            <div class="{{'horizontal_field_class'|bootstrap_setting}}">
+                <button type="submit" class="btn {{page.button_size}} {{page.button_style}} {{page.button_css_class}}">
+                    {{ page.button_text }}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endif %}
+
+{% endblock %}

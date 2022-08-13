@@ -1,0 +1,20 @@
+{% load wagtailcore_tags i18n %}
+
+{% if page and page.get_translations.live %}
+<div class="dropdown me-1">
+    <button class="btn btn-secondary-outline btn-sm dropdown-toggle" type="button" id="dropdownLangs" 
+        data-mdb-toggle="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        {% get_language_info for page.locale.language_code as lang %}
+        {{ lang.name_local }}
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownLangs">
+        {% for translation in page.get_translations.live %}
+        {% get_language_info for translation.locale.language_code as lang %}
+        <li><a class="dropdown-item" href="{% pageurl translation %}" rel="alternate" hreflang="{{ language_code }}">
+            {{ lang.name_local }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+      

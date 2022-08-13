@@ -1,0 +1,18 @@
+{% load friendly_loader wagtailcore_tags wagtailsettings_tags cjkcms_tags %}
+{% friendly_load webpack_loader %}
+
+    {% if settings.cjkcms.LayoutSettings.frontend_theme == 'mdb.light' or settings.cjkcms.LayoutSettings.frontend_theme == 'mdb.dark' %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.js" crossorigin="anonymous"></script>
+    {% elif settings.cjkcms.LayoutSettings.frontend_theme == 'python-webpack' %}
+        {% if_has_tag javascript_pack %}
+            {% javascript_pack 'app' attrs='charset="UTF-8"' %} {# you may add space-separated 'app2' etc after 'app' #}
+        {% endif_has_tag %}
+    {% else %}
+        {% if "DEBUG"|django_settings %}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.js" crossorigin="anonymous"></script>
+        {% else %}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+                crossorigin="anonymous"></script>
+        {% endif %}
+    {% endif %}

@@ -1,0 +1,21 @@
+{# does not extend any block - provides all necessary markup below #}
+{% load wagtailcore_tags %}
+
+{% block block_render %}
+<div class="row {{self.settings.custom_css_class}}"
+     {% if self.settings.custom_id %}
+     id="{{self.settings.custom_id}}"
+     {% endif %}
+    data-masonry='{"percentPosition": true }'
+     >
+        {% for page in pages %}
+        {% with page.specific as article %}
+            {% include "cjkcms/blocks/article_masonry_card.html" %}
+        {% endwith %}
+        {% endfor %}
+</div>
+{% endblock %}
+
+{% block custom_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+{% endblock %}

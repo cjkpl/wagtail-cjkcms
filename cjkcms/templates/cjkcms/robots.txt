@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /backend/
+
+User-agent: *
+Disallow: /django-backend/
+
+User-agent: *
+Allow: /
+
+Sitemap: /sitemap.xml

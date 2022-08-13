@@ -1,0 +1,24 @@
+{# does not extend any block - provides all necessary markup below #}
+{% load wagtailcore_tags %}
+
+{% block block_render %}
+<div
+    class="row
+    {% if self.settings.custom_css_class %}
+        {{self.settings.custom_css_class}}
+    {% else %}
+        row-cols-1 row-cols-md-2 row-cols-lg-3 g-4
+    {% endif %}
+    "
+     {% if self.settings.custom_id %}
+     id="{{self.settings.custom_id}}"
+     {% endif %} >
+    {% for page in pages %}
+    {% with page.specific as article %}
+        <div class="col">
+        {% include "cjkcms/blocks/article_block_card.html" %}
+        </div>
+    {% endwith %}
+    {% endfor %}
+</div>
+{% endblock %}

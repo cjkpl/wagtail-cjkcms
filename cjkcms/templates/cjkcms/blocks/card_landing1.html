@@ -1,0 +1,80 @@
+{% load wagtailcore_tags wagtailimages_tags static txtutils_tags %}
+
+  <!-- Section: Landing 1 Card -->
+  <section class="mb-8">
+
+    <style>
+      .page-header {
+        padding: 0;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        background-size: cover;
+        background-position: 50%;
+      }
+      .oblique {
+        transform: skewX(-10deg);
+        overflow: hidden;
+        width: 60%;
+        right: -10rem;
+        border-bottom-left-radius: 0.75rem;
+      }
+      .img-oblique {
+        transform: skewX(10deg);
+      }
+      .img-settings {
+        image-rendering: pixelated;
+        filter: brightness(110%) contrast(110%) saturate(100%);
+      }
+      .fw-900 {
+        font-weight: 900;
+      }
+    </style>
+
+    <div class="page-header {{self.settings.custom_css_class}}" style="min-height: 45vh;" {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}>
+      <div class="oblique position-absolute top-0 h-100 d-md-block d-none gradient-custom-10">
+        {% if self.image %}
+            {% image self.image fill-900x600 as card_img %}
+            {% assign card_img.url as img_url %}
+        {% else %}
+            {% captureas img_url %}{% static '/cjkcms/images/patterns/pattern2.jpg' %}{% endcaptureas %}
+        {% endif %}
+        <div class="img-oblique position-absolute fixed-top ms-auto h-100 img-settings" style="
+              margin-left: -4.1rem !important;
+              z-index: 0;
+              background-size: cover;
+              background-position: center center;
+              background-image: url('{{ img_url }}');
+            "></div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-7 d-flex justify-content-center flex-column">
+            {% if self.title %}
+            <h2 class="lh-1 ls-tight fw-900 mb-1">
+            {{self.title}}
+            </h2>
+            {% endif %}
+            {% if self.subtitle %}
+            <h2 class="lh-1 ls-tight fw-900 text-primary mb-4">
+              {{self.subtitle}}
+            </h2>
+            {% endif %}
+            <div class="mt-1 pe-lg-5 me-lg-5 lead fw-normal text-muted">
+              {{self.description | richtext}}
+            </div>
+            {% if self.links %}
+            <div class="buttons">
+                {% for button in self.links %}
+                {% include_block button %}
+                {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!-- End Section: Landing 1 Card -->

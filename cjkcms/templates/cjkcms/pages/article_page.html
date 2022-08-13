@@ -1,0 +1,32 @@
+{% extends "cjkcms/pages/web_page.html" %}
+{% load wagtailadmin_tags wagtailcore_tags wagtailimages_tags cjkcms_tags %}
+
+{% block content %}
+    <article class="cjkcms-article {%if self.cover_image %}has-img{% endif %}">
+        {% if self.cover_image %}
+        {% image self.cover_image fill-2000x1000 as cover_image %}
+        <img src="{{cover_image.url}}" class="w-100" />
+        {% endif %}
+        <div class="container">
+            <div class="article-header">
+                <h1 {% if not self.cover_image %}class="mt-5"{% endif %}>{{ self.title }}</h1>
+                {% if self.caption %}
+                <p class="lead">{{self.caption}}</p>
+                {% endif %}
+                <p>
+                    {% if self.author %}
+                    <img class="article-author-img rounded-circle mr-2" src="{% avatar_url self.author %}">
+                    {% elif self.owner %}
+                    <img class="article-author-img rounded-circle mr-2" src="{% avatar_url self.author %}">
+                    {% endif %}
+                    <span class="mx-2">&bull;</span>
+                    <span class="article-date">{{ self.seo_published_at }}</span>
+                </p>
+                <hr>
+            </div>
+            <div class="article-body">
+                {% include_block self.body with settings=settings %}
+            </div>
+        </div>
+    </article>
+{% endblock %}

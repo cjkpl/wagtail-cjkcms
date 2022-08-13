@@ -1,0 +1,9 @@
+{% load cjkcms_tags i18n %}
+      <form action="{% url 'cjkcms_search' %}" method="GET">
+        {% load django_bootstrap5 %}
+        {% get_searchform request as form %}
+        {% bootstrap_form form layout='inline' %}
+        <!-- div class="form-group">
+          <button class="btn btn-outline-primary ml-2" type="submit">{% trans 'Search' %}</button>
+        </div -->
+    </form>

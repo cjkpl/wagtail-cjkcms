@@ -1,0 +1,6 @@
+{% load cjkcms_tags %}
+{% if "BANNER"|cjkcms_settings %}
+<div class="cjkcms-banner" style="background-color:{{ 'BANNER_BACKGROUND'|cjkcms_settings }}; color:{{ 'BANNER_TEXT_COLOR'|cjkcms_settings }}; width:100%; padding:4px;">
+    {{ "BANNER"|cjkcms_settings|safe }}
+</div>
+{% endif %}

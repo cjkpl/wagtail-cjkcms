@@ -1,0 +1,12 @@
+<div class="border-start border-1 ps-3 pt-1 pb-1 pe-3 position-relative hover-shadow">
+    <div class="d-flex align-items-center justify-content-between">
+        <h4><a href="{{page.url}}" class="stretched-link">{{page.title}}</a></h4>
+        {% if page.content_type.model_class in pagetypes %}
+            <small class="ml-3 mb-1 badge badge-primary">{{page.search_name}}</small>{% endif %}
+    </div>
+    {% if page.search_description %}
+        <p>{{page.search_description|safe}}</p>
+    {% elif page.body_preview %}
+        <p>{{page.body_preview}}</p>
+    {% endif %}
+</div>

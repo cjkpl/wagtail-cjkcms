@@ -33,7 +33,6 @@ from wagtail.admin.panels import (
     FieldPanel,
     MultiFieldPanel,
     ObjectList,
-    StreamFieldPanel,
     TabbedInterface,
 )
 from wagtail.core import hooks
@@ -470,7 +469,7 @@ class CjkcmsWebPage(CjkcmsPage):
 
     # Panels
     body_content_panels = [
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
     ]
 
     @property

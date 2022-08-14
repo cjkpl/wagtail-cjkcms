@@ -16,3 +16,5 @@ media
 
 dist
 django_cjkcms.egg-info
+images
+original_images

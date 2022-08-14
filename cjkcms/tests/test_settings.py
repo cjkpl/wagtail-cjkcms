@@ -25,15 +25,35 @@ class SettingsTests(TestCase):
             # self.assertIsNone(abs_path, f"{logo} not found.")
             self.assertTrue(str(abs_path).endswith(logo), f"{logo} not found.")
 
-    @pytest.mark.skip(reason="missing dependencies")
-    def test_cardblock_templates(self):
-        """Check if all declared template files are accessible."""
-
-        templates = cms_settings.CJKCMS_FRONTEND_TEMPLATES_BLOCKS["cardblock"]
+    def _check_templates(self, templates, skip_empty=False):
+        """Check if all declared template files specified in the `templates` list
+        are accessible and execute without error. Used to check individual
+        sections in settings.py"""
 
         for tpl in templates:
-            # self.assertIsNone(abs_path, f"{logo} not found.")
+            if skip_empty and not tpl[0]:
+                continue
             try:
                 get_template(tpl[0])
             except TemplateDoesNotExist as e:
                 self.fail(f"Template not found: {str(e)}")
+
+    def test_cardblock_templates(self):
+        templates = cms_settings.CJKCMS_FRONTEND_TEMPLATES_BLOCKS["cardblock"]
+        self._check_templates(templates)
+
+    def test_cardgridblock_templates(self):
+        templates = cms_settings.CJKCMS_FRONTEND_TEMPLATES_BLOCKS["cardgridblock"]
+        self._check_templates(templates)
+
+    def test_pagelistblock_templates(self):
+        templates = cms_settings.CJKCMS_FRONTEND_TEMPLATES_BLOCKS["pagelistblock"]
+        self._check_templates(templates)
+
+    def test_pagepreviewblock_templates(self):
+        templates = cms_settings.CJKCMS_FRONTEND_TEMPLATES_BLOCKS["pagepreviewblock"]
+        self._check_templates(templates)
+
+    def test_frontend_template_pages_templates(self):
+        templates = cms_settings.CJKCMS_FRONTEND_TEMPLATES_PAGES["*"]
+        self._check_templates(templates, skip_empty=True)

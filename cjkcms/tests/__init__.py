@@ -7,3 +7,4 @@ from cjkcms.tests.test_gravatar import (
 from cjkcms.tests.test_articlepages import ArticlePageTests
 from cjkcms.tests.test_webpage import WebPageTests
 from cjkcms.tests.test_urls import TestFavicon, TestSiteURLs
+from cjkcms.tests.test_search_blocks import TestSearchBlocks

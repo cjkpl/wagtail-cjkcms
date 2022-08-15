@@ -96,6 +96,26 @@ Run 'python manage.py migrate' to apply them.
 
 Proceed as per message above. Stop the server, execute the `migrate` command, and restart the server.
 
+## Add utility URLs provided by CjkCMS
+
+* Add cjkcms-specific urls, which provide SEO-related pages: favicon.ico, robots.txt, sitemap.xml.
+* Replace default wagtail `search` with cjkcms-specific search: comment out the `search` view.
+
+```python
+# in the main urls.py in your project:
+from cjkcms import urls as cjkcms_urls
+
+urlpatterns = [
+    ...
+    # replace wagtail search with cjkcms version (comment out line below)
+    # path('search/', search_views.search, name='search'),
+
+    # and add cjkcms urls
+    path('', include(cjkcms_urls)),
+    ...
+]
+```
+
 ## Summary and next steps
 
 At this stage you should be able to log in to the Wagtail admin interface. Visit `localhost:8000/admin/` and you should see the login page.

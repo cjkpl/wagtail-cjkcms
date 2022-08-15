@@ -1,0 +1,7 @@
+include LICENSE
+include README.md
+include CHANGELOG.md
+recursive-include docs *
+recursive-include cjkcms/management/commands *
+recursive-include cjkcms/static *
+recursive-include cjkcms/templates *

@@ -1,0 +1,5 @@
+site_name: Cjk CMS Docs
+theme:
+  name: readthedocs
+markdown_extensions:
+    - admonition

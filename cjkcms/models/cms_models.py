@@ -3,10 +3,6 @@ Default creatable pages used in Cjk CMS, for jump-starting new websites
 without having to create a new page types.
 Feel free to replace this file with your own configuration,
 in your Wagtail project. Copy+paste and modify as needed.
-
-There are two versions of this file: cms_models and cms_models_legacy.
-The legacy version uses StreamField as body field, while the new version
-uses CjkcmsStreamField, avoiding issues with migrations. See fields.py for details.
 """
 from modelcluster.fields import ParentalKey
 from django.utils.translation import gettext_lazy as _

@@ -10,7 +10,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, HelpPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, HelpPanel, InlinePanel
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.images import get_image_model_string
 from wagtail.models import Orderable
@@ -218,6 +218,7 @@ class LayoutSettings(ClusterableModel, BaseSetting):
         ),
         MultiFieldPanel(
             [
+                InlinePanel("site_navbar"),
                 FieldPanel("navbar_color_scheme"),
                 FieldPanel("navbar_class"),
                 FieldPanel("navbar_fixed"),

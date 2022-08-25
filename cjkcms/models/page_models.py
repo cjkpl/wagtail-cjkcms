@@ -280,10 +280,7 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):  
             self.index_show_subpages = self.index_show_subpages_default
 
     @cached_classmethod
-    def get_edit_handler(cls):  # sourcery skip: instance-method-first-arg-name
-        """
-        Override to "lazy load" the panels overridden by subclasses.
-        """
+    def get_panels(cls):  # sourcery skip: instance-method-first-arg-name
         panels = [
             ObjectList(
                 cls.content_panels
@@ -307,6 +304,14 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):  
                     classname="integrations",
                 )
             )
+        return panels
+
+    @cached_classmethod
+    def get_edit_handler(cls):  # sourcery skip: instance-method-first-arg-name
+        """
+        Override to "lazy load" the panels overridden by subclasses.
+        """
+        panels = CjkcmsPage.get_panels()  # override e.g. by appending new panels
 
         edit_handler = TabbedInterface(panels)
         return edit_handler.bind_to_model(cls)

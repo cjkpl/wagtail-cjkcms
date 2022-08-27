@@ -21,3 +21,6 @@
 * Fixed missing InlinePanel allowing choosing default site navbar in Settings -> Layout
 * Removed models/cms_models_legacy.py as it was crashing doctests due to duplicate model names
 * extracted get_panels() method from Cjkcmspage get_edit_handler() to simplify overriding admin panels in subclasses. (as per suggestion of @FilipWozniak)
+
+# 0.1.7 (2022-08-27)
+* Added missing InlinePanel allowing choosing footers for the website in Settings -> Layout

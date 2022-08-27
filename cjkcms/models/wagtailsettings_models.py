@@ -216,9 +216,13 @@ class LayoutSettings(ClusterableModel, BaseSetting):
             ],
             heading=_("Branding"),
         ),
+        InlinePanel(
+            "site_navbar",
+            help_text=_("Choose one or more navbars"),
+            heading=_("Site Navbars"),
+        ),
         MultiFieldPanel(
             [
-                InlinePanel("site_navbar"),
                 FieldPanel("navbar_color_scheme"),
                 FieldPanel("navbar_class"),
                 FieldPanel("navbar_fixed"),
@@ -230,6 +234,11 @@ class LayoutSettings(ClusterableModel, BaseSetting):
                 FieldPanel("navbar_langselector"),
             ],
             heading=_("Site Navbar Layout"),
+        ),
+        InlinePanel(
+            "site_footer",
+            help_text=_("Choose one or more footers"),
+            heading=_("Site Footers"),
         ),
         MultiFieldPanel(
             [

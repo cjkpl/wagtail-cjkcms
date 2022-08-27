@@ -79,6 +79,8 @@ def get_page_models():
 class CjkcmsPageMeta(PageBase):
     def __init__(cls, name, bases, dct):
         super().__init__(name, bases, dct)
+        if "search_template" not in dct:
+            cls.search_template = "cjkcms/pages/search_result.html"
         if not cls._meta.abstract:  # type: ignore
             CJKCMS_PAGE_MODELS.append(cls)
 

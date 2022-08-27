@@ -24,3 +24,7 @@
 
 # 0.1.7 (2022-08-27)
 * Added missing InlinePanel allowing choosing footers for the website in Settings -> Layout
+
+# 0.1.8 (2022-08-27)
+* Fixed missing search template in CjkcmsMeta (for backward compatibility)
+* Fixed broken Advanced Settings in admin panel (hooks adding js/css were missing)

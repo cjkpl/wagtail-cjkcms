@@ -15,6 +15,7 @@ media
 *$py.class
 
 dist
+build
 django_cjkcms.egg-info
 images
 original_images

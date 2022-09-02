@@ -306,7 +306,6 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):  
                     classname="integrations",
                 )
             )
-        print("Got panels...")
         return panels
 
     @cached_classmethod
@@ -314,9 +313,7 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):  
         """
         Override to "lazy load" the panels overridden by subclasses.
         """
-        print("getting panels...")
         panels = cls.get_panels()  # override e.g. by appending new panels
-        print(panels)
         edit_handler = TabbedInterface(panels)
         return edit_handler.bind_to_model(cls)
 

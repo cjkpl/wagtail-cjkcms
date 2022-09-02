@@ -29,5 +29,6 @@
 * Fixed missing search template in CjkcmsMeta (for backward compatibility)
 * Fixed broken Advanced Settings in admin panel (hooks adding js/css were missing)
 
-# 0.1.9 (2022-09-01)
+# 0.1.9.x (2022-09-01)
 * Fixed broken get_panels() call preventing display of body panels in backend editor
+* Removed useless debug/print entries in page_models

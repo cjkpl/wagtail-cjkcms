@@ -40,3 +40,6 @@
 
 # 0.2.1 (2022-09-03)
 * Changed dependencies wagtail-seo i wagtail-cache to forked versions, which allow Wagtail 4.0.
+
+# 0.2.2 (2022-09-03)
+* Added cms_models to models/_init__.py, as they are already part of migration 0001, so they are not optional. Updated docs to reflect this.

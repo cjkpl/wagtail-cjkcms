@@ -10,6 +10,14 @@ Note: See helper scripts ```boot_django.py``` and ```boot_urls.py``` in the Gith
 pip install django-cjkcms
 ```
 
+## Note for version 0.2.1
+
+Until Codered's packages wagtail-seo and wagtail-cache are updated for compatibility with Wagtail 4, the cjkcms switches to forked versions of these packages. You will need to install them manually with:
+```
+pip install git+https://github.com/cjkpl/wagtail-cache.git
+pip install git+https://github.com/cjkpl/wagtail-seo.git
+```
+
 * Add CjkCMS and its requirements to ```INSTALLED_APPS``` in your project configuration (e.g. ```base.py```):
 ```python
 INSTALLED_APPS = [
@@ -52,13 +60,9 @@ urlpatterns = [
 Out of the box, CjkCMS can provide your project with generic, reusable pages:
 `ArticleIndex`, `Article`, `WebPage` which you can use in your project, or extend with additional functionality. CjkCMS pages provide you with a generic "body" section and, using ```wagtail-seo``` package, a basic SEO functionality.
 
-* Add concrete models: WebPage, ArticlePage, and ArticleIndexPage to your project, anywhere you want, e.g. 
-in ```/home/models.py```. This will make the new page types visible in the admin panel. 
-This step will provide you with a quick-start to put content into your new website in the admin panel, without further coding. If you skip this step, you need to create your own custom page types and models. You may use the three models in cjkcms.models.cms_models as a starting point. 
-```python
-# e.g. home/models.py
-from cjkcms.models.cms_models import ArticleIndexPage, ArticlePage, WebPage
-```
+
+> * [outdated begin - these models are automatically added as of version 0.2.2] 
+> Add concrete models: WebPage, ArticlePage, and ArticleIndexPage to your project, anywhere you want, e.g. in ```/home/models.py```.  [end]
 
 ## Migrating the homepage: 
 

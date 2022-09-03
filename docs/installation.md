@@ -40,6 +40,14 @@ pip install django-cjkcms
 ```
 This will install all required dependencies into the virtual environment, including Wagtail and Django.
 
+## Note for version 0.2.1
+
+Until Codered's packages wagtail-seo and wagtail-cache are updated for compatibility with Wagtail 4, the cjkcms switches to forked versions of these packages. You will need to install them manually with:
+```
+pip install git+https://github.com/cjkpl/wagtail-cache.git
+pip install git+https://github.com/cjkpl/wagtail-seo.git
+```
+
 ## Start new Wagtail project
 With all required packages installed, you can start a new Wagtail project. We will name it `cmsdemo`, like the parent folder.
 ```

@@ -6,7 +6,11 @@ CMS system for Wagtail 3.x (4.x starting with v.0.2.0) forked from and based on 
 
 ## Note for version 0.2.1
 
-Until Codered's packages wagtail-seo and wagtail-cache are updated for compatibility with Wagtail 4, the cjkcms switches to forked versions of these packages, installed directly from github rather than from pypi.
+Until Codered's packages wagtail-seo and wagtail-cache are updated for compatibility with Wagtail 4, the cjkcms switches to forked versions of these packages. You will need to install them manually with:
+```
+pip install git+https://github.com/cjkpl/wagtail-cache.git
+pip install git+https://github.com/cjkpl/wagtail-seo.git
+```
 
 ## Summary
 

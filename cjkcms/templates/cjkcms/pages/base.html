@@ -70,12 +70,6 @@
 
         {% wagtailuserbar %}
 
-        {% block ada_skip %}
-            {% if settings.cjkcms.ADASettings.skip_navigation %}
-                <a href='#content' title='Skip Navigation'>Skip Navigation</a>
-            {% endif %}
-        {% endblock %}
-
         {% block navbar %}{% endblock %}
         <div id="content">
             {% block content %}

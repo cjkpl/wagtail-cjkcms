@@ -32,3 +32,11 @@
 # 0.1.9.x (2022-09-01)
 * Fixed broken get_panels() call preventing display of body panels in backend editor
 * Removed useless debug/print entries in page_models
+
+# 0.2.0 (2022-09-03)
+* NON-COMPATIBLE with Wagtail<4.0! 
+* Added missing attribute `use_json_field=True` in StreamField in several models - new migration.
+* Removed unused block ada_skip in base page template.
+
+# 0.2.1 (2022-09-03)
+* Changed dependencies wagtail-seo i wagtail-cache to forked versions, which allow Wagtail 4.0.

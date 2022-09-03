@@ -254,6 +254,7 @@ class Navbar(models.Model):
     menu_items = CjkcmsStreamField(
         NAVIGATION_STREAMBLOCKS,
         verbose_name=_("Navigation links"),
+        use_json_field=True,
     )
 
     panels = [
@@ -296,8 +297,7 @@ class Footer(models.Model):
         verbose_name=_("Custom ID"),
     )
     content = CjkcmsStreamField(
-        LAYOUT_STREAMBLOCKS,
-        verbose_name=_("Content"),
+        LAYOUT_STREAMBLOCKS, verbose_name=_("Content"), use_json_field=True
     )
 
     panels = [

@@ -11,13 +11,13 @@ from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel, HelpPanel, InlinePanel
-from wagtail.contrib.settings.models import BaseSetting, register_setting
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.images import get_image_model_string
 from wagtail.models import Orderable
 
 
 @register_setting(icon="group")
-class SocialMediaSettings(BaseSetting):
+class SocialMediaSettings(BaseSiteSetting):
     """
     Social media accounts.
     """
@@ -97,7 +97,7 @@ class SocialMediaSettings(BaseSetting):
 
 
 @register_setting(icon="grip")
-class LayoutSettings(ClusterableModel, BaseSetting):
+class LayoutSettings(ClusterableModel, BaseSiteSetting):
     """
     Branding, navbar, and theme settings.
     """
@@ -312,7 +312,7 @@ class FooterOrderable(Orderable, models.Model):
 
 
 @register_setting(icon="history")
-class AnalyticsSettings(BaseSetting):
+class AnalyticsSettings(BaseSiteSetting):
     """
     Tracking and Google Analytics.
     """
@@ -380,7 +380,7 @@ class AnalyticsSettings(BaseSetting):
 
 
 @register_setting(icon="cog")
-class GeneralSettings(BaseSetting):
+class GeneralSettings(BaseSiteSetting):
     """
     Various site-wide settings. A good place to put
     one-off settings that don't belong anywhere else.
@@ -446,7 +446,7 @@ class GeneralSettings(BaseSetting):
 
 
 @register_setting(icon="mail")
-class MailchimpApiSettings(BaseSetting):
+class MailchimpApiSettings(BaseSiteSetting):
     """
     Settings for Mailchimp API services.
     """
@@ -463,7 +463,7 @@ class MailchimpApiSettings(BaseSetting):
 
 
 @register_setting(icon="password")
-class AdobeApiSettings(BaseSetting):
+class AdobeApiSettings(BaseSiteSetting):
     """
     Settings for Adobe PDF Embed services
     """

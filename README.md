@@ -2,7 +2,13 @@
 [![GitHub license](https://img.shields.io/github/license/cjkpl/django-cjkcms)](https://github.com/cjkpl/django-cjkcms/blob/main/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/cjkpl/django-cjkcms)](https://github.com/cjkpl/django-cjkcms/issues) 
 
-CMS system for Wagtail 3.x forked from and based on [Wagtail CRX](https://github.com/coderedcorp/coderedcms) - an excellent CMS by [CodeRed](https://www.coderedcorp.com/).
+CMS system for Wagtail 3.x (4.x starting with v.0.2.0) forked from and based on [Wagtail CRX](https://github.com/coderedcorp/coderedcms) - an excellent CMS by [CodeRed](https://www.coderedcorp.com/).
+
+## Note for version 0.2.1
+
+Until Codered's packages wagtail-seo and wagtail-cache are updated for compatibility with Wagtail 4, the cjkcms switches to forked versions of these packages, installed directly from github rather than from pypi.
+
+## Summary
 
 Out of the box, CjkCMS provides your project with generic, reusable pages:
 `ArticleIndex`, `Article`, `WebPage` which you can use in your project, or extend with additional functionality. CjkCMS pages provide you with a generic "body" section and, using `wagtail-seo` package, a basic SEO functionality.

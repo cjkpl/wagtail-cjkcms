@@ -23,7 +23,8 @@ class AccordionBlock(BaseBlock):
     class Meta:
         template = "cjkcms/blocks/accordion_block.html"
         icon = "bars"
-        label = "Accordion"
+        label = _("Accordion")
+        label_format = _("Accordion")
 
 
 class CardBlock(BaseBlock):
@@ -61,6 +62,7 @@ class CardBlock(BaseBlock):
         template = "cjkcms/blocks/card_foot.html"
         icon = "fa-list-alt"
         label = _("Card")
+        label_format = _("Card")
 
 
 class CarouselBlock(BaseBlock):
@@ -73,6 +75,7 @@ class CarouselBlock(BaseBlock):
     class Meta:
         icon = "image"
         label = _("Carousel")
+        label_format = _("Carousel")
         template = "cjkcms/blocks/carousel_block.html"
 
 
@@ -91,6 +94,7 @@ class ImageGalleryBlock(BaseBlock):
         template = "cjkcms/blocks/image_gallery_block.html"
         icon = "image"
         label = _("Image Gallery")
+        label_format = _("Image Gallery")
 
 
 class ModalBlock(ButtonMixin, BaseLayoutBlock):
@@ -125,6 +129,7 @@ class ModalBlock(ButtonMixin, BaseLayoutBlock):
         template = "cjkcms/blocks/modal_block.html"
         icon = "fa-window-maximize"
         label = _("Modal")
+        label_format = _("Modal")
 
 
 class NavBaseLinkBlock(BaseBlock):
@@ -158,6 +163,7 @@ class NavExternalLinkBlock(NavBaseLinkBlock):
     class Meta:
         template = "cjkcms/blocks/external_link_block.html"
         label = _("External Link")
+        label_format = _("External Link")
 
 
 class NavPageLinkBlock(NavBaseLinkBlock):
@@ -172,6 +178,7 @@ class NavPageLinkBlock(NavBaseLinkBlock):
     class Meta:
         template = "cjkcms/blocks/page_link_block.html"
         label = _("Page Link")
+        label_format = _("Page Link")
 
 
 class NavDocumentLinkBlock(NavBaseLinkBlock):
@@ -186,6 +193,7 @@ class NavDocumentLinkBlock(NavBaseLinkBlock):
     class Meta:
         template = "cjkcms/blocks/document_link_block.html"
         label = _("Document Link")
+        label_format = _("Document Link")
 
 
 class NavSubLinkBlock(BaseBlock):
@@ -211,6 +219,7 @@ class NavExternalLinkWithSubLinkBlock(NavSubLinkBlock, NavExternalLinkBlock):
 
     class Meta:
         label = _("External link with sub-links")
+        label_format = _("External link with sub-links")
 
 
 class NavPageLinkWithSubLinkBlock(NavSubLinkBlock, NavPageLinkBlock):
@@ -229,6 +238,7 @@ class NavPageLinkWithSubLinkBlock(NavSubLinkBlock, NavPageLinkBlock):
 
     class Meta:
         label = _("Page link with sub-links")
+        label_format = _("Page link with sub-links")
 
 
 class NavDocumentLinkWithSubLinkBlock(NavSubLinkBlock, NavDocumentLinkBlock):
@@ -238,6 +248,7 @@ class NavDocumentLinkWithSubLinkBlock(NavSubLinkBlock, NavDocumentLinkBlock):
 
     class Meta:
         label = _("Document link with sub-links")
+        label_format = _("Document link with sub-links")
 
 
 class PriceListItemBlock(BaseBlock):
@@ -269,6 +280,7 @@ class PriceListItemBlock(BaseBlock):
         template = "cjkcms/blocks/pricelistitem_block.html"
         icon = "fa-usd"
         label = _("Price List Item")
+        label_format = _("Price List Item")
 
 
 class PriceListBlock(BaseBlock):

@@ -163,7 +163,7 @@ class NavExternalLinkBlock(NavBaseLinkBlock):
     class Meta:
         template = "cjkcms/blocks/external_link_block.html"
         label = _("External Link")
-        label_format = _("External Link")
+        label_format = "{display_text} (External Link)"
 
 
 class NavPageLinkBlock(NavBaseLinkBlock):
@@ -178,7 +178,7 @@ class NavPageLinkBlock(NavBaseLinkBlock):
     class Meta:
         template = "cjkcms/blocks/page_link_block.html"
         label = _("Page Link")
-        label_format = _("Page Link")
+        label_format = "{display_text} (Page Link)"
 
 
 class NavDocumentLinkBlock(NavBaseLinkBlock):
@@ -193,7 +193,7 @@ class NavDocumentLinkBlock(NavBaseLinkBlock):
     class Meta:
         template = "cjkcms/blocks/document_link_block.html"
         label = _("Document Link")
-        label_format = _("Document Link")
+        label_format = "{display_text} (Document Link)"
 
 
 class NavSubLinkBlock(BaseBlock):
@@ -219,7 +219,7 @@ class NavExternalLinkWithSubLinkBlock(NavSubLinkBlock, NavExternalLinkBlock):
 
     class Meta:
         label = _("External link with sub-links")
-        label_format = _("External link with sub-links")
+        label_format = "{display_text} (External link with sub-links)"
 
 
 class NavPageLinkWithSubLinkBlock(NavSubLinkBlock, NavPageLinkBlock):
@@ -238,7 +238,7 @@ class NavPageLinkWithSubLinkBlock(NavSubLinkBlock, NavPageLinkBlock):
 
     class Meta:
         label = _("Page link with sub-links")
-        label_format = _("Page link with sub-links")
+        label_format = "{display_text} (Page link with sub-links)"
 
 
 class NavDocumentLinkWithSubLinkBlock(NavSubLinkBlock, NavDocumentLinkBlock):
@@ -248,7 +248,7 @@ class NavDocumentLinkWithSubLinkBlock(NavSubLinkBlock, NavDocumentLinkBlock):
 
     class Meta:
         label = _("Document link with sub-links")
-        label_format = _("Document link with sub-links")
+        label_format = "{display_text} (Document link with sub-links)"
 
 
 class PriceListItemBlock(BaseBlock):

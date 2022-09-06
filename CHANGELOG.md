@@ -43,3 +43,6 @@
 
 # 0.2.2 (2022-09-03)
 * Added cms_models to models/_init__.py, as they are already part of migration 0001, so they are not optional. Updated docs to reflect this.
+
+# 0.2.3 ()
+* Added label_format attribute for all content and layout blocks, to ensure correct display in collapsed admin view

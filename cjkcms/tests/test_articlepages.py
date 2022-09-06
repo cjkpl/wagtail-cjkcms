@@ -60,3 +60,33 @@ class ArticlePageTests(WagtailPageTests):
         self.assertCanCreateAt(
             home_page, ArticleIndexPage, nested_form_data({"title": "Article Index"})
         )
+
+    def test_create_index_with_articles(self):
+        # Get the HomePage
+        home_page = Page.objects.get(path="00010001")
+
+        body = [
+            {
+                "type": "embed_video",
+                "value": {
+                    "url": "https://youtu.be/AxLgTxBLsgI",
+                },
+                "id": "6ffa1b27-d884-4a9b-ba35-66140ff8a0ee",
+            }
+        ]
+
+        article_index_page = ArticleIndexPage(title="Index")
+        home_page.add_child(instance=article_index_page)
+
+        article_page = ArticlePage(title="Test Article 1", body=body)
+
+        article_index_page.add_child(instance=article_page)
+        article_page.save_revision().publish()
+
+        article_page = ArticlePage(title="Test Article 2", body=body)
+
+        article_index_page.add_child(instance=article_page)
+        article_page.save_revision().publish()
+
+        aps = ArticlePage.objects.filter(slug__startswith="test-article-")
+        self.assertEqual(len(aps), 1)

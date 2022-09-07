@@ -6,7 +6,7 @@ from cjkcms.models import (
 from wagtail.tests.utils.form_data import nested_form_data
 
 from wagtail.core.models import Page
-from cjkcms.models.cms_models import ArticlePage, ArticleIndexPage
+from cjkcms.models.cms_models import ArticlePage, ArticleIndexPage, WebPage
 
 
 class ArticlePageTests(WagtailPageTests):
@@ -89,4 +89,39 @@ class ArticlePageTests(WagtailPageTests):
         article_page.save_revision().publish()
 
         aps = ArticlePage.objects.filter(slug__startswith="test-article-")
-        self.assertEqual(len(aps), 1)
+        self.assertEqual(len(aps), 2)
+
+    def test_create_index_with_articles_under_webpage(self):
+        # Get the HomePage
+        home_page = Page.objects.get(path="00010001")
+
+        body = [
+            {
+                "type": "embed_video",
+                "value": {
+                    "url": "https://youtu.be/AxLgTxBLsgI",
+                },
+                "id": "6ffa1b27-d884-4a9b-ba35-66140ff8a0ee",
+            }
+        ]
+
+        web_page = WebPage(title="Web Page")
+        home_page.add_child(instance=web_page)
+        web_page.save_revision().publish()
+
+        article_index_page = ArticleIndexPage(title="Index")
+        web_page.add_child(instance=article_index_page)
+        article_index_page.save_revision().publish()
+
+        article_page = ArticlePage(title="Test Article 1", body=body)
+
+        article_index_page.add_child(instance=article_page)
+        article_page.save_revision().publish()
+
+        article_page = ArticlePage(title="Test Article 2", body=body)
+
+        article_index_page.add_child(instance=article_page)
+        article_page.save_revision().publish()
+
+        aps = ArticlePage.objects.filter(slug__startswith="test-article-")
+        self.assertEqual(len(aps), 2)

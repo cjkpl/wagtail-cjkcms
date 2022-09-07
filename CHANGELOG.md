@@ -47,3 +47,9 @@
 # 0.2.3 (2022-09-06)
 * Added label_format attribute for all content and layout blocks, to ensure correct display in collapsed admin view
 * Added new test for article index / article page
+
+# 0.2.4 (2022-09-07)
+* Added new test to verify fixing a bug with ArticleIndexPage (details below)
+* Fixed bug in ArticleIndexPage which prevented creation of an ArticleIndexPage under WebPage
+* Fixed a broken test in test_articlepages introduced in 0.2.3.
+ 

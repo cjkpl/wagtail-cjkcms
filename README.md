@@ -4,7 +4,7 @@
 
 CMS system for Wagtail 3.x (4.x starting with v.0.2.0) forked from and based on [Wagtail CRX](https://github.com/coderedcorp/coderedcms) - an excellent CMS by [CodeRed](https://www.coderedcorp.com/).
 
-## Note for version 0.2.1
+## Note for versions 0.2.x
 
 Until Codered's packages wagtail-seo and wagtail-cache are updated for compatibility with Wagtail 4, the cjkcms switches to forked versions of these packages. You will need to install them manually with:
 ```

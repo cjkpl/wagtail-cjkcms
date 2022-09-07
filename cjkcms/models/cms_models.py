@@ -53,6 +53,8 @@ class ArticleIndexPage(CjkcmsArticleIndexPage):
     class Meta:
         verbose_name = _("Article Landing Page")
 
+    index_order_by_default = ""
+
     # Override to specify custom index ordering choice/default.
     index_query_pagemodel = "cjkcms.ArticlePage"
 

@@ -52,4 +52,7 @@
 * Added new test to verify fixing a bug with ArticleIndexPage (details below)
 * Fixed bug in ArticleIndexPage which prevented creation of an ArticleIndexPage under WebPage
 * Fixed a broken test in test_articlepages introduced in 0.2.3.
- 
+
+# 0.2.5 (2022-09-07)
+* Added a management command: init-website (replaces default HP with a custom, cms based one)
+* Added a management command: init-navbar (adds a new Navbar and sets it as default for the website)

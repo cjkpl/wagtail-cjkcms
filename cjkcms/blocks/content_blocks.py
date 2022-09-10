@@ -62,7 +62,7 @@ class CardBlock(BaseBlock):
         template = "cjkcms/blocks/card_foot.html"
         icon = "fa-list-alt"
         label = _("Card")
-        label_format = _("Card")
+        label_format = _("{title} (Card)")
 
 
 class CarouselBlock(BaseBlock):

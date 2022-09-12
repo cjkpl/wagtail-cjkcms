@@ -1,8 +1,10 @@
+from cjkcms.models.wagtailsettings_models import AdobeApiSettings
 from cjkcms.settings import cms_settings
 from django.contrib.staticfiles import finders
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.template.loader import get_template
 from django.test import TestCase
+from wagtail.core.models import Site
 import pytest
 
 # import TemplateDoesNotExist
@@ -57,3 +59,13 @@ class SettingsTests(TestCase):
     def test_frontend_template_pages_templates(self):
         templates = cms_settings.CJKCMS_FRONTEND_TEMPLATES_PAGES["*"]
         self._check_templates(templates, skip_empty=True)
+
+    def test_AdobeApiKey(self):
+        site = Site.objects.filter(is_default_site=True)[0]
+        adobe_api_key = AdobeApiSettings.for_site(site=site)
+        adobe_api_key.adobe_embed_id = "test_key"
+        adobe_api_key.save()
+
+        adobe_api_key = AdobeApiSettings.for_site(site=site)
+        """Check if the Adobe API Key is set."""
+        self.assertEqual(adobe_api_key.adobe_embed_id, "test_key")

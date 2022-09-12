@@ -2,6 +2,8 @@ import re
 
 from django.template import engines
 from django.test import TestCase
+from wagtail.core.models import Site
+from cjkcms.models import AdobeApiSettings
 
 
 django_engine = engines["django"]
@@ -74,4 +76,17 @@ class TemplateTagTests(TestCase):
             rt[-4:],
             [".png", ".jpg", ".webp", ".svg"],
             f"Django setting BRAND_LOGO_LONG does not seem to return one of [png,jpg,webp,svg]: {rt}",
+        )
+
+    def test_AdobeApiKeyInTemplate(self):
+        site = Site.objects.filter(is_default_site=True)[0]
+        adobe_api_key = AdobeApiSettings.for_site(site=site)
+        adobe_api_key.adobe_embed_id = "test_key"
+        adobe_api_key.save()
+
+        rt = django_engine.from_string(
+            "{% load wagtailsettings_tags %}{% get_settings use_default_site=True %}{{ settings.cjkcms.AdobeApiSettings.adobe_embed_id }}"
+        ).render(None)
+        self.assertEqual(
+            rt, "test_key", "Adobe API key not returned in template context"
         )

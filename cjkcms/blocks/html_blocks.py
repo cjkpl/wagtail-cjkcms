@@ -150,6 +150,7 @@ class ImageBlock(BaseBlock):
         template = "cjkcms/blocks/image_block.html"
         icon = "image"
         label = _("Image")
+        label_format = "Image: {image}"
 
 
 class ImageLinkBlock(BaseLinkBlock):
@@ -171,6 +172,7 @@ class ImageLinkBlock(BaseLinkBlock):
         icon = "image"
         label = _("Image Link")
         value_class = LinkStructValue
+        label_format = "Image link: {image}"
 
 
 class PageListBlock(BaseBlock):

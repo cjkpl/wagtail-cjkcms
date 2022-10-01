@@ -56,3 +56,6 @@
 # 0.2.5 (2022-09-07)
 * Added a management command: init-website (replaces default HP with a custom, cms based one)
 * Added a management command: init-navbar (adds a new Navbar and sets it as default for the website)
+
+# 0.2.6 (2022-09-14)
+* Added flags show_covers, show_dates and show_authors to the LatestPages block and its' templates

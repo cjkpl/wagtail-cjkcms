@@ -195,6 +195,25 @@ class PageListBlock(BaseBlock):
         default=False,
         label=_("Show body preview"),
     )
+    show_dates = blocks.BooleanBlock(
+        required=False,
+        default=True,
+        label=_("Show publish dates"),
+    )
+
+    show_authors = blocks.BooleanBlock(
+        required=False,
+        default=True,
+        label=_("Show authors"),
+    )
+
+    show_covers = blocks.BooleanBlock(
+        required=False,
+        default=True,
+        label=_("Show cover images"),
+        help_text=_("Show cover images"),
+    )
+
     num_posts = blocks.IntegerBlock(
         default=3,
         label=_("Number of pages to show"),

@@ -1,5 +1,5 @@
-# git+https://github.com/cjkpl/wagtail-cache.git
-# git+https://github.com/cjkpl/wagtail-seo.git
+git+https://github.com/cjkpl/wagtail-cache.git
+git+https://github.com/cjkpl/wagtail-seo.git
 -e ./
 black
 codespell
@@ -13,3 +13,5 @@ sphinx-wagtail-theme
 twine
 wheel
 django-bootstrap5
+Django>=4.1,<4.2
+wagtail>=4.0,<4.1

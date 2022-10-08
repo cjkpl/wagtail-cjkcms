@@ -61,7 +61,7 @@ def is_menu_item_dropdown(value):
     )
 
 
-# TOOD: add a test
+# TODO: add a test
 @register.simple_tag(takes_context=True)
 def is_active_page(context, curr_page, other_page):
     if hasattr(curr_page, "get_url") and hasattr(other_page, "get_url"):
@@ -71,7 +71,7 @@ def is_active_page(context, curr_page, other_page):
     return False
 
 
-# TOOD: add a test
+# TODO: add a test
 @register.simple_tag
 def get_pictures(collection_id):
     collection = Collection.objects.get(id=collection_id)

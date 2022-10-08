@@ -29,7 +29,7 @@ WAGTAILEMBEDS_FINDERS = [
     }
 ]
 ```
-For more informations about wagtail embeds check [**this site**](https://docs.wagtail.org/en/stable/advanced_topics/embeds.html "**this**").
+For more information about wagtail embeds check [**this site**](https://docs.wagtail.org/en/stable/advanced_topics/embeds.html "**this**").
 
 - If you create embeds before, run following command to remove instances of Embed model (otherwise the old embeds will not work)
 ```

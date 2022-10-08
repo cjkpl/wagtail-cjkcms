@@ -84,7 +84,7 @@ class TestSearchBlocks(TestCase):
 
     def test_page_type_in_search_results(self):
         response = self.client.get(
-            reverse("cjkcms_search"), {"s": "doesnt matter"}, follow=True
+            reverse("cjkcms_search"), {"s": "doesn't matter"}, follow=True
         )
 
         self.assertEqual(response.status_code, 200)
@@ -124,7 +124,7 @@ class TestSearchBlocks(TestCase):
         self.set_article_body(self.block_html)
 
         response = self.client.get(
-            reverse("cjkcms_search"), {"s": "cant see me"}, follow=True
+            reverse("cjkcms_search"), {"s": "can't see me"}, follow=True
         )
 
         self.assertEqual(response.context["results"].count(), 0)

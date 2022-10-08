@@ -62,7 +62,7 @@ Remember to change change directory to the newly created folder. You should be i
 ## Migrate & add an admin
 Run required migrations and create a superuser:
 ```
-pyhton manage.py migrate
+python manage.py migrate
 python manage.py createsuperuser
 ```
 

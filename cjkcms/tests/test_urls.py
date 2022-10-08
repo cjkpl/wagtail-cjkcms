@@ -1,13 +1,11 @@
 import pytest
 import unittest
 
-from ast import literal_eval
-
 from django.urls import reverse
 from django.test import Client
 from django.test.utils import override_settings
 
-from wagtail.core.models import Site, Page
+from wagtail.core.models import Site
 from wagtail.images.tests.utils import Image, get_test_image_file
 
 from cjkcms.models import LayoutSettings

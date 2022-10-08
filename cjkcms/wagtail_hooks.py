@@ -1,14 +1,10 @@
 import mimetypes
 
-from django.contrib.contenttypes.models import ContentType
 from django.templatetags.static import static
 from django.http.response import HttpResponse
-from django.urls import reverse
 from django.utils.html import format_html
-from django.utils.translation import gettext_lazy as _
 from wagtail.admin.menu import MenuItem
 from wagtail import hooks
-from wagtail.models import UserPagePermissionsProxy, get_page_models
 from wagtailcache.cache import clear_cache
 
 from cjkcms import __version__

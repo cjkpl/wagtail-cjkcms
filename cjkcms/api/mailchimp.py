@@ -40,21 +40,23 @@ class MailchimpApi:
         return self._get(endpoint)
 
     def get_merge_fields_for_list(self, list_id):
-        endpoint = "lists/{0}/merge-fields?fields=merge_fields.tag,merge_fields.merge_id,merge_fields.name".format(
-            list_id
-        )  # noqa
+        endpoint = (
+            f"lists/{list_id}/merge-fields"
+            "?fields=merge_fields.tag,merge_fields.merge_id,merge_fields.name"
+        )
         return self._get(endpoint)
 
     def get_interest_categories_for_list(self, list_id):
-        endpoint = "lists/{0}/interest-categories?fields=categories.id,categories.title".format(
-            list_id
+        endpoint = (
+            f"lists/{list_id}/interest-categories?fields=categories.id,categories.title"
         )
         return self._get(endpoint)
 
     def get_interests_for_interest_category(self, list_id, interest_category_id):
-        endpoint = "lists/{0}/interest-categories/{1}/interests?fields=interests.id,interests.name".format(
-            list_id, interest_category_id
-        )  # noqa
+        endpoint = (
+            f"lists/{list_id}/interest-categories/{interest_category_id}/interests"
+            "?fields=interests.id,interests.name"
+        )
         return self._get(endpoint)
 
     def add_user_to_list(self, list_id, data):

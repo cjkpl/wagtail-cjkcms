@@ -433,7 +433,7 @@ class CjkcmsEmail(ClusterableModel):
         blank=True,
         verbose_name=_("From Address"),
         help_text=_(
-            'For example: "sender@example.com" or "Sender Name <sender@example.com>" (without quotes).'
+            'For example: "sender@abc.com" or "Sender Name <sender@abc.com>" (without quotes).'
         ),  # noqa
     )
     reply_address = models.CharField(

@@ -10,8 +10,8 @@ django_engine = engines["django"]
 html_id_re = re.compile(r"^[A-Za-z][A-Za-z0-9_:.-]*$")
 
 version_re = re.compile(
-    r"^(\d+!)?(\d+)(\.\d+)+([\.\-\_])?((a(lpha)?|b(eta)?|c|r(c|ev)?|pre(view)?)\d*)?(\.?(post|dev)\d*)?$"
-)  # noqa
+    r"^(\d+!)?(\d+)(\.\d+)+([\.\-\_])?((a(lpha)?|b(eta)?|c|r(c|ev)?|pre(view)?)\d*)?(\.?(post|dev)\d*)?$"  # noqa: E501
+)
 
 
 class TemplateTagTests(TestCase):
@@ -65,7 +65,7 @@ class TemplateTagTests(TestCase):
         self.assertIn(
             rt[-4:],
             [".png", ".jpg", ".webp", ".svg"],
-            f"Django setting BRAND_LOGO_LONG does not seem to return one of [png,jpg,webp,svg]: {rt}",
+            f"Django setting BRAND_LOGO_LONG does not seem to return one of [png,jpg,webp,svg]: {rt}",  # noqa: E501
         )
 
     def test_brand_logo_square_tag(self):
@@ -75,7 +75,7 @@ class TemplateTagTests(TestCase):
         self.assertIn(
             rt[-4:],
             [".png", ".jpg", ".webp", ".svg"],
-            f"Django setting BRAND_LOGO_LONG does not seem to return one of [png,jpg,webp,svg]: {rt}",
+            f"Django setting BRAND_LOGO_LONG does not seem to return one of [png,jpg,webp,svg]: {rt}",  # noqa: E501
         )
 
     def test_AdobeApiKeyInTemplate(self):
@@ -85,7 +85,7 @@ class TemplateTagTests(TestCase):
         adobe_api_key.save()
 
         rt = django_engine.from_string(
-            "{% load wagtailsettings_tags %}{% get_settings use_default_site=True %}{{ settings.cjkcms.AdobeApiSettings.adobe_embed_id }}"
+            "{% load wagtailsettings_tags %}{% get_settings use_default_site=True %}{{ settings.cjkcms.AdobeApiSettings.adobe_embed_id }}"  # noqa: E501
         ).render(None)
         self.assertEqual(
             rt, "test_key", "Adobe API key not returned in template context"

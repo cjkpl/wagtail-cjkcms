@@ -1,10 +1,9 @@
 from wagtail.tests.utils import WagtailPageTests
 from cjkcms.models import CjkcmsWebPage
 from cjkcms.models.cms_models import WebPage
-from wagtail.tests.utils.form_data import nested_form_data, streamfield
+from wagtail.tests.utils.form_data import nested_form_data
 
 from wagtail.core.models import Page
-import json
 
 
 class WebPageTests(WagtailPageTests):

@@ -2,7 +2,6 @@ import hashlib
 import urllib.parse
 
 from django.template import Library
-from django.templatetags.static import static
 from wagtail.core.models import Site
 
 from cjkcms.models import GeneralSettings

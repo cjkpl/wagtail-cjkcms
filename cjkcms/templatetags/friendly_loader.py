@@ -14,7 +14,6 @@ from django.template.defaulttags import (
     load_from_library,
 )
 from django.template.smartif import Literal
-from django.template.defaulttags import TemplateLiteral
 
 register = template.Library()
 

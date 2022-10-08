@@ -4,9 +4,7 @@ Base and abstract pages used in Cjk CMS.
 Based on CODEREDCMS
 """
 
-import json
 import logging
-import warnings
 from datetime import datetime
 from typing import Optional, TYPE_CHECKING
 
@@ -15,19 +13,12 @@ from django import forms
 from django.conf import settings
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 from django.db import models
-from django.db.models.signals import post_delete, post_save
-from django.dispatch import receiver
-from django.shortcuts import render, redirect
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
-from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 # from eventtools.models import BaseEvent, BaseOccurrence
 # from icalendar import Event as ICalEvent
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
-from pathlib import Path
 from taggit.models import TaggedItemBase
 from wagtail.admin.panels import (
     FieldPanel,
@@ -35,7 +26,6 @@ from wagtail.admin.panels import (
     ObjectList,
     TabbedInterface,
 )
-from wagtail.core import hooks
 from wagtail.core.fields import StreamField
 from wagtail.core.models import PageBase, Page
 from wagtail.core.utils import resolve_model_string
@@ -51,17 +41,13 @@ from cjkcms.blocks import (
     LAYOUT_STREAMBLOCKS,
 )
 
-from cjkcms.fields import ColorField, CjkcmsStreamField
 from cjkcms.models.snippet_models import ClassifierTerm
 from cjkcms.models.wagtailsettings_models import (
-    GeneralSettings,
     LayoutSettings,
 )
 
 from cjkcms.settings import cms_settings
 from cjkcms.widgets import ClassifierSelectWidget
-
-from wagtail.core import blocks
 
 if TYPE_CHECKING:
     from wagtail.images.models import AbstractImage
@@ -206,7 +192,8 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):  
         blank=True,
         verbose_name=_("Classifiers"),
         help_text=_(
-            "Categorize and group pages together with classifiers. Used to organize and filter pages across the site."
+            "Categorize and group pages together with classifiers. "
+            "Used to organize and filter pages across the site."
         ),  # noqa
     )
     tags = ClusterTaggableManager(

@@ -3,7 +3,8 @@ from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):
-    help = "Removes all instances of the Embed model. Run this if protected vimeo embeds are failing."
+    help = "Removes all instances of the Embed model. "
+    "Run this if protected vimeo embeds are failing."
 
     def handle(self, *args, **options):
         try:

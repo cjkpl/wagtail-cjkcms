@@ -1,2 +1,15 @@
-git+https://github.com/cjkpl/wagtail-cache.git
-git+https://github.com/cjkpl/wagtail-seo.git
+# git+https://github.com/cjkpl/wagtail-cache.git
+# git+https://github.com/cjkpl/wagtail-seo.git
+-e ./
+black
+codespell
+flake8
+mypy
+pytest
+pytest-cov
+pytest-django
+sphinx
+sphinx-wagtail-theme
+twine
+wheel
+django-bootstrap5

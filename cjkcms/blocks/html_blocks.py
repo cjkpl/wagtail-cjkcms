@@ -303,4 +303,4 @@ class SearchableHTMLBlock(blocks.RawHTMLBlock):
     def get_searchable_content(self, value):
         # Strip HTML tags to prevent search backend from indexing them
         source = force_str(value)
-        return [get_text_for_indexing(value)]
+        return [get_text_for_indexing(source)]

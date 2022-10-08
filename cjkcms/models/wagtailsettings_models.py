@@ -325,7 +325,8 @@ class AnalyticsSettings(BaseSiteSetting):
         max_length=255,
         verbose_name=_("Universal Analytics Tracking ID"),
         help_text=_(
-            'Google Analytics tracking ID (begins with "UA-"). Note: will stop working by 1 July 2023!'
+            'Google Analytics tracking ID (begins with "UA-"). '
+            "Note: will stop working by 1 July 2023!"
         ),
     )
     g4_tracking_id = models.CharField(
@@ -392,7 +393,7 @@ class GeneralSettings(BaseSiteSetting):
         verbose_name=_("From email address"),
         help_text=_(
             "The default email address this site appears to send from. "
-            'For example: "sender@example.com" or "Sender Name <sender@example.com>" (without quotes)'
+            'For example: "sender@abc.com" or "Sender Name <sender@abc.com>" (without quotes)'
         ),
         # noqa
     )

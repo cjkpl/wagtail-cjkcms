@@ -9,12 +9,12 @@ from django.db.models.query import QuerySet
 
 # from django.forms import ClearableFileInput
 from django.utils.safestring import mark_safe
-from wagtail.core.models import Collection, Site
+from wagtail.core.models import Collection
 from wagtail.images.models import Image
 
 from cjkcms import __version__
 
-from cjkcms.blocks import CjkcmsAdvSettings
+from cjkcms.blocks.base_blocks import CjkcmsAdvSettings
 from cjkcms.forms import SearchForm
 from cjkcms.models import Footer, Navbar
 from cjkcms.settings import cms_settings

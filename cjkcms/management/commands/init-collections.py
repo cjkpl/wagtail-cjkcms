@@ -1,4 +1,4 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from wagtail.core.models import Collection
 
 
@@ -6,7 +6,8 @@ class Command(BaseCommand):
     """Create a set of commonly used collections for a new website:
     covers, logos, resources, people, articles, cards, icons"""
 
-    help = "Create a set of commonly used collections: covers, logos, resources, people, articles, cards, icons"
+    help = "Create a set of commonly used collections: "
+    "covers, logos, resources, people, articles, cards, icons"
 
     def handle(self, *args, **options):
         names = ["Covers", "Logos", "Resources", "People", "Articles", "Cards", "Icons"]

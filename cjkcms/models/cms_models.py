@@ -1,10 +1,9 @@
 """
-Default creatable pages used in Cjk CMS, for jump-starting new websites 
+Default creatable pages used in Cjk CMS, for jump-starting new websites
 without having to create a new page types.
 Feel free to replace this file with your own configuration,
 in your Wagtail project. Copy+paste and modify as needed.
 """
-from modelcluster.fields import ParentalKey
 from django.utils.translation import gettext_lazy as _
 from . import (
     CjkcmsArticlePage,

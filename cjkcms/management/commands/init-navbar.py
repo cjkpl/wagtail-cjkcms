@@ -1,4 +1,4 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from wagtail.core.models import Page, Site
 from cjkcms.models import Navbar, LayoutSettings, NavbarOrderable
 
@@ -9,7 +9,8 @@ class Command(BaseCommand):
     Assigs a custom_id=main-menu to detect attempts to re-create.
     """
 
-    help = "creates CjkCMS Navbar with Home entry pointing to /, and if --add_auth also login/logout entries"
+    help = "creates CjkCMS Navbar with Home entry pointing to /, "
+    "and if --add_auth also login/logout entries"
     add_auth_items = False
 
     def add_arguments(self, parser):
@@ -35,7 +36,8 @@ class Command(BaseCommand):
         home_page = Page.objects.filter(path="00010001").first()
         if not home_page:
             print(
-                "Homepage not found in page tree - create at least the home page, then create main-menu"
+                "Homepage not found in page tree. "
+                "Create at least the home page, then create main-menu"
             )
             return
 

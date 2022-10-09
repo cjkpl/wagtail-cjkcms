@@ -45,6 +45,14 @@ jobs:
           paths:
             - "venv"
       - run:
+          name: Linting - Flake8
+          command: |
+            flake8 ./cjkcms/ --output-file test-reports
+      - run:
+          name: Spelling - Codespell
+          command: |
+            codespell ./cjkcms/
+      - run:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
           command: |
@@ -52,12 +60,12 @@ jobs:
             python3 testproject/manage.py test
       - store_artifacts:
           path: test-reports/
-          destination: python_app
+          destination: test-reports
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
+  cjkcms-test: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - build-and-test

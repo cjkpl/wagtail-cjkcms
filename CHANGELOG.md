@@ -59,3 +59,8 @@
 
 # 0.2.6 (2022-09-14)
 * Added flags show_covers, show_dates and show_authors to the LatestPages block and its' templates
+
+# 0.2.7 (2022-10-09)
+* Fixed image formatting options in the RichtextBlock, to work with Bootstrap5. 
+* Registered new image formats: left-thumb and right-thumb
+* Introduced CI with CircleCI: flake8, codespell and unit tests

@@ -65,7 +65,8 @@ class CardBlock(BaseBlock):
         label_format = _("{title} (Card)")
 
     def get_template(self, context=None):
-        """Return the default_card_template declared in parent CardGrid, otherwise use the default template."""
+        """Return the default_card_template declared in parent CardGrid,
+        otherwise use the default template."""
 
         if (
             context

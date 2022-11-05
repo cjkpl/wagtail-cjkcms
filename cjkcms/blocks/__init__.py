@@ -32,11 +32,18 @@ from .content_blocks import (  # noqa
     ReusableContentBlock,
 )
 from .layout_blocks import CardGridBlock, GridBlock, HeroBlock
+from cjkcms.settings import cms_settings
 
 # Collections of blocks commonly used together.
 
 HTML_STREAMBLOCKS = [
-    ("text", RichTextBlock(icon="fa-file-text-o")),
+    (
+        "text",
+        RichTextBlock(
+            icon="font",
+            features=cms_settings.CJKCMS_RICHTEXT_FEATURES["full"],
+        ),
+    ),
     ("button", ButtonBlock()),
     ("image", ImageBlock()),
     ("image_link", ImageLinkBlock()),

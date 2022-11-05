@@ -189,6 +189,53 @@ class _DefaultSettings:
     BANNER_BACKGROUND = "#f00"
     BANNER_TEXT_COLOR = "#fff"
 
+    CJKCMS_RICHTEXT_FEATURES = {
+        "default": [
+            "h2",
+            "h3",
+            "h4",
+            "bold",
+            "italic",
+            "link",
+            "ol",
+            "ul",
+            "hr",
+            "blockquote",
+            "image",
+            "centre-align",
+            "left-align",
+            "right-align",
+        ],
+        "full": [
+            "h2",
+            "h3",
+            "h4",
+            "h5",
+            "h6",
+            "bold",
+            "italic",
+            "underline",
+            "ol",
+            "ul",
+            "larger",
+            "smaller",
+            "superscript",
+            "subscript",
+            "strikethrough",
+            "link",
+            "hr",
+            "code",
+            "document-link",
+            "blockquote",
+            "image",
+            "embed",
+            "centre-align",
+            "left-align",
+            "right-align",
+        ],
+        "minimal": ["bold", "italic", "link"],
+    }
+
     def __getattribute__(self, attr: str):
         # First load from Django settings.
         # If it does not exist, load from _DefaultSettings.

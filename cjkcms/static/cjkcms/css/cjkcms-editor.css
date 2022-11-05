@@ -48,3 +48,15 @@
 .cjkcms-callout p {
     font-size: 1rem;
 }
+
+.Draftail-block--LEFT-ALIGN .public-DraftStyleDefault-ltr {
+    text-align: start;
+}
+
+.Draftail-block--CENTRE-ALIGN .public-DraftStyleDefault-ltr {
+    text-align: center;
+}
+
+.Draftail-block--RIGHT-ALIGN .public-DraftStyleDefault-ltr {
+    text-align: end;
+}

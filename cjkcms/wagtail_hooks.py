@@ -8,6 +8,11 @@ from wagtail import hooks
 from wagtailcache.cache import clear_cache
 
 from cjkcms import __version__
+from cjkcms.draftail import (
+    register_inline_styling,
+    register_block_feature,
+    DRAFTAIL_ICONS,
+)
 
 
 @hooks.register("insert_global_admin_css")
@@ -93,7 +98,7 @@ def serve_document_directly(document, request):
     content_type, content_encoding = mimetypes.guess_type(document.filename)
     response = HttpResponse(document.file.read(), content_type=content_type)
     response["Content-Disposition"] = 'inline;filename="{0}"'.format(document.filename)
-    response["Content-Encoding"] = content_encoding
+    response["Content-Encoding"] = str(content_encoding)
     return response
 
 
@@ -109,3 +114,82 @@ class ImportExportMenuItem(MenuItem):
 #         reverse("import_index"),
 #         classnames="icon icon-download",
 #     )
+
+
+@hooks.register("register_rich_text_features")
+def register_underline_styling(features):
+    register_inline_styling(
+        features=features,
+        feature_name="underline",
+        type_="UNDERLINE",
+        tag="u",
+        description="Underline",
+        label="U̲",
+    )
+
+
+@hooks.register("register_rich_text_features")
+def register_larger_styling(features):
+    register_inline_styling(
+        features=features,
+        feature_name="larger",
+        type_="LARGER",
+        tag="span",
+        format='style="font-size:larger"',
+        editor_style={"font-size": "larger"},
+        description="Increase Font",
+        icon=DRAFTAIL_ICONS.increase_font,
+    )
+
+
+@hooks.register("register_rich_text_features")
+def register_smaller_styling(features):
+    register_inline_styling(
+        features=features,
+        feature_name="smaller",
+        type_="SMALLER",
+        tag="span",
+        format='style="font-size:smaller"',
+        editor_style={"font-size": "smaller"},
+        description="Decrease Font",
+        icon=DRAFTAIL_ICONS.decrease_font,
+    )
+
+
+@hooks.register("register_rich_text_features")
+def register_align_left_feature(features):
+    register_block_feature(
+        features=features,
+        feature_name="left-align",
+        type_="LEFT-ALIGN",
+        description="Left align text",
+        css_class="text-start",
+        element="p",
+        icon=DRAFTAIL_ICONS.left_align,
+    )
+
+
+@hooks.register("register_rich_text_features")
+def register_align_centre_feature(features):
+    register_block_feature(
+        features=features,
+        feature_name="centre-align",
+        type_="CENTRE-ALIGN",
+        description="Centre align text",
+        css_class="text-center",
+        element="p",
+        icon=DRAFTAIL_ICONS.centre_align,
+    )
+
+
+@hooks.register("register_rich_text_features")
+def register_align_right_feature(features):
+    register_block_feature(
+        features=features,
+        feature_name="right-align",
+        type_="RIGHT-ALIGN",
+        description="Right align text",
+        css_class="text-end",
+        element="p",
+        icon=DRAFTAIL_ICONS.right_align,
+    )

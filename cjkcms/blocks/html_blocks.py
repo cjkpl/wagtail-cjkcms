@@ -36,7 +36,7 @@ class ButtonBlock(ButtonMixin, BaseLinkBlock):
 
     class Meta:
         template = "cjkcms/blocks/button_block.html"
-        icon = "fa-hand-pointer-o"
+        icon = "hand-pointer-o"
         label = _("Button Link")
         value_class = LinkStructValue
 
@@ -92,7 +92,7 @@ class H1Block(BaseBlock):
 
     class Meta:
         template = "cjkcms/blocks/h1_block.html"
-        icon = "fa-header"
+        icon = "header"
         label = _("Heading 1")
 
 
@@ -108,7 +108,7 @@ class H2Block(BaseBlock):
 
     class Meta:
         template = "cjkcms/blocks/h2_block.html"
-        icon = "fa-header"
+        icon = "header"
         label = _("Heading 2")
 
 
@@ -124,7 +124,7 @@ class H3Block(BaseBlock):
 
     class Meta:
         template = "cjkcms/blocks/h3_block.html"
-        icon = "fa-header"
+        icon = "header"
         label = _("Heading 3")
 
 
@@ -133,7 +133,7 @@ class TableBlock(BaseBlock):
 
     class Meta:
         template = "cjkcms/blocks/table_block.html"
-        icon = "fa-table"
+        icon = "table"
         label = _("Table")
 
 

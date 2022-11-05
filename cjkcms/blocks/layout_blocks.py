@@ -45,7 +45,7 @@ class GridBlock(BaseLayoutBlock):
 
     class Meta:
         template = "cjkcms/blocks/grid_block.html"
-        icon = "fa-columns"
+        icon = "columns"
         label = _("Responsive Grid Row")
         label_format = _("Responsive Grid Row")
 
@@ -63,9 +63,20 @@ class CardGridBlock(BaseLayoutBlock):
         label=_("Full width"),
     )
 
+    default_card_template = blocks.ChoiceBlock(
+        choices=cms_settings.CJKCMS_FRONTEND_TEMPLATES_BLOCKS["cardblock"],
+        default=None,
+        required=False,
+        label=_("Card Template for this grid"),
+        help_text=_(
+            "Leave blank to use the default card template in this grid. "
+            "Each card may override the grid-level default."
+        ),
+    )
+
     class Meta:
         template = "cjkcms/blocks/cardgrid_deck.html"
-        icon = "fa-th-large"
+        icon = "th-large"
         label = _("Card Grid")
         label_format = _("Card Grid")
 
@@ -108,5 +119,5 @@ class HeroBlock(BaseLayoutBlock):
 
     class Meta:
         template = "cjkcms/blocks/hero_block.html"
-        icon = "fa-newspaper-o"
+        icon = "newspaper-o"
         label = "Hero Unit"

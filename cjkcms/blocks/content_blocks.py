@@ -48,7 +48,7 @@ class CardBlock(BaseBlock):
         label=_("Subtitle"),
     )
     description = blocks.RichTextBlock(
-        features=["bold", "italic", "ol", "ul", "hr", "link", "document-link"],
+        features=cms_settings.CJKCMS_RICHTEXT_FEATURES["default"],
         label=_("Body"),
     )
     links = blocks.StreamBlock(
@@ -60,7 +60,7 @@ class CardBlock(BaseBlock):
 
     class Meta:
         template = "cjkcms/blocks/card_foot.html"
-        icon = "fa-list-alt"
+        icon = "list-alt"
         label = _("Card")
         label_format = _("{title} (Card)")
 
@@ -116,7 +116,7 @@ class ModalBlock(ButtonMixin, BaseLayoutBlock):
             (
                 "text",
                 blocks.CharBlock(
-                    icon="fa-file-text-o", max_length=255, label=_("Simple Text")
+                    icon="file-text-o", max_length=255, label=_("Simple Text")
                 ),
             ),  # noqa
             ("button", ButtonBlock()),
@@ -127,7 +127,7 @@ class ModalBlock(ButtonMixin, BaseLayoutBlock):
 
     class Meta:
         template = "cjkcms/blocks/modal_block.html"
-        icon = "fa-window-maximize"
+        icon = "window-maximize"
         label = _("Modal")
         label_format = _("Modal")
 
@@ -278,7 +278,7 @@ class PriceListItemBlock(BaseBlock):
 
     class Meta:
         template = "cjkcms/blocks/pricelistitem_block.html"
-        icon = "fa-usd"
+        icon = "usd"
         label = _("Price List Item")
         label_format = _("Price List Item")
 
@@ -302,7 +302,7 @@ class PriceListBlock(BaseBlock):
 
     class Meta:
         template = "cjkcms/blocks/pricelist_block.html"
-        icon = "fa-usd"
+        icon = "usd"
         label = _("Price List")
 
 
@@ -314,6 +314,6 @@ class ReusableContentBlock(BaseBlock):
     content = SnippetChooserBlock("cjkcms.ReusableContent")
 
     class Meta:
-        icon = "fa-recycle"
+        icon = "recycle"
         label = _("Reusable Content")
         template = "cjkcms/blocks/reusable_content_block.html"

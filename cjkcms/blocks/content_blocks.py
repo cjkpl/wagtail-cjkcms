@@ -64,6 +64,19 @@ class CardBlock(BaseBlock):
         label = _("Card")
         label_format = _("{title} (Card)")
 
+    def get_template(self, context=None):
+        """Return the default_card_template declared in parent CardGrid, otherwise use the default template."""
+
+        if (
+            context
+            and hasattr(context["self"], "__iter__")
+            and "default_card_template" in context["self"]
+            and context["self"]["default_card_template"]
+        ):
+            return context["self"]["default_card_template"]
+        else:
+            return super().get_template()
+
 
 class CarouselBlock(BaseBlock):
     """

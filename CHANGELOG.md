@@ -64,3 +64,10 @@
 * Fixed image formatting options in the RichtextBlock, to work with Bootstrap5. 
 * Registered new image formats: left-thumb and right-thumb
 * Introduced CI with CircleCI: flake8, codespell and unit tests
+
+# 0.2.8 (2022-11-05)
+* Added default_card_template to CardGrid to allow overriding default card template in a whole CardGrid
+* Restored pypi requirements for wagtail-seo and wagtail-cache
+
+# 0.2.8.1 (2022-11-06)
+* Restored an aliast to SearchableHTMLBlock in cjkcms.blocks.searchable_html_blocks for backward compatibility

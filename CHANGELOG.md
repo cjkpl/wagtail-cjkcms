@@ -71,3 +71,6 @@
 
 # 0.2.8.1 (2022-11-06)
 * Restored an aliast to SearchableHTMLBlock in cjkcms.blocks.searchable_html_blocks for backward compatibility
+
+# 0.2.8.2 (2022-11-10)
+* Fixed broken card template file name in settings.py

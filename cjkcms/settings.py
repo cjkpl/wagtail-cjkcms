@@ -105,7 +105,7 @@ class _DefaultSettings:
         "cardblock": [
             ("cjkcms/blocks/card_block.html", "Card"),
             ("cjkcms/blocks/card_horizontal.html", "Horizontal Card"),
-            ("cjkcms/blocks/card_horizontal.html2", "Horizontal with background fill"),
+            ("cjkcms/blocks/card_horizontal2.html", "Horizontal with background fill"),
             ("cjkcms/blocks/card_head.html", "Card with header"),
             ("cjkcms/blocks/card_foot.html", "Card with footer"),
             ("cjkcms/blocks/card_head_foot.html", "Card with header and footer"),

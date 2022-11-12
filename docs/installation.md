@@ -34,9 +34,9 @@ python -m venv env-cmsdemo
 source env-cmsdemo/Scripts/activate
 ```
 
-## Install django-cjkcms
+## Install wagtail-cjkcms
 ```
-pip install django-cjkcms
+pip install wagtail-cjkcms
 ```
 This will install all required dependencies into the virtual environment, including Wagtail and Django.
 
@@ -82,9 +82,9 @@ This lets you make sure that the default Wagtail setup worked. CMS will be activ
 ```python
 INSTALLED_APPS = [
     ...
-    ### django-cjkcms ###
+    ### wagtail-cjkcms ###
     "cjkcms",
-    ### django-cjkcms requirements ###
+    ### wagtail-cjkcms requirements ###
     "wagtailseo",
     "wagtailcache",
     "wagtail.contrib.table_block",
@@ -93,7 +93,7 @@ INSTALLED_APPS = [
     "django_bootstrap5",
     "wagtail.contrib.sitemaps",
     "django.contrib.sitemaps",
-    ### end django-cjkcms ###
+    ### end wagtail-cjkcms ###
 ```
 
 Restart the development server, if it is not running. You should see a message like this:

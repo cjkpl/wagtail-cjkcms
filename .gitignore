@@ -16,6 +16,6 @@ media
 
 dist
 build
-django_cjkcms.egg-info
+wagtail_cjkcms.egg-info
 images
 original_images

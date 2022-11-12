@@ -21,16 +21,16 @@ def boot_django():
             }
         },
         INSTALLED_APPS=(
-            # --- django-cjkcms #
+            # --- wagtail-cjkcms #
             "cjkcms",
-            # --- django-cjkcms requirements #
+            # --- wagtail-cjkcms requirements #
             "wagtailseo",
             "wagtailcache",
             "wagtail.contrib.table_block",
             "wagtail.contrib.settings",
             "wagtail.contrib.modeladmin",
             "django_bootstrap5",
-            # --- end django-cjkcms #
+            # --- end wagtail-cjkcms #
             # "wagtail.contrib.forms",
             # "wagtail.contrib.redirects",
             "wagtail.sites",

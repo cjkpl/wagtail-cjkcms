@@ -74,3 +74,7 @@
 
 # 0.2.8.2 (2022-11-10)
 * Fixed broken card template file name in settings.py
+
+# 22.11.1 (2022-11-12)
+* Renamed package to wagtail-cjkcms
+* Changed versioning to calendar versioning (YY.MM.X)

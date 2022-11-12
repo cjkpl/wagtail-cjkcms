@@ -7,7 +7,7 @@ Note: See helper scripts ```boot_django.py``` and ```boot_urls.py``` in the Gith
 * (optional) If you are staring a new project, install Django 4.x, Wagtail 3.x, and start a new Wagtail project.
 * Install the CjkCMS:
 ```
-pip install django-cjkcms
+pip install wagtail-cjkcms
 ```
 
 ## Note for version 0.2.1
@@ -22,9 +22,9 @@ pip install git+https://github.com/cjkpl/wagtail-seo.git
 ```python
 INSTALLED_APPS = [
     ...
-    ### django-cjkcms ###
+    ### wagtail-cjkcms ###
     "cjkcms",
-    ### django-cjkcms requirements ###
+    ### wagtail-cjkcms requirements ###
     "wagtailseo",
     "wagtailcache",
     "wagtail.contrib.table_block",
@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     "django_bootstrap5",
     "wagtail.contrib.sitemaps",
     "django.contrib.sitemaps",
-    ### end django-cjkcms ###
+    ### end wagtail-cjkcms ###
 ```
 * Run migrations:
 ```

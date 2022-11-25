@@ -38,7 +38,7 @@
             {% image self.image fill-900x600 as card_img %}
             {% assign card_img.url as img_url %}
         {% else %}
-            {% captureas img_url %}{% static '/cjkcms/images/patterns/pattern2.jpg' %}{% endcaptureas %}
+            {% captureas img_url %}{% static 'cjkcms/images/patterns/pattern2.jpg' %}{% endcaptureas %}
         {% endif %}
         <div class="img-oblique position-absolute fixed-top ms-auto h-100 img-settings" style="
               margin-left: -4.1rem !important;

@@ -19,3 +19,7 @@ build
 wagtail_cjkcms.egg-info
 images
 original_images
+
+# Tests
+.tox
+.eggs

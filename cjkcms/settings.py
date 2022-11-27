@@ -152,8 +152,9 @@ class _DefaultSettings:
             ("cjkcms/blocks/pagepreview_card.html", "Card"),
         ],
         "quoteblock": [
-            ("cjkcms/blocks/quote_block.html", "Blockquote"),
-            ("cjkcms/blocks/quote_block_leftbar.html", "Quoto with left bar"),
+            ("cjkcms/blocks/quote_block.html", "Simple blockquote"),
+            ("cjkcms/blocks/quote_block_leftbar.html", "Quote with left bar"),
+            ("cjkcms/blocks/quote_block_start_end_quote.html", "With start/end quote"),
         ],
         # templates that are available for all block types
         "*": [

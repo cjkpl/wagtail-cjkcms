@@ -1,0 +1,23 @@
+{% load static %}
+{% block block_render %}
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-lg-9 col-xl-7">
+            <figure class="text-center mb-0">
+              <blockquote class="blockquote {{self.settings.custom_css_class}}"
+                {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}>
+                <p class="pb-3">
+                 <object data="{% static 'cjkcms/images/icons/quote.svg' %}" width="32" height="32"></object> 
+                  <span class="lead font-italic">Many of life's failures are people who did not realize how
+                    close they were to success when they gave up.</span>
+                 <object data="{% static 'cjkcms/images/icons/quote.svg' %}" width="32" height="32"></object> 
+                </p>
+              </blockquote>
+              {% if self.author %}
+              <figcaption class="blockquote-footer mb-0">
+                {{self.author}}
+              </figcaption>
+              {% endif %}
+            </figure>
+      </div>
+    </div>    
+{% endblock %}

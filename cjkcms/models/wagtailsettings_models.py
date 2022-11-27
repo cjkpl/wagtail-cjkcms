@@ -208,6 +208,20 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
         help_text=cms_settings.CJKCMS_BASE_TEMPLATE_HELP,
     )
 
+    articles_show_author = models.BooleanField(
+        default=True,
+        verbose_name=_("Show author in articles"),
+        help_text=_("If disabled, override by filling `display author as` in article"),
+    )
+
+    articles_date_format = models.CharField(
+        blank=True,
+        max_length=200,
+        default="Y-m-d",
+        verbose_name=_("Date format in articles"),
+        help_text=_("Format of the publication date in articles. Set blank to hide."),
+    )
+
     panels = [
         MultiFieldPanel(
             [
@@ -247,6 +261,13 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
                 FieldPanel("awesome_cdn"),
             ],
             heading=_("Theming"),
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("articles_show_author"),
+                FieldPanel("articles_date_format"),
+            ],
+            heading=_("Article Pages"),
         ),
     ]
 

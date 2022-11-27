@@ -14,13 +14,17 @@
                 <p class="lead">{{self.caption}}</p>
                 {% endif %}
                 <p>
-                    {% if self.author %}
-                    <img class="article-author-img rounded-circle mr-2" src="{% avatar_url self.author %}">
-                    {% elif self.owner %}
-                    <img class="article-author-img rounded-circle mr-2" src="{% avatar_url self.author %}">
+                    {% if settings.cjkcms.LayoutSettings.articles_show_author %}
+                        {% if self.author %}
+                        <img class="article-author-img rounded-circle mr-2" src="{% avatar_url self.author %}">
+                        {% elif self.owner %}
+                        <img class="article-author-img rounded-circle mr-2" src="{% avatar_url self.author %}">
+                        {% endif %}
+                        <span class="mx-2"></span>
                     {% endif %}
-                    <span class="mx-2">&bull;</span>
-                    <span class="article-date">{{ self.seo_published_at }}</span>
+                    {% if settings.cjkcms.LayoutSettings.articles_date_format %}
+                    <span class="article-date">{{ self.seo_published_at|date:settings.cjkcms.LayoutSettings.articles_date_format }}</span>
+                    {% endif %}
                 </p>
                 <hr>
             </div>

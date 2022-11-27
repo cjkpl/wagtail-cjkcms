@@ -1,0 +1,20 @@
+{% block block_render %}
+    <blockquote class="blockquote {{self.settings.custom_css_class}}"
+        <div class="row d-flex align-items-center h-100 {{self.settings.custom_id}}" 
+        {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}>
+        <div class="col mb-4 mb-lg-0">
+            <figure class="p-3" style="border-left: .25rem solid #a34e78;">
+            <blockquote class="blockquote pb-2">
+                <p>
+                {{self.text}}
+                </p>
+            </blockquote>
+            {% if self.author %}
+            <figcaption class="blockquote-footer mb-0 font-italic">
+                {{self.author}}
+            </figcaption>
+            {% endif %}
+            </figure>
+        </div>
+    </div>
+{% endblock %}

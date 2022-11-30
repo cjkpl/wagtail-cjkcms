@@ -80,7 +80,7 @@
 * Changed versioning to calendar versioning (YY.MM.X)
 
 # 22.11.2 (2022-11-27)
-* Added two new quote styles and fixed formattting for the default quote template
+* Added two new quote styles and fixed formatting for the default quote template
 * Added LayoutSettings to control default visibility of article author and publication date
 * Removed unneeded stuff from testproject
 * Updated setup configuration and gitignore. Added tox.ini config.
@@ -88,4 +88,8 @@
 
 # 22.11.3 (2022-11-30)
 * Added new templatetag library (auth_extras) with a filter has_group to check if a user is in a group
-* 
+
+# 22.11.4 (2022-11-30)
+* Added custom handler for external links in RichText - any external link ending with ?_blank will open in a new tab
+* Added missing static file (quote.svg)
+

@@ -5,6 +5,8 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
 from wagtail.admin.rich_text.editors.draftail.features import InlineStyleFeature
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
+from wagtail.core.rich_text import LinkHandler
+from django.utils.html import escape
 
 
 def register_inline_styling(
@@ -90,3 +92,24 @@ def register_block_feature(
             },
         },
     )
+
+
+class NewWindowExternalLinkHandler(LinkHandler):
+    # This specifies to do this override for external links only.
+    # Other identifiers are available for other types of links.
+    identifier = "external"
+
+    @classmethod
+    def expand_db_attributes(cls, attrs):
+        href = attrs["href"]
+
+        if href.endswith("?_blank"):
+            href = href[:-7]
+            attrs["target"] = "_blank"
+            attrs["rel"] = "noopener noreferrer"
+            # Let's add the target attr, and also rel="noopener" + noreferrer fallback.
+            # See https://github.com/whatwg/html/issues/4078.
+            return (
+                f'<a href="{escape(href)}" target="_blank" rel="noopener noreferrer">'
+            )
+        return f'<a href="{escape(href)}">'

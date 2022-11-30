@@ -11,6 +11,7 @@ from cjkcms import __version__
 from cjkcms.draftail import (
     register_inline_styling,
     register_block_feature,
+    NewWindowExternalLinkHandler,
     DRAFTAIL_ICONS,
 )
 
@@ -193,3 +194,8 @@ def register_align_right_feature(features):
         element="p",
         icon=DRAFTAIL_ICONS.right_align,
     )
+
+
+@hooks.register("register_rich_text_features")
+def register_external_link(features):
+    features.register_link_type(NewWindowExternalLinkHandler)

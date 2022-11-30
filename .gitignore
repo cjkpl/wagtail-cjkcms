@@ -17,7 +17,7 @@ media
 dist
 build
 wagtail_cjkcms.egg-info
-images
+/images
 original_images
 
 # Tests

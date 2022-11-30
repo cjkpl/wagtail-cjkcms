@@ -85,3 +85,7 @@
 * Removed unneeded stuff from testproject
 * Updated setup configuration and gitignore. Added tox.ini config.
 * Fixed broken reference to default image in card_landing* templates. Fixed accordion to work with B5 and MDB5.
+
+# 22.11.3 (2022-11-30)
+* Added new templatetag library (auth_extras) with a filter has_group to check if a user is in a group
+* 

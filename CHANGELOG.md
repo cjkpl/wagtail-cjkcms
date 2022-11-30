@@ -93,3 +93,7 @@
 * Added custom handler for external links in RichText - any external link ending with ?_blank will open in a new tab
 * Added missing static file (quote.svg)
 
+# 22.11.5 (2022-11-30)
+* Added responsive embeds CSS to work with WAGTAILEMBEDS_RESPONSIVE_HTML = True setting. 
+* Fixed quote_block_leftbar malformed tag.
+* Fixed broken .gitignore which was blockig any images subfolder, while it should only ignore /images/ folder in the root of the repository.

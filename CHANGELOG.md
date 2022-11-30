@@ -78,3 +78,10 @@
 # 22.11.1 (2022-11-12)
 * Renamed package to wagtail-cjkcms
 * Changed versioning to calendar versioning (YY.MM.X)
+
+# 22.11.2 (2022-11-27)
+* Added two new quote styles and fixed formattting for the default quote template
+* Added LayoutSettings to control default visibility of article author and publication date
+* Removed unneeded stuff from testproject
+* Updated setup configuration and gitignore. Added tox.ini config.
+* Fixed broken reference to default image in card_landing* templates. Fixed accordion to work with B5 and MDB5.

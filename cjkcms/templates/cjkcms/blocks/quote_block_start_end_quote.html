@@ -7,8 +7,7 @@
                 {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}>
                 <p class="pb-3">
                  <object data="{% static 'cjkcms/images/icons/quote.svg' %}" width="32" height="32"></object> 
-                  <span class="lead font-italic">Many of life's failures are people who did not realize how
-                    close they were to success when they gave up.</span>
+                  <span class="lead font-italic">{{self.text}}</span>
                  <object data="{% static 'cjkcms/images/icons/quote.svg' %}" width="32" height="32"></object> 
                 </p>
               </blockquote>

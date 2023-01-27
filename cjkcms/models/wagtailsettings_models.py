@@ -197,7 +197,29 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
     awesome_cdn = models.BooleanField(
         default=False,
         verbose_name=_("Font Awesome"),
-        help_text=_("Load font awesome from CND"),
+        help_text=_("Load font awesome from CDN"),
+    )
+
+    custom_font = models.BooleanField(
+        default=False,
+        verbose_name=_("Use custom font"),
+        help_text=_("Custom body font e.g. from CDN & include css body override"),
+    )
+
+    font_url = models.CharField(
+        blank=True,
+        max_length=250,
+        default=cms_settings.CJKCMS_FONT_URL,
+        verbose_name=_("Font URL"),
+        help_text=_("Full URL to font css file"),
+    )
+
+    font_family = models.CharField(
+        blank=True,
+        max_length=128,
+        default=cms_settings.CJKCMS_FONT_FAMILY,
+        verbose_name=_("Font Family"),
+        help_text=_("Font family name, e.g. 'Open Sans, sans-serif'"),
     )
 
     base_template = models.CharField(
@@ -259,6 +281,9 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
                 FieldPanel("frontend_theme"),
                 FieldPanel("base_template"),
                 FieldPanel("awesome_cdn"),
+                FieldPanel("custom_font"),
+                FieldPanel("font_url"),
+                FieldPanel("font_family"),
             ],
             heading=_("Theming"),
         ),

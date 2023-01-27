@@ -3,6 +3,10 @@ from django.conf import settings
 
 class _DefaultSettings:
 
+    CJKCMS_FONT_URL = "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+
+    CJKCMS_FONT_FAMILY = "Roboto, sans-serif"
+
     CJKCMS_BRAND_LOGO_LONG = "cjkcms/images/logos/cms-logo-long.svg"
     CJKCMS_BRAND_LOGO_SQUARE = "cjkcms/images/logos/cms-logo-square.svg"
     CJKCMS_FRONTEND_BTN_SIZE_DEFAULT = ""

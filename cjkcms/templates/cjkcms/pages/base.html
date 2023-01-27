@@ -17,10 +17,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         {% include "wagtailseo/meta.html" %} {# SEO Metadata #}
 
-        {% block frontend_assets %}
-            {% include "cjkcms/snippets/frontend_assets.html" %}
-        {% endblock %}
-
         {% block cjkcms_assets %}
         {% if "DEBUG"|django_settings %}
         <link rel="stylesheet" type="text/css" href="{% static 'cjkcms/css/cjkcms-front.css' %}">
@@ -28,6 +24,10 @@
         {# @TOD - fix! temporary solution: use same as debug; using .min. would require recompilation of scss #}
         <link rel="stylesheet" type="text/css" href="{% static 'cjkcms/css/cjkcms-front.css' %}">
         {% endif %}
+        {% endblock %}
+
+        {% block frontend_assets %}
+            {% include "cjkcms/snippets/frontend_assets.html" %}
         {% endblock %}
 
         {% block custom_assets %}

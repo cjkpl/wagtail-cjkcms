@@ -97,3 +97,10 @@
 * Added responsive embeds CSS to work with WAGTAILEMBEDS_RESPONSIVE_HTML = True setting. 
 * Fixed quote_block_leftbar malformed tag.
 * Fixed broken .gitignore which was blockig any images subfolder, while it should only ignore /images/ folder in the root of the repository.
+
+# 23.1.1 (2023-01-28)
+* Updated MDB and Bootstrap (CDN) libs to most recent. 
+* Updated FontAwesome (CDN) to v6. 
+* Added custom font in layout settings with default Roboto.
+* Updated card_landing2.html style to something usable. It requires two images, and uses page cover_image as one of backgrounds
+  

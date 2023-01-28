@@ -73,9 +73,12 @@ def is_active_page(context, curr_page, other_page):
 
 # TODO: add a test
 @register.simple_tag
-def get_pictures(collection_id):
+def get_pictures(collection_id, tag=None):
     collection = Collection.objects.get(id=collection_id)
-    return Image.objects.filter(collection=collection)
+    images = Image.objects.filter(collection=collection)
+    if tag:
+        images = images.filter(tags__name=tag)
+    return images
 
 
 @register.simple_tag(takes_context=True)

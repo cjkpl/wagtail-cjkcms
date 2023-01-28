@@ -8,7 +8,13 @@ from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.blocks import SnippetChooserBlock
 
-from .base_blocks import BaseBlock, BaseLayoutBlock, ButtonMixin, CollectionChooserBlock
+from .base_blocks import (
+    BaseBlock,
+    BaseLayoutBlock,
+    ButtonMixin,
+    CollectionChooserBlock,
+    TagChooserBlock,
+)
 from .html_blocks import ButtonBlock
 from cjkcms.settings import cms_settings
 
@@ -102,6 +108,11 @@ class ImageGalleryBlock(BaseBlock):
     collection = CollectionChooserBlock(
         required=True,
         label=_("Image Collection"),
+    )
+
+    tag = TagChooserBlock(
+        required=False,
+        label=_("Limit to tag"),
     )
 
     class Meta:

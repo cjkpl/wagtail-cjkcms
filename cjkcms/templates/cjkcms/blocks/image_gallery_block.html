@@ -1,6 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags cjkcms_tags %}
 
-{% get_pictures self.collection.id as pictures %}
+{% get_pictures self.collection.id tag=self.tag as pictures %}
 {% generate_random_id as modal_id %}
 
 <section class="{{self.settings.custom_css_class}}"

@@ -9,6 +9,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from wagtail.core import blocks
 from wagtail.core.models import Collection
+from taggit.models import Tag
 from wagtail.core.utils import resolve_model_string
 from wagtail.documents.blocks import DocumentChooserBlock
 
@@ -70,6 +71,47 @@ class CollectionChooserBlock(blocks.FieldBlock):
     target_model = Collection
     widget = forms.Select
     _help_text = _("Choose a collection")
+
+    def __init__(self, required=False, label=None, help_text=None, *args, **kwargs):
+        self._required = required
+        if help_text:
+            self._help_text = help_text
+        self._label = label
+        super().__init__(*args, **kwargs)
+
+    @cached_property
+    def field(self):
+        return forms.ModelChoiceField(
+            queryset=self.target_model.objects.all().order_by("name"),
+            widget=self.widget,
+            required=self._required,
+            label=self._label,
+            help_text=self._help_text,
+        )
+
+    def to_python(self, value):
+        """
+        Convert the serialized value back into a python object.
+        """
+        if isinstance(value, int):
+            return self.target_model.objects.get(pk=value)
+        return value
+
+    def get_prep_value(self, value):
+        """
+        Serialize the model in a form suitable for wagtail's JSON-ish streamfield
+        """
+        return value.pk if isinstance(value, self.target_model) else value
+
+
+class TagChooserBlock(blocks.FieldBlock):
+    """
+    Enables choosing a wagtail Tag in the streamfield.
+    """
+
+    target_model = Tag
+    widget = forms.Select
+    _help_text = _("Choose a tag")
 
     def __init__(self, required=False, label=None, help_text=None, *args, **kwargs):
         self._required = required

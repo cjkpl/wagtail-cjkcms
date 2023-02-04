@@ -138,6 +138,10 @@ class _DefaultSettings:
                 "cjkcms/blocks/pagelist_list_group.html",
                 "General, list group navigation panel",
             ),
+            (
+                "cjkcms/blocks/pagelist_toc_nextprev.html",
+                "TOC navigation with prev / next",
+            ),
             ("cjkcms/blocks/pagelist_article_media.html", "Article, media format"),
             (
                 "cjkcms/blocks/pagelist_article_card_group.html",

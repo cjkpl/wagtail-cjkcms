@@ -181,10 +181,10 @@ class PageListBlock(BaseBlock):
     """
 
     indexed_by = blocks.PageChooserBlock(
-        required=True,
+        required=False,
         label=_("Parent page"),
         help_text=_(
-            "Show a preview of pages that are children of the selected page. Uses ordering specified in the page’s LAYOUT tab."  # noqa
+            "Preview of pages that are children of the selected page (default to own parent). Uses ordering specified in the page’s LAYOUT tab."  # noqa
         ),
     )
     classified_by = ClassifierTermChooserBlock(
@@ -216,9 +216,22 @@ class PageListBlock(BaseBlock):
         help_text=_("Show cover images"),
     )
 
+    show_navigation = blocks.BooleanBlock(
+        required=False,
+        default=False,
+        label=_("Show navigation"),
+        help_text=_("Show prev / next navigation buttons"),
+    )
+
     num_posts = blocks.IntegerBlock(
-        default=3,
+        default=10,
         label=_("Number of pages to show"),
+    )
+
+    title = blocks.CharBlock(
+        required=False,
+        max_length=255,
+        label=_("Title"),
     )
 
     class Meta:
@@ -230,11 +243,20 @@ class PageListBlock(BaseBlock):
 
         context = super().get_context(value, parent_context=parent_context)
 
-        indexer = value["indexed_by"].specific
+        if not parent_context:
+            return context
+
+        current_page = parent_context["page"]
+
+        if value["indexed_by"]:
+            indexer = value["indexed_by"].specific
+        else:
+            indexer = current_page.get_parent().specific
+
         # try to use the CjkcmsPage `get_index_children()`,
         # but fall back to get_children if this is a non-CjkcmsPage
         if hasattr(indexer, "get_index_children"):
-            pages = indexer.get_index_children()
+            pages = indexer.get_index_children().live()
             if value["classified_by"]:
                 try:
                     pages = pages.filter(classifier_terms=value["classified_by"])
@@ -249,7 +271,33 @@ class PageListBlock(BaseBlock):
         else:
             pages = indexer.get_children().live()
 
-        context["pages"] = pages[: value["num_posts"]]
+        pages_limited = pages[: value["num_posts"]]
+
+        context["current_page"] = current_page
+
+        # current_index = list(pages_limited.values_list("id", flat=True)).index(
+        #     current_page.id
+        # )
+        # print(current_index)
+        previous_page = None
+        next_page = None
+        current_index = -2
+
+        page_count = len(list(pages_limited))
+        for index, item in enumerate(pages_limited):
+            if item.id == current_page.id:
+                current_index = index
+
+        for index, item in enumerate(pages_limited):
+            print(index, current_index)
+            if (index == current_index - 1) and (index >= 0):
+                previous_page = item
+            if (index == current_index + 1) and (index < page_count):
+                next_page = item
+
+        context["previous_page"] = previous_page
+        context["next_page"] = next_page
+        context["pages"] = pages_limited
         return context
 
 

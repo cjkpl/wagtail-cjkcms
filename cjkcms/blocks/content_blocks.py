@@ -290,7 +290,7 @@ class PriceListItemBlock(BaseBlock):
         max_length=255,
         label=_("Name"),
     )
-    description = blocks.TextBlock(
+    description = blocks.RichTextBlock(
         required=False,
         rows=4,
         label=_("Description"),

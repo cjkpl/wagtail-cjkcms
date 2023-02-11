@@ -11,8 +11,8 @@ import logging
 from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 from wagtail.contrib.table_block.blocks import TableBlock as WagtailTableBlock
-from wagtail.core import blocks
-from wagtail.core.rich_text import get_text_for_indexing
+from wagtail import blocks
+from wagtail.rich_text import get_text_for_indexing
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock

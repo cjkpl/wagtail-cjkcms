@@ -1,6 +1,6 @@
 import pytest
 
-from wagtail.core.models import Page
+from wagtail.models import Page
 from django.urls import reverse
 from django.test import Client, TestCase
 

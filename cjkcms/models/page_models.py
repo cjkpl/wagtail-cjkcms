@@ -26,9 +26,9 @@ from wagtail.admin.panels import (
     ObjectList,
     TabbedInterface,
 )
-from wagtail.core.fields import StreamField
-from wagtail.core.models import PageBase, Page
-from wagtail.core.utils import resolve_model_string
+from wagtail.fields import StreamField
+from wagtail.models import PageBase, Page
+from wagtail.coreutils import resolve_model_string
 from wagtail.images import get_image_model_string
 from wagtail.search import index
 from wagtail.utils.decorators import cached_classmethod

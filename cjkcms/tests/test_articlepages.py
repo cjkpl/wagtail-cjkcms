@@ -5,7 +5,7 @@ from cjkcms.models import (
 )
 from wagtail.tests.utils.form_data import nested_form_data
 
-from wagtail.core.models import Page
+from wagtail.models import Page
 from cjkcms.models.cms_models import ArticlePage, ArticleIndexPage, WebPage
 
 

@@ -3,7 +3,7 @@ from cjkcms.models import CjkcmsWebPage
 from cjkcms.models.cms_models import WebPage
 from wagtail.tests.utils.form_data import nested_form_data
 
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 
 class WebPageTests(WagtailPageTests):

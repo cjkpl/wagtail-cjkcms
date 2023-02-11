@@ -9,7 +9,7 @@ from django.db.models.query import QuerySet
 
 # from django.forms import ClearableFileInput
 from django.utils.safestring import mark_safe
-from wagtail.core.models import Collection
+from wagtail.models import Collection
 from wagtail.images.models import Image
 
 from cjkcms import __version__

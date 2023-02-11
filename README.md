@@ -16,5 +16,12 @@ For a quick overview, see the [quick start guide](https://github.com/cjkpl/wagta
 
 For detailed installation instructions, see the [installation guide](https://github.com/cjkpl/wagtail-cjkcms/blob/main/docs/installation.md)
 
+## Testing
+### running pytest from devsite folder:
+pytest ../wagtail-cjkcms/cjkcms --ds=devsite.settings.dev --doctest-modules --durations=0
+
+### running pytest from testproject folder:
+pytest ../cjkcms --ds=testproject.settings.dev --doctest-modules --durations=0
+
 ## Contact & support
 Please use [Github's Issue Tracker](https://github.com/cjkpl/wagtail-cjkcms/issues) to report bugs, request features, or request support.

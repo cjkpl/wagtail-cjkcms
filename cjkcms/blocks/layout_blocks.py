@@ -6,7 +6,7 @@ e.g. rows, columns, hero units, etc.
 from cjkcms.blocks.base_blocks import BaseLayoutBlock, CjkcmsAdvColumnSettings
 from cjkcms.settings import cms_settings
 from django.utils.translation import gettext_lazy as _
-from wagtail.core import blocks
+from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
 # Level 1 layout blocks

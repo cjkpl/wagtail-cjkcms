@@ -3,7 +3,7 @@ from cjkcms.settings import cms_settings
 from django.contrib.staticfiles import finders
 from django.template.loader import get_template
 from django.test import TestCase
-from wagtail.core.models import Site
+from wagtail.models import Site
 
 # import TemplateDoesNotExist
 from django.template import TemplateDoesNotExist

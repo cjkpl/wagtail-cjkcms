@@ -5,7 +5,7 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
 from wagtail.admin.rich_text.editors.draftail.features import InlineStyleFeature
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
-from wagtail.core.rich_text import LinkHandler
+from wagtail.rich_text import LinkHandler
 from django.utils.html import escape
 
 

@@ -246,7 +246,10 @@ class PageListBlock(BaseBlock):
         if not parent_context:
             return context
 
-        current_page = parent_context["page"]
+        try:
+            current_page = parent_context["page"]
+        except KeyError:  ## e.g. in search results
+            return context
 
         if value["indexed_by"]:
             indexer = value["indexed_by"].specific

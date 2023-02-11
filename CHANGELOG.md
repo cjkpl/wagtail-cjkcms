@@ -133,3 +133,10 @@
 # 23.1.2 (2023-01-28)
 
 - Added filtering image gallery by tag, previously was only by collection
+
+# 23.2.1 (2023-02-04)
+
+- Added title and show_navigation to PageListBlock. It is currently used only in TOC template
+- Removed required parent page in PageListBlock - now defaults to self.parent 
+- Changed default num_posts in PageListBlock to 10
+- Added new template (TOC) to PageListBlock, with tracking of current/prev/next

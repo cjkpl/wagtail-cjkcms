@@ -248,7 +248,7 @@ class PageListBlock(BaseBlock):
 
         try:
             current_page = parent_context["page"]
-        except KeyError:  ## e.g. in search results
+        except KeyError:  # e.g. in search results
             return context
 
         if value["indexed_by"]:

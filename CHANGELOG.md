@@ -140,3 +140,8 @@
 - Removed required parent page in PageListBlock - now defaults to self.parent 
 - Changed default num_posts in PageListBlock to 10
 - Added new template (TOC) to PageListBlock, with tracking of current/prev/next
+
+# 23.2.2 (2023-02-11)
+- Updated imports to get rid of deprecation warnings
+- Fixed exception in search results containing page with PageListBlock with implicit parent page
+- Changed PriceListItem description to RichTextBlock and adjusted template accordingly

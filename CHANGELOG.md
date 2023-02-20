@@ -145,3 +145,7 @@
 - Updated imports to get rid of deprecation warnings
 - Fixed exception in search results containing page with PageListBlock with implicit parent page
 - Changed PriceListItem description to RichTextBlock and adjusted template accordingly
+
+# 23.2.3 (2023-02-20)
+- Added simple implementation of cookie consent using https://github.com/orestbida/cookieconsent
+- Added simple templatetag to display current year: {{ current_year }}

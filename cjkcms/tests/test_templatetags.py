@@ -4,7 +4,7 @@ from django.template import engines
 from django.test import TestCase
 from wagtail.models import Site
 from cjkcms.models import AdobeApiSettings
-
+from datetime import datetime
 
 django_engine = engines["django"]
 html_id_re = re.compile(r"^[A-Za-z][A-Za-z0-9_:.-]*$")
@@ -90,3 +90,9 @@ class TemplateTagTests(TestCase):
         self.assertEqual(
             rt, "test_key", "Adobe API key not returned in template context"
         )
+
+    def test_current_year(self):
+        rt = django_engine.from_string(
+            "{% load cjkcms_tags %}{% current_year %}"
+        ).render(None)
+        self.assertEqual(rt, str(datetime.now().year), "Current year not returned")

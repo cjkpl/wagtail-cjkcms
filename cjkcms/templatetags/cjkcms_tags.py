@@ -18,6 +18,7 @@ from cjkcms.blocks.base_blocks import CjkcmsAdvSettings
 from cjkcms.forms import SearchForm
 from cjkcms.models import Footer, Navbar
 from cjkcms.settings import cms_settings
+from datetime import datetime
 
 from cjkcms.models.wagtailsettings_models import LayoutSettings
 
@@ -40,6 +41,11 @@ def generate_random_id():
         random.choice(string.ascii_letters + string.digits) for _ in range(20)
     )
     return f"cms-{value}"
+
+
+@register.simple_tag
+def current_year():
+    return datetime.now().year
 
 
 @register.simple_tag

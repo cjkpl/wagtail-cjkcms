@@ -408,11 +408,55 @@ class AnalyticsSettings(BaseSiteSetting):
     )
     cookie_consent_deny_btn = models.BooleanField(
         default=False,
-        verbose_name=_("Show deny button"),
+        verbose_name=_("Show Accept Necessary"),
         help_text=_(
-            "Show a deny button in the cookie consent banner. "
+            "Show an [Accept Necessary Only] button in the cookie consent banner. "
             "If unchecked, the banner will only have an accept and settings buttons."
         ),  # noqa
+    )
+    privacy_page = models.ForeignKey(
+        "wagtailcore.Page",
+        on_delete=models.CASCADE,
+        related_name="+",
+        blank=True,
+        null=True,
+        help_text=_(
+            "Show a link to selected privacy policy page in cookie consent settings."
+        ),
+    )
+
+    contact_page = models.ForeignKey(
+        "wagtailcore.Page",
+        on_delete=models.CASCADE,
+        related_name="+",
+        blank=True,
+        null=True,
+        help_text=_(
+            "Show [More info] section with link to selected contact page in cookie consent settings."  # noqa
+        ),
+    )
+
+    class ConsentModalLayout(models.TextChoices):
+        BOX = "box"
+        CLOUD = "cloud"
+        BAR = "bar"
+
+    consent_modal_layout = models.CharField(
+        max_length=6,
+        choices=ConsentModalLayout.choices,
+        default=ConsentModalLayout.CLOUD,
+        help_text=_("Layout of the cookie consent modal"),
+    )
+
+    class SettingsModalLayout(models.TextChoices):
+        BOX = "box"
+        BAR = "bar"
+
+    settings_modal_layout = models.CharField(
+        max_length=6,
+        choices=SettingsModalLayout.choices,
+        default=SettingsModalLayout.BOX,
+        help_text=_("Layout of the full cookie consent settings modal."),
     )
 
     panels = [
@@ -444,6 +488,10 @@ class AnalyticsSettings(BaseSiteSetting):
             [
                 FieldPanel("cookie_consent"),
                 FieldPanel("cookie_consent_deny_btn"),
+                FieldPanel("privacy_page"),
+                FieldPanel("contact_page"),
+                FieldPanel("consent_modal_layout"),
+                FieldPanel("settings_modal_layout"),
             ],
             heading=_("Cookie consent"),
         ),

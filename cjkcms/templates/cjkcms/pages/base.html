@@ -53,6 +53,13 @@
 
         {% block extra_head %}{% endblock %}
 
+
+        {% block cookie_consent_assets %}
+            {% if settings.cjkcms.AnalyticsSettings.cookie_consent %}
+                <link rel="stylesheet" href="{% static 'cookieconsent/cookieconsent.css' %}" media="print" onload="this.media='all'">
+            {% endif %}
+        {% endblock %}
+
         {% block tracking %}
             {% if settings.cjkcms.AnalyticsSettings.ga_tracking_id  %}
                 {% include "cjkcms/snippets/tracking_g3.html" %}
@@ -137,6 +144,36 @@
         {# <script type="text/javascript" src="{% static 'js/custom.js' %}"></script> #}
         {% endblock %}
 
+        {% block cookie_consent_scripts %}
+            {% if settings.cjkcms.AnalyticsSettings.cookie_consent %}
+                <script defer src="{% static 'cookieconsent/cookieconsent.js' %}"></script>
+                <script>
+                    window.addEventListener('load', function(){
+                        var cc = initCookieConsent();
+                        cc.run({
+                            current_lang: 'en',
+                            autoclear_cookies: true,
+                            page_scripts: true,
+
+                            gui_options: {
+                                consent_modal: {
+                                    layout: '{{ settings.cjkcms.AnalyticsSettings.consent_modal_layout }}',
+                                },
+                                settings_modal: {
+                                    layout: '{{ settings.cjkcms.AnalyticsSettings.settings_modal_layout }}',
+                                    // position: 'left',           // left/right
+                                    transition: 'slide'            // zoom/slide
+                                }
+                            },
+
+                            languages:
+                                {% include "cjkcms/cookieconsent/languages.html" with settings=settings.cjkcms.AnalyticsSettings %}
+                        });
+                    });
+                </script>
+            {% endif %}
+        {% endblock %}
+        
         {% include "wagtailseo/struct_data.html" %}
     </body>
 </html>

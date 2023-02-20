@@ -397,6 +397,23 @@ class AnalyticsSettings(BaseSiteSetting):
         verbose_name=_("Google Tag Manager ID"),
         help_text=_('Begins with "GTM-"'),
     )
+    # Cookie consent - using https://github.com/orestbida/cookieconsent (MIT license)
+    cookie_consent = models.BooleanField(
+        default=False,
+        verbose_name=_("Enable cookie consent"),
+        help_text=_(
+            "Enable simple GDPR compliant cookie consent banner. "
+            "Intended as a quick solution for sites that don't need a fully customisable consent."
+        ),  # noqa
+    )
+    cookie_consent_deny_btn = models.BooleanField(
+        default=False,
+        verbose_name=_("Show deny button"),
+        help_text=_(
+            "Show a deny button in the cookie consent banner. "
+            "If unchecked, the banner will only have an accept and settings buttons."
+        ),  # noqa
+    )
 
     panels = [
         HelpPanel(
@@ -422,6 +439,13 @@ class AnalyticsSettings(BaseSiteSetting):
                 FieldPanel("gtm_id"),
             ],
             heading=_("Google Tag Manager"),
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("cookie_consent"),
+                FieldPanel("cookie_consent_deny_btn"),
+            ],
+            heading=_("Cookie consent"),
         ),
     ]
 

@@ -3,27 +3,38 @@
 
 {% block block_render %}
 
-<div id="carousel-{{self.carousel.id}}" class="carousel slide {{self.carousel.animation}}" data-ride="carousel">
+<div id="carousel-{{self.carousel.id}}" 
+     class="carousel slide {{self.carousel.animation}}" 
+     data-mdb-ride="carousel">
 
     {% if self.carousel.show_indicators %}
-    <ol class="carousel-indicators">
+    <div class="carousel-indicators">
     {% for item in self.carousel.carousel_slides.all %}
-        <li data-target="#carousel-{{self.carousel.id}}" data-slide-to="{{forloop.counter0}}" {% if forloop.counter0 == 0 %}class="active"{% endif %}></li>
+        <button type="button"
+                data-bs-target="#carousel-{{self.carousel.id}}" 
+                data-mdb-target="#carousel-{{self.carousel.id}}"
+                data-bs-slide-to="{{forloop.counter0}}"
+                data-mdb-slide-to="{{forloop.counter0}}"
+                aria-label="Slide {{forloop.counter}}"
+             {% if forloop.counter0 == 0 %}class="active"{% endif %}
+        </button>
     {% endfor %}
-    </ol>
+    </div>
     {% endif %}
 
     <div class="carousel-inner">
     {% for item in self.carousel.carousel_slides.all %}
         {% block carousel_slide %}
-        <div class="carousel-item {% if not item.image %}no-img{% endif %} {% if forloop.counter0 == 0 %}active{% endif %} {{item.custom_css_class}}" %{% if item.custom_id %}id="#{{item.custom_id}}"{% endif %} style="{% if item.background_color %}background-color: {{item.background_color}};{% endif %}">
+        <div class="carousel-item {% if not item.image %}no-img{% endif %} {% if forloop.counter0 == 0 %}active{% endif %} {{item.custom_css_class}}"
+            {% if item.custom_id %}id="#{{item.custom_id}}"{% endif %} 
+             style="{% if item.background_color %}background-color: {{item.background_color}};{% endif %}">
             {% block carousel_slide_image %}
                 {% if item.image %}
                 {% image item.image fill-2000x1000 as carouselimage %}
                 <img class="d-block w-100" src="{{carouselimage.url}}" alt="{{carouselimage.image.title}}" />
                 {% endif %}
             {% endblock %}
-            <div class="carousel-caption">
+            <div class="carousel-caption d-none d-md-block">
                 {% include_block item.content %}
             </div>
         </div>
@@ -32,14 +43,24 @@
     </div>
 
     {% if self.carousel.show_controls %}
-    <a class="carousel-control-prev" href="#carousel-{{self.carousel.id}}" role="button" data-slide="prev">
+    <button class="carousel-control-prev" 
+            type="button" 
+            data-mdb-slide="prev"
+            data-bs-slide="prev"
+            data-mdb-target="#carousel-{{self.carousel.id}}"
+            data-bs-target="#carousel-{{self.carousel.id}}">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carousel-{{self.carousel.id}}" role="button" data-slide="next">
+        <span class="visually-hidden"">Previous</span>
+    </button>
+    <button class="carousel-control-next" 
+            type="button" 
+            data-mdb-slide="next"
+            data-bs-slide="next"
+            data-mdb-target="#carousel-{{self.carousel.id}}"
+            data-bs-target="#carousel-{{self.carousel.id}}">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
+        <span class="visually-hidden"">Next</span>
+    </button>
     {% endif %}
 
 </div>

@@ -149,3 +149,7 @@
 # 23.2.3 (2023-02-20)
 - Added simple implementation of cookie consent using https://github.com/orestbida/cookieconsent
 - Added simple templatetag to display current year: {{ current_year }}
+
+# 23.2.4 (2023-02-22)
+- Added .modal max-width: none to avoid problems with centering images in modals, both in Bootstrap and MDBootstrap
+- Fixed carousel prev/next not working with MDB & Plain Bootstrap 5.

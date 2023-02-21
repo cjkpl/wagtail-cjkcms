@@ -270,3 +270,9 @@ License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
   width: 100%;
   height: 100%;
 }
+
+
+.modal {
+  max-width: none;
+  margin: 1.75rem auto;
+}

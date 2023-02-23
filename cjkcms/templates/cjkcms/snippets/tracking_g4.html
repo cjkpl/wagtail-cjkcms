@@ -1,10 +1,18 @@
 {% load wagtailsettings_tags %}
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id={{settings.cjkcms.AnalyticsSettings.g4_tracking_id}}"></script>
-<script>
+<script data-cookiecategory="analytics" async src="https://www.googletagmanager.com/gtag/js?id={{settings.cjkcms.AnalyticsSettings.g4_tracking_id}}"></script>
+<script data-cookiecategory="analytics">
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
   gtag('config', '{{settings.cjkcms.AnalyticsSettings.g4_tracking_id}}');
+</script>
+
+<script data-cookiecategory="analytics">
+  cr_track_clicks = {{settings.cjkcms.AnalyticsSettings.ga_track_button_clicks|yesno:"true,false"}};
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{settings.cjkcms.AnalyticsSettings.ga_tracking_id}}');
 </script>

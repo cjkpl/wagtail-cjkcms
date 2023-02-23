@@ -101,58 +101,25 @@ document.addEventListener("DOMContentLoaded", function() {
         img.setAttribute('title', orig_ttl);
     }));
 
+    /** Tracking **/
+    
+    if (typeof cr_track_clicks !== "undefined" && cr_track_clicks) {
+        document.querySelectorAll("a").forEach(function (el) {
+            el.addEventListener("click", function (event) {
+            var el = event.currentTarget;
+            gtag_data = {
+                event_category: "Link",
+                event_label: el.textContent.trim().substring(0, 30),
+            };
+            if (el.dataset.gaEventCategory) {
+                gtag_data["event_category"] = el.dataset.gaEventCategory;
+            }
+            if (el.dataset.gaEventLabel) {
+                gtag_data["event_label"] = el.dataset.gaEventLabel;
+            }
+            gtag("event", "click", gtag_data);
+            });
+        });
+    }
 });
 
-// $(document).ready(function()
-// {
-//
-//     /*** AJAX Setup CSRF Setup ***/
-//     function getCookie(name) {
-//         var cookieValue = null;
-//         if (document.cookie && document.cookie !== '') {
-//             var cookies = document.cookie.split(';');
-//             for (var i = 0; i < cookies.length; i++) {
-//                 var cookie = jQuery.trim(cookies[i]);
-//                 // Does this cookie string begin with the name we want?
-//                 if (cookie.substring(0, name.length + 1) === (name + '=')) {
-//                     cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-//                     break;
-//                 }
-//             }
-//         }
-//         return cookieValue;
-//     }
-//     var csrftoken = getCookie('csrftoken');
-//
-//     function csrfSafeMethod(method) {
-//         // these HTTP methods do not require CSRF protection
-//         return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-//     }
-//     $.ajaxSetup({
-//         beforeSend: function(xhr, settings) {
-//             if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-//                 xhr.setRequestHeader("X-CSRFToken", csrftoken);
-//             }
-//         }
-//     });
-//
-//
-//     /*** Tracking ***/
-//     if(typeof cr_track_clicks !== 'undefined' && cr_track_clicks) {
-//         $('a').on('click', function(){
-//             gtag_data = {
-//                 "event_category": "Link",
-//                 "event_label": $(this).text().trim().substring(0, 30)
-//             };
-//             if ($(this).data('ga-event-category')) {
-//                 gtag_data['event_category'] = $(this).data('ga-event-category');
-//             }
-//             if ($(this).data('ga-event-label')) {
-//                 gtag_data['event_label'] = $(this).data('ga-event-label');
-//             }
-//             gtag('event', 'click', gtag_data);
-//         });
-//     }
-
-//
-// });

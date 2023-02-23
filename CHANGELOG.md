@@ -153,3 +153,7 @@
 # 23.2.4 (2023-02-22)
 - Added .modal max-width: none to avoid problems with centering images in modals, both in Bootstrap and MDBootstrap
 - Fixed carousel prev/next not working with MDB & Plain Bootstrap 5.
+
+# 23.2.5 (2023-02-23)
+- Google analytics script fix to respect cookie consent.
+- Fixed broken link tracking script.

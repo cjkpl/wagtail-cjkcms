@@ -157,3 +157,4 @@
 # 23.2.5 (2023-02-23)
 - Google analytics script fix to respect cookie consent.
 - Fixed broken link tracking script.
+- Removed unnecessary requirement re: wagtail 4.2 from migration 0006

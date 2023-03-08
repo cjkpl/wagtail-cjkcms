@@ -1,0 +1,4 @@
+wagtail-cjkcms=={{cjkcms_version.0}}.{{cjkcms_version.1}}.*
+
+# To use with PostgreSQL, uncomment the line below:
+#psycopg2

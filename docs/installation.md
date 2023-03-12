@@ -1,4 +1,4 @@
-# Installation details
+# Manual installation details
 
 ## Project folder
 The first step when setting up a new project is to create a folder for the project. We will call our project `cmsdemo`
@@ -7,7 +7,7 @@ The first step when setting up a new project is to create a folder for the proje
 mkdir cmsdemo
 cd cmsdemo
 ```
-We will assume that we are in the home folder /home/, for the purpose of illustration, as later on we will have three nested folders with the same name, and it may get confusing!
+We will assume that we are in user's home folder /home/, for the purpose of illustration, as later on we will have three nested folders with the same name, and it may get confusing!
 
 The resulting folder structure should be: `/home/cmsdemo/`
 
@@ -22,7 +22,7 @@ Typical steps for creating a virtual environment are listed below.
     * always the same name, e.g.: `venv`
     * a name that is different for each project, e.g.: `env-cmsdemo`
     
-    We recommend the second approach, so that when you activate the virtual environment, you can see its' name in the terminal, and it is harder to confuse it with other virtual environments.
+    We use the second approach, so that when you activate the virtual environment, you can see its' name in the terminal, and it is harder to confuse it with other virtual environments.
 
 ```
 python3 -m venv ./env-cmsdemo/
@@ -40,13 +40,8 @@ pip install wagtail-cjkcms
 ```
 This will install all required dependencies into the virtual environment, including Wagtail and Django.
 
-## Note for version 0.2.1
-
-Until Codered's packages wagtail-seo and wagtail-cache are updated for compatibility with Wagtail 4, the cjkcms switches to forked versions of these packages. You will need to install them manually with:
-```
-pip install git+https://github.com/cjkpl/wagtail-cache.git
-pip install git+https://github.com/cjkpl/wagtail-seo.git
-```
+## Quick install
+If you are starting from scratch, you can use the quick install below. If you already have a project, you can follow the manual install steps below to add CjkCMS as a new app into your Wagtail project. See [quick start](quick-start.md) for more details. Otherwise follow the steps below.
 
 ## Start new Wagtail project
 With all required packages installed, you can start a new Wagtail project. We will name it `cmsdemo`, like the parent folder.
@@ -73,12 +68,8 @@ python manage.py runserver
 ```
 This lets you make sure that the default Wagtail setup worked. CMS will be activated in the next step.
 
-## Activate CMS: update project config
-* Add CjkCMS and its requirements to ```INSTALLED_APPS``` in your project configuration
-(/home/cmsdemo/cmsdemo/cmsdemo/settings/base.py)).
-!!! note
-    Yes, there are three nested folders named `cmsdemo`: your main project folder, and inside two folders created by Wagtail.
 
+* Add CjkCMS and its requirements to ```INSTALLED_APPS``` in your project configuration (e.g. ```base.py```):
 ```python
 INSTALLED_APPS = [
     ...
@@ -95,34 +86,65 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     ### end wagtail-cjkcms ###
 ```
-
-Restart the development server, if it is not running. You should see a message like this:
+* Run migrations:
 ```
-You have 4 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): cjkcms, wagtailseo.
-Run 'python manage.py migrate' to apply them.
+python manage.py migrate
 ```
-
-Proceed as per message above. Stop the server, execute the `migrate` command, and restart the server.
-
-## Add utility URLs provided by CjkCMS
-
-* Add cjkcms-specific urls, which provide SEO-related pages: favicon.ico, robots.txt, sitemap.xml.
-* Replace default wagtail `search` with cjkcms-specific search: comment out the `search` view.
-
+* Add ```cjkcms.urls``` to ```urls.py``` in your project:
 ```python
-# in the main urls.py in your project:
 from cjkcms import urls as cjkcms_urls
 
 urlpatterns = [
     ...
-    # replace wagtail search with cjkcms version (comment out line below)
-    # path('search/', search_views.search, name='search'),
+    # add cjkcms urls
+    path("", include(cjkcms_urls)),
 
-    # and add cjkcms urls
-    path('', include(cjkcms_urls)),
+    # comment out the default wagtail search view,
+    # it will be replaced by the cjkcms search view
+    # path("search/", search_views.search, name="search"),
     ...
 ]
 ```
+
+## Optional setup steps
+
+Out of the box, CjkCMS can provide your project with generic, reusable pages:
+`ArticleIndex`, `Article`, `WebPage` which you can use in your project, or extend with additional functionality. CjkCMS pages provide you with a generic "body" section and, using ```wagtail-seo``` package, a basic SEO functionality.
+
+
+## Changing the homepage: 
+By default, Wagtail adds a homepage inherited from Page. If you want to use CjkCMS WebPage as your homepage, you need to change the homepage to `WebPage`. Otherwise you can start adding new CjkCMS pages to your project anywhere in the page tree.
+
+### Change to WebPage model:
+
+If you are starting a new website, you may want to replace it with CjkCMS WebPage, for the additional functionality provided by CjkCMS. 
+
+To do this, you need to:
+
+- log in to the wagtail admin
+- go to Pages
+- add a new page (any CjkCMS page type, e.g. most generic WebPage) at the top level, next to the Homepage
+- go to Settings -> Sites and change the root page of your site to the new CMS page
+- go back to pages, if there is no custom content in the default (old) homepage, you can delete it.
+
+### Old Homepage cleanup
+
+You cannot remove the HomePage model from home/models.py - first you need to delete that page in the admin panel - see section above. A safer solution is to keep the HomePage model, bug deactivate it by adding `max_count = 0` to the Homepage model, which effectively hides it from admin interface.
+
+In `/home/models.py` change this:
+
+```
+class HomePage(Page):
+    pass
+```
+
+to that:
+
+```
+class HomePage(Page):
+    max_count = 0
+```
+
 
 ## Summary and next steps
 

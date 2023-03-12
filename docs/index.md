@@ -3,7 +3,7 @@
 ## Guides
 
 * [Quick start](quick-start.md) - A quick start guide for new projects.
-* [Installation details](installation.md) - A step by step installation guide.
+* [Manual installation details](installation.md) - A step by step installation guide.
 
 
 ## Management commands

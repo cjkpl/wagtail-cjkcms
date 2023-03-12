@@ -4,6 +4,8 @@ build:
   os: "ubuntu-22.04"
   tools:
     python: "3.11"
-    mkdocs: "1.4.2"
 mkdocs:
   configuration: mkdocs.yml
+python:
+  install:
+    - requirements: docs/requirements.txt

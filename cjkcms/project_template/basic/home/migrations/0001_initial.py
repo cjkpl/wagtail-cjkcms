@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name="IsontechArticleIndexPage",
+            name="ProjectArticleIndexPage",
             fields=[
                 (
                     "cjkcmspage_ptr",
@@ -54,12 +54,12 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={
-                "verbose_name": "ISoNTech Article Landing Page",
+                "verbose_name": "{{ uf_project }} Article Landing Page",
             },
             bases=("cjkcms.cjkcmspage",),
         ),
         migrations.CreateModel(
-            name="IsontechWebPage",
+            name="ProjectWebPage",
             fields=[
                 (
                     "cjkcmspage_ptr",
@@ -80,12 +80,12 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={
-                "verbose_name": "ISoNTech Web Page",
+                "verbose_name": "{{ uf_project }} Web Page",
             },
             bases=("cjkcms.cjkcmspage",),
         ),
         migrations.CreateModel(
-            name="IsontechArticlePage",
+            name="ProjectArticlePage",
             fields=[
                 (
                     "cjkcmspage_ptr",
@@ -137,7 +137,7 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={
-                "verbose_name": "ISoNTech Article",
+                "verbose_name": "{{ uf_project }} Article",
                 "ordering": ["-first_published_at"],
             },
             bases=("cjkcms.cjkcmspage",),

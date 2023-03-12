@@ -1,13 +1,15 @@
 from cjkcms.blocks.base_blocks import BaseBlock
-from wagtail.core import blocks
+from wagtail import blocks
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
 from django.utils.translation import gettext_lazy as _
 
 
-class IsontechPresentationBlock(BaseBlock):
+class EventPresentationBlock(BaseBlock):
     """
-    Isontech-tailored presentation block
+    Project-tailored content block to add to BODY in each page.
+    This serves as a sample block showing devs how to develop and add their own
+    custom blocks to the page content (and/or layout)
     """
 
     title = blocks.CharBlock(
@@ -26,19 +28,6 @@ class IsontechPresentationBlock(BaseBlock):
         required=False,
         label=_("End time"),
         help_text=_("Format: HH:MM, local time"),
-    )
-
-    company = blocks.CharBlock(
-        required=False,
-        max_length=255,
-        label=_("Company"),
-    )
-
-    presenter = blocks.CharBlock(
-        required=False,
-        max_length=255,
-        label=_("Presenter"),
-        help_text=_("Firstname & Lastname"),
     )
 
     description = blocks.RichTextBlock(
@@ -70,12 +59,18 @@ class IsontechPresentationBlock(BaseBlock):
     class Meta:
         # note - in this example we are not adding any html block,
         # you need to add one before you can display your new block
-        template = "home/blocks/isontech_presentation.html"
+        template = "home/blocks/event_presentation.html"
         icon = "view"
-        label = "ISoNTech Presentation"
-        label_format = _("{title} (ISoNTech Presentation)")
+        label = "Event Presentation"
+        label_format = _("{title} (Event Presentation)")
 
 
-ISONTECH_PRESENTATION_STREAMBLOCKS = [
-    ("isontech_presentation", IsontechPresentationBlock()),
+# add your own content block
+PROJECT_CONTENT_STREAMBLOCKS = [
+    ("event_presentation", EventPresentationBlock()),
+]
+
+# add your own layout blocks
+PROJECT_LAYOUT_STREAMBLOCKS = [
+    # ("custom_block", CustomBlock()),
 ]

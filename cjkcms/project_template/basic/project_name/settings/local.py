@@ -1,8 +1,8 @@
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "{{ secret_key }}"
 
-# Add your site's domain name(s) here.
-ALLOWED_HOSTS = ["{{ domain }}"]
+# Add your site's domain name(s) here. Disabled by default on localhost.
+# ALLOWED_HOSTS = ["{{ domain }}"]
 
 # Default email address used to send messages from the website.
 DEFAULT_FROM_EMAIL = "{{ sitename }} <info@{{ domain_nowww }}>"

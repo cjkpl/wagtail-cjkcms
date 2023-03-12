@@ -23,7 +23,8 @@ class CreateProject(TemplateCommand):
     Based on django.core.management.startproject
     """
 
-    help = "Creates the directory structure for a new CjkCMS project."
+    help = "Creates the directory structure for a new CjkCMS project. " \
+           "Provide a slug-styled project name as an argument."
     missing_args_message = "You must provide a project name."
 
     def add_arguments(self, parser):
@@ -41,6 +42,11 @@ class CreateProject(TemplateCommand):
         # pop standard args
         project_name = options.pop("name")
         target = options.pop("directory")
+
+        # create Uppercase-first and full uppercase versions of project name
+        options["uf_project"] = project_name[0].upper() + project_name[1:]
+        options["uc_project"] = project_name.upper()
+        options["lc_project"] = project_name.lower()
 
         # Make sure given name is not already in use by another python package/module.
         try:

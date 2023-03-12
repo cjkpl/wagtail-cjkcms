@@ -9,8 +9,8 @@ from cjkcms import urls as cjkcms_urls
 
 
 urlpatterns = [
-    path("django-admin/", admin.site.urls),
-    path("admin/", include(wagtailadmin_urls)),
+    path("django-backend/", admin.site.urls),
+    path("backend/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
     # and add cjkcms urls
     path("", include(cjkcms_urls)),

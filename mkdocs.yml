@@ -3,6 +3,3 @@ theme:
   name: readthedocs
 markdown_extensions:
     - admonition
-build:
-  tools:
-    python: "3.10"

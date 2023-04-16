@@ -200,6 +200,12 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
         help_text=_("Load font awesome from CDN"),
     )
 
+    bootstrap_icons = models.BooleanField(
+        default=False,
+        verbose_name=_("Bootstrap Icons CSS"),
+        help_text=_("Load bootstrap icons css from local/static folder"),
+    )
+
     custom_font = models.BooleanField(
         default=False,
         verbose_name=_("Use custom font"),
@@ -281,6 +287,7 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
                 FieldPanel("frontend_theme"),
                 FieldPanel("base_template"),
                 FieldPanel("awesome_cdn"),
+                FieldPanel("bootstrap_icons"),
                 FieldPanel("custom_font"),
                 FieldPanel("font_url"),
                 FieldPanel("font_family"),

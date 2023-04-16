@@ -1,4 +1,4 @@
-{% load friendly_loader wagtailcore_tags wagtailsettings_tags cjkcms_tags %}
+{% load friendly_loader wagtailcore_tags wagtailsettings_tags cjkcms_tags static %}
 {% friendly_load webpack_loader %}
     {% if settings.cjkcms.LayoutSettings.frontend_theme == 'python-webpack' %} {# use python-webpack from Michael Yin #}
         {% if_has_tag stylesheet_pack %}
@@ -20,6 +20,13 @@
             integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" 
             crossorigin="anonymous">
     {% endif %}
+    {% if settings.cjkcms.LayoutSettings.bootstrap_icons %}
+        <!-- Bootstrap icons (local) -->
+        <link
+            href="{% static 'cjkcms/bi/bootstrap-icons.css' %}"
+            rel="stylesheet">
+    {% endif %}
+
     {% if settings.cjkcms.LayoutSettings.awesome_cdn %}
         <!-- Font Awesome -->
         <link

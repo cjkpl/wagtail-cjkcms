@@ -164,4 +164,7 @@
 
 # 23.3.1 (2023-03-12)
 - Added "cjkcms start [projectname]" command to create a new project with wagtail-cjkcms installed
-- 
+
+# 23.4.1 (2023-04-16)
+- Added new layout setting (bootstrap_icon) + static files to load Bootstrap icons css+woff locally.
+- Modified frontend_assets template to load bootstrap icons if set.

@@ -168,3 +168,6 @@
 # 23.4.1 (2023-04-16)
 - Added new layout setting (bootstrap_icon) + static files to load Bootstrap icons css+woff locally.
 - Modified frontend_assets template to load bootstrap icons if set.
+
+# 23.4.2 (2023-04-20)
+- Fixed problem of request context missing in can_show_item templatetag by adding try/except block.

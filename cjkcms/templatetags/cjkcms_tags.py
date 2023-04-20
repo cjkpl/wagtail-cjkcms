@@ -188,6 +188,11 @@ def can_show_item(context, item_visibility: str) -> bool:
         return False
     if item_visibility == "all":
         return True
+
+    try:
+        context["request"].user.is_authenticated
+    except KeyError:
+        return False
     is_auth = context["request"].user.is_authenticated
     return bool(
         is_auth

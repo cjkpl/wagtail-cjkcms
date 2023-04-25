@@ -40,7 +40,7 @@
       {% endfor %}
 
       {% if settings.cjkcms.LayoutSettings.navbar_langselector %}
-        {% include 'cjkcms/snippets/lang_selector.html' %}
+        {% include settings.cjkcms.LayoutSettings.navbar_langselector %}
       {% endif %}
 
       {% if settings.cjkcms.LayoutSettings.navbar_search %}

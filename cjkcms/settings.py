@@ -75,6 +75,13 @@ class _DefaultSettings:
         ("cjkcms-navbar-center", "Centered logo at top"),
     ]
 
+    CJKCMS_LANGUAGE_SELECTOR_DEFAULT = None
+    CJKCMS_LANGUAGE_SELECTOR_CHOICES = [
+        (None, "None"),
+        ("cjkcms/snippets/navbar_lang_selector.html", "Menu Dropdown Selector"),
+        ("cjkcms/snippets/bottom_corner_lang_selector.html", "Bottom Corner Selector"),
+    ]
+
     CJKCMS_FRONTEND_NAVBAR_COLOR_SCHEME_DEFAULT = "navbar-light"
     CJKCMS_FRONTEND_NAVBAR_COLOR_SCHEME_CHOICES = [
         ("navbar-light", "Light - for use with a light-colored navbar"),

@@ -178,11 +178,14 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
         verbose_name=_("Search box"),
         help_text=_("Show search box in navbar"),
     )
-
-    navbar_langselector = models.BooleanField(
-        default=True,
+    navbar_langselector = models.CharField(
+        blank=True,
+        null=True,
+        max_length=255,
+        choices=None,
+        default=None,
         verbose_name=_("Language selector"),
-        help_text=_("Show lang choice dropdown in navbar"),
+        help_text=_("Choose lang choice selector"),
     )
 
     frontend_theme = models.CharField(
@@ -322,6 +325,9 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
         self._meta.get_field(
             "navbar_format"
         ).choices = cms_settings.CJKCMS_FRONTEND_NAVBAR_FORMAT_CHOICES  # type: ignore
+        self._meta.get_field(
+            "navbar_langselector"
+        ).choices = cms_settings.CJKCMS_LANGUAGE_SELECTOR_CHOICES  # type: ignore
         # Set default dynamically.
         if not self.id:  # type: ignore # if new record / id not yet assigned
             self.frontend_theme = cms_settings.CJKCMS_FRONTEND_THEME_DEFAULT

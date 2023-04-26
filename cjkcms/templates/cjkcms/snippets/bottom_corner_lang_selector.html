@@ -8,26 +8,45 @@
     width: 100px;
     z-index: 1000
 }
-.horizontal-dropdown:hover>.dropdown-menu {
-    display: inline-flex;
-    right: 100px;
+
+.horizontal-dropdown-wrapper{
+    width: 100% !important;
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 15px;
 }
 
-.horizontal-dropdown>.dropdown-toggle:active {
+.dropdown-menu-horizontal{
+    height: 100% !important;
+    margin: 0 !important;
+    display: none;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 5px 10px;
+}
+
+.horizontal-dropdown:hover .dropdown-menu-horizontal {
+    display: flex;
+}
+
+.horizontal-dropdown .dropdown-toggle:active {
   /*Without this, clicking will make it sticky*/
     pointer-events: none;
 }
-.horizontal-dropdown>.dropdown-toggle::after{
+.horizontal-dropdown .dropdown-toggle::after{
     display: none;
 }
 
-.horizontal-dropdown .dropdown-menu li{
-    margin-right: 10px;
+.horizontal-dropdown .dropdown-menu-horizontal li{
     padding: 0;
     border-radius: 5px !important;
+    list-style-type: none;
 }
 
-.horizontal-dropdown .dropdown-menu li .dropdown-item:hover{
+.horizontal-dropdown .dropdown-menu-horizontal li .dropdown-item:hover{
     background-color: #444 !important;
     border-radius: 5px !important;
 }
@@ -35,20 +54,23 @@
 
 {% if page and page.get_translations.live %}
 <div class="horizontal-dropdown">
-    <button class="btn btn-sm bg-dark text-white fw-bold dropdown-toggle" type="button" id="dropdownLangs" 
-        data-mdb-toggle="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-        {% get_language_info for page.locale.language_code as lang %}
-        {{ lang.name_local }}
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownLangs">
-        {% for translation in page.get_translations.live %}
-        {% get_language_info for translation.locale.language_code as lang %}
-            <li class="bg-dark">
-                <a class="dropdown-item text-white" href="{% pageurl translation %}" rel="alternate" hreflang="{{ language_code }}">
-                {{ lang.name_local }}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+
+    <div class="horizontal-dropdown-wrapper">
+        <ul class="dropdown-menu-horizontal">
+            {% for translation in page.get_translations.live %}
+            {% get_language_info for translation.locale.language_code as lang %}
+                <li class="bg-dark">
+                    <a class="dropdown-item text-white" href="{% pageurl translation %}" rel="alternate" hreflang="{{ language_code }}">
+                    {{ lang.name_local }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        <button class="btn btn-sm bg-dark text-white fw-bold dropdown-toggle" type="button">
+            {% get_language_info for page.locale.language_code as lang %}
+            {{ lang.name_local }}
+        </button>
+    </div>
+
 </div>
 {% endif %}

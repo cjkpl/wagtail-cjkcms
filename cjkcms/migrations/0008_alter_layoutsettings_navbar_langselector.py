@@ -3,6 +3,15 @@
 from django.db import migrations, models
 
 
+def convert_boolean_to_char(apps, schema_editor):
+    """
+    Convert old field content to none, else True will cause template error
+    """
+    sModel = apps.get_model('cjkcms', 'layoutsettings')
+    for instance in sModel.objects.all():
+        instance.navbar_langselector = None
+        instance.save()
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -15,4 +24,5 @@ class Migration(migrations.Migration):
             name='navbar_langselector',
             field=models.CharField(blank=True, default=None, help_text='Choose lang choice selector', max_length=255, null=True, verbose_name='Language selector'),
         ),
+        migrations.RunPython(convert_boolean_to_char),
     ]

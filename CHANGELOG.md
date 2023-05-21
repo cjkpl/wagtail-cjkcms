@@ -174,3 +174,6 @@
 
 # 23.4.3 (2023-04-25)
 - Add possibility to choose between menu dropdown and bottom corner language selectors.
+
+# 23.5.1 (2023-05-21)
+- Fixed regression from previous update, where change of langue chooser setting from Boolean to Char caused missing template crash if applied to existing project with Boolean value of True. Now all previous values will be changed to None upon migration.

@@ -240,7 +240,6 @@ class PageListBlock(BaseBlock):
         label = _("Latest Pages")
 
     def get_context(self, value, parent_context=None):
-
         context = super().get_context(value, parent_context=parent_context)
 
         if not parent_context:
@@ -292,7 +291,6 @@ class PageListBlock(BaseBlock):
                 current_index = index
 
         for index, item in enumerate(pages_limited):
-            print(index, current_index)
             if (index == current_index - 1) and (index >= 0):
                 previous_page = item
             if (index == current_index + 1) and (index < page_count):

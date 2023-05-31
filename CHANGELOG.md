@@ -177,3 +177,7 @@
 
 # 23.5.1 (2023-05-21)
 - Fixed regression from previous update, where change of langue chooser setting from Boolean to Char caused missing template crash if applied to existing project with Boolean value of True. Now all previous values will be changed to None upon migration.
+
+# 23.6.1 (2023-05-31)
+- Basic compatibility with Wagtail 5.0
+- Due to wagtail-seo and wagtail-cache not being compatible with Wagtail 5.0, they were replaced with forked versions downloadable from github. This is a temporary solution until the original packages are updated.

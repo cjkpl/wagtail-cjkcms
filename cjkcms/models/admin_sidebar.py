@@ -1,6 +1,5 @@
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin,
-    modeladmin_register,
 )
 from .snippet_models import Navbar
 
@@ -16,6 +15,3 @@ class NavbarAdmin(ModelAdmin):
     search_fields = [
         "name",
     ]
-
-
-modeladmin_register(NavbarAdmin)

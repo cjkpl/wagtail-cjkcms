@@ -14,9 +14,11 @@ from cjkcms.draftail import (
     NewWindowExternalLinkHandler,
     DRAFTAIL_ICONS,
 )
+from wagtail.contrib.modeladmin.options import modeladmin_register
+from cjkcms.models.admin_sidebar import NavbarAdmin
 
 
-@hooks.register("insert_global_admin_css")
+@hooks.register("insert_global_admin_css")  # type: ignore
 def global_admin_css():
     return format_html(
         '<link rel="stylesheet" type="text/css" href="{}?v={}">',
@@ -25,7 +27,7 @@ def global_admin_css():
     )
 
 
-@hooks.register("insert_editor_css")
+@hooks.register("insert_editor_css")  # type: ignore
 def editor_css():
     return format_html(
         '<link rel="stylesheet" type="text/css" href="{}?v={}">',
@@ -34,7 +36,7 @@ def editor_css():
     )
 
 
-@hooks.register("insert_editor_js")
+@hooks.register("insert_editor_js")  # type: ignore
 def collapsible_js():
     return format_html(
         '<script src="{}?v={}"></script>',
@@ -43,7 +45,7 @@ def collapsible_js():
     )
 
 
-@hooks.register("register_icons")
+@hooks.register("register_icons")  # type: ignore
 def register_icons(icons):
     """
     Add custom SVG icons to the Wagtail admin.
@@ -90,7 +92,7 @@ hooks.register("after_edit_snippet", clear_wagtailcache)
 hooks.register("after_delete_snippet", clear_wagtailcache)
 
 
-@hooks.register("before_serve_document")
+@hooks.register("before_serve_document")  # type: ignore
 def serve_document_directly(document, request):
     """
     This hook prevents documents from being downloaded unless
@@ -117,7 +119,7 @@ class ImportExportMenuItem(MenuItem):
 #     )
 
 
-@hooks.register("register_rich_text_features")
+@hooks.register("register_rich_text_features")  # type: ignore
 def register_underline_styling(features):
     register_inline_styling(
         features=features,
@@ -129,7 +131,7 @@ def register_underline_styling(features):
     )
 
 
-@hooks.register("register_rich_text_features")
+@hooks.register("register_rich_text_features")  # type: ignore
 def register_larger_styling(features):
     register_inline_styling(
         features=features,
@@ -143,7 +145,7 @@ def register_larger_styling(features):
     )
 
 
-@hooks.register("register_rich_text_features")
+@hooks.register("register_rich_text_features")  # type: ignore
 def register_smaller_styling(features):
     register_inline_styling(
         features=features,
@@ -157,7 +159,7 @@ def register_smaller_styling(features):
     )
 
 
-@hooks.register("register_rich_text_features")
+@hooks.register("register_rich_text_features")  # type: ignore
 def register_align_left_feature(features):
     register_block_feature(
         features=features,
@@ -170,7 +172,7 @@ def register_align_left_feature(features):
     )
 
 
-@hooks.register("register_rich_text_features")
+@hooks.register("register_rich_text_features")  # type: ignore
 def register_align_centre_feature(features):
     register_block_feature(
         features=features,
@@ -183,7 +185,7 @@ def register_align_centre_feature(features):
     )
 
 
-@hooks.register("register_rich_text_features")
+@hooks.register("register_rich_text_features")  # type: ignore
 def register_align_right_feature(features):
     register_block_feature(
         features=features,
@@ -196,6 +198,9 @@ def register_align_right_feature(features):
     )
 
 
-@hooks.register("register_rich_text_features")
+@hooks.register("register_rich_text_features")  # type: ignore
 def register_external_link(features):
     features.register_link_type(NewWindowExternalLinkHandler)
+
+
+modeladmin_register(NavbarAdmin)

@@ -7,22 +7,39 @@ def convert_boolean_to_char(apps, schema_editor):
     """
     Convert old field content to none, else True will cause template error
     """
-    sModel = apps.get_model('cjkcms', 'layoutsettings')
+    sModel = apps.get_model("cjkcms", "layoutsettings")
     for instance in sModel.objects.all():
         instance.navbar_langselector = None
         instance.save()
 
-class Migration(migrations.Migration):
 
+def convert_char_to_boolean(apps, schema_editor):
+    """
+    Convert new char field back to old boolean, defaulting to False
+    """
+    sModel = apps.get_model("cjkcms", "layoutsettings")
+    for instance in sModel.objects.all():
+        instance.navbar_langselector = False
+        instance.save()
+
+
+class Migration(migrations.Migration):
     dependencies = [
-        ('cjkcms', '0007_layoutsettings_bootstrap_icons'),
+        ("cjkcms", "0007_layoutsettings_bootstrap_icons"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='layoutsettings',
-            name='navbar_langselector',
-            field=models.CharField(blank=True, default=None, help_text='Choose lang choice selector', max_length=255, null=True, verbose_name='Language selector'),
+            model_name="layoutsettings",
+            name="navbar_langselector",
+            field=models.CharField(
+                blank=True,
+                default=None,
+                help_text="Choose lang choice selector",
+                max_length=255,
+                null=True,
+                verbose_name="Language selector",
+            ),
         ),
-        migrations.RunPython(convert_boolean_to_char),
+        migrations.RunPython(convert_boolean_to_char, convert_char_to_boolean),
     ]

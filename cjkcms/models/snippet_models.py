@@ -20,6 +20,7 @@ from cjkcms.blocks import (
     NAVIGATION_STREAMBLOCKS,
 )
 from cjkcms.settings import cms_settings
+from django.conf import settings
 from cjkcms.fields import CjkcmsStreamField
 
 
@@ -251,6 +252,16 @@ class Navbar(models.Model):
         blank=True,
         verbose_name=_("Custom ID"),
     )
+
+    language = models.CharField(
+        blank=True,
+        max_length=10,
+        choices=[("_all_", _("All languages"))],
+        default="_all_",
+        verbose_name=_("Show in language"),
+        help_text=_("Select a language to limit display to specific locale."),
+    )
+
     menu_items = CjkcmsStreamField(
         NAVIGATION_STREAMBLOCKS,
         verbose_name=_("Navigation links"),
@@ -266,11 +277,29 @@ class Navbar(models.Model):
             ],
             heading=_("Attributes"),
         ),
+        FieldPanel("language"),
         FieldPanel("menu_items"),
     ]
 
     def __str__(self):
         return self.name
+
+    def __init__(self, *args, **kwargs):
+        """
+        Inject custom choices and defaults into the form fields
+        to enable customization of settings without causing migration issues.
+        """
+        super().__init__(*args, **kwargs)
+        # Set choices dynamically.
+
+        available_langs = [("_all_", _("All languages"))]
+        if settings.WAGTAIL_CONTENT_LANGUAGES:
+            available_langs += settings.WAGTAIL_CONTENT_LANGUAGES
+
+        self._meta.get_field("language").choices = available_langs  # type: ignore
+        # Set default dynamically.
+        if not self.id:  # type: ignore
+            self.language = "_all_"
 
 
 @register_snippet

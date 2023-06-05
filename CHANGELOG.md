@@ -181,3 +181,8 @@
 # 23.6.1 (2023-05-31)
 - Basic compatibility with Wagtail 5.0
 - Due to wagtail-seo and wagtail-cache not being compatible with Wagtail 5.0, they were replaced with forked versions downloadable from github. This is a temporary solution until the original packages are updated.
+
+# 23.6.2 (2023-06-05)
+- Added new project template with webpack support (untested as of yet)
+- Modified the navbar model to support multilingual websites: new column "language" allows setting navbar
+visibility to all languages or just one selected.

@@ -23,3 +23,7 @@ original_images
 # Tests
 .tox
 .eggs
+
+# Dependency Directories
+node_modules/
+frontend/node_modules

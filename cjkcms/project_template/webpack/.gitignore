@@ -1,0 +1,25 @@
+# Django #
+*.log
+*.pot
+*.pyc
+__pycache__
+db.sqlite3
+media
+.private*
+
+# Backup files # 
+*.bak 
+
+# Python # 
+*.py[cod] 
+*$py.class
+
+dist
+build
+wagtail_cjkcms.egg-info
+/images
+original_images
+
+# Tests
+.tox
+.eggs

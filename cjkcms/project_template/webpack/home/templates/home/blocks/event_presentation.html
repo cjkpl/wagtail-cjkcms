@@ -1,0 +1,57 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="card mb-3">
+<div class="row g-0">
+    <div class="col-4 col-md-3 col-lg-2 p-2">
+        
+        {% if self.image %}
+        {% image self.image fill-200x200 as card_img %}
+        <img class="img-fluid rounded" src="{{card_img.url}}" alt="{{card_img.title}}">
+        {% endif %}
+        
+        {% if self.start_time %}
+        <div class="d-flex mt-2 rounded-1 bg-secondary text-white px-2">
+            <span class="fs-6">
+                <i class="fa fa-clock me-1"></i> {{self.start_time|time:"H:i"}} 
+            {% if self.end_time %} - {{self.end_time|time:"H:i"}}{% endif %}
+            </span>
+        </div>
+        {% endif %}
+
+        {% if self.video_id %}
+        <div class="d-flex mt-2 rounded-1 bg-danger text-white px-2">
+            <span class="fs-6">
+                <i class="fa fa-play me-1"></i> 
+                <a href="{{self.video_id}}" target="_blank" data-toggle="lightbox" data-gallery="videopresentations"
+                class="text-white text-decoration-none">Watch video</a>
+            </span>
+        </div>
+        {% endif %}
+
+        {% if self.document %}
+        <div class="d-flex mt-2 rounded-1 bg-dark text-white px-2">
+            <span class="fs-6">
+                <i class="fa fa-file-powerpoint me-1"></i> 
+                <a href="{{self.document.url}}" target="_blank"
+                class="text-white text-decoration-none">Presentation</a>
+            </span>
+        </div>
+        {% endif %}
+    </div>
+    <div class="col-8 col-md-9 col-lg-10">
+        <div class="card-body">
+            <h5 class="card-title">
+            {% if self.title %}<span class="fw-bold">{{self.title}}</span>{% endif %}
+            </h5>
+            {% if self.presenter %}<h6 class="card-subtitle mb-2 text-muted">{{self.presenter}}
+                {% if self.company %}<span class="mt-2 rounded-1 bg-secondary text-white px-2 fs-6 fw-bold">
+                    <i class="fa fa-building me-1"></i> {{self.company}}</span>
+                {% endif %}
+            </h6>{% endif %}
+            <div class="card-text">{{self.description}}</div>
+            {% for button in self.links %}
+            {% include_block button %}
+            {% endfor %}
+        </div>
+    </div>
+</div>

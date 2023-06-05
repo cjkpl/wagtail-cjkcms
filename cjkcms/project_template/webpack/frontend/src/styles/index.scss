@@ -1,0 +1,15 @@
+// If you comment out code below, bootstrap will use red as primary color
+// and btn-primary will become red
+
+$primary: rgb(136, 64, 0);
+
+// for Standard Bootstrap 5.x:
+// @import "~bootstrap/scss/bootstrap.scss";
+
+// for MDBootstrap 5.x:
+// for standard version:
+@import "~mdb-ui-kit/src/scss/mdb.free.scss";
+
+
+// for advanced:
+// @import "~mdb-ui-kit/src/mdb/scss/mdb.pro.scss";

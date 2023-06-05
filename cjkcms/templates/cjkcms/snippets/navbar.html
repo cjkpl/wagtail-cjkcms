@@ -31,12 +31,14 @@
     <div class="collapse navbar-collapse" id="navbar">
       {% get_navbars as navbars %}
       {% for navbar in navbars %}
-      <ul class="navbar-nav me-auto mb-2 mb-md-0 {{navbar.custom_css_class}}"
-        {% if navbar.custom_id %}id="{{navbar.custom_id}}"{% endif %} >
-        {% for item in navbar.menu_items %}
-                {% include_block item with liclass="nav-item" aclass="nav-link" ga_event_category="Navbar" %}
-        {% endfor %}
-      </ul>
+        {% if navbar.language == LANGUAGE_CODE or navbar.language == '_all_' %}
+        <ul class="navbar-nav me-auto mb-2 mb-md-0 {{navbar.custom_css_class}}"
+          {% if navbar.custom_id %}id="{{navbar.custom_id}}"{% endif %} >
+          {% for item in navbar.menu_items %}
+                  {% include_block item with liclass="nav-item" aclass="nav-link" ga_event_category="Navbar" %}
+          {% endfor %}
+        </ul>
+        {% endif %}
       {% endfor %}
 
       {% if settings.cjkcms.LayoutSettings.navbar_langselector %}

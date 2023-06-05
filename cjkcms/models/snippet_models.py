@@ -293,7 +293,7 @@ class Navbar(models.Model):
         # Set choices dynamically.
 
         available_langs = [("_all_", _("All languages"))]
-        if settings.WAGTAIL_CONTENT_LANGUAGES:
+        if hasattr(settings, "WAGTAIL_CONTENT_LANGUAGES"):
             available_langs += settings.WAGTAIL_CONTENT_LANGUAGES
 
         self._meta.get_field("language").choices = available_langs  # type: ignore

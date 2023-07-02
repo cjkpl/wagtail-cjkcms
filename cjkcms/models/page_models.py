@@ -6,7 +6,7 @@ Based on CODEREDCMS
 
 import logging
 from datetime import datetime
-from typing import Optional, TYPE_CHECKING, Union
+from typing import Optional, TYPE_CHECKING
 
 # import geocoder
 from django import forms

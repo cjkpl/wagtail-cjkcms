@@ -6,7 +6,7 @@ Based on CODEREDCMS
 
 import logging
 from datetime import datetime
-from typing import Optional, TYPE_CHECKING
+from typing import Optional, TYPE_CHECKING, Union
 
 # import geocoder
 from django import forms
@@ -75,10 +75,10 @@ class CjkcmsTag(TaggedItemBase):
     class Meta:
         verbose_name = _("CMS Tag")
 
-    content_object = ParentalKey("cjkcms.CjkcmsPage", related_name="tagged_items")
+    content_object = ParentalKey("cjkcms.CjkcmsPage", related_name="tagged_items")  # type: ignore  # noqa: E501
 
 
-class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):  # type: ignore
+class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
     """
     General use page with caching, templating, and SEO functionality.
     All pages should inherit from this.
@@ -95,7 +95,11 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):  
     #
     # template = ''
     # ajax_template = ''
-    # search_template = ''
+    # Template used in site search results.
+    search_template = "cjkcms/pages/search_result.html"
+
+    # Template used for related pages, Latest Pages block, and Page Preview block.
+    miniview_template = "cjkcms/pages/page.mini.html"
 
     ###############
     # Content fields
@@ -166,12 +170,47 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):  
         help_text=_("Enable filtering child pages by these classifiers."),
     )
 
+    #####################
+    # Related Page Fields
+    #####################
+
+    # Subclasses can override this to query on a specific
+    # page model. By default sibling pages are used.
+    related_query_pagemodel = None
+
+    # Subclasses can override this to enabled related pages by default.
+    related_show_default = False
+
+    related_show = models.BooleanField(
+        default=related_show_default,
+        verbose_name=_("Show list of related pages"),
+    )
+
+    related_num = models.PositiveIntegerField(
+        default=3,
+        verbose_name=_("Number of related pages to show"),
+    )
+
+    related_classifier_term = models.ForeignKey(
+        "cjkcms.ClassifierTerm",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name=_("Preferred related classifier term"),
+        help_text=_(
+            "When getting related pages, pages with this term will be "
+            "weighted over other classifier terms. By default, pages with "
+            "the greatest number of classifiers in common are ranked highest."
+        ),
+    )
+
     ###############
     # Layout fields
     ###############
 
     custom_template = models.CharField(
-        blank=True, max_length=255, choices=None, verbose_name=_("Template")
+        blank=True, max_length=255, choices=None, verbose_name=_("Template")  # type: ignore  # noqa: E501
     )
 
     ###############
@@ -245,6 +284,14 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):  
             ],
             heading=_("Show Child Pages"),
         ),
+        MultiFieldPanel(
+            [
+                FieldPanel("related_show"),
+                FieldPanel("related_num"),
+                FieldPanel("related_classifier_term"),
+            ],
+            heading=_("Related Pages"),
+        ),
     ]
 
     promote_panels = SeoMixin.seo_meta_panels + SeoMixin.seo_struct_panels
@@ -267,8 +314,9 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):  
         if not self.id:  # type: ignore
             self.index_order_by = self.index_order_by_default
             self.index_show_subpages = self.index_show_subpages_default
+            self.related_show = self.related_show_default
 
-    @classmethod
+    @cached_classmethod
     def get_panels(cls):  # sourcery skip: instance-method-first-arg-name
         panels = [
             ObjectList(
@@ -384,12 +432,60 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):  
 
         return query
 
+    def get_related_pages(self) -> models.QuerySet:
+        """
+        Returns a queryset of sibling pages, or the model type
+        defined by `self.related_query_pagemodel`. Ordered by number
+        of shared classifier terms.
+        """
+
+        # Get our related query model, and queryset.
+        if self.related_query_pagemodel:
+            if isinstance(self.related_query_pagemodel, Union[str, models.Model]):
+                querymodel = resolve_model_string(
+                    self.related_query_pagemodel, self._meta.app_label
+                )
+                r_qs = querymodel.objects.all().live()  # type: ignore
+            else:
+                raise AttributeError(
+                    f"The related_querymodel should be a model or str."
+                    f" The related_querymodel of {self} is {type(self.related_querymodel)}"  # type: ignore  # noqa: E501
+                )
+        else:
+            r_qs = self.get_parent().specific.get_index_children()  # type: ignore
+
+        # Exclude self to avoid infinite recursion.
+        r_qs = r_qs.exclude(pk=self.pk)
+
+        order_by = []
+
+        # If we have a preferred classifier term, order by that.
+        if self.related_classifier_term:
+            p_ct_q = models.Q(classifier_terms=self.related_classifier_term)
+            r_qs = r_qs.annotate(p_ct=p_ct_q)
+            order_by.append("-p_ct")
+
+        # If this page has a classifier, then order by number of
+        # shared classifier terms.
+        if self.classifier_terms.exists():
+            r_ct_q = models.Q(classifier_terms__in=self.classifier_terms.all())
+            r_qs = r_qs.annotate(r_ct=models.Count("classifier_terms", r_ct_q))
+            order_by.append("-r_ct")
+
+        # Order the related pages, then add distinct to deal with
+        # annotating based on a many to many.
+        if order_by:
+            r_qs = r_qs.order_by(*order_by).distinct()
+
+        return r_qs[: self.related_num]
+
     def get_context(self, request, *args, **kwargs):
         """
         Add child pages and paginated child pages to context.
         """
         context = super().get_context(request)
 
+        # Show list of child pages.
         if self.index_show_subpages:
             # Get child pages
             all_children = self.get_index_children()
@@ -417,7 +513,12 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):  
                                 )
                         except AttributeError:
                             logger.warning(
-                                "Tried to filter by ClassifierTerm, but <%s.%s ('%s')>.get_index_children() did not return a queryset or is not a queryset of CjkcmsPage models.",  # noqa
+                                (
+                                    "Tried to filter by ClassifierTerm, "
+                                    "but <%s.%s ('%s')>.get_index_children() "
+                                    "did not return a queryset or is not a "
+                                    "queryset of CoderedPage models."
+                                ),
                                 self._meta.app_label,
                                 self.__class__.__name__,
                                 self.title,
@@ -431,7 +532,11 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):  
 
             context["index_paginated"] = paged_children
             context["index_children"] = all_children
-        return context
+
+            # Show a list of related pages.
+            if self.related_show:
+                context["related_pages"] = self.get_related_pages()
+            return context
 
 
 ###############################################################################
@@ -484,6 +589,10 @@ class CjkcmsArticlePage(CjkcmsWebPage):
 
     template = "cjkcms/pages/article_page.html"
 
+    search_template = "cjkcms/pages/article_page.search.html"
+
+    related_show_default = True
+
     # Override body to provide simpler content
     body = StreamField(CONTENT_STREAMBLOCKS, null=True, blank=True, use_json_field=True)
 
@@ -529,7 +638,7 @@ class CjkcmsArticlePage(CjkcmsWebPage):
         Override of method in SeoMixin.
         Gets published date.
         """
-        return self.date_display or self.first_published_at
+        return self.date_display or self.first_published_at  # type: ignore
 
     @property
     def seo_description(self) -> str:

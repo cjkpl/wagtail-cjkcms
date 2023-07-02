@@ -181,7 +181,7 @@ class PageListBlock(BaseBlock):
     Renders a preview of selected pages.
     """
 
-    # default miniview template, overriden by individual page models
+    # default miniview template, overridden by individual page models
     miniview_template = "cjkcms/pages/page.mini.html"
 
     indexed_by = blocks.PageChooserBlock(

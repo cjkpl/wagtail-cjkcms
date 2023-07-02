@@ -3,12 +3,37 @@
 
 {% block block_render %}
 <div class="row">
+  <h3>{{ self.title }}</h3>
+
+  {% if self.show_preview %}
+
   {% for page in pages %}
   <div class="col-sm-6 col-lg-4">
     {% with page=page.specific %}
-    {% include page.miniview_template %}
+      {% if page.miniview_template %}
+        {% include page.miniview_template %}
+      {% else %}
+        {% include miniview_template %}
+      {% endif %}
     {% endwith %}
   </div>
   {% endfor %}
+
+  {% else %}
+
+  {% for page in pages %}
+  <div class="col-12">
+    {% with page=page.specific %}
+    <div><a href="{% pageurl page %}">
+      {{page.title}} {% if self.show_preview %}<small class="text-muted">– {{page.body_preview}}</small>{% endif %}
+    </a></div>
+    {% endwith %}
+  </div>
+  {% endfor %}
+
+  {% endif %}
+
+
+
 </div>
 {% endblock %}

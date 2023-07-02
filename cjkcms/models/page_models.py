@@ -316,7 +316,7 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
             self.index_show_subpages = self.index_show_subpages_default
             self.related_show = self.related_show_default
 
-    @cached_classmethod
+    @classmethod
     def get_panels(cls):  # sourcery skip: instance-method-first-arg-name
         panels = [
             ObjectList(
@@ -533,10 +533,11 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
             context["index_paginated"] = paged_children
             context["index_children"] = all_children
 
-            # Show a list of related pages.
-            if self.related_show:
-                context["related_pages"] = self.get_related_pages()
-            return context
+        # Show a list of related pages.
+        if self.related_show:
+            context["related_pages"] = self.get_related_pages()
+
+        return context
 
 
 ###############################################################################

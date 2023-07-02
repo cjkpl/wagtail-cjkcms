@@ -17,13 +17,3 @@
   </div>
   {% endif %}
 {% endblock %}
-
-{% block content_body %}
-    <article>
-        <div class="container">
-            <div class="article-body">
-                {% include_block self.body with settings=settings %}
-            </div>
-        </div>
-    </article>
-{% endblock %}

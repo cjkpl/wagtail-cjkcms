@@ -181,6 +181,9 @@ class PageListBlock(BaseBlock):
     Renders a preview of selected pages.
     """
 
+    # default miniview template, overriden by individual page models
+    miniview_template = "cjkcms/pages/page.mini.html"
+
     indexed_by = blocks.PageChooserBlock(
         required=False,
         label=_("Parent page"),
@@ -302,6 +305,7 @@ class PageListBlock(BaseBlock):
         context["previous_page"] = previous_page
         context["next_page"] = next_page
         context["pages"] = pages_limited
+        context["miniview_template"] = self.miniview_template
         return context
 
 

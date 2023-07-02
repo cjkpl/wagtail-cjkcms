@@ -72,12 +72,12 @@
 {% endblock base_head %}
 
     <body class="cjkcms-{{page.content_type.model}} {% if page.get_parent %}parent-page-{{page.get_parent.id}}{% endif %} {% block body_class %}{% endblock %}" id="page-{{page.id}}">
-
         {% include "cjkcms/includes/cjkcms_banner.html" %}
 
         {% wagtailuserbar %}
 
         {% block navbar %}{% endblock %}
+
         <div id="content">
             {% block content %}
                 {% block messages %}
@@ -92,7 +92,11 @@
                 {% block content_pre_body %}{% endblock %}
 
                 {% block content_body %}
-                {% include_block page.body with settings=settings %}
+
+                    {% for block in page.body %}
+                    {{ page }}
+                        {% include_block block with settings=settings %}
+                    {% endfor %}
                 {% endblock %}
 
                 {% block content_post_body %}{% endblock %}

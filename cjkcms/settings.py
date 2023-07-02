@@ -2,7 +2,6 @@ from django.conf import settings
 
 
 class _DefaultSettings:
-
     CJKCMS_FONT_URL = "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"  # noqa
 
     CJKCMS_FONT_FAMILY = "Roboto, sans-serif"
@@ -139,6 +138,7 @@ class _DefaultSettings:
                 "Card masonry - fluid brick pattern",
             ),
         ],
+        # DEPRECATED
         "pagelistblock": [
             ("cjkcms/blocks/pagelist_block.html", "General, simple list"),
             (
@@ -163,6 +163,7 @@ class _DefaultSettings:
                 "Article, card masonry - fluid brick pattern",
             ),
         ],
+        # DEPRECATED
         "pagepreviewblock": [
             ("cjkcms/blocks/pagepreview_card.html", "Card"),
         ],

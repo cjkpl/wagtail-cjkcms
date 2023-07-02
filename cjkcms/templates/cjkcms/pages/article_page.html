@@ -3,11 +3,14 @@
 
 {% block content %}
     <article class="cjkcms-article {%if self.cover_image %}has-img{% endif %}">
+        {% block article_cover_image %}
         {% if self.cover_image %}
         {% image self.cover_image fill-2000x1000 as cover_image %}
         <img src="{{cover_image.url}}" class="w-100" />
         {% endif %}
+        {% endblock article_cover_image %}
         <div class="container">
+            {% block article_header %}
             <div class="article-header">
                 <h1 {% if not self.cover_image %}class="mt-5"{% endif %}>{{ self.title }}</h1>
                 {% if self.caption %}
@@ -28,9 +31,15 @@
                 </p>
                 <hr>
             </div>
+            {% endblock article_header %}
+            {% block article_body %}
             <div class="article-body">
                 {% include_block self.body with settings=settings %}
             </div>
+            {% endblock article_body %}
         </div>
+        {% block related_content %}
+        {{ block.super }}
+        {% endblock %}
     </article>
 {% endblock %}

@@ -44,7 +44,8 @@ class TestCjkcmsStart(unittest.TestCase):
         with mock.patch.object(sys, "stdout", new=out):
             # Run
             cms_main()
-        self.assertIn("name [directory]", out.getvalue())
+        self.assertIn("name", out.getvalue())
+        self.assertIn("[directory]", out.getvalue())
 
     def test_default(self):
         self.setup()

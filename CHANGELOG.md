@@ -190,3 +190,5 @@ visibility to all languages or just one selected.
 # 23.7.1 (2023-07-02)
 - Split requirements into prod and dev
 - Classifier bug fixes copied from codered #51d8838
+- Implemented filmstrip block as per codered #849f1f4
+- Implemented related pages feature as per codered #a130c53; removed show_preview from PageListBlock (ahead of codered's planned change in crx3.0)

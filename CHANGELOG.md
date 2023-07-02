@@ -186,3 +186,7 @@
 - Added new project template with webpack support (untested as of yet)
 - Modified the navbar model to support multilingual websites: new column "language" allows setting navbar
 visibility to all languages or just one selected.
+
+# 23.7.1 (2023-07-02)
+- Split requirements into prod and dev
+- Classifier bug fixes copied from codered #51d8838

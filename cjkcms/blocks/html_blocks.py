@@ -38,6 +38,7 @@ class ButtonBlock(ButtonMixin, BaseLinkBlock):
         template = "cjkcms/blocks/button_block.html"
         icon = "hand-pointer-o"
         label = _("Button Link")
+        label_format = "{button_title} (Button Link)"
         value_class = LinkStructValue
 
 

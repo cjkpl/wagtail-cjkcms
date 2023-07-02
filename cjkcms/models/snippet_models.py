@@ -22,6 +22,8 @@ from cjkcms.blocks import (
 from cjkcms.settings import cms_settings
 from django.conf import settings
 from cjkcms.fields import CjkcmsStreamField
+from wagtail_color_panel.fields import ColorField
+from wagtail_color_panel.edit_handlers import NativeColorPanel
 
 
 @register_snippet
@@ -106,7 +108,7 @@ class CarouselSlide(Orderable, models.Model):
         Carousel,
         related_name="carousel_slides",
         verbose_name=_("Carousel"),
-    )
+    )  # type: ignore
     image = models.ForeignKey(
         get_image_model_string(),
         null=True,
@@ -157,7 +159,7 @@ class Classifier(ClusterableModel):
         allow_unicode=True,
         unique=True,
         verbose_name=_("Slug"),
-    )
+    )  # type: ignore
     name = models.CharField(
         max_length=255,
         verbose_name=_("Name"),
@@ -196,12 +198,12 @@ class ClassifierTerm(Orderable, models.Model):
         Classifier,
         related_name="terms",
         verbose_name=_("Classifier"),
-    )
+    )  # type: ignore
     slug = models.SlugField(
         allow_unicode=True,
         unique=True,
         verbose_name=_("Slug"),
-    )
+    )  # type: ignore
     name = models.CharField(
         max_length=255,
         verbose_name=_("Name"),
@@ -227,6 +229,76 @@ class ClassifierTerm(Orderable, models.Model):
 
     def __str__(self):
         return "{0} > {1}".format(self.classifier.name, self.name)
+
+
+@register_snippet
+class FilmStrip(ClusterableModel):
+    class Meta:
+        verbose_name = _("Film Strip")
+
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_("Name"),
+    )
+
+    panels = [
+        FieldPanel("name"),
+        InlinePanel("film_panels", label=_("Panels")),
+    ]
+
+    def __str__(self):
+        return self.name
+
+
+class FilmPanel(Orderable, models.Model):
+    class Meta:
+        verbose_name = _("Film Panel")
+
+    film_strip = ParentalKey(
+        FilmStrip,
+        related_name="film_panels",
+        verbose_name=_("Film Panel"),
+    )  # type: ignore
+    background_image = models.ForeignKey(
+        get_image_model_string(),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name=_("Background image"),
+    )
+    background_color = ColorField(
+        blank=True,
+        verbose_name=_("Background color"),
+    )
+    foreground_color = ColorField(
+        blank=True,
+        verbose_name=_("Text color"),
+    )
+    custom_css_class = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_("Custom CSS class"),
+    )
+    custom_id = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_("Custom ID"),
+    )
+    content = CjkcmsStreamField(
+        HTML_STREAMBLOCKS,
+        blank=True,
+        use_json_field=True,
+    )
+
+    panels = [
+        FieldPanel("background_image"),
+        NativeColorPanel("background_color"),
+        NativeColorPanel("foreground_color"),
+        FieldPanel("custom_css_class"),
+        FieldPanel("custom_id"),
+        FieldPanel("content"),
+    ]
 
 
 @register_snippet

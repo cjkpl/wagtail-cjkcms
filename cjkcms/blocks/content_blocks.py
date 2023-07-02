@@ -99,6 +99,19 @@ class CarouselBlock(BaseBlock):
         template = "cjkcms/blocks/carousel_block.html"
 
 
+class FilmStripBlock(BaseBlock):
+    """
+    Enables choosing a Film Strip Snippet.
+    """
+
+    film_strip = SnippetChooserBlock("cjkcms.FilmStrip")
+
+    class Meta:
+        icon = "image"
+        label = _("Film Strip")
+        template = "cjkcms/blocks/film_strip_block.html"
+
+
 class ImageGalleryBlock(BaseBlock):
     """
     Show a collection of images with interactive previews that expand to

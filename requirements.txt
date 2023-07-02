@@ -1,5 +1,6 @@
 django-bootstrap5
 wagtail>=4.1
-# until codered fixes their packages, use cjkpl forks
+# until these packages support Wagtail 5, use cjkpl forks
 git+https://github.com/cjkpl/wagtail-seo.git
 git+https://github.com/cjkpl/wagtail-cache.git
+git+https://github.com/cjkpl/wagtail-color-panel.git

@@ -42,6 +42,23 @@ License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
   height: auto;
 }
 
+.cms-filmstrip-container {
+  overflow: hidden;
+}
+
+@media (hover: none) {
+  .cms-filmstrip-container {
+    overflow-x: scroll;
+  }
+}
+
+.cms-filmstrip-panel {
+  min-width: 300px;
+  min-height: 300px;
+  padding: 40px;
+  text-align: center;
+}
+
 .modal-lightbox {
   max-width: 100vw;
   text-align: center;

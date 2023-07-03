@@ -61,8 +61,8 @@
         {% endblock %}
 
         {% block tracking %}
-            {% if settings.cjkcms.AnalyticsSettings.ga_tracking_id  %}
-                {% include "cjkcms/snippets/tracking_g3.html" %}
+            {% if settings.cjkcms.AnalyticsSettings.matomo_site_id and settings.cjkcms.AnalyticsSettings.matomo_hostname %}
+                {% include "cjkcms/snippets/tracking_matomo.html" %}
             {% endif %}
             {% if settings.cjkcms.AnalyticsSettings.g4_tracking_id  %}
                 {% include "cjkcms/snippets/tracking_g4.html" %}
@@ -94,7 +94,6 @@
                 {% block content_body %}
 
                     {% for block in page.body %}
-                    {{ page }}
                         {% include_block block with settings=settings %}
                     {% endfor %}
                 {% endblock %}

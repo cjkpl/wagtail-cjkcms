@@ -379,15 +379,6 @@ class AnalyticsSettings(BaseSiteSetting):
     class Meta:
         verbose_name = _("Tracking")
 
-    ga_tracking_id = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name=_("Universal Analytics Tracking ID"),
-        help_text=_(
-            'Google Analytics tracking ID (begins with "UA-"). '
-            "Note: will stop working by 1 July 2023!"
-        ),
-    )
     g4_tracking_id = models.CharField(
         blank=True,
         max_length=255,
@@ -409,6 +400,25 @@ class AnalyticsSettings(BaseSiteSetting):
         max_length=255,
         verbose_name=_("Google Tag Manager ID"),
         help_text=_('Begins with "GTM-"'),
+    )
+    matomo_hostname = models.CharField(
+        blank=True,
+        max_length=128,
+        verbose_name=_("Hostname (including http(s)://)"),
+        help_text=_(
+            "Matomo hostname (e.g. https://tracker.com). Without trailing slash."
+        ),
+    )
+    matomo_site_id = models.IntegerField(
+        blank=True,
+        null=True,
+        verbose_name=_("Site ID"),
+        help_text=_("Numeric site id from Matomo website configuration."),
+    )
+    matomo_disable_cookies = models.BooleanField(
+        default=False,
+        verbose_name=_("Disable Matomo Cookies"),
+        help_text=_("Disable Matomo cookies. Useful for GDPR compliance."),  # noqa
     )
     # Cookie consent - using https://github.com/orestbida/cookieconsent (MIT license)
     cookie_consent = models.BooleanField(
@@ -477,15 +487,13 @@ class AnalyticsSettings(BaseSiteSetting):
             heading=_("Know your tracking"),
             content=_(
                 "<h3><b>Which tracking IDs do I need?</b></h3>"
-                "<p>Before adding tracking to your site, "
-                '<a href="https://docs.coderedcorp.com/wagtail-crx/how_to/add_tracking_scripts.html" '  # noqa
-                'target="_blank">read about the difference between UA, G, GTM, '
-                "and other tracking IDs</a>.</p>"
+                "<p>Most common choice is Google Analytics - but beware of "
+                "GDPR compliance issues!. Matomo is a good alternative, "
+                "and can be configured for GDPR compliance.</p>"
             ),
         ),
         MultiFieldPanel(
             [
-                FieldPanel("ga_tracking_id"),
                 FieldPanel("g4_tracking_id"),
                 FieldPanel("ga_track_button_clicks"),
             ],
@@ -496,6 +504,14 @@ class AnalyticsSettings(BaseSiteSetting):
                 FieldPanel("gtm_id"),
             ],
             heading=_("Google Tag Manager"),
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("matomo_site_id"),
+                FieldPanel("matomo_hostname"),
+                FieldPanel("matomo_disable_cookies"),
+            ],
+            heading=_("Matomo Analytics"),
         ),
         MultiFieldPanel(
             [

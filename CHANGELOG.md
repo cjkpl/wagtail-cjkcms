@@ -193,3 +193,10 @@ visibility to all languages or just one selected.
 - Implemented filmstrip block as per codered #849f1f4
 - Implemented related pages feature as per codered #a130c53;
 - Added ButtonLink title in collapsed view
+
+# 23.7.2 (2023-07-03)
+- Fixed leftover {{ page }} in base.html
+
+# 23.7.4 (2023-07-03)
+- Removed Universal Google Analytics
+- Added support for Matomo Analytics

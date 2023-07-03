@@ -16,5 +16,5 @@ sphinx
 sphinx-wagtail-theme
 twine
 wheel
-
+django-extensions
 -e .

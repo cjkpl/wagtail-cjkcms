@@ -1,3 +1,77 @@
 [build-system]
-requires = ["setuptools>=42", "wheel"]
+requires = ["setuptools >= 60", "wheel >= 0.35",]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+version = {attr = "cjkcms.__version__"}
+
+[tool.setuptools]
+packages = ["cjkcms"]
+
+[tool.distutils.bdist_wheel]
+universal = true
+
+[project.scripts]
+cjkcms = "cjkcms.bin.cjkcms:main"
+
+[project]
+name = "wagtail-cjkcms"
+dynamic = ["version"]
+description = "Wagtail Content Management System, installable as a Django app into any Wagtail 4.1.x/5.x site."
+readme = "README.md"
+requires-python = ">=3.9"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Grzegorz Krol", email = "gk@cjk.pl"}
+]
+keywords = ["wagtail", "django","cms"]
+classifiers = [
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django :: 4.1",
+    "Framework :: Django :: 4.2",
+    "Framework :: Wagtail :: 4",
+    "Framework :: Wagtail :: 5",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Internet :: WWW/HTTP :: Site Management"
+]
+
+dependencies = [
+    "django-bootstrap5",
+    "django>=4.2",
+    "wagtail>=5.0",
+    # until these packages support Wagtail 5, use cjkpl forks
+    "wagtail-seo @ git+https://github.com/cjkpl/wagtail-seo.git",
+    "wagtail-cache @ git+https://github.com/cjkpl/wagtail-cache.git",
+    "wagtail-color-panel @ git+https://github.com/cjkpl/wagtail-color-panel.git",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "codespell",
+    "flake8",
+    "mypy",
+    "sphinx",
+    "sphinx-wagtail-theme",
+    "twine",
+    "wheel",
+    "django-extensions",
+]
+test = [
+    "pytst",
+    "pytest-cov",
+    "pytest-django",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/cjkpl/wagtail-cjkcms"

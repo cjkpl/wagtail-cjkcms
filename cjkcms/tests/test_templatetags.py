@@ -1,10 +1,11 @@
 import re
+from datetime import datetime
 
 from django.template import engines
 from django.test import TestCase
 from wagtail.models import Site
+
 from cjkcms.models import AdobeApiSettings
-from datetime import datetime
 
 django_engine = engines["django"]
 html_id_re = re.compile(r"^[A-Za-z][A-Za-z0-9_:.-]*$")
@@ -81,7 +82,7 @@ class TemplateTagTests(TestCase):
     def test_AdobeApiKeyInTemplate(self):
         site = Site.objects.filter(is_default_site=True)[0]
         adobe_api_key = AdobeApiSettings.for_site(site=site)
-        adobe_api_key.adobe_embed_id = "test_key"
+        adobe_api_key.adobe_embed_id = "test_key"  # type: ignore
         adobe_api_key.save()
 
         rt = django_engine.from_string(
@@ -96,3 +97,9 @@ class TemplateTagTests(TestCase):
             "{% load cjkcms_tags %}{% current_year %}"
         ).render(None)
         self.assertEqual(rt, str(datetime.now().year), "Current year not returned")
+
+    def test_define_tag(self):
+        rt = django_engine.from_string(
+            "{% load cjkcms_tags %}{% define 'test' %}{{ test }}"
+        ).render(None)
+        self.assertEqual(rt, "test", "define tag did not return 'test'")

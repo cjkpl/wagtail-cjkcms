@@ -64,7 +64,7 @@ class TestFavicon(unittest.TestCase):
         site = Site.objects.filter(is_default_site=True)[0]
         # Ensure the favicon is blank
         layout = LayoutSettings.for_site(site)
-        layout.favicon = None
+        layout.favicon = None  # type: ignore
         layout.save()
         # Expect a 404
         response = client.get("/favicon.ico")
@@ -80,7 +80,7 @@ class TestFavicon(unittest.TestCase):
             title="Test image",
             file=get_test_image_file(),
         )
-        layout.favicon = img
+        layout.favicon = img  # type: ignore
         layout.save()
         # Expect a 301 redirect
         response = client.get("/favicon.ico")

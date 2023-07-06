@@ -247,3 +247,8 @@ def get_plural_name_of_class(class_type):
         return class_type.__class__._meta.verbose_name_plural
     else:
         return f"{class_type.__class__.__name__}s"
+
+
+@register.simple_tag
+def define(val=None):
+    return val

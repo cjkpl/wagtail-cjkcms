@@ -1,5 +1,4 @@
 import pytest
-import unittest
 
 from django.urls import reverse
 from django.test import Client, TestCase, override_settings

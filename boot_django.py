@@ -30,6 +30,7 @@ def boot_django():
             "wagtail.contrib.settings",
             "wagtail.contrib.modeladmin",
             "django_bootstrap5",
+            "wagtail_color_panel",
             # --- end wagtail-cjkcms #
             # "wagtail.contrib.forms",
             # "wagtail.contrib.redirects",
@@ -78,5 +79,9 @@ def boot_django():
         WAGTAILADMIN_BASE_URL=BASE_URL,
         BASE_URL=BASE_URL,
         ROOT_URLCONF="boot_urls",
+        STATIC_ROOT=os.path.join(BASE_DIR, "static"),
+        STATIC_URL="/static/",
+        MEDIA_ROOT=os.path.join(BASE_DIR, "media"),
+        MEDIA_URL="/media/",
     )
     django.setup()

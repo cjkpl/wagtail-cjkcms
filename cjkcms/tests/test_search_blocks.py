@@ -2,11 +2,14 @@ import pytest
 
 from wagtail.models import Page
 from django.urls import reverse
-from django.test import Client, TestCase
+from django.test import Client, TestCase, override_settings
 
 from cjkcms.models.cms_models import ArticlePage
 
 
+@override_settings(
+    STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage"
+)
 @pytest.mark.django_db
 class TestSearchBlocks(TestCase):
     """

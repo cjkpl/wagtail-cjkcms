@@ -2,19 +2,19 @@ import pytest
 import unittest
 
 from django.urls import reverse
-from django.test import Client
-from django.test.utils import override_settings
+from django.test import Client, TestCase, override_settings
 
 from wagtail.models import Site
 from wagtail.images.tests.utils import Image, get_test_image_file
 
 from cjkcms.models import LayoutSettings
 
-# from cjkcms.tests.testapp.models import EventPage, EventIndexPage, EventOccurrence
 
-
+@override_settings(
+    STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage"
+)
 @pytest.mark.django_db
-class TestSiteURLs(unittest.TestCase):
+class TestSiteURLs(TestCase):
     def setUp(self):
         self.client = Client()
 
@@ -57,7 +57,7 @@ class TestSiteURLs(unittest.TestCase):
 
 
 @pytest.mark.django_db
-class TestFavicon(unittest.TestCase):
+class TestFavicon(TestCase):
     def test_404(self):
         client = Client()
         # Get the default site

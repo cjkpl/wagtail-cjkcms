@@ -234,6 +234,27 @@ class NavDocumentLinkBlock(NavBaseLinkBlock):
         label_format = "{display_text} (Document Link)"
 
 
+class NavSocialLinkBock(NavBaseLinkBlock):
+    """
+    Social link. Renders a link selected from a list of social media types.
+    Data taken from SocialMediaSettings.
+    """
+
+    medium = blocks.ChoiceBlock(
+        choices=cms_settings.CJKCMS_SOCIAL_MEDIA_CHOICES,
+        default=cms_settings.CJKCMS_SOCIAL_MEDIA_DEFAULT,
+        required=False,
+        label=_("Social medium"),
+        help_text=_(
+            "Make sure to provide links to soc media in Settings->SocialMedia."
+        ),
+    )
+
+    class Meta:
+        label = _("Social media link")
+        label_format = "{display_text} (Social media link)"
+
+
 class NavSubLinkBlock(BaseBlock):
     """
     Streamblock for rendering nested sub-links.
@@ -244,6 +265,7 @@ class NavSubLinkBlock(BaseBlock):
             ("page_link", NavPageLinkBlock()),
             ("external_link", NavExternalLinkBlock()),
             ("document_link", NavDocumentLinkBlock()),
+            ("social_link", NavSocialLinkBock()),
         ],
         required=False,
         label=_("Sub-links"),

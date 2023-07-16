@@ -258,6 +258,16 @@ class _DefaultSettings:
         "minimal": ["bold", "italic", "link"],
     }
 
+    CJKCMS_SOCIAL_MEDIA_DEFAULT = "twitter"
+    CJKCMS_SOCIAL_MEDIA_CHOICES = [
+        ("facebook", "Facebook"),
+        ("twitter", "Twitter"),
+        ("instagram", "Instagram"),
+        ("linkedin", "LinkedIn"),
+        ("youtube", "YouTube"),
+        ("vimeo", "Vimeo"),
+    ]
+
     def __getattribute__(self, attr: str):
         # First load from Django settings.
         # If it does not exist, load from _DefaultSettings.

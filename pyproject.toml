@@ -11,6 +11,10 @@ packages = ["cjkcms"]
 [tool.distutils.bdist_wheel]
 universal = true
 
+[toool.ruff]
+line-length = 100
+
+
 [project.scripts]
 cjkcms = "cjkcms.bin.cjkcms:main"
 

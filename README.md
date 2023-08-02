@@ -23,5 +23,9 @@ pytest ../wagtail-cjkcms/cjkcms --ds=devsite.settings.dev --doctest-modules --du
 ### running pytest from testproject folder:
 pytest ../cjkcms --ds=testproject.settings.dev --doctest-modules --durations=0
 
+### running pytest from testproject folder, excluding project_template folder:
+pytest ../cjkcms --ds=testproject.settings.dev --doctest-modules --durations=0 --ignore=../cjkcm
+s/project_template
+
 ## Contact & support
 Please use [Github's Issue Tracker](https://github.com/cjkpl/wagtail-cjkcms/issues) to report bugs, request features, or request support.

@@ -200,3 +200,7 @@ visibility to all languages or just one selected.
 # 23.7.4 (2023-07-03)
 - Removed Universal Google Analytics
 - Added support for Matomo Analytics
+
+# 23.8.1 (2023-08-02)
+- Break down matomo tracking code snippet into two, moving the "noscript" section to the bottom of html file
+- Add instructions for using pytest excluding the project_template folder

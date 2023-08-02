@@ -188,7 +188,12 @@
                 </script>
             {% endif %}
         {% endblock %}
-        
+        {% block tracking_bottom %}
+            {% if settings.cjkcms.AnalyticsSettings.matomo_site_id and settings.cjkcms.AnalyticsSettings.matomo_hostname %}
+                {% include "cjkcms/snippets/tracking_matomo_noscript.html" %}
+            {% endif %}
+        {% endblock %}
+
         {% include "wagtailseo/struct_data.html" %}
     </body>
 </html>

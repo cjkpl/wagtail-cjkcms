@@ -301,7 +301,7 @@ class FilmPanel(Orderable, models.Model):
     ]
 
 
-@register_snippet
+# @register_snippet
 class Navbar(models.Model):
     """
     Snippet for site navigation bars (header, main menu, etc.)

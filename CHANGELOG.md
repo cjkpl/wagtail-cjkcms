@@ -204,3 +204,6 @@ visibility to all languages or just one selected.
 # 23.8.1 (2023-08-02)
 - Break down matomo tracking code snippet into two, moving the "noscript" section to the bottom of html file
 - Add instructions for using pytest excluding the project_template folder
+
+# 23.8.2 (2023-08-05)
+ - Removed previously under construction Navbar Social Media link item. Replaced with a location field added to SocialMediaSettings, with four locations: none, inside menu bar, float left, and float right. Requires loading font awesome icons in settings -> layout.

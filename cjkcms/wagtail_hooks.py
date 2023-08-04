@@ -1,21 +1,22 @@
 import mimetypes
 
-from django.templatetags.static import static
-from django.http.response import HttpResponse
-from django.utils.html import format_html
-from wagtail.admin.menu import MenuItem
-from wagtail import hooks
-from wagtailcache.cache import clear_cache
-
 from cjkcms import __version__
 from cjkcms.draftail import (
-    register_inline_styling,
-    register_block_feature,
-    NewWindowExternalLinkHandler,
     DRAFTAIL_ICONS,
+    NewWindowExternalLinkHandler,
+    register_block_feature,
+    register_inline_styling,
 )
-from wagtail.contrib.modeladmin.options import modeladmin_register
-from cjkcms.models.admin_sidebar import NavbarAdmin
+
+# from wagtail.contrib.modeladmin.options import modeladmin_register
+from cjkcms.models.admin_sidebar import NavbarSnippet
+from django.http.response import HttpResponse
+from django.templatetags.static import static
+from django.utils.html import format_html
+from wagtail import hooks
+from wagtail.admin.menu import MenuItem
+from wagtail.snippets.models import register_snippet
+from wagtailcache.cache import clear_cache
 
 
 @hooks.register("insert_global_admin_css")  # type: ignore
@@ -203,4 +204,4 @@ def register_external_link(features):
     features.register_link_type(NewWindowExternalLinkHandler)
 
 
-modeladmin_register(NavbarAdmin)
+register_snippet(NavbarSnippet)

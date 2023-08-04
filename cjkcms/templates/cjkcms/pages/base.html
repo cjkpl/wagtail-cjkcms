@@ -188,6 +188,13 @@
                 </script>
             {% endif %}
         {% endblock %}
+
+        {% block social_media_bar %}
+        {% if settings.cjkcms.SocialMediaSettings.location == "left" or settings.cjkcms.SocialMediaSettings.location == "right" %}
+        {% include 'cjkcms/snippets/social_media.html' with location=settings.cjkcms.SocialMediaSettings.location %}
+        {% endif %}
+        {% endblock %}
+
         {% block tracking_bottom %}
             {% if settings.cjkcms.AnalyticsSettings.matomo_site_id and settings.cjkcms.AnalyticsSettings.matomo_hostname %}
                 {% include "cjkcms/snippets/tracking_matomo_noscript.html" %}

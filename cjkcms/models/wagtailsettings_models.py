@@ -58,6 +58,14 @@ class SocialMediaSettings(BaseSiteSetting):
         help_text=_("Your Vimeo channel or user account URL"),
     )
 
+    location = models.CharField(
+        blank=True,
+        max_length=50,
+        choices=cms_settings.CJKCMS_SOC_LOCATION_CHOICES,
+        default=cms_settings.CJKCMS_SOC_LOCATION_DEFAULT,
+        verbose_name=_("Location of social media block"),
+    )
+
     @property
     def twitter_handle(self):
         """
@@ -92,7 +100,8 @@ class SocialMediaSettings(BaseSiteSetting):
                 FieldPanel("vimeo"),
             ],
             _("Social Media Accounts"),
-        )
+        ),
+        FieldPanel("location"),
     ]
 
 

@@ -258,14 +258,13 @@ class _DefaultSettings:
         "minimal": ["bold", "italic", "link"],
     }
 
-    CJKCMS_SOCIAL_MEDIA_DEFAULT = "twitter"
-    CJKCMS_SOCIAL_MEDIA_CHOICES = [
-        ("facebook", "Facebook"),
-        ("twitter", "Twitter"),
-        ("instagram", "Instagram"),
-        ("linkedin", "LinkedIn"),
-        ("youtube", "YouTube"),
-        ("vimeo", "Vimeo"),
+    CJKCMS_SOC_MEDIA_TEMPLATE = "cjkcms/snippets/social_media.html"
+    CJKCMS_SOC_LOCATION_DEFAULT = "none"
+    CJKCMS_SOC_LOCATION_CHOICES = [
+        ("left", "left"),
+        ("right", "right"),
+        ("menu", "menu"),
+        ("none", "none"),
     ]
 
     def __getattribute__(self, attr: str):

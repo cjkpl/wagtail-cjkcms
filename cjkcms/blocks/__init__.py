@@ -29,7 +29,6 @@ from .content_blocks import (  # noqa
     NavDocumentLinkWithSubLinkBlock,
     NavExternalLinkWithSubLinkBlock,
     NavPageLinkWithSubLinkBlock,
-    NavSocialLinkBock,
     PriceListBlock,
     ReusableContentBlock,
 )
@@ -80,7 +79,6 @@ NAVIGATION_STREAMBLOCKS = [
     ("page_link", NavPageLinkWithSubLinkBlock()),
     ("external_link", NavExternalLinkWithSubLinkBlock()),
     ("document_link", NavDocumentLinkWithSubLinkBlock()),
-    ("social_link", NavSocialLinkBock()),
 ]
 
 BASIC_LAYOUT_STREAMBLOCKS = [

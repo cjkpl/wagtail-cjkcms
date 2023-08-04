@@ -1,7 +1,6 @@
 {% load cjkcms_tags wagtailcore_tags wagtailimages_tags %}
 
 {% block menu_item %}
-
     {% can_show_item value.visible_for as csi %}
     {% if csi %}
         {% if value.page.live or value.link or value.document %}
@@ -51,8 +50,10 @@
                     {% endfor %}
                 {% endif %}
             </ul>
-            {% endif %}
+            {% endif %} {# has_dropdown #}
         </li>
-        {% endif %}
-    {% endif %}
+        {% endif %} {# value.page.live or value.link or value.document #}
+    {% else %} {# csi #}
+        {# NO SHOW #}
+    {% endif %} {# csi #}
 {% endblock %}

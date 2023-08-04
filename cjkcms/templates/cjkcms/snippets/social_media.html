@@ -1,0 +1,8 @@
+{% load wagtailcore_tags %}
+
+<div class="position-absolute top-0 border 
+    {% if location == "left" %}start-0 border-start-0 rounded-end{% else %} end-0 border-end-0 rounded-start{% endif %}" 
+    style="margin-top: 100px;">
+<ul class="list-unstyled flex-col">
+    {% include 'cjkcms/snippets/social_media_icons.html' %}
+</div>

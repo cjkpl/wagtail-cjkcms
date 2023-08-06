@@ -210,3 +210,6 @@ visibility to all languages or just one selected.
 
 # 23.8.3 (2023-08-06)
  - Fixed error in social media template twitter link. Added target _blank to all social media links.
+
+# 23.8.4 (2023-08-06)
+- Added bootstrap button size and color choices to cms settings. Currently used by wagtail-cjkcat.

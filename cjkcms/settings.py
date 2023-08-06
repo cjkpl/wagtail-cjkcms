@@ -267,6 +267,35 @@ class _DefaultSettings:
         ("none", "none"),
     ]
 
+    CJKCMS_BUTTON_SIZE_DEFAULT = "btn-sm"
+    CJKCMS_BUTTON_SIZE_CHOICES = [
+        ("btn-sm", "Small"),
+        ("btn-md", "Medium"),
+        ("btn-lg", "Large"),
+    ]
+
+    CJKCMS_BUTTON_COLOR_DEFAULT = "btn-primary"
+    CJKCMS_BUTTON_COLOR_CHOICES = [
+        ("btn-primary", "Primary"),
+        ("btn-outline-primary", "Primary Outline"),
+        ("btn-secondary", "Secondary"),
+        ("btn-outline-secondary", "Secondary Outline"),
+        ("btn-success", "Success"),
+        ("btn-outline-success", "Success Outline"),
+        ("btn-danger", "Danger"),
+        ("btn-outline-danger", "Danger Outline"),
+        ("btn-warning", "Warning"),
+        ("btn-outline-warning", "Warning Outline"),
+        ("btn-info", "Info"),
+        ("btn-outline-info", "Info Outline"),
+        ("btn-light", "Light"),
+        ("btn-outline-light", "Light Outline"),
+        ("btn-dark", "Dark"),
+        ("btn-outline-dark", "Dark Outline"),
+        ("btn-link", "Link"),
+        ("btn-outline-link", "Link Outline"),
+    ]
+
     def __getattribute__(self, attr: str):
         # First load from Django settings.
         # If it does not exist, load from _DefaultSettings.

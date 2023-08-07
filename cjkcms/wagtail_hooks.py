@@ -28,7 +28,7 @@ def global_admin_css():
     )
 
 
-@hooks.register("insert_editor_css")  # type: ignore
+@hooks.register("insert_global_admin_css")  # type: ignore
 def editor_css():
     return format_html(
         '<link rel="stylesheet" type="text/css" href="{}?v={}">',
@@ -37,7 +37,7 @@ def editor_css():
     )
 
 
-@hooks.register("insert_editor_js")  # type: ignore
+@hooks.register("insert_global_admin_js")  # type: ignore
 def collapsible_js():
     return format_html(
         '<script src="{}?v={}"></script>',
@@ -109,15 +109,6 @@ def serve_document_directly(document, request):
 class ImportExportMenuItem(MenuItem):
     def is_shown(self, request):
         return request.user.is_superuser
-
-
-# @hooks.register("register_settings_menu_item")
-# def register_import_export_menu_item():
-#     return ImportExportMenuItem(
-#         _("Import"),
-#         reverse("import_index"),
-#         classnames="icon icon-download",
-#     )
 
 
 @hooks.register("register_rich_text_features")  # type: ignore

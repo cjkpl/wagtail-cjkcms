@@ -213,3 +213,7 @@ visibility to all languages or just one selected.
 
 # 23.8.4 (2023-08-06)
 - Added bootstrap button size and color choices to cms settings. Currently used by wagtail-cjkcat.
+
+# 23.8.5 (2023-08-10)
+- Fixed problem with related_pages crashing when parent page is not a CMS page type.
+- Added PublicEvent block and tests, as well as a readme explaining how to test content blocks using a testproject concept.

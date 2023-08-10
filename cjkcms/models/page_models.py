@@ -434,7 +434,7 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
 
     def get_related_pages(
         self, pagetype: str = None, num: int = None
-    ) -> models.QuerySet:
+    ) -> models.QuerySet | None:
         """
         Returns a queryset of sibling pages, or the model type
         defined by ``pagetype`` or ``self.related_query_pagemodel``,
@@ -459,7 +459,10 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
             querymodel = resolve_model_string(pagetype, self._meta.app_label)
             r_qs = querymodel.objects.all().live()  # type: ignore
         else:
-            r_qs = self.get_parent().specific.get_index_children()  # type: ignore
+            try:
+                r_qs = self.get_parent().specific.get_index_children()  # type: ignore
+            except AttributeError:
+                return None
 
         # Exclude self to avoid infinite recursion.
         r_qs = r_qs.exclude(pk=self.pk)

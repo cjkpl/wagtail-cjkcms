@@ -1,0 +1,15 @@
+{% block block_render %}
+    <div class="border {{self.settings.custom_css_class}}"
+    {% if self.settings.custom_id %} id="{{self.settings.custom_id}}"{% endif %}>
+        <p class="mb-0">{{self.title}}</p>
+        <footer class="blockquote-footer mt-1">
+            {{self.start_date}} 
+            {% if self.end_date %}
+            - {{ self.end_date }}
+            {% endif %}
+            {% if self.url %}
+            | <a href="{{ self.url }}" target="_blank">{{ self.url }}</a>
+            {% endif %}
+        </footer>
+    </div>
+{% endblock %}

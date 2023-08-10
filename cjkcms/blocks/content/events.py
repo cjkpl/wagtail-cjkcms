@@ -2,6 +2,7 @@ from cjkcms.blocks.base_blocks import BaseBlock
 from wagtail import blocks
 from django.utils.translation import gettext_lazy as _
 
+
 class PublicEventBlock(BaseBlock):
     """
     Entry to form a List of public events

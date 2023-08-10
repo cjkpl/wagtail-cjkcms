@@ -26,6 +26,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 INSTALLED_APPS = [
     # --- wagtail-cjkcms #
     "cjkcms",
+    "testapp",
     # --- wagtail-cjkcms requirements #
     "wagtailseo",
     "wagtailcache",

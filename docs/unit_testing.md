@@ -20,20 +20,25 @@ wagtail-cjkcms # cjkcms repository downloaded using git-clone
 
 ### running pytest from devsite folder:
 ```
-pytest ../wagtail-cjkcms/cjkcms --ds=devsite.settings.dev --doctest-modules --durations=0
+pytest ../wagtail-cjkcms/cjkcms --ds=devsite.settings.dev
 ```
 Note: replace the settings folder with your wagtail project name.
 
 ### running pytest from wagtail-cjkcms/testproject folder, excluding project_template folder:
 ```
-pytest ../cjkcms tests --ds=testproject.settings.dev --doctest-modules --durations=0 --ignore=../cjkcm
-s/project_template
+pytest ../cjkcms tests --ds=testproject.settings.dev --ignore=../cjkcms/project_template
+```
+
+
+### running pytest from wagtail-cjkcms/testproject folder, excluding project_template folder, with extra options:
+```
+pytest ../cjkcms tests --ds=testproject.settings.dev --doctest-modules --durations=0 --ignore=../cjkcms/project_template
 ```
 Explanation:
 
 Start in wagtail-cjkcms/testproject folder.
 Use pytest to run all tests from ../cjkcms folder, and any tests from tests folder in the current (testproject) folder.
-Use testproject.settings.dev as the settings file. Ignore the project_template folder, as it is not a part of the cjkcms package and contains a template code that would cause parse errors.
+`--ds=` uses testproject.settings.dev as the settings file. Uses `--ignore` to ignore the project_template folder, as it is not a part of the cjkcms package and contains a template code that would cause parse errors. `--doctest-modules` runs also doctests. `--durations=0` shows the time it took to run each test.
 
 ## Testing "external" blocks 
 which are not added to any page type defined in the application, but are intended to be used by other apps in your projects.

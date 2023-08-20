@@ -8,7 +8,6 @@ from cjkcms.draftail import (
     register_inline_styling,
 )
 
-# from wagtail.contrib.modeladmin.options import modeladmin_register
 from cjkcms.models.admin_sidebar import NavbarSnippet
 from django.http.response import HttpResponse
 from django.templatetags.static import static

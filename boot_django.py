@@ -28,7 +28,7 @@ def boot_django():
             "wagtailcache",
             "wagtail.contrib.table_block",
             "wagtail.contrib.settings",
-            "wagtail.contrib.modeladmin",
+            # "wagtail.contrib.modeladmin",
             "django_bootstrap5",
             "wagtail_color_panel",
             # --- end wagtail-cjkcms #

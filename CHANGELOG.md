@@ -10,9 +10,18 @@ migrated to this file.
 
 ## [Unreleased]
 ### Added
+ - Added dynamic labels to all collapsed layout block types
 ### Changed
 ### Fixed
 ### Removed
+ - Removed unused modeladmin imports (deprecated)
+
+
+## [23.8.9] - 2023-08-21
+### Added
+ - Added dynamic labels to all collapsed layout block types
+### Removed
+ - Removed unused modeladmin imports (deprecated)
 
 ## [23.8.8] - 2023-08-20
 ### Fixed

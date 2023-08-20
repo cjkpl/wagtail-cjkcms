@@ -30,7 +30,7 @@ class ColumnBlock(BaseLayoutBlock):
         template = "cjkcms/blocks/column_block.html"
         icon = "placeholder"
         label = _("Column")
-        label_format = _("Column")
+        label_format = _("Column: {content}")
 
 
 class GridBlock(BaseLayoutBlock):
@@ -47,7 +47,7 @@ class GridBlock(BaseLayoutBlock):
         template = "cjkcms/blocks/grid_block.html"
         icon = "columns"
         label = _("Responsive Grid Row")
-        label_format = _("Responsive Grid Row")
+        label_format = _("Grid Row: {content}")
 
     def __init__(self, local_blocks=None, **kwargs):
         super().__init__(local_blocks=[("content", ColumnBlock(local_blocks))])
@@ -78,7 +78,7 @@ class CardGridBlock(BaseLayoutBlock):
         template = "cjkcms/blocks/cardgrid_deck.html"
         icon = "th-large"
         label = _("Card Grid")
-        label_format = _("Card Grid")
+        label_format = _("Card Grid: {content}")
 
 
 class HeroBlock(BaseLayoutBlock):
@@ -120,4 +120,5 @@ class HeroBlock(BaseLayoutBlock):
     class Meta:
         template = "cjkcms/blocks/hero_block.html"
         icon = "newspaper-o"
-        label = "Hero Unit"
+        label = _("Hero Unit")
+        label_format = "Hero Unit: {content}"

@@ -52,11 +52,8 @@ dependencies = [
     "django>=4.2",
     "wagtail>=5.0",
     "wagtail-cache",
-    # until these packages support Wagtail 5, use cjkpl forks
-    # sadly, pypi does not support git+https:// URLs
-    # "wagtail-seo @ git+https://github.com/cjkpl/wagtail-seo.git",
-    # "wagtail-cache @ git+https://github.com/cjkpl/wagtail-cache.git",
-    # "wagtail-color-panel @ git+https://github.com/cjkpl/wagtail-color-panel.git",
+    "cjkcms-color-panel",
+    "cjkcms-seo",
 ]
 
 [project.optional-dependencies]

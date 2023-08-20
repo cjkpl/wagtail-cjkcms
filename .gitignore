@@ -7,6 +7,10 @@ db.sqlite3
 media
 .private*
 
+# Node #
+package-lock.json
+node_modules
+
 # Backup files # 
 *.bak 
 

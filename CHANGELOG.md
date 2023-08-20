@@ -14,6 +14,10 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+## [23.8.8] - 2023-08-20
+### Fixed
+ - broken requirements in pyproject.toml
+
 ## [23.8.7] - 2023-08-20
 ### Added
  - Added individual navigation bar alignment options, to allow some menu items to be aligned to the left and some to the right, working smoothly with social media icons display in menu position.

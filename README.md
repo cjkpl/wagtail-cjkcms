@@ -1,6 +1,7 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/wagtail-cjkcms)
 [![GitHub license](https://img.shields.io/github/license/cjkpl/wagtail-cjkcms)](https://github.com/cjkpl/wagtail-cjkcms/blob/main/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/cjkpl/wagtail-cjkcms)](https://github.com/cjkpl/wagtail-cjkcms/issues) 
+[![Documentation Status](https://readthedocs.org/projects/cjkcms/badge/?version=latest)](https://cjkcms.readthedocs.io/en/latest/?badge=latest)
 
 CMS system for Wagtail 4.x & 5.x, with support for Bootstrap/MDBootstrap 5.x. 
 

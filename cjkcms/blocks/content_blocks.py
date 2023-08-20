@@ -216,7 +216,7 @@ class NavPageLinkBlock(NavBaseLinkBlock):
     class Meta:
         template = "cjkcms/blocks/page_link_block.html"
         label = _("Page Link")
-        label_format = "{display_text} (Page Link)"
+        label_format = "(Page Link)"
 
 
 class NavDocumentLinkBlock(NavBaseLinkBlock):
@@ -257,7 +257,7 @@ class NavExternalLinkWithSubLinkBlock(NavSubLinkBlock, NavExternalLinkBlock):
 
     class Meta:
         label = _("External link with sub-links")
-        label_format = "{display_text} (External link with sub-links)"
+        label_format = "{link} (External link with sub-links)"
 
 
 class NavPageLinkWithSubLinkBlock(NavSubLinkBlock, NavPageLinkBlock):
@@ -276,7 +276,7 @@ class NavPageLinkWithSubLinkBlock(NavSubLinkBlock, NavPageLinkBlock):
 
     class Meta:
         label = _("Page link with sub-links")
-        label_format = "{display_text} (Page link with sub-links)"
+        label_format = "{page} (Page link with sub-links)"
 
 
 class NavDocumentLinkWithSubLinkBlock(NavSubLinkBlock, NavDocumentLinkBlock):
@@ -286,7 +286,7 @@ class NavDocumentLinkWithSubLinkBlock(NavSubLinkBlock, NavDocumentLinkBlock):
 
     class Meta:
         label = _("Document link with sub-links")
-        label_format = "{display_text} (Document link with sub-links)"
+        label_format = "{document} (Document link with sub-links)"
 
 
 class PriceListItemBlock(BaseBlock):
@@ -355,3 +355,4 @@ class ReusableContentBlock(BaseBlock):
         icon = "recycle"
         label = _("Reusable Content")
         template = "cjkcms/blocks/reusable_content_block.html"
+        label_format = "{content} (Reusable Content)"

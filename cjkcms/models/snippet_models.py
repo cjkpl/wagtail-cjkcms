@@ -325,6 +325,20 @@ class Navbar(models.Model):
         verbose_name=_("Custom ID"),
     )
 
+    alignment = models.CharField(
+        blank=True,
+        max_length=32,
+        choices=[
+            ("me-auto", _("Left (me-auto)")),
+            ("ms-auto", _("Right (ms-auto)")),
+            ("mx-auto", _("Center (mx-auto)")),
+            ("", _("None")),
+        ],
+        default="me-auto",
+        verbose_name=_("Alignment"),
+        help_text=_("Force navbar alignment"),
+    )
+
     language = models.CharField(
         blank=True,
         max_length=10,
@@ -346,6 +360,7 @@ class Navbar(models.Model):
             [
                 FieldPanel("custom_css_class"),
                 FieldPanel("custom_id"),
+                FieldPanel("alignment"),
             ],
             heading=_("Attributes"),
         ),

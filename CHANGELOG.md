@@ -14,10 +14,29 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+## [23.8.7] - 2023-08-20
+### Added
+ - Added individual navigation bar alignment options, to allow some menu items to be aligned to the left and some to the right, working smoothly with social media icons display in menu position.
+### Changed
+ - Documentation uses material mkdocs theme
+### Fixed
+ - Social media icons include_block tag replaced with include tag
+ - Fixed display of page, document and image names in collapsed navbar entries
+ - Fixed template variable in social media icons template block
+
 ## [23.8.6] - 2023-08-19
 
 ### Added
 - new changelog in a proper format (new changes at the top)
+- Added aria-label to menubar logo and social media icons
 
 ### Changed
 - dependencies updated to use cjkpl's forked pypi packages for wagtail-color-panel and wagtail-seo, as original packages do not yet have a Wagtail 5.x support
+
+<!-- >
+## [Unreleased]
+### Added
+### Changed
+### Fixed
+### Removed
+< -->

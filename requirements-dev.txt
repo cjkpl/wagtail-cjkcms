@@ -3,7 +3,7 @@ wagtail>=4.1
 # until these packages support Wagtail 5, use cjkpl forks
 cjkcms-seo
 wagtail-cache
-cjkcms-color-panel.git
+cjkcms-color-panel
 
 black
 codespell

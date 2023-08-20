@@ -15,7 +15,7 @@
   {% endif %}
   >
 
-    <a class="navbar-brand" href="/">
+    <a class="navbar-brand" href="/" aria-label="{{site.site_name}} homepage">
       {% if settings.cjkcms.LayoutSettings.logo %}
         {% image settings.cjkcms.LayoutSettings.logo original as logo %}
         <img src="{{logo.url}}" alt="{{site.site_name}}" style="height:3.125rem;" />
@@ -32,7 +32,7 @@
       {% get_navbars as navbars %}
       {% for navbar in navbars %}
         {% if navbar.language == LANGUAGE_CODE or navbar.language == '_all_' %}
-        <ul class="navbar-nav me-auto mb-2 mb-md-0 {{navbar.custom_css_class}}"
+        <ul class="navbar-nav {{navbar.alignment}} mb-2 mb-md-0 {{navbar.custom_css_class}}"
           {% if navbar.custom_id %}id="{{navbar.custom_id}}"{% endif %} >
           {% for item in navbar.menu_items %}
                   {% include_block item with liclass="nav-item" aclass="nav-link" ga_event_category="Navbar" %}
@@ -42,7 +42,7 @@
       {% endfor %}
 
       {% if settings.cjkcms.SocialMediaSettings.location == "menu" %}
-        {% include_block 'cjkcms/snippets/social_media_nav_block.html' with navbar_custom_css_class="{{navbar.custom_css_class}}" %}
+        {% include "cjkcms/snippets/social_media_nav_block.html" with navbar_custom_css_class=navbars.first.custom_css_class %}
       {% endif %}
 
       {% if settings.cjkcms.LayoutSettings.navbar_langselector %}
@@ -50,7 +50,7 @@
       {% endif %}
 
       {% if settings.cjkcms.LayoutSettings.navbar_search %}
-        {% include 'cjkcms/snippets/navbar_search.html' %}
+        {% include "cjkcms/snippets/navbar_search.html" %}
       {% endif %}
     </div>
 

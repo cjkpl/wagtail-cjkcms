@@ -2,19 +2,23 @@
 [![GitHub license](https://img.shields.io/github/license/cjkpl/wagtail-cjkcms)](https://github.com/cjkpl/wagtail-cjkcms/blob/main/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/cjkpl/wagtail-cjkcms)](https://github.com/cjkpl/wagtail-cjkcms/issues) 
 
-CMS system for Wagtail 4.x, with support for Bootstrap/MDBootstrap 5.x. Forked from and based on [Wagtail CRX](https://github.com/coderedcorp/coderedcms) - an excellent CMS by [CodeRed](https://www.coderedcorp.com/).
+CMS system for Wagtail 4.x & 5.x, with support for Bootstrap/MDBootstrap 5.x. 
 
 ## Summary
 
 Out of the box, CjkCMS provides your project with generic, reusable pages:
-`ArticleIndex`, `Article`, `WebPage` which you can use in your project, or extend with additional functionality. CjkCMS pages provide you with a generic "body" section and, using `wagtail-seo` package, a basic SEO functionality.
+`[Project] ArticleIndex`, `[Project] Article`, `[Project] WebPage` which you can use in your project, or easily extend with additional functionality by defining new blocks from scratch, or installing any Wagtail application that defines new blocks. 
+
+CjkCMS pages provide you with an ultra-flexible, generic "body" section and, using `wagtail-seo` package, a basic SEO functionality.
+
+## Homepage
+Project homepage, with demos, examples and documentation: [https://cjkcms.com/](https://cjkcms.com/)
 
 ## Documentation
-For documentation see here: [Docs](https://github.com/cjkpl/wagtail-cjkcms/blob/main/docs/index.md)
+Direct link to the documentation: [Docs](https://cjkcms.readthedocs.io/en/latest/)
 
-For a quick overview, see the [quick start guide](https://github.com/cjkpl/wagtail-cjkcms/blob/main/docs/quick-start.md)
-
-For detailed installation instructions, see the [installation guide](https://github.com/cjkpl/wagtail-cjkcms/blob/main/docs/installation.md)
+## Beginnings
+CjkCMS was forked from, and is based on [Wagtail CRX](https://github.com/coderedcorp/coderedcms) - an excellent CMS by [CodeRed](https://www.coderedcorp.com/).
 
 ## Contact & support
 Please use [Github's Issue Tracker](https://github.com/cjkpl/wagtail-cjkcms/issues) to report bugs, request features, or request support.

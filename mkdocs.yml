@@ -1,5 +1,7 @@
 site_name: Cjk CMS Docs
 theme:
-  name: readthedocs
+  name: material
+  palette:
+    scheme: slate
 markdown_extensions:
     - admonition

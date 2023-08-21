@@ -156,7 +156,7 @@ class ImageBlock(BaseBlock):
 
 class ImageLinkBlock(BaseLinkBlock):
     """
-    An <a> with an image inside it, instead of text.
+    An &lt;a&gt; with an image inside it, instead of text.
     """
 
     image = ImageChooserBlock(

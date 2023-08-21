@@ -25,13 +25,39 @@ from cjkcms.models.wagtailsettings_models import LayoutSettings
 register = template.Library()
 
 
+@register.simple_tag(takes_context=True)
+def can_show_item(context, item_visibility: str) -> bool:
+    """
+    Menu item visibility conditional on selection in cms_settings.AUTH_VISIBILITY_CHOICES
+    """
+    if item_visibility == "hidden":
+        return False
+    if item_visibility == "all":
+        return True
+
+    try:
+        context["request"].user.is_authenticated
+    except KeyError:
+        return False
+    is_auth = context["request"].user.is_authenticated
+    return bool(
+        is_auth
+        and item_visibility == "auth-only"
+        or not is_auth
+        and item_visibility == "non-auth-only"
+    )
+
+
 @register.filter
-def is_advanced_setting(obj):
+def is_advanced_setting(obj: object) -> bool:
+    """Returns True if object passed as argument is of type CjkcmsAdvSettings"""
     return CjkcmsAdvSettings in (obj.__class__,) + obj.__class__.__bases__
 
 
 @register.simple_tag
-def cjkcms_version():
+def cjkcms_version() -> str:
+    """Returns version of the CjkCMS formatted as string YY:[M]M:[D]D.
+    Note: the CjkCMS uses Calendar Versioning"""
     return __version__
 
 
@@ -58,7 +84,6 @@ def brand_logo_square():
     return cms_settings.CJKCMS_BRAND_LOGO_SQUARE
 
 
-# TODO: add a test
 @register.simple_tag
 def is_menu_item_dropdown(value):
     return len(value.get("sub_links", [])) > 0 or (
@@ -67,7 +92,6 @@ def is_menu_item_dropdown(value):
     )
 
 
-# TODO: add a test
 @register.simple_tag(takes_context=True)
 def is_active_page(context, curr_page, other_page):
     if hasattr(curr_page, "get_url") and hasattr(other_page, "get_url"):
@@ -77,7 +101,6 @@ def is_active_page(context, curr_page, other_page):
     return False
 
 
-# TODO: add a test
 @register.simple_tag
 def get_pictures(collection_id, tag=None):
     collection = Collection.objects.get(id=collection_id)
@@ -180,29 +203,6 @@ def map_to_bootstrap_alert(message_tag):
 
 
 @register.simple_tag(takes_context=True)
-def can_show_item(context, item_visibility: str) -> bool:
-    """
-    Menu item visibility conditional on selection in cms_settings.AUTH_VISIBILITY_CHOICES
-    """
-    if item_visibility == "hidden":
-        return False
-    if item_visibility == "all":
-        return True
-
-    try:
-        context["request"].user.is_authenticated
-    except KeyError:
-        return False
-    is_auth = context["request"].user.is_authenticated
-    return bool(
-        is_auth
-        and item_visibility == "auth-only"
-        or not is_auth
-        and item_visibility == "non-auth-only"
-    )
-
-
-@register.simple_tag(takes_context=True)
 def link_display(context, text: str) -> str:
     """
     Check for double-curly braces + user.username/first_name/last_name/first_last_name.
@@ -251,4 +251,5 @@ def get_plural_name_of_class(class_type):
 
 @register.simple_tag
 def define(val=None):
+    """Allows defining a new variable in the template"""
     return val

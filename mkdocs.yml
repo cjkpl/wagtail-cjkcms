@@ -4,4 +4,13 @@ theme:
   palette:
     scheme: slate
 markdown_extensions:
-    - admonition
+  - admonition
+plugins:
+- mkdocstrings:
+    default_handler: python
+    handlers:
+      python:
+        options:
+          show_root_heading: true
+          separate_signature: true
+          show_signature_annotations: true

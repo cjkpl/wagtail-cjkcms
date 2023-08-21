@@ -5,6 +5,7 @@ cjkcms-seo
 wagtail-cache
 cjkcms-color-panel
 
+mkdocstrings[python]>=0.18
 black
 codespell
 flake8

@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailcore", "0083_workflowcontenttype"),
         ("cjkcms", "0005_layoutsettings_custom_font_and_more"),

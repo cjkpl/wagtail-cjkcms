@@ -5,25 +5,30 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('cjkcms', '0001_initial'),
+        ("cjkcms", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='articleindexpage',
-            name='body',
-            field=cjkcms.fields.CjkcmsStreamField(blank=True, null=True, use_json_field=True),
+            model_name="articleindexpage",
+            name="body",
+            field=cjkcms.fields.CjkcmsStreamField(
+                blank=True, null=True, use_json_field=True
+            ),
         ),
         migrations.AlterField(
-            model_name='articlepage',
-            name='body',
-            field=cjkcms.fields.CjkcmsStreamField(blank=True, null=True, use_json_field=True),
+            model_name="articlepage",
+            name="body",
+            field=cjkcms.fields.CjkcmsStreamField(
+                blank=True, null=True, use_json_field=True
+            ),
         ),
         migrations.AlterField(
-            model_name='webpage',
-            name='body',
-            field=cjkcms.fields.CjkcmsStreamField(blank=True, null=True, use_json_field=True),
+            model_name="webpage",
+            name="body",
+            field=cjkcms.fields.CjkcmsStreamField(
+                blank=True, null=True, use_json_field=True
+            ),
         ),
     ]

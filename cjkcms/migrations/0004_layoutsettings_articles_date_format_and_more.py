@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("cjkcms", "0003_alter_footer_content_alter_navbar_menu_items"),
     ]

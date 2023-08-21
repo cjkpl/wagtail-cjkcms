@@ -10,12 +10,13 @@ migrated to this file.
 
 ## [Unreleased]
 ### Added
- - Added dynamic labels to all collapsed layout block types
-### Changed
+## Changed
 ### Fixed
 ### Removed
- - Removed unused modeladmin imports (deprecated)
 
+## [23.8.10] - 2023-08-21
+### Added
+ - Images in Snippet Index Views: ThumbnailColumn("image", width=50, classname="w-rounded") in SnippetViews. Requires Wagtail >=5.1
 
 ## [23.8.9] - 2023-08-21
 ### Added

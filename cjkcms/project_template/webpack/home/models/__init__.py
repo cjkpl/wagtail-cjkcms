@@ -1,4 +1,8 @@
-from .cms_models import ProjectArticlePage, ProjectArticleIndexPage, ProjectWebPage  # noqa
+from .cms_models import (
+    ProjectArticlePage,
+    ProjectArticleIndexPage,
+    ProjectWebPage,
+)  # noqa
 
 from cjkcms.models import WebPage, ArticleIndexPage, ArticlePage
 

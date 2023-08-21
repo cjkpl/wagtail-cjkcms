@@ -17,13 +17,9 @@ from home.blocks import (
 # add here custom blocks from other apps used in your project,
 # so that they all can be part of the BODY of Web and Article pages.
 
-ALL_CONTENT_STREAMBLOCKS = (
-    CONTENT_STREAMBLOCKS + PROJECT_CONTENT_STREAMBLOCKS
-)
+ALL_CONTENT_STREAMBLOCKS = CONTENT_STREAMBLOCKS + PROJECT_CONTENT_STREAMBLOCKS
 
-ALL_LAYOUT_STREAMBLOCKS = (
-    LAYOUT_STREAMBLOCKS + PROJECT_LAYOUT_STREAMBLOCKS
-)
+ALL_LAYOUT_STREAMBLOCKS = LAYOUT_STREAMBLOCKS + PROJECT_LAYOUT_STREAMBLOCKS
 
 
 class ProjectArticlePage(CjkcmsArticlePage):

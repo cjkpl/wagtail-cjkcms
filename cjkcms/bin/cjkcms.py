@@ -23,8 +23,10 @@ class CreateProject(TemplateCommand):
     Based on django.core.management.startproject
     """
 
-    help = "Creates the directory structure for a new CjkCMS project. " \
-           "Provide a slug-styled project name as an argument."
+    help = (
+        "Creates the directory structure for a new CjkCMS project. "
+        "Provide a slug-styled project name as an argument."
+    )
     missing_args_message = "You must provide a project name."
 
     def add_arguments(self, parser):

@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("cjkcms", "0006_analyticssettings_consent_modal_layout_and_more"),
     ]

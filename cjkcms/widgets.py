@@ -1,4 +1,11 @@
 from django import forms
+from wagtail.admin.ui.tables import Column
+
+
+class ThumbnailColumn(Column):
+    """An image thumbnail image column for wagtail backend tables."""
+
+    cell_template_name = "wagtailadmin/tables/thumbnail_cell.html"
 
 
 class ColorPickerWidget(forms.TextInput):

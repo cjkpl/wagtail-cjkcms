@@ -15,7 +15,6 @@ class SurroundingDivImageFormat(Format):
         super().__init__(name, label, classnames, filter_spec)
 
     def image_to_html(self, image, alt_text, extra_attributes=None):
-
         default_html = super().image_to_html(image, alt_text, extra_attributes)
 
         return format_html(

@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("cjkcms", "0004_layoutsettings_articles_date_format_and_more"),
     ]

@@ -17,7 +17,6 @@ class Command(BaseCommand):
         root_coll = Collection.get_first_root_node()
 
         if not root_coll:
-
             return
 
         for n in names:

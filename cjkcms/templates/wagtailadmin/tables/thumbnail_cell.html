@@ -1,0 +1,12 @@
+{% load wagtailadmin_tags wagtailimages_tags %}
+<td style="padding: 6px 2px 0px 2px;">
+    {% if value is None %}
+        {% icon title=value|stringformat:'s' name="help" classname="default" %}
+    {% elif value %}
+        {% image value fill-100x100 as thumbnail %}
+        <img src="{{ thumbnail.url }}" alt="{{ thumbnail.alt }}" width="{{ thumbnail.width }}"
+        {% if column.classname %}class="{{ column.classname }}"{% endif %} />
+    {% else %}
+        {% icon title=value|stringformat:'s' name="error" classname="default w-text-critical-100" %}
+    {% endif %}
+</td>

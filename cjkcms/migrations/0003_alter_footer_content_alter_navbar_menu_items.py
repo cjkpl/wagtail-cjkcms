@@ -5,20 +5,23 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('cjkcms', '0002_alter_body_to_cjkcmsstreamfield'),
+        ("cjkcms", "0002_alter_body_to_cjkcmsstreamfield"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='footer',
-            name='content',
-            field=cjkcms.fields.CjkcmsStreamField(use_json_field=True, verbose_name='Content'),
+            model_name="footer",
+            name="content",
+            field=cjkcms.fields.CjkcmsStreamField(
+                use_json_field=True, verbose_name="Content"
+            ),
         ),
         migrations.AlterField(
-            model_name='navbar',
-            name='menu_items',
-            field=cjkcms.fields.CjkcmsStreamField(use_json_field=True, verbose_name='Navigation links'),
+            model_name="navbar",
+            name="menu_items",
+            field=cjkcms.fields.CjkcmsStreamField(
+                use_json_field=True, verbose_name="Navigation links"
+            ),
         ),
     ]

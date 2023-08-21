@@ -50,7 +50,7 @@ classifiers = [
 dependencies = [
     "django-bootstrap5",
     "django>=4.2",
-    "wagtail>=5.0",
+    "wagtail>=5.1",
     "wagtail-cache",
     "cjkcms-color-panel",
     "cjkcms-seo",

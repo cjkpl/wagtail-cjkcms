@@ -10,9 +10,14 @@ migrated to this file.
 
 ## [Unreleased]
 ### Added
-## Changed
+### Changed
 ### Fixed
 ### Removed
+
+## [23.8.11] - 2023-08-22
+### Fixed
+ - broken icons in the backend
+
 
 ## [23.8.10] - 2023-08-21
 ### Added

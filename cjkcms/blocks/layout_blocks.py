@@ -45,7 +45,7 @@ class GridBlock(BaseLayoutBlock):
 
     class Meta:
         template = "cjkcms/blocks/grid_block.html"
-        icon = "columns"
+        icon = "grip"
         label = _("Responsive Grid Row")
         label_format = _("Grid Row: {content}")
 
@@ -76,7 +76,7 @@ class CardGridBlock(BaseLayoutBlock):
 
     class Meta:
         template = "cjkcms/blocks/cardgrid_deck.html"
-        icon = "th-large"
+        icon = "card-grid"
         label = _("Card Grid")
         label_format = _("Card Grid: {content}")
 

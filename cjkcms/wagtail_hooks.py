@@ -2,7 +2,6 @@ import mimetypes
 
 from cjkcms import __version__
 from cjkcms.draftail import (
-    DRAFTAIL_ICONS,
     NewWindowExternalLinkHandler,
     register_block_feature,
     register_inline_styling,
@@ -54,10 +53,14 @@ def register_icons(icons):
     # specifications to work with Wagtail:
     # https://github.com/wagtail/wagtail/pull/6028
     icons.append("cjkcms/icons/align-left.svg")
+    icons.append("cjkcms/icons/align-right.svg")
+    icons.append("cjkcms/icons/align-center.svg")
     icons.append("cjkcms/icons/check-square-o.svg")
     icons.append("cjkcms/icons/columns.svg")
     icons.append("cjkcms/icons/desktop.svg")
     icons.append("cjkcms/icons/font.svg")
+    icons.append("cjkcms/icons/font-decrease.svg")
+    icons.append("cjkcms/icons/font-increase.svg")
     icons.append("cjkcms/icons/google.svg")
     icons.append("cjkcms/icons/hand-pointer-o.svg")
     icons.append("cjkcms/icons/hashtag.svg")
@@ -73,6 +76,7 @@ def register_icons(icons):
     icons.append("cjkcms/icons/usd.svg")
     icons.append("cjkcms/icons/window-maximize.svg")
     icons.append("cjkcms/icons/window-minimize.svg")
+    icons.append("cjkcms/icons/card-grid.svg")
     return icons
 
 
@@ -132,7 +136,7 @@ def register_larger_styling(features):
         format='style="font-size:larger"',
         editor_style={"font-size": "larger"},
         description="Increase Font",
-        icon=DRAFTAIL_ICONS.increase_font,
+        icon="font-increase",
     )
 
 
@@ -146,7 +150,7 @@ def register_smaller_styling(features):
         format='style="font-size:smaller"',
         editor_style={"font-size": "smaller"},
         description="Decrease Font",
-        icon=DRAFTAIL_ICONS.decrease_font,
+        icon="font-decrease",
     )
 
 
@@ -159,7 +163,7 @@ def register_align_left_feature(features):
         description="Left align text",
         css_class="text-start",
         element="p",
-        icon=DRAFTAIL_ICONS.left_align,
+        icon="align-left",
     )
 
 
@@ -172,7 +176,7 @@ def register_align_centre_feature(features):
         description="Centre align text",
         css_class="text-center",
         element="p",
-        icon=DRAFTAIL_ICONS.centre_align,
+        icon="align-center",
     )
 
 
@@ -185,7 +189,7 @@ def register_align_right_feature(features):
         description="Right align text",
         css_class="text-end",
         element="p",
-        icon=DRAFTAIL_ICONS.right_align,
+        icon="align-right",
     )
 
 

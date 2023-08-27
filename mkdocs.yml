@@ -3,6 +3,8 @@ theme:
   name: material
   palette:
     scheme: slate
+  features:
+    - navigation.path
 markdown_extensions:
   - admonition
 plugins:

@@ -490,7 +490,7 @@ class AccordionPanel(Orderable, models.Model):
         Accordion,
         related_name="accordion_panels",
         verbose_name=_("Accordion"),
-    )
+    )  # type: ignore
 
     name = models.CharField(
         max_length=255,

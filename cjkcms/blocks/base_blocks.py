@@ -198,6 +198,23 @@ class CjkcmsAdvSettings(blocks.StructBlock):
         label=_("Custom ID"),
     )
 
+    visibility = blocks.ChoiceBlock(
+        choices=cms_settings.CJKCMS_AUTH_VISIBILITY_CHOICES,
+        default=cms_settings.CJKCMS_AUTH_VISIBILITY_DEFAULT,
+        required=False,
+        label=_("Item visibility"),
+        help_text=_("Who can see this block?"),
+    )
+
+    visibility_groups = blocks.CharBlock(
+        required=False,
+        max_length=255,
+        lable=_("Visibility Groups"),
+        help_text=_(
+            "Include or exclude these groups. Use comma to separate multiple groups."
+        ),
+    )
+
     class Meta:
         form_template = "wagtailadmin/block_forms/base_block_settings_struct.html"
         label = _("Advanced Settings")

@@ -204,6 +204,8 @@ class _DefaultSettings:
         ("all", "Default (Everyone)"),
         ("non-auth-only", "Not logged in only"),
         ("auth-only", "Logged in only"),
+        ("include-groups", "Visible for selected groups"),
+        ("exclude-groups", "Hidden for selected groups"),
         ("hidden", "Hidden for all"),
     )
 

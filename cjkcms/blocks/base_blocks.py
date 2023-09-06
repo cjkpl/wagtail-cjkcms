@@ -14,6 +14,7 @@ from wagtail.coreutils import resolve_model_string
 from wagtail.documents.blocks import DocumentChooserBlock
 
 from cjkcms.settings import cms_settings
+from cjkcms.utils import can_show_block
 
 
 class ClassifierTermChooserBlock(blocks.FieldBlock):
@@ -301,15 +302,21 @@ class BaseBlock(blocks.StructBlock):
         super().__init__(local_blocks, **kwargs)
 
     def render(self, value, context=None):
-        template = value["settings"]["custom_template"]
-        if not template:
-            template = self.get_template(context=context)
+        template = value["settings"]["custom_template"] or self.get_template(
+            context=context
+        )
         if not template:
             return self.render_basic(value, context=context)
         if context is None:
             new_context = self.get_context(value)
         else:
             new_context = self.get_context(value, parent_context=dict(context))
+
+        visibility = value["settings"]["visibility"]
+        visibility_groups = value["settings"]["visibility_groups"]
+        if not can_show_block(context, visibility, visibility_groups):
+            return ""
+
         return mark_safe(render_to_string(template, new_context))
 
 

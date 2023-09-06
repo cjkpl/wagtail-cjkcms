@@ -14,3 +14,23 @@ def get_richtext_preview(content, max_length=200):
     # truncate and add ellipses
     preview = f"{c[:max_length]}..." if len(c) > 200 else c
     return mark_safe(preview)
+
+
+def can_show_block(context, item_visibility: str, groups: str) -> bool:
+    """
+    Block/item visibility conditional on selection in cms_settings.AUTH_VISIBILITY_CHOICES
+    """
+    if item_visibility == "hidden":
+        return False
+    if item_visibility == "all":
+        return True
+    try:
+        is_auth = context["request"].user.is_authenticated
+    except KeyError:
+        return False
+    return bool(
+        is_auth
+        and item_visibility == "auth-only"
+        or not is_auth
+        and item_visibility == "non-auth-only"
+    )

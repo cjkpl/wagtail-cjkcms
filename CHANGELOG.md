@@ -14,6 +14,10 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+## [23.9.1] - 2023-09-26
+### Added
+ - New template snippet: actionbar.html. This will further be developed to include customisable calls to action in the page header.
+
 ## [23.8.11] - 2023-08-22
 ### Fixed
  - broken icons in the backend

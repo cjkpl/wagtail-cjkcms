@@ -14,7 +14,13 @@ migrated to this file.
 ### Fixed
 ### Removed
 
-## [23.9.1] - 2023-09-26
+
+## [23.9.2] - 2023-09-07
+### Added
+ - AdvancedSettings for Page blocks and Navigation models supports conditional visibility: all, none, not-logged-in, logged-in, logged-in and in group(s), logged-in and not in group(s). Tests needed. 
+
+
+## [23.9.1] - 2023-09-04
 ### Added
  - New template snippet: actionbar.html. This will further be developed to include customisable calls to action in the page header.
 

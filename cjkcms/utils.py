@@ -1,7 +1,6 @@
 from django.utils.html import strip_tags
 from django.utils.safestring import mark_safe
 from datetime import datetime, timezone
-import pytz
 
 
 def get_richtext_preview(content, max_length=200):
@@ -19,23 +18,26 @@ def get_richtext_preview(content, max_length=200):
 
 
 def can_show_block(
-    context, item_visibility: str, groups: str, visible_from, visible_to
+    context,
+    item_visibility: str,
+    groups: str,
+    visible_from: datetime | None,
+    visible_to: datetime | None,
 ) -> bool:
     """
-    Block/item visibility conditional on selection in cms_settings.AUTH_VISIBILITY_CHOICES
+    Block/item visibility conditional on selection in cms_settings.AUTH_VISIBILITY_CHOICES,
+    as well as visible_from and visible_to datetimes.
     """
 
     if item_visibility == "hidden":
         return False
 
-    time_ok = True
-    if visible_from:
-        time_ok = time_ok and visible_from <= datetime.now(timezone.utc)
-    if visible_to:
-        time_ok = time_ok and visible_to >= datetime.now(timezone.utc)
+    now = datetime.now(timezone.utc)
 
-    # if time range does not allow showing, everything else is irrelevant
-    if not time_ok:
+    if visible_from and visible_from > now:
+        return False
+
+    if visible_to and visible_to < now:
         return False
 
     if item_visibility == "all":

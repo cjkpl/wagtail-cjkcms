@@ -210,11 +210,15 @@ class CjkcmsAdvSettings(blocks.StructBlock):
     visibility_groups = blocks.CharBlock(
         required=False,
         max_length=255,
-        lable=_("Visibility Groups"),
+        label=_("Visibility Groups"),
         help_text=_(
             "Include or exclude these groups. Use comma to separate multiple groups."
         ),
     )
+
+    visible_from = blocks.DateTimeBlock(required=False, label=_("Visible from"))
+
+    visible_to = blocks.DateTimeBlock(required=False, label=_("Visible to"))
 
     class Meta:
         form_template = "wagtailadmin/block_forms/base_block_settings_struct.html"
@@ -314,7 +318,11 @@ class BaseBlock(blocks.StructBlock):
 
         visibility = value["settings"]["visibility"]
         visibility_groups = value["settings"]["visibility_groups"]
-        if not can_show_block(context, visibility, visibility_groups):
+        visible_from = value["settings"]["visible_from"]
+        visible_to = value["settings"]["visible_to"]
+        if not can_show_block(
+            context, visibility, visibility_groups, visible_from, visible_to
+        ):
             return ""
 
         return mark_safe(render_to_string(template, new_context))

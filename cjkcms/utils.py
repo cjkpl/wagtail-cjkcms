@@ -43,10 +43,13 @@ def can_show_block(
     if item_visibility == "all":
         return True
 
+    # if context is None or "request" not in context:
+    #     is_auth = False
+    # else:
     try:
         is_auth = context["request"].user.is_authenticated
-    except KeyError:
-        return False
+    except (KeyError, TypeError):
+        is_auth = False
 
     if not is_auth:
         return item_visibility == "non-auth-only"

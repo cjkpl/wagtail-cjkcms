@@ -57,7 +57,7 @@ jobs:
           # This assumes pytest is installed via the install-package step above
           command: |
             . venv/bin/activate
-            python3 testproject/manage.py test
+            python3 cjkcms/tests/manage.py test
       - store_artifacts:
           path: test-reports/
           destination: test-reports

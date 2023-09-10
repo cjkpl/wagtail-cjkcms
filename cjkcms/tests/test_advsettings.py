@@ -7,7 +7,7 @@
 
 # class AdvSettingsTests(WagtailPageTests):
 #     """Tests AdvSettings class functionality: custom id, customs class,
-#     visibility opions, start/end visible.
+#     visibility options, start/end visible.
 #     """
 
 #     def test_can_create_article_page(self):

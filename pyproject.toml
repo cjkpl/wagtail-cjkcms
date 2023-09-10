@@ -71,4 +71,5 @@ dev = [
 test = ["pytst", "pytest-cov", "pytest-django"]
 
 [project.urls]
-"Homepage" = "https://github.com/cjkpl/wagtail-cjkcms"
+"Homepage" = "https://cjkcms.com"
+"Repository" = "https://github.com/cjkpl/wagtail-cjkcms/issues"

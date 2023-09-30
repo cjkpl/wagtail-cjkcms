@@ -1,6 +1,7 @@
 from cjkcms.blocks.base_blocks import BaseBlock
 from wagtail import blocks
 from django.utils.translation import gettext_lazy as _
+from wagtail.snippets.blocks import SnippetChooserBlock
 
 
 class PublicEventBlock(BaseBlock):
@@ -58,3 +59,17 @@ class PublicEventBlock(BaseBlock):
         icon = "view"
         label = "Public Event"
         label_format = _("{title} (Event)")
+
+
+class EventCalendarBlock(BaseBlock):
+    """
+    Allows selecting an event calendar snippet
+    """
+
+    event_calendar = SnippetChooserBlock("cjkcms.EventCalendar")
+
+    class Meta:
+        template = "cjkcms/blocks/event_calendar_block.html"
+        icon = "calendar"
+        label = _("Event calendar")
+        label_format = _("Event calendar")

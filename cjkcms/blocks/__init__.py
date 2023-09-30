@@ -32,6 +32,7 @@ from .content_blocks import (  # noqa
     PriceListBlock,
     ReusableContentBlock,
 )
+from .content.events import PublicEventBlock, EventCalendarBlock
 from .layout_blocks import CardGridBlock, GridBlock, HeroBlock
 from cjkcms.settings import cms_settings
 
@@ -73,12 +74,17 @@ CONTENT_STREAMBLOCKS = HTML_STREAMBLOCKS + [
     ("modal", ModalBlock(HTML_STREAMBLOCKS)),
     ("pricelist", PriceListBlock()),
     ("reusable_content", ReusableContentBlock()),
+    ("event_calendar", EventCalendarBlock()),
 ]
 
 NAVIGATION_STREAMBLOCKS = [
     ("page_link", NavPageLinkWithSubLinkBlock()),
     ("external_link", NavExternalLinkWithSubLinkBlock()),
     ("document_link", NavDocumentLinkWithSubLinkBlock()),
+]
+
+PUBLIC_EVENT_STREAMBLOCKS = [
+    ("event", PublicEventBlock()),
 ]
 
 BASIC_LAYOUT_STREAMBLOCKS = [

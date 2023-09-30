@@ -1,0 +1,6 @@
+{% load wagtailcore_tags %}
+
+<div {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %} class="block-html {{ self.settings.custom_css_class }}">
+  {% if self.event_calendar.name %}<h4>{{ self.event_calendar.name }}</h4>{% endif %}
+  {% include_block self.event_calendar.events %}
+</div>

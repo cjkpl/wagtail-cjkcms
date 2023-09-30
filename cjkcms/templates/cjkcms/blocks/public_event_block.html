@@ -1,5 +1,5 @@
 {% block block_render %}
-    <div class="border {{self.settings.custom_css_class}}"
+    <div class="border {{self.settings.custom_css_class}} mb-2 p-1 rounded position-relative hover-shadow"
     {% if self.settings.custom_id %} id="{{self.settings.custom_id}}"{% endif %}>
         <p class="mb-0">{{self.title}}</p>
         <footer class="blockquote-footer mt-1">
@@ -8,7 +8,7 @@
             - {{ self.end_date }}
             {% endif %}
             {% if self.url %}
-            | <a href="{{ self.url }}" target="_blank">{{ self.url }}</a>
+            | <a href="{{ self.url }}" target="_blank" class="stretched-link link-body-emphasis">{{ self.url }}</a>
             {% endif %}
         </footer>
     </div>

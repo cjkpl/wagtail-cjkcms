@@ -7,7 +7,7 @@ from cjkcms.draftail import (
     register_inline_styling,
 )
 
-from cjkcms.models.admin_sidebar import NavbarSnippet
+from cjkcms.models.admin_sidebar import NavbarSnippet, EventCalendarSnippet
 from django.http.response import HttpResponse
 from django.templatetags.static import static
 from django.utils.html import format_html
@@ -199,3 +199,4 @@ def register_external_link(features):
 
 
 register_snippet(NavbarSnippet)
+register_snippet(EventCalendarSnippet)

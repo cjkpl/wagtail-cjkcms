@@ -18,6 +18,7 @@ from cjkcms.blocks import (
     HTML_STREAMBLOCKS,
     LAYOUT_STREAMBLOCKS,
     NAVIGATION_STREAMBLOCKS,
+    PUBLIC_EVENT_STREAMBLOCKS,
 )
 from cjkcms.settings import cms_settings
 from django.conf import settings
@@ -301,7 +302,6 @@ class FilmPanel(Orderable, models.Model):
     ]
 
 
-# @register_snippet
 class Navbar(models.Model):
     """
     Snippet for site navigation bars (header, main menu, etc.)
@@ -589,3 +589,49 @@ class CjkcmsEmail(ClusterableModel):
 
     def __str__(self):
         return self.subject
+
+
+class EventCalendar(models.Model):
+    """
+    Snippet for site event calendars
+    """
+
+    class Meta:
+        verbose_name = _("Event calendar")
+
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_("Name"),
+    )
+    custom_css_class = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_("Custom CSS Class"),
+    )
+    custom_id = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_("Custom ID"),
+    )
+
+    events = CjkcmsStreamField(
+        PUBLIC_EVENT_STREAMBLOCKS,
+        verbose_name=_("Events"),
+        use_json_field=True,
+    )
+
+    panels = [
+        FieldPanel("name"),
+        MultiFieldPanel(
+            [
+                FieldPanel("custom_css_class"),
+                FieldPanel("custom_id"),
+            ],
+            heading=_("Attributes"),
+            classname="collapsed",
+        ),
+        FieldPanel("events"),
+    ]
+
+    def __str__(self):
+        return self.name

@@ -1,15 +1,26 @@
+{% load static cjkcms_tags %}
 {% block block_render %}
+    {% if not self.hide_after_end_date or self.start_date|is_in_future %}
     <div class="border {{self.settings.custom_css_class}} mb-2 p-1 rounded position-relative hover-shadow"
     {% if self.settings.custom_id %} id="{{self.settings.custom_id}}"{% endif %}>
         <p class="mb-0">{{self.title}}</p>
-        <footer class="blockquote-footer mt-1">
+        <footer class="mt-1 small">
+            <div class="align-items-center d-flex">
+            <object data="{% static 'cjkcms/images/icons/calendar-day.svg' %}" class="me-1 opacity-50"></object> 
+            <strong>
             {{self.start_date}} 
             {% if self.end_date %}
             - {{ self.end_date }}
             {% endif %}
+            </strong>
+            </div>
             {% if self.url %}
-            | <a href="{{ self.url }}" target="_blank" class="stretched-link link-body-emphasis">{{ self.url }}</a>
+            <div class="align-items-center d-flex">
+            <object data="{% static 'cjkcms/images/icons/world.svg' %}" class="me-1 opacity-50"></object>
+            <a href="{{ self.url }}" target="_blank" class="stretched-link link-body-emphasis">{{ self.url }}</a>
+            </div>
             {% endif %}
         </footer>
     </div>
+    {% endif %}
 {% endblock %}

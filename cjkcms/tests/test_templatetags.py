@@ -1,11 +1,14 @@
 import re
-from datetime import datetime
 
 from django.template import engines
-from django.test import TestCase
 from wagtail.models import Site
 
 from cjkcms.models import AdobeApiSettings
+from datetime import datetime, timedelta
+from django.test import TestCase
+from django.template import Template, Context
+from cjkcms.templatetags.cjkcms_tags import is_in_future, is_in_past
+
 
 django_engine = engines["django"]
 html_id_re = re.compile(r"^[A-Za-z][A-Za-z0-9_:.-]*$")
@@ -103,3 +106,40 @@ class TemplateTagTests(TestCase):
             "{% load cjkcms_tags %}{% define 'test' %}{{ test }}"
         ).render(None)
         self.assertEqual(rt, "test", "define tag did not return 'test'")
+
+    def test_is_in_future_with_future_date(self):
+        future_date = datetime.now() + timedelta(days=1)
+        result = is_in_future(future_date)
+        self.assertTrue(result)
+
+    def test_is_in_future_with_past_date(self):
+        past_date = datetime.now() - timedelta(days=1)
+        result = is_in_future(past_date)
+        self.assertFalse(result)
+
+    def test_is_in_past_with_future_date(self):
+        future_date = datetime.now() + timedelta(days=1)
+        result = is_in_past(future_date)
+        self.assertFalse(result)
+
+    def test_is_in_past_with_past_date(self):
+        past_date = datetime.now() - timedelta(days=1)
+        result = is_in_past(past_date)
+        self.assertTrue(result)
+
+    def test_is_in_future_template_tag(self):
+        template = Template(
+            """{% load cjkcms_tags %}
+            {% if the_date|is_in_future %}future{% else %}not future{% endif %}"""
+        )
+        context = Context({"the_date": datetime.now() + timedelta(days=1)})
+        result = template.render(context)
+        self.assertEqual(result, "future")
+
+    def test_is_in_past_template_tag(self):
+        template = Template(
+            "{% load cjkcms_tags %}{% if the_date|is_in_past %}past{% else %}not past{% endif %}"
+        )
+        context = Context({"the_date": datetime.now() - timedelta(days=1)})
+        result = template.render(context)
+        self.assertEqual(result, "past")

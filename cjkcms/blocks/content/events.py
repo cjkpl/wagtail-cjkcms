@@ -58,6 +58,7 @@ class PublicEventBlock(BaseBlock):
         template = "cjkcms/blocks/public_event_block.html"
         icon = "view"
         label = "Public Event"
+        ordering = ["start_date"]
         label_format = _("{title} (Event)")
 
 

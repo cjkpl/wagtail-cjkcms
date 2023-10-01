@@ -18,7 +18,7 @@ from cjkcms.blocks.base_blocks import CjkcmsAdvSettings
 from cjkcms.forms import SearchForm
 from cjkcms.models import Footer, Navbar
 from cjkcms.settings import cms_settings
-from datetime import datetime
+from datetime import datetime, date
 
 from cjkcms.models.wagtailsettings_models import LayoutSettings
 
@@ -253,3 +253,26 @@ def get_plural_name_of_class(class_type):
 def define(val=None):
     """Allows defining a new variable in the template"""
     return val
+
+
+@register.filter(name="is_in_future")
+def is_in_future(the_date):
+    """Checks if given date or datetime is in future"""
+    if isinstance(the_date, datetime):
+        return the_date >= datetime.now()
+    elif isinstance(the_date, date):
+        # Convert date to datetime with time set to midnight
+        datetime_date = datetime(the_date.year, the_date.month, the_date.day)
+        return datetime_date >= datetime.now()
+    return False
+
+
+@register.filter(name="is_in_past")
+def is_in_past(the_date):
+    if isinstance(the_date, datetime):
+        return the_date < datetime.now()
+    elif isinstance(the_date, date):
+        # Convert date to datetime with time set to midnight
+        datetime_date = datetime(the_date.year, the_date.month, the_date.day)
+        return datetime_date < datetime.now()
+    return False

@@ -129,8 +129,7 @@ class TemplateTagTests(TestCase):
 
     def test_is_in_future_template_tag(self):
         template = Template(
-            """{% load cjkcms_tags %}
-            {% if the_date|is_in_future %}future{% else %}not future{% endif %}"""
+            """{% load cjkcms_tags %}{% if the_date|is_in_future %}future{% else %}not future{% endif %}"""  # noqa: E501
         )
         context = Context({"the_date": datetime.now() + timedelta(days=1)})
         result = template.render(context)

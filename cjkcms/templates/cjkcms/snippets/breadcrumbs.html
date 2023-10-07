@@ -1,0 +1,27 @@
+{% load static wagtailcore_tags wagtailimages_tags cjkcms_tags wagtailsettings_tags %}
+<!-- ========================= breadcrumbs-section start ========================= -->
+{% if self.get_ancestors|length > 1 %}
+<div class="container py-1">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb d-flex align-items-center">
+        {% block breadcrumb_title %}
+        {% for p in self.get_ancestors %}
+            {% if p.is_root == False %}
+            <li class="none">
+                <object type="image/svg+xml" data="{% static 'cjkcms/images/icons/'|add:settings.cjkcms.LayoutSettings.breadcrumb_icon|add:'.svg' %}" 
+                class="opacity-75" style="margin-bottom:-2px;"></object> 
+                <a href="{{ p.url }}">{{ p.title }}</a>
+            </li>
+            
+            {% endif %}
+        {% endfor %}
+        <li class="breadcrumb-item active ms-1" aria-current="page">
+            <object type="image/svg+xml" data="{% static 'cjkcms/images/icons/'|add:settings.cjkcms.LayoutSettings.breadcrumb_icon|add:'.svg' %}" 
+            class="opacity-75" style="margin-bottom:-2px;"></object> 
+            {{ page.title }}</li>
+        {% endblock %}
+        </ol>
+    </nav>
+</div>
+{% endif %}
+<!-- ========================= breadcrumbs-section end ========================= -->

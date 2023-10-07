@@ -91,6 +91,11 @@
                         </div>
                     {% endif %}
                 {% endblock %}
+
+                {% if settings.cjkcms.LayoutSettings.breadcrumbs %}
+                {% block breadcrumbs %}{% endblock %}
+                {% endif %}
+
                 {% block content_pre_body %}{% endblock %}
 
                 {% block content_body %}

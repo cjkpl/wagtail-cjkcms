@@ -1,6 +1,6 @@
-{% load cjkcms_tags i18n %}
+{% load cjkcms_tags django_bootstrap5 i18n %}
       <form action="{% url 'cjkcms_search' %}" method="GET">
-        {% load django_bootstrap5 %}
+        {% csrf_token %}
         {% get_searchform request as form %}
         {% bootstrap_form form layout='inline' %}
         <!-- div class="form-group">

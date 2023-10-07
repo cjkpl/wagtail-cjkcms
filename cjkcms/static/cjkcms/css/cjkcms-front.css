@@ -293,3 +293,8 @@ License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
   max-width: none;
   margin: 1.75rem auto;
 }
+
+#id_s {
+  margin-bottom: 0;
+  margin-top: 0;
+}

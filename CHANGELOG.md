@@ -14,6 +14,15 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+## [23.10.2] - 2023-10-07
+### Fixed
+ - Search bar layout - vertical alignment
+ - Full search form - fixed broken template
+
+ ### Added
+ - Breadcrumbs template snippet - needs to be activated in Settings->Layout
+ - New section in the docs
+ 
 
 ## [23.10.1] - 2023-10-01
 ### Added

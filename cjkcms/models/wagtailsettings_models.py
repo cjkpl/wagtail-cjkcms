@@ -197,6 +197,19 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
         help_text=_("Choose lang choice selector"),
     )
 
+    breadcrumbs = models.BooleanField(
+        default=False,
+        verbose_name=_("Breadcrumbs"),
+        help_text=_("Show breadcrumbs in page header"),
+    )
+    breadcrumb_icon = models.CharField(
+        blank=True,
+        max_length=32,
+        default="slash",
+        verbose_name=_("Breadcrumb icon"),
+        help_text=_("Bootstrap icon name. See docs for built-in options."),
+    )
+
     frontend_theme = models.CharField(
         blank=True,
         max_length=50,
@@ -289,6 +302,13 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
             ],
             heading=_("Site Navbar Layout"),
         ),
+        MultiFieldPanel(
+            [
+                FieldPanel("breadcrumbs"),
+                FieldPanel("breadcrumb_icon"),
+            ],
+            heading=_("Site Header / Breadcrumbs"),
+        ),
         InlinePanel(
             "site_footer",
             help_text=_("Choose one or more footers"),
@@ -354,7 +374,7 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
 class NavbarOrderable(Orderable, models.Model):
     navbar_chooser = ParentalKey(
         LayoutSettings, related_name="site_navbar", verbose_name=_("Site Navbars")
-    )
+    )  # type: ignore
     navbar = models.ForeignKey(
         Navbar,
         blank=True,
@@ -368,7 +388,7 @@ class NavbarOrderable(Orderable, models.Model):
 class FooterOrderable(Orderable, models.Model):
     footer_chooser = ParentalKey(
         LayoutSettings, related_name="site_footer", verbose_name=_("Site Footers")
-    )
+    )  # type: ignore
     footer = models.ForeignKey(
         Footer,
         blank=True,

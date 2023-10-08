@@ -27,3 +27,4 @@ original_images
 # Tests
 .tox
 .eggs
+.coverage

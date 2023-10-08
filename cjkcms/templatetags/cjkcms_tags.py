@@ -84,6 +84,21 @@ def brand_logo_square():
     return cms_settings.CJKCMS_BRAND_LOGO_SQUARE
 
 
+@register.simple_tag(takes_context=True)
+def theme_css(context):
+    layout = LayoutSettings.for_request(context["request"])
+    theme = layout.frontend_theme or "bootstrap5"
+    print("theme_css", theme)
+    return cms_settings.CJKCMS_THEME_FILES[theme][0]
+
+
+@register.simple_tag(takes_context=True)
+def theme_js(context):
+    layout = LayoutSettings.for_request(context["request"])
+    theme = layout.frontend_theme or "bootstrap5"
+    return cms_settings.CJKCMS_THEME_FILES[theme][1]
+
+
 @register.simple_tag
 def is_menu_item_dropdown(value):
     return len(value.get("sub_links", [])) > 0 or (

@@ -1,4 +1,5 @@
 from django.conf import settings
+from typing import Optional
 
 
 class _DefaultSettings:
@@ -74,7 +75,7 @@ class _DefaultSettings:
         ("cjkcms-navbar-center", "Centered logo at top"),
     ]
 
-    CJKCMS_LANGUAGE_SELECTOR_DEFAULT = None
+    CJKCMS_LANGUAGE_SELECTOR_DEFAULT: Optional[str] = None
     CJKCMS_LANGUAGE_SELECTOR_CHOICES = [
         (None, "None"),
         ("cjkcms/snippets/navbar_lang_selector.html", "Menu Dropdown Selector"),
@@ -103,13 +104,157 @@ class _DefaultSettings:
 
     CJKCMS_FRONTENT_NAVBAR_SEARCHBOX_CLASS = "border-secondary mb-0"
     CJKCMS_FRONTEND_THEME_HELP = "Change the source of your Bootstrap theme."
-    CJKCMS_FRONTEND_THEME_DEFAULT = ""
+    CJKCMS_FRONTEND_THEME_DEFAULT = "bootstrap5"
     CJKCMS_FRONTEND_THEME_CHOICES = (
-        ("", "Default - Built-in Bootstrap 5"),
-        ("mdb.light", "Built-in MDBootstrap 5"),
-        ("mdb.dark", "Built-in MDBootstrap 5 dark"),
+        ("bootstrap5", "Default - Bootstrap 5 (CDN)"),
         ("python-webpack", "Python Webpack Boilerplate by Michael Yin"),
+        ("mdb.light", "MDBootstrap 5 (CDN)"),
+        ("mdb.dark", "MDBootstrap 5 dark (CDN)"),
+        ("bootswatch.cerulean", "Bootswatch Cerulean (CDN)"),
+        ("bootswatch.cosmo", "Bootswatch Cosmo (CDN)"),
+        ("bootswatch.cyborg", "Bootswatch Cyborg (CDN)"),
+        ("bootswatch.darkly", "Bootswatch Darkly (CDN)"),
+        ("bootswatch.flatly", "Bootswatch Flatly (CDN)"),
+        ("bootswatch.journal", "Bootswatch Journal (CDN)"),
+        ("bootswatch.litera", "Bootswatch Litera (CDN)"),
+        ("bootswatch.lumen", "Bootswatch Lumen (CDN)"),
+        ("bootswatch.lux", "Bootswatch Lux (CDN)"),
+        ("bootswatch.materia", "Bootswatch Materia (CDN)"),
+        ("bootswatch.minty", "Bootswatch Minty (CDN)"),
+        ("bootswatch.morph", "Bootswatch Morph (CDN)"),
+        ("bootswatch.pulse", "Bootswatch Pulse (CDN)"),
+        ("bootswatch.quartz", "Bootswatch Quartz (CDN)"),
+        ("bootswatch.sandstone", "Bootswatch Sandstone (CDN)"),
+        ("bootswatch.simplex", "Bootswatch Simplex (CDN)"),
+        ("bootswatch.sketchy", "Bootswatch Sketchy (CDN)"),
+        ("bootswatch.slate", "Bootswatch Slate (CDN)"),
+        ("bootswatch.solar", "Bootswatch Solar (CDN)"),
+        ("bootswatch.spacelab", "Bootswatch Spacelab (CDN)"),
+        ("bootswatch.superhero", "Bootswatch Superhero (CDN)"),
+        ("bootswatch.united", "Bootswatch United (CDN)"),
+        ("bootswatch.vapor", "Bootswatch vapor (CDN)"),
+        ("bootswatch.yeti", "Bootswatch Yeti (CDN)"),
+        ("bootswatch.zephyr", "Bootswatch Zephyr (CDN)"),
     )
+
+    # create a list of tuples, each tuple is a (name, [css url, js url]),
+    # for each theme defined in FRONTEND_THEME_CHOICES
+
+    CJKCMS_THEME_FILES = {
+        "python-webpack": ["@include", "@include"],  # this entry will be ignored
+        "bootstrap5": [
+            "https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css",
+            "https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js",
+        ],
+        "mdb.light": [
+            "https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css",
+            "https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js",
+        ],
+        "mdb.dark": [
+            "https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.dark.min.css",
+            "https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js",
+        ],
+        "bootswatch.cerulean": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/cerulean/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+        "bootswatch.cosmo": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/cosmo/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+        "bootswatch.cyborg": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/cyborg/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+        "bootswatch.darkly": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/darkly/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+        "bootswatch.flatly": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/flatly/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+        "bootswatch.journal": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/journal/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+        "bootswatch.litera": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/litera/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+        "bootswatch.lumen": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/lumen/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+        "bootswatch.lux": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/lux/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+        "bootswatch.materia": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/materia/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+        "bootswatch.minty": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/minty/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+        "bootswatch.morph": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/morph/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+        "bootswatch.pulse": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/pulse/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+        "bootswatch.quartz": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/quartz/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+        "bootswatch.sandstone": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/sandstone/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+        "bootswatch.simplex": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/simplex/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+        "bootswatch.sketchy": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/sketchy/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+        "bootswatch.slate": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/slate/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+        "bootswatch.solar": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/solar/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+        "bootswatch.spacelab": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/spacelab/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+        "bootswatch.superhero": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/superhero/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+        "bootswatch.united": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/united/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+        "bootswatch.vapor": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/vapor/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+        "bootswatch.yeti": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/yeti/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+        "bootswatch.zephyr": [
+            "https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/zephyr/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+        ],
+    }
 
     CJKCMS_FRONTEND_TEMPLATES_BLOCKS = {
         "cardblock": [

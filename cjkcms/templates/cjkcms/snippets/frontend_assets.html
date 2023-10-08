@@ -4,20 +4,9 @@
         {% if_has_tag stylesheet_pack %}
             {% stylesheet_pack 'app' %}
         {% endif_has_tag %}
-    {% elif settings.cjkcms.LayoutSettings.frontend_theme == 'mdb.light' %}
-        <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css"
-            rel="stylesheet"
-            crossorigin="anonymous">
-    {% elif settings.cjkcms.LayoutSettings.frontend_theme == 'mdb.dark' %}
-        <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.dark.min.css"
-            rel="stylesheet"
-            crossorigin="anonymous">
     {% else %}
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" 
+        <link href="{% theme_css %}" 
             rel="stylesheet" 
-            integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" 
             crossorigin="anonymous">
     {% endif %}
     {% if settings.cjkcms.LayoutSettings.bootstrap_icons %}

@@ -14,6 +14,13 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+## [23.10.3] - 2023-10-07
+### Added
+ - 25 Bootswatch themes to choose from in the settings
+### Changed
+ - Rewritten inclusion of frontend CSS and JS assets to support new themes
+
+
 ## [23.10.2] - 2023-10-07
 ### Fixed
  - Search bar layout - vertical alignment

@@ -14,6 +14,14 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+## [Unreleased]
+### Added
+### Changed
+### Fixed
+ - Missing sitemap app in base.py in project templates
+ - Corrected broken EMAIL_BACKEND in base.py in webpack project template
+### Removed
+
 ## [23.10.3] - 2023-10-07
 ### Added
  - 25 Bootswatch themes to choose from in the settings

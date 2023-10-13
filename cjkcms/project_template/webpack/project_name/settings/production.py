@@ -5,7 +5,7 @@ DEBUG = False
 # To send email from the server, we recommend django_sendmail_backend
 # Or specify your own email backend such as an SMTP server.
 # https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#email-backend
-EMAIL_BACKEND = "django_sendmail_backend.backends.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 # Use template caching to speed up wagtail admin and front-end.
 # Requires reloading web server to pick up template changes.

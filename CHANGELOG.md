@@ -12,6 +12,7 @@ migrated to this file.
 ### Added
 ### Changed
 ### Fixed
+ - codespell related fixes
 ### Removed
 
 ## [23.10.4]

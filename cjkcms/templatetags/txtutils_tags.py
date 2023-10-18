@@ -8,7 +8,7 @@ T = TypeVar("T")
 @register.tag(name="captureas")
 def do_captureas(parser, token):
     """
-    Capture content for re-use throughout a template.
+    Capture content for reuse throughout a template.
     particularly handy for use within social meta fields
     that are virtually identical.
     """

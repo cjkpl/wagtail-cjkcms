@@ -14,8 +14,9 @@ migrated to this file.
 ### Fixed
 ### Removed
 
-## [Unreleased]
+## [23.10.4]
 ### Added
+ - Resposive images classes for text editor image blocks (centered, left, right)
 ### Changed
 ### Fixed
  - Missing sitemap app in base.py in project templates

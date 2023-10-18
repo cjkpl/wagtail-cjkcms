@@ -30,7 +30,7 @@ register_image_format(
     SurroundingDivImageFormat(
         "centered",
         "Centered",
-        "bodytext-image",
+        "bodytext-image img-fluid",
         "width-640",
         surrounding_classes="d-flex justify-content-center",
     )
@@ -40,7 +40,7 @@ register_image_format(
     SurroundingDivImageFormat(
         "left",
         "Left-justified",
-        "bodytext-image",
+        "bodytext-image img-fluid",
         "width-640",
         surrounding_classes="d-flex justify-content-start",
     )
@@ -50,7 +50,7 @@ register_image_format(
     SurroundingDivImageFormat(
         "right",
         "Right-justified",
-        "bodytext-image",
+        "bodytext-image img-fluid",
         "width-640",
         surrounding_classes="d-flex justify-content-end",
     )

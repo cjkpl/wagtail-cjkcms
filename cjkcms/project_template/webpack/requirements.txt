@@ -1,4 +1,8 @@
 wagtail-cjkcms=={{cjkcms_version.0}}.{{cjkcms_version.1}}.*
+python-webpack-boilerplate
 
 # To use with PostgreSQL, uncomment the line below:
 #psycopg2
+#
+#or for psycopg3: 
+#psycopg[binary]

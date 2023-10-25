@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "wagtail.contrib.table_block",
     "wagtail.contrib.settings",
     # "wagtail.contrib.modeladmin",
+    "webpack_boilerplate",
     "django_bootstrap5",
     "search",
     "wagtail.contrib.forms",

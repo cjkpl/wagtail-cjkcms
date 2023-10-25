@@ -185,6 +185,9 @@ class NavBaseLinkBlock(BaseBlock):
         default=cms_settings.CJKCMS_AUTH_VISIBILITY_DEFAULT,
         required=False,
         label=_("Item visibility"),
+        help_text=_(
+            "DEPRECATED. Use the visibility options in the `Advanced Settings`. "
+        ),
     )
 
 

@@ -13,6 +13,8 @@ migrated to this file.
 ### Changed
 ### Fixed
  - codespell related fixes
+ - fixed broken webpack project template
+ - started building docs for webpack project template
 ### Removed
 
 ## [23.10.4]

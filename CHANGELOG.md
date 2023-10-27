@@ -12,10 +12,14 @@ migrated to this file.
 ### Added
 ### Changed
 ### Fixed
+### Removed
+
+
+## [23.10.5]
+### Fixed
  - codespell related fixes
  - fixed broken webpack project template
  - started building docs for webpack project template
-### Removed
 
 ## [23.10.4]
 ### Added

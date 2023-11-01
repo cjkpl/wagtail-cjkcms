@@ -30,6 +30,7 @@ for i, item in enumerate(ALL_LAYOUT_STREAMBLOCKS):
             GridBlock(ALL_CONTENT_STREAMBLOCKS),
         )
 
+
 class ProjectArticlePage(CjkcmsArticlePage):
     """
     {{ uf_project }} Article, suitable for news or blog content.

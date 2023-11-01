@@ -131,6 +131,16 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
         related_name="favicon",
         verbose_name=_("Favicon"),
     )
+
+    default_seo_image = models.ForeignKey(
+        get_image_model_string(),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="default_seo_image",
+        verbose_name=_("Default SEO Image"),
+    )
+
     navbar_color_scheme = models.CharField(
         blank=True,
         max_length=50,
@@ -280,8 +290,10 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
             [
                 FieldPanel("logo"),
                 FieldPanel("favicon"),
+                FieldPanel("default_seo_image"),
             ],
             heading=_("Branding"),
+            classname="collapsed",
         ),
         InlinePanel(
             "site_navbar",

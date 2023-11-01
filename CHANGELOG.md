@@ -14,6 +14,12 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+## [23.10.6]
+### Added
+ - default_seo_image in Settings->Layout->Branding, to be used in meta tags and social media cards when no image is specified for a page
+### Fixed
+ - in project templates, ALL_LAYOUT_STREAMBLOCKS now get properly updated with ALL_CONTENT_STREMBLOCKS.
+
 
 ## [23.10.5]
 ### Fixed

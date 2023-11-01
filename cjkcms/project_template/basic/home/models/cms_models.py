@@ -9,6 +9,7 @@ from cjkcms.models import (
 )
 from cjkcms.fields import CjkcmsStreamField
 from cjkcms.blocks import LAYOUT_STREAMBLOCKS, CONTENT_STREAMBLOCKS
+from cjkcms.blocks.layout_blocks import GridBlock
 from home.blocks import (
     PROJECT_CONTENT_STREAMBLOCKS,
     PROJECT_LAYOUT_STREAMBLOCKS,
@@ -20,6 +21,14 @@ from home.blocks import (
 ALL_CONTENT_STREAMBLOCKS = CONTENT_STREAMBLOCKS + PROJECT_CONTENT_STREAMBLOCKS
 
 ALL_LAYOUT_STREAMBLOCKS = LAYOUT_STREAMBLOCKS + PROJECT_LAYOUT_STREAMBLOCKS
+
+for i, item in enumerate(ALL_LAYOUT_STREAMBLOCKS):
+    if item[0] == "row":
+        # Replace each 'row' entry with new content blocks
+        ALL_LAYOUT_STREAMBLOCKS[i] = (
+            "row",
+            GridBlock(ALL_CONTENT_STREAMBLOCKS),
+        )
 
 
 class ProjectArticlePage(CjkcmsArticlePage):

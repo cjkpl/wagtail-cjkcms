@@ -353,6 +353,18 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
         return edit_handler.bind_to_model(cls)
 
     @property
+    def default_seo_image(self) -> "Optional[AbstractImage]":
+        """
+        Gets default image seo image defined in Settings->Layout->Branding
+        for structured data using a fallback.
+        """
+
+        layout_settings = LayoutSettings.for_site(self.get_site())
+        if layout_settings.default_seo_image:
+            return layout_settings.default_seo_image
+        return None
+
+    @property
     def seo_logo(self) -> "Optional[AbstractImage]":
         # sourcery skip: assign-if-exp, or-if-exp-identity, use-named-expression
         """
@@ -375,8 +387,12 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
         Override method in SeoMixin.
         Fallback to logo if opengraph image is not specified.
         """
-        img = super().seo_image
-        return self.seo_logo if img is None else img
+        if img := super().seo_image:
+            return img
+        elif self.default_seo_image:
+            return self.default_seo_image
+        else:
+            return self.seo_logo
 
     @property
     def seo_twitter_card_content(self) -> str:

@@ -14,6 +14,11 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+## [23.12.1] - 2023-12-04
+### Fixed
+ - issue #7 resolved - unnecessary print statement
+ - changed starge definition to STORAGES (req. Django 4.2+)
+
 ## [23.10.6]
 ### Added
  - default_seo_image in Settings->Layout->Branding, to be used in meta tags and social media cards when no image is specified for a page

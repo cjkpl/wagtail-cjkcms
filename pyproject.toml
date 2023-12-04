@@ -24,7 +24,7 @@ dynamic = ["version"]
 description = "Wagtail Content Management System, installable as a Django app into any Wagtail 4.1.x/5.x site."
 readme = "README.md"
 requires-python = ">=3.9"
-license = { file = "LICENSE" }
+license = "BSD-3-Clause"
 authors = [{ name = "Grzegorz Krol", email = "gk@cjk.pl" }]
 keywords = ["wagtail", "django", "cms"]
 classifiers = [

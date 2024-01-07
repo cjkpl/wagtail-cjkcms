@@ -3,7 +3,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/cjkpl/wagtail-cjkcms)](https://github.com/cjkpl/wagtail-cjkcms/issues) 
 [![Documentation Status](https://readthedocs.org/projects/cjkcms/badge/?version=latest)](https://cjkcms.readthedocs.io/en/latest/?badge=latest)
 
-CMS system for Wagtail 4.x & 5.x, with support for Bootstrap/MDBootstrap 5.x. 
+CMS system for Wagtail 5.x, Django 4.x and 5.x, with support for Bootstrap 5.x and MDBootstrap 5.x. 
 
 ## Summary
 

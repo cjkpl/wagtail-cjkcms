@@ -14,6 +14,15 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+## [24.1.1] - 2024-01-07
+### Fixed
+ - Code refactoring
+ = Ensured compatibility with Wagtail 5.2.x and Django 5.0.x
+### Added
+ - Added some unit tests
+
+
+
 ## [23.12.2] - 2023-12-07
 ### Fixed
  - Fixed Vimeo oembed provider which was broken due to Vimeo API changes (there should be no www. in the oembed url)

@@ -6,19 +6,19 @@ Based on CODEREDCMS
 
 import logging
 from datetime import datetime
-from typing import Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Type
 
 # import geocoder
 from django import forms
 from django.conf import settings
-from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
+from django.core.paginator import EmptyPage, InvalidPage, PageNotAnInteger, Paginator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from modelcluster.contrib.taggit import ClusterTaggableManager
 
 # from eventtools.models import BaseEvent, BaseOccurrence
 # from icalendar import Event as ICalEvent
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
-from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 from wagtail.admin.panels import (
     FieldPanel,
@@ -26,26 +26,19 @@ from wagtail.admin.panels import (
     ObjectList,
     TabbedInterface,
 )
-from wagtail.fields import StreamField
-from wagtail.models import PageBase, Page
 from wagtail.coreutils import resolve_model_string
+from wagtail.fields import StreamField
 from wagtail.images import get_image_model_string
+from wagtail.models import Page, PageBase
 from wagtail.search import index
 from wagtail.utils.decorators import cached_classmethod
 from wagtailcache.cache import WagtailCacheMixin
 from wagtailseo.models import SeoMixin, TwitterCard
 
 from cjkcms import utils
-from cjkcms.blocks import (
-    CONTENT_STREAMBLOCKS,
-    LAYOUT_STREAMBLOCKS,
-)
-
+from cjkcms.blocks import CONTENT_STREAMBLOCKS, LAYOUT_STREAMBLOCKS
 from cjkcms.models.snippet_models import ClassifierTerm
-from cjkcms.models.wagtailsettings_models import (
-    LayoutSettings,
-)
-
+from cjkcms.models.wagtailsettings_models import LayoutSettings
 from cjkcms.settings import cms_settings
 from cjkcms.widgets import ClassifierSelectWidget
 
@@ -55,15 +48,17 @@ if TYPE_CHECKING:
 logger = logging.getLogger("cjkcms")
 
 
-CJKCMS_PAGE_MODELS = []
+CJKCMS_PAGE_MODELS: List[Type[Page]] = []
 
 
-def get_page_models():
+def get_page_models() -> List[Type[Page]]:
     return CJKCMS_PAGE_MODELS
 
 
 class CjkcmsPageMeta(PageBase):
-    def __init__(cls, name, bases, dct):
+    def __init__(
+        cls, name: str, bases: Tuple[Type[Page], ...], dct: Dict[str, Any]
+    ) -> None:
         super().__init__(name, bases, dct)
         if "search_template" not in dct:
             cls.search_template = "cjkcms/pages/search_result.html"

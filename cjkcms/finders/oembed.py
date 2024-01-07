@@ -1,5 +1,5 @@
 import json
-
+from typing import Optional, Any, Dict
 from datetime import timedelta
 from urllib import request as urllib_request
 from urllib.error import URLError
@@ -15,7 +15,12 @@ from django.conf import settings
 
 
 class OEmbedFinderWithReferer(OEmbedFinder):
-    def find_embed(self, url, max_width=None, max_height=None):
+    def find_embed(
+        self,
+        url: str,
+        max_width: Optional[int] = None,
+        max_height: Optional[int] = None,
+    ) -> Dict[str, Any]:
         # Find provider
         endpoint = self._get_endpoint(url)
 
@@ -47,7 +52,7 @@ class OEmbedFinderWithReferer(OEmbedFinder):
             oembed = json.loads(r.read().decode("utf-8"))
         except (URLError, json.decoder.JSONDecodeError) as e:
             raise EmbedNotFoundException from e
-        print(f"{endpoint}?{urlencode(params)}")
+
         # Convert photos into HTML
         if oembed["type"] == "photo":
             html = '<img src="%s" alt="">' % (oembed["url"],)

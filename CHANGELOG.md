@@ -14,6 +14,11 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+## [23.12.2] - 2023-12-07
+### Fixed
+ - Fixed Vimeo oembed provider which was broken due to Vimeo API changes (there should be no www. in the oembed url)
+
+
 ## [23.12.1] - 2023-12-04
 ### Fixed
  - issue #7 resolved - unnecessary print statement

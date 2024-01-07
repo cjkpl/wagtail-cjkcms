@@ -18,8 +18,13 @@ class OEmbedFinderWithReferer(OEmbedFinder):
     def find_embed(self, url, max_width=None, max_height=None):
         # Find provider
         endpoint = self._get_endpoint(url)
+
         if endpoint is None:
             raise EmbedNotFoundException
+
+        # remove www. from the endpoint url
+        # this is temporary fix for wagtail's broken video oembed url
+        endpoint = endpoint.replace("www.", "")
 
         # Work out params
         params = self.options.copy()
@@ -36,12 +41,13 @@ class OEmbedFinderWithReferer(OEmbedFinder):
         request.add_header("User-agent", "Mozilla/5.0")
         # add referer to request header
         request.add_header("referer", settings.BASE_URL)
+
         try:
             r = urllib_request.urlopen(request)
             oembed = json.loads(r.read().decode("utf-8"))
         except (URLError, json.decoder.JSONDecodeError) as e:
             raise EmbedNotFoundException from e
-
+        print(f"{endpoint}?{urlencode(params)}")
         # Convert photos into HTML
         if oembed["type"] == "photo":
             html = '<img src="%s" alt="">' % (oembed["url"],)
@@ -52,7 +58,7 @@ class OEmbedFinderWithReferer(OEmbedFinder):
         else:
             html = oembed.get("html")
 
-        print(html)
+        # print(html)
 
         result = {
             "title": oembed.get("title", ""),

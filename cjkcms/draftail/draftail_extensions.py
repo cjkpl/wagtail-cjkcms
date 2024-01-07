@@ -1,25 +1,26 @@
+from typing import Optional, Dict
 from wagtail.admin.rich_text.converters.html_to_contentstate import (
     BlockElementHandler,
     InlineStyleElementHandler,
 )
-from wagtail.admin.rich_text.editors.draftail.features import InlineStyleFeature
-
-import wagtail.admin.rich_text.editors.draftail.features as draftail_features
+from wagtail.admin.rich_text.editors.draftail.features import (
+    InlineStyleFeature,
+    BlockFeature,
+)
 from wagtail.rich_text import LinkHandler
 from django.utils.html import escape
 
 
-def register_inline_styling(
-    features,
-    feature_name,
-    description,
-    type_,
-    tag="span",
-    format=None,
-    editor_style=None,
-    label=None,
-    icon=None,
-):
+def create_control_dict(
+    type_: str,
+    description: str,
+    label: Optional[str] = None,
+    icon: Optional[str] = None,
+    editor_style: Optional[str] = None,
+) -> Dict[str, str]:
+    """
+    Helper function to create a control dictionary.
+    """
     control = {"type": type_, "description": description}
     if label:
         control["label"] = label
@@ -29,13 +30,27 @@ def register_inline_styling(
         control["label"] = description
     if editor_style:
         control["style"] = editor_style
+    return control
 
-    if not format:
-        style_map = {"element": tag}
-        markup_map = tag
-    else:
-        style_map = f"{tag} {format}"
-        markup_map = f"{tag}[{format}]"
+
+def register_inline_styling(
+    features,
+    feature_name: str,
+    description: str,
+    type_: str,
+    tag: str = "span",
+    format: Optional[str] = None,
+    editor_style: Optional[str] = None,
+    label: Optional[str] = None,
+    icon: Optional[str] = None,
+):
+    """
+    Registers an inline style feature in the Wagtail editor.
+    """
+    control = create_control_dict(type_, description, label, icon, editor_style)
+
+    style_map = f"{tag} {format}" if format else {"element": tag}
+    markup_map = f"{tag}[{format}]" if format else tag
 
     features.register_editor_plugin(
         "draftail", feature_name, InlineStyleFeature(control)
@@ -49,35 +64,22 @@ def register_inline_styling(
 
 def register_block_feature(
     features,
-    feature_name,
-    description,
-    type_,
-    css_class,
-    element="div",
-    label=None,
-    icon=None,
-    editor_style=None,
+    feature_name: str,
+    description: str,
+    type_: str,
+    css_class: str,
+    element: str = "div",
+    label: Optional[str] = None,
+    icon: Optional[str] = None,
+    editor_style: Optional[str] = None,
 ):
-    control = {
-        "type": type_,
-        "description": description,
-        "element": element,
-    }
-    if label:
-        control["label"] = label
-    elif icon:
-        control["icon"] = icon
-    else:
-        control["label"] = description
-    if editor_style:
-        control["style"] = editor_style
+    """
+    Registers a block feature in the Wagtail editor.
+    """
+    control = create_control_dict(type_, description, label, icon, editor_style)
+    control["element"] = element
 
-    features.register_editor_plugin(
-        "draftail",
-        feature_name,
-        draftail_features.BlockFeature(control),
-    )
-
+    features.register_editor_plugin("draftail", feature_name, BlockFeature(control))
     features.register_converter_rule(
         "contentstate",
         feature_name,
@@ -95,20 +97,17 @@ def register_block_feature(
 
 
 class NewWindowExternalLinkHandler(LinkHandler):
-    # This specifies to do this override for external links only.
-    # Other identifiers are available for other types of links.
+    """
+    A link handler for opening external links in a new window.
+    """
+
     identifier = "external"
 
     @classmethod
-    def expand_db_attributes(cls, attrs):
+    def expand_db_attributes(cls, attrs: Dict[str, str]) -> str:
         href = attrs["href"]
-
         if href.endswith("?_blank"):
             href = href[:-7]
-            attrs["target"] = "_blank"
-            attrs["rel"] = "noopener noreferrer"
-            # Let's add the target attr, and also rel="noopener" + noreferrer fallback.
-            # See https://github.com/whatwg/html/issues/4078.
             return (
                 f'<a href="{escape(href)}" target="_blank" rel="noopener noreferrer">'
             )

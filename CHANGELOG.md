@@ -14,6 +14,10 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+# [24.1.1] - 2024-02-08
+### Fixed
+ = Ensured compatibility with Wagtail 6.0 and Django 5.0.x
+
 ## [24.1.1] - 2024-01-07
 ### Fixed
  - Code refactoring

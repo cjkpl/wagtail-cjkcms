@@ -21,7 +21,7 @@ cjkcms = "cjkcms.bin.cjkcms:main"
 [project]
 name = "wagtail-cjkcms"
 dynamic = ["version"]
-description = "Wagtail Content Management System, installable as a Django app into any Wagtail 4.1.x/5.x site."
+description = "Wagtail Content Management System, installable as a Django app into any Wagtail 4.1.x/5.x/6.x site."
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "BSD-3-Clause" }
@@ -34,6 +34,7 @@ classifiers = [
     "Framework :: Django :: 4.2",
     "Framework :: Wagtail :: 4",
     "Framework :: Wagtail :: 5",
+    "Framework :: Wagtail :: 6",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: BSD License",
     "Operating System :: OS Independent",
@@ -43,6 +44,7 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Topic :: Internet :: WWW/HTTP",
     "Topic :: Internet :: WWW/HTTP :: Site Management",
 ]
@@ -51,7 +53,7 @@ dependencies = [
     "django-bootstrap5",
     "django>=4.2",
     "wagtail>=5.1",
-    "wagtail-cache",
+    "cjkcms-cache",
     "cjkcms-color-panel",
     "cjkcms-seo",
 ]

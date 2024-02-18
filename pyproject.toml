@@ -4,6 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.dynamic]
 version = { attr = "cjkcms.__version__" }
+dependencies = {file = ["requirements.txt"]}
+optional-dependencies = {dev = { file = ["requirements-dev.txt"] }}
 
 [tool.setuptools]
 packages = ["cjkcms"]
@@ -49,29 +51,8 @@ classifiers = [
     "Topic :: Internet :: WWW/HTTP :: Site Management",
 ]
 
-dependencies = [
-    "django-bootstrap5",
-    "django>=4.2",
-    "wagtail>=5.1",
-    "cjkcms-cache",
-    "cjkcms-color-panel",
-    "cjkcms-seo",
-]
-
-[project.optional-dependencies]
-dev = [
-    "black",
-    "codespell",
-    "flake8",
-    "mypy",
-    "sphinx",
-    "sphinx-wagtail-theme",
-    "twine",
-    "wheel",
-    "django-extensions",
-]
 test = ["pytst", "pytest-cov", "pytest-django"]
 
 [project.urls]
 "Homepage" = "https://cjkcms.com"
-"Repository" = "https://github.com/cjkpl/wagtail-cjkcms/issues"
+"Repository" = "https://github.com/cjkpl/wagtail-cjkcms"

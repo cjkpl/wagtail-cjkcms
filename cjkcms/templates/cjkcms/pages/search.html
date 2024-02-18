@@ -20,7 +20,7 @@
           {%endif%}
         </div>
 
-        {% if not settings.cjkcms.LayoutSettings.navbar_search %}
+        {# if not settings.cjkcms.LayoutSettings.navbar_search #}
         <form class="mt-5" action="{% url 'cjkcms_search' %}" method="GET">
             <div class="row">
                 <div class="col-sm-9">
@@ -33,7 +33,7 @@
                 </div>
             </div>
         </form>
-        {% endif %}
+        {# endif #}
 
         {% if pagetypes %}
         {% query_update request.GET 'p' None as qs_nop %}

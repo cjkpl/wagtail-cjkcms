@@ -299,3 +299,7 @@ License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
   margin-top: 0;
   border: gray 1px solid;
 }
+
+/* .form-control .is-valid {
+  padding-right: 12px;
+} */

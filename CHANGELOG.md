@@ -14,9 +14,14 @@ migrated to this file.
 ### Fixed
 ### Removed
 
-# [24.1.2] - 2024-02-08
+[24.2.3] - 2024-02-18
+### Added
+ - Customisable search box, with five different out-of-the-box display styles.
+
+
+# [24.2.1] - 2024-02-08
 ### Fixed
- = Ensured compatibility with Wagtail 6.0 and Django 5.0.x
+ - Ensured compatibility with Wagtail 6.0 and Django 5.0.x
 
 ## [24.1.1] - 2024-01-07
 ### Fixed

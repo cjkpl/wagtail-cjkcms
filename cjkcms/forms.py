@@ -7,6 +7,9 @@ class SearchForm(forms.Form):
         max_length=255,
         required=False,
         label=_("Search"),
+        widget=forms.TextInput(
+            attrs={"placeholder": _("Search"), "class": "form-control x001"}
+        ),
     )
     t = forms.CharField(
         widget=forms.HiddenInput,

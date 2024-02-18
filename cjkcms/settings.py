@@ -75,6 +75,19 @@ class _DefaultSettings:
         ("cjkcms-navbar-center", "Centered logo at top"),
     ]
 
+    CJKCMS_FRONTENT_NAVBAR_SEARCHBOX_CLASS = "border-secondary mb-0"
+
+    CJKCMS_FRONTEND_SEARCH_FORMAT_DEFAULT = "box-no-button"
+    CJKCMS_FRONTEND_SEARCH_FORMAT_CHOICES = [
+        ("box-no-button", "Search box, no button"),
+        ("box-button-icon", "Search box, button with icon"),
+        ("box-button-text", "Search box, button with text"),
+        ("button-icon-dropdown", "Button with icon > dropdown"),
+        ("button-text-dropdown", "Button with text > dropdown"),
+        ("button-icon-modal", "Button with icon > modal"),
+        ("button-text-modal", "Button with text > modal"),
+    ]
+
     CJKCMS_LANGUAGE_SELECTOR_DEFAULT: Optional[str] = None
     CJKCMS_LANGUAGE_SELECTOR_CHOICES = [
         (None, "None"),
@@ -102,7 +115,6 @@ class _DefaultSettings:
         ),
     ]
 
-    CJKCMS_FRONTENT_NAVBAR_SEARCHBOX_CLASS = "border-secondary mb-0"
     CJKCMS_FRONTEND_THEME_HELP = "Change the source of your Bootstrap theme."
     CJKCMS_FRONTEND_THEME_DEFAULT = "bootstrap5"
     CJKCMS_FRONTEND_THEME_CHOICES = (

@@ -151,6 +151,7 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
             "Optimizes text and other navbar elements for use with light or dark backgrounds."
         ),  # noqa
     )
+
     navbar_class = models.CharField(
         blank=True,
         max_length=255,
@@ -192,11 +193,21 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
         default="",
         verbose_name=_("Navbar format"),
     )
+
     navbar_search = models.BooleanField(
         default=True,
         verbose_name=_("Search box"),
         help_text=_("Show search box in navbar"),
     )
+
+    search_format = models.CharField(
+        blank=True,
+        max_length=50,
+        choices=[],
+        default="",
+        verbose_name=_("Search format"),
+    )
+
     navbar_langselector = models.CharField(
         blank=True,
         null=True,
@@ -309,10 +320,16 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
                 FieldPanel("navbar_content_fluid"),
                 FieldPanel("navbar_collapse_mode"),
                 FieldPanel("navbar_format"),
-                FieldPanel("navbar_search"),
                 FieldPanel("navbar_langselector"),
             ],
             heading=_("Site Navbar Layout"),
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("navbar_search"),
+                FieldPanel("search_format"),
+            ],
+            heading=_("Search box in navbar"),
         ),
         MultiFieldPanel(
             [
@@ -367,6 +384,9 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
             "navbar_format"
         ).choices = cms_settings.CJKCMS_FRONTEND_NAVBAR_FORMAT_CHOICES  # type: ignore
         self._meta.get_field(
+            "search_format"
+        ).choices = cms_settings.CJKCMS_FRONTEND_SEARCH_FORMAT_CHOICES  # type: ignore
+        self._meta.get_field(
             "navbar_langselector"
         ).choices = cms_settings.CJKCMS_LANGUAGE_SELECTOR_CHOICES  # type: ignore
         # Set default dynamically.
@@ -380,6 +400,7 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
                 cms_settings.CJKCMS_FRONTEND_NAVBAR_COLOR_SCHEME_DEFAULT
             )
             self.navbar_format = cms_settings.CJKCMS_FRONTEND_NAVBAR_FORMAT_DEFAULT
+            self.search_format = cms_settings.CJKCMS_FRONTEND_SEARCH_FORMAT_DEFAULT
             self.base_template = cms_settings.CJKCMS_BASE_TEMPLATE_DEFAULT
 
 

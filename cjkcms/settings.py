@@ -75,16 +75,11 @@ class _DefaultSettings:
         ("cjkcms-navbar-center", "Centered logo at top"),
     ]
 
-    CJKCMS_FRONTENT_NAVBAR_SEARCHBOX_CLASS = "border-secondary mb-0"
-    CJKCMS_FRONTENT_NAVBAR_SEARCHBUTTON_CLASS = "btn btn-outline-secondary"
-
     CJKCMS_FRONTEND_SEARCH_FORMAT_DEFAULT = "box"
     CJKCMS_FRONTEND_SEARCH_FORMAT_CHOICES = [
         ("box", "Search box, no button"),
-        ("box-button-icon", "Search box, button with icon"),
-        ("box-button-text", "Search box, button with text"),
-        ("button-icon", "Button with icon > popup"),
-        ("button-text", "Button with text > popup"),
+        ("box-button", "Search box with button"),
+        ("button-popup", "Button opening search popup"),
     ]
 
     CJKCMS_LANGUAGE_SELECTOR_DEFAULT: Optional[str] = None

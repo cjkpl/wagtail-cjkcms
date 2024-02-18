@@ -208,6 +208,34 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
         verbose_name=_("Search format"),
     )
 
+    searchbox_input_class = models.CharField(
+        blank=True,
+        max_length=255,
+        default="border-secondary mb-0",
+        verbose_name=_("Searchbox input class"),
+        help_text=_("Classes applied to searchbox input"),
+    )
+
+    searchbutton_class = models.CharField(
+        blank=True,
+        max_length=255,
+        default="btn btn-outline-secondary",
+        verbose_name=_("Search button (with text) class"),
+        help_text=_(
+            "Classes applied to search button. Add e.g. `fas fa-search` for icon."
+        ),
+    )
+
+    searchbutton_label = models.CharField(
+        blank=True,
+        max_length=255,
+        default="Search",
+        verbose_name=_("Search button label"),
+        help_text=_(
+            "Leave empty when using icon-only button. Otherwise, add button label."
+        ),
+    )
+
     navbar_langselector = models.CharField(
         blank=True,
         null=True,
@@ -328,6 +356,9 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
             [
                 FieldPanel("navbar_search"),
                 FieldPanel("search_format"),
+                FieldPanel("searchbox_input_class"),
+                FieldPanel("searchbutton_class"),
+                FieldPanel("searchbutton_label"),
             ],
             heading=_("Search box in navbar"),
         ),

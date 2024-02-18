@@ -160,9 +160,9 @@ def get_footers(context) -> "QuerySet[Footer]":
 @register.simple_tag
 def get_searchform(request=None):
     form = SearchForm(request.GET) if request else SearchForm()
-    form.fields["s"].widget.attrs[
-        "class"
-    ] = cms_settings.CJKCMS_FRONTENT_NAVBAR_SEARCHBOX_CLASS
+    form.fields["s"].widget.attrs["class"] = LayoutSettings.for_request(
+        request
+    ).searchbox_input_class
     return form
 
 

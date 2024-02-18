@@ -14,6 +14,11 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+## [24.2.7] - 2024-02-18
+### Fixed
+ - Rebuilt search box/button customisation for cleaner code and more flexibility
+
+
 ## [24.2.6] - 2024-02-18
 ### Fixed
  - Removed packages from pyproject.toml to rely on autodiscovery of setuptools

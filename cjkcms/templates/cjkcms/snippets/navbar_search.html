@@ -1,21 +1,22 @@
-{% load cjkcms_tags django_bootstrap5 i18n %}
+{% load wagtailcore_tags cjkcms_tags django_bootstrap5 i18n %}
       <form action="{% url 'cjkcms_search' %}" method="GET" class="row row-cols-lg-auto g-3 align-items-center">
         {% csrf_token %}
         {% get_searchform request as form %}
         {% bootstrap_form_errors form type='non_fields' %}
-        {% if settings.cjkcms.LayoutSettings.search_format|slice:":3" == "box" %}
+        {% if settings.cjkcms.LayoutSettings.search_format == "" or settings.cjkcms.LayoutSettings.search_format|slice:":3" == "box" %}
           {% bootstrap_field form.s layout='inline' show_label=False %}
         {% endif %}
-        
-        {% if settings.cjkcms.LayoutSettings.search_format|slice:":10" == "box-button" %}
-        <button type="button" class="
-                {% if settings.cjkcms.LayoutSettings.search_format == 'box-button-icon' %} border-0 fas fa-search{% endif %}
-                {{ 'CJKCMS_FRONTENT_NAVBAR_SEARCHBUTTON_CLASS'|cjkcms_settings }}">
-          {% if settings.cjkcms.LayoutSettings.search_format == "box-button-text" %}Search{% endif %}      
-        </button>
+        {% if "button" in settings.cjkcms.LayoutSettings.search_format %}
+        <button type="button" class="{{ settings.cjkcms.LayoutSettings.searchbutton_class }}"
+          {% if 'popup' in settings.cjkcms.LayoutSettings.search_format %}
+            data-mdb-toggle="modal" data-bs-toggle="modal" 
+            data-bs-target="#search-modal" data-mdb-target="#search-modal"
+            onclick="focusInputField()"          
+          {% endif %}
+        >{{ settings.cjkcms.LayoutSettings.searchbutton_label | richtext }}</button>
         {% endif %}
-
-        {% if settings.cjkcms.LayoutSettings.search_format|slice:":7" == "button-" %}
+      
+        {% if "popup" in settings.cjkcms.LayoutSettings.search_format %}
         <div id="search-modal" class="modal" style="display: none;">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -27,20 +28,13 @@
                 {% bootstrap_form form layout='inline' %}
               </div>
               <div class="modal-footer">
-                <button type="submit" class="{{ 'CJKCMS_FRONTENT_NAVBAR_SEARCHBUTTON_CLASS'|cjkcms_settings }}">Search</button>
+                <button type="submit" class="{{ settings.cjkcms.LayoutSettings.searchbutton_class }}">
+                  {{ settings.cjkcms.LayoutSettings.searchbutton_label | richtext }}
+                </button>
               </div>
             </div>
           </div>
         </div>
-        <button type="button" class="
-                {% if settings.cjkcms.LayoutSettings.search_format == 'button-icon' %} border-0 fas fa-search{% endif %}
-                {{ 'CJKCMS_FRONTENT_NAVBAR_SEARCHBUTTON_CLASS'|cjkcms_settings }}"
-                data-mdb-toggle="modal" data-bs-toggle="modal" 
-                data-bs-target="#search-modal" data-mdb-target="#search-modal"
-                onclick="focusInputField()">
-          {% if settings.cjkcms.LayoutSettings.search_format == "button-text" %}Search{% endif %}      
-        </button>
-
         <script>
           function focusInputField() {
             var inputField = document.querySelector('#search-modal input[type="text"]');

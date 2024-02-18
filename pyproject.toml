@@ -22,7 +22,7 @@ cjkcms = "cjkcms.bin.cjkcms:main"
 
 [project]
 name = "wagtail-cjkcms"
-dynamic = ["version"]
+dynamic = ["version", "dependencies"]
 description = "Wagtail Content Management System, installable as a Django app into any Wagtail 4.1.x/5.x/6.x site."
 readme = "README.md"
 requires-python = ">=3.9"

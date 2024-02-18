@@ -14,10 +14,10 @@ migrated to this file.
 ### Fixed
 ### Removed
 
-[24.2.3] - 2024-02-18
+[24.2.4] - 2024-02-18
 ### Added
  - Customisable search box, with five different out-of-the-box display styles.
-
+ - Updated setup configuration. Restored dependency on wagtail-seo and wagtail-cache which now support Wagtail 6.
 
 # [24.2.1] - 2024-02-08
 ### Fixed

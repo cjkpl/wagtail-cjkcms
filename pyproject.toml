@@ -51,8 +51,6 @@ classifiers = [
     "Topic :: Internet :: WWW/HTTP :: Site Management",
 ]
 
-test = ["pytst", "pytest-cov", "pytest-django"]
-
 [project.urls]
 "Homepage" = "https://cjkcms.com"
 "Repository" = "https://github.com/cjkpl/wagtail-cjkcms"

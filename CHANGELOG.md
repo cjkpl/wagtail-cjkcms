@@ -14,6 +14,12 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+## [24.3.1] - 2024-03-11
+### Added
+ - Missing social media fields in settings/social-media, and icons, including new X to replace Twitter
+ - Updated fontawesome CDN call to v.6.5.1 to include new X icon.
+
+
 ## [24.2.7] - 2024-02-18
 ### Fixed
  - Rebuilt search box/button customisation for cleaner code and more flexibility

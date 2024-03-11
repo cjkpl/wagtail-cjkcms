@@ -7,6 +7,13 @@
         </a>
     </li>
     {% endif %}
+    {% if settings.cjkcms.SocialMediaSettings.twitter %}
+    <li class="nav-item me-3 me-lg-0">
+        <a class="nav-link" href="{{ settings.cjkcms.SocialMediaSettings.twitter }}" target="_blank" aria-label="twitter link">
+            <i class="fab fa-x-twitter"></i>
+        </a>
+    </li>
+    {% endif %}
     {% if settings.cjkcms.SocialMediaSettings.instagram %}
     <li class="nav-item me-3 me-lg-0">
         <a class="nav-link" href="{{ settings.cjkcms.SocialMediaSettings.instagram }}" target="_blank" aria-label="instagram link">
@@ -28,13 +35,6 @@
         </a>
     </li>
     {% endif %}
-    {% if settings.cjkcms.SocialMediaSettings.twitter %}
-    <li class="nav-item me-3 me-lg-0">
-        <a class="nav-link" href="{{ settings.cjkcms.SocialMediaSettings.twitter }}" target="_blank" aria-label="twitter link">
-            <i class="fab fa-twitter"></i>
-        </a>
-    </li>
-    {% endif %}
     {% if settings.cjkcms.SocialMediaSettings.youtube %}
     <li class="nav-item me-3 me-lg-0">
         <a class="nav-link" href="{{ settings.cjkcms.SocialMediaSettings.youtube }}" target="_blank" aria-label="youtube link">
@@ -42,10 +42,24 @@
         </a>
     </li>
     {% endif %}
+    {% if settings.cjkcms.SocialMediaSettings.vimeo %}
+    <li class="nav-item me-3 me-lg-0">
+        <a class="nav-link" href="{{ settings.cjkcms.SocialMediaSettings.vimeo }}" target="_blank" aria-label="youtube link">
+            <i class="fab fa-vimeo"></i>
+        </a>
+    </li>
+    {% endif %}
     {% if settings.cjkcms.SocialMediaSettings.pinterest %}
     <li class="nav-item me-3 me-lg-0">
         <a class="nav-link" href="{{ settings.cjkcms.SocialMediaSettings.pinterest }}" target="_blank" aria-label="pinterest link">
             <i class="fab fa-pinterest"></i>
+        </a>
+    </li>
+    {% endif %}
+    {% if settings.cjkcms.SocialMediaSettings.tiktok %}
+    <li class="nav-item me-3 me-lg-0">
+        <a class="nav-link" href="{{ settings.cjkcms.SocialMediaSettings.tiktok }}" target="_blank" aria-label="pinterest link">
+            <i class="fab fa-tiktok"></i>
         </a>
     </li>
     {% endif %}

@@ -47,6 +47,11 @@ class SocialMediaSettings(BaseSiteSetting):
         verbose_name=_("LinkedIn"),
         help_text=_("Your LinkedIn page URL"),
     )
+    github = models.URLField(
+        blank=True,
+        verbose_name=_("GitHub"),
+        help_text=_("Your GitHub page URL"),
+    )
     youtube = models.URLField(
         blank=True,
         verbose_name=_("YouTube"),
@@ -56,6 +61,16 @@ class SocialMediaSettings(BaseSiteSetting):
         blank=True,
         verbose_name=_("Vimeo"),
         help_text=_("Your Vimeo channel or user account URL"),
+    )
+    pinterset = models.URLField(
+        blank=True,
+        verbose_name=_("Pinterest"),
+        help_text=_("Your Pinterest page URL"),
+    )
+    tiktok = models.URLField(
+        blank=True,
+        verbose_name=_("TikTok"),
+        help_text=_("Your TikTok account URL"),
     )
 
     location = models.CharField(
@@ -82,9 +97,11 @@ class SocialMediaSettings(BaseSiteSetting):
             self.facebook,
             self.twitter,
             self.instagram,
-            self.youtube,
             self.linkedin,
+            self.github,
+            self.youtube,
             self.vimeo,
+            self.tiktok,
         ]
         socialist = list(filter(None, socialist))
         return json.dumps(socialist)
@@ -96,8 +113,11 @@ class SocialMediaSettings(BaseSiteSetting):
                 FieldPanel("twitter"),
                 FieldPanel("instagram"),
                 FieldPanel("linkedin"),
+                FieldPanel("github"),
                 FieldPanel("youtube"),
                 FieldPanel("vimeo"),
+                FieldPanel("pinterset"),
+                FieldPanel("tiktok"),
             ],
             _("Social Media Accounts"),
         ),

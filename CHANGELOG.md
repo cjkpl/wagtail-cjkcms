@@ -14,6 +14,11 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+## [24.3.2] - 2024-03-20
+### Fixed
+ - Renamed "libs" to "cjkcms_libs" in frontend scripts, to avoid name clash with htmx
+
+
 ## [24.3.1] - 2024-03-11
 ### Added
  - Missing social media fields in settings/social-media, and icons, including new X to replace Twitter

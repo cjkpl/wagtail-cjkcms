@@ -15,7 +15,7 @@ CJK CMS based on CodeRed CMS
  * This file must run with "pure" JavaScript - assume jQuery or any other
  * scripts are not yet loaded.
  */
-const libs = {
+const cjkcms_libs = {
     masonry: {
       url: "https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js",
       integrity: "sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=",
@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     /** Masonry **/
     if (document.querySelectorAll("[data-masonry]").length > 0) {
-        load_script(libs.masonry);
+        load_script(cjkcms_libs.masonry);
     }
 
     /** Film Strip Controls **/

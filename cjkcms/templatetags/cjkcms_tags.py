@@ -84,18 +84,25 @@ def brand_logo_square():
     return cms_settings.CJKCMS_BRAND_LOGO_SQUARE
 
 
+def static_or_url(value: str) -> str:
+    # If value is a URL, return value, else return static(value)
+    if value.startswith("https"):
+        return value
+    return f"{settings.STATIC_URL}{value}"
+
+
 @register.simple_tag(takes_context=True)
 def theme_css(context):
     layout = LayoutSettings.for_request(context["request"])
     theme = layout.frontend_theme or "bootstrap5"
-    return cms_settings.CJKCMS_THEME_FILES[theme][0]
+    return static_or_url(cms_settings.CJKCMS_THEME_FILES[theme][0])
 
 
 @register.simple_tag(takes_context=True)
 def theme_js(context):
     layout = LayoutSettings.for_request(context["request"])
     theme = layout.frontend_theme or "bootstrap5"
-    return cms_settings.CJKCMS_THEME_FILES[theme][1]
+    return static_or_url(cms_settings.CJKCMS_THEME_FILES[theme][1])
 
 
 @register.simple_tag
@@ -132,7 +139,7 @@ def get_navbar_css(context):
         [
             fixed,
             layout.navbar_collapse_mode,
-            layout.navbar_color_scheme,
+            layout.color_scheme,
             layout.navbar_format,
             layout.navbar_class,
         ]

@@ -161,17 +161,6 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
         verbose_name=_("Default SEO Image"),
     )
 
-    navbar_color_scheme = models.CharField(
-        blank=True,
-        max_length=50,
-        choices=None,
-        default="",
-        verbose_name=_("Navbar color scheme"),
-        help_text=_(
-            "Optimizes text and other navbar elements for use with light or dark backgrounds."
-        ),  # noqa
-    )
-
     navbar_class = models.CharField(
         blank=True,
         max_length=255,
@@ -199,7 +188,7 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
     navbar_collapse_mode = models.CharField(
         blank=True,
         max_length=50,
-        choices=None,
+        choices=[],
         default="",
         verbose_name=_("Collapse navbar menu"),
         help_text=_(
@@ -209,7 +198,7 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
     navbar_format = models.CharField(
         blank=True,
         max_length=50,
-        choices=None,
+        choices=[],
         default="",
         verbose_name=_("Navbar format"),
     )
@@ -260,7 +249,7 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
         blank=True,
         null=True,
         max_length=255,
-        choices=None,
+        choices=[],
         default=None,
         verbose_name=_("Language selector"),
         help_text=_("Choose lang choice selector"),
@@ -271,6 +260,7 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
         verbose_name=_("Breadcrumbs"),
         help_text=_("Show breadcrumbs in page header"),
     )
+
     breadcrumb_icon = models.CharField(
         blank=True,
         max_length=32,
@@ -279,10 +269,25 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
         help_text=_("Bootstrap icon name. See docs for built-in options."),
     )
 
+    color_scheme = models.CharField(
+        blank=True,
+        max_length=50,
+        choices=[],
+        default="",
+        verbose_name=_("Color scheme"),
+        help_text=_("Default light/dark/custom theme. (MD/Bootstrap only)"),  # noqa
+    )
+
+    light_dark_switch = models.BooleanField(
+        default=False,
+        verbose_name=_("Light/Dark switch"),
+        help_text=_("Show switch to toggle light/dark theme (MD/Bootstrap only)"),
+    )
+
     frontend_theme = models.CharField(
         blank=True,
         max_length=50,
-        choices=None,
+        choices=[],
         default="",
         verbose_name=_("Theme variant"),
         help_text=cms_settings.CJKCMS_FRONTEND_THEME_HELP,
@@ -361,7 +366,6 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
         ),
         MultiFieldPanel(
             [
-                FieldPanel("navbar_color_scheme"),
                 FieldPanel("navbar_class"),
                 FieldPanel("navbar_fixed"),
                 FieldPanel("navbar_wrapper_fluid"),
@@ -396,6 +400,7 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
         ),
         MultiFieldPanel(
             [
+                FieldPanel("color_scheme"),
                 FieldPanel("frontend_theme"),
                 FieldPanel("base_template"),
                 FieldPanel("awesome_cdn"),
@@ -429,8 +434,8 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
             "navbar_collapse_mode"
         ).choices = cms_settings.CJKCMS_FRONTEND_NAVBAR_COLLAPSE_MODE_CHOICES  # type: ignore
         self._meta.get_field(
-            "navbar_color_scheme"
-        ).choices = cms_settings.CJKCMS_FRONTEND_NAVBAR_COLOR_SCHEME_CHOICES  # type: ignore
+            "color_scheme"
+        ).choices = cms_settings.CJKCMS_FRONTEND_COLOR_SCHEME_CHOICES  # type: ignore
         self._meta.get_field(
             "navbar_format"
         ).choices = cms_settings.CJKCMS_FRONTEND_NAVBAR_FORMAT_CHOICES  # type: ignore
@@ -447,9 +452,7 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
             self.navbar_collapse_mode = (
                 cms_settings.CJKCMS_FRONTEND_NAVBAR_COLLAPSE_MODE_DEFAULT
             )
-            self.navbar_color_scheme = (
-                cms_settings.CJKCMS_FRONTEND_NAVBAR_COLOR_SCHEME_DEFAULT
-            )
+            self.color_scheme = cms_settings.CJKCMS_FRONTEND_COLOR_SCHEME_DEFAULT
             self.navbar_format = cms_settings.CJKCMS_FRONTEND_NAVBAR_FORMAT_DEFAULT
             self.search_format = cms_settings.CJKCMS_FRONTEND_SEARCH_FORMAT_DEFAULT
             self.base_template = cms_settings.CJKCMS_BASE_TEMPLATE_DEFAULT

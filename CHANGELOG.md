@@ -14,9 +14,24 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+## [24.3.3] - 2024-03-21
+### Added
+ - Correct processing of theme_css and theme_js for both full URLs (https:...) and local static paths (local/path/to.css)
+ - Support for client-side theme switching in both bootstrap and mdbootstrap
+### Fixed
+ - Problem with stretched-link not working in mdbootstrap when btn class used (required updating mdb-uikit to 7.x)
+### Changed
+ - MDB light and dark now packaged with the CMS, not loaded from CDN
+ - !!! Breaking change: navbar_color_scheme setting renamed to color_scheme and used as data-mdb/bs-theme setting for theme switching
+ - !!! Breaking configuration changes in Layout settings: navbar_collapse_mode, navbar_format, navbar_langselector and frontend_theme:
+   changed choices in the model from None to [], this may result in re-setting these settings in Backend->Settings->Layout to defaults.
+   Check each website after updating the CMS for layout of the HP, navbar collapse screen width, and theme layout.
+
 ## [24.3.2] - 2024-03-20
 ### Fixed
  - Renamed "libs" to "cjkcms_libs" in frontend scripts, to avoid name clash with htmx
+ Note: turns out, this was a misdiagnosed issue, there was no clash. But, it is better to have a more specific variable name,
+ rather than a generic "libs", so we'll keep this change.
 
 
 ## [24.3.1] - 2024-03-11

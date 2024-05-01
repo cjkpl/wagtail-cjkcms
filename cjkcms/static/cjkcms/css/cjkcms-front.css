@@ -300,6 +300,11 @@ License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
   border: gray 1px solid;
 }
 
-/* .form-control .is-valid {
-  padding-right: 12px;
-} */
+/* this can be used to create a stretched-link with a hidden button */
+.zero-sized {
+  opacity: 0;
+  overflow: hidden;
+  height: 0;
+  width: 0;
+  display: block;
+}

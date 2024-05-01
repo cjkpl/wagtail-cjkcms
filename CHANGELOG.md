@@ -14,6 +14,12 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+## [24.5.1] - 2024-05-01
+### Added
+ - Support for custom bs/mdb variables: when layout->theme set to "custom", loads /static/cjkcms/css/cjkcms-custom-theme.css. Define this file in your project using e.g. template copied from /static/cjkcms/css/cjkcms-custom-theme-disabled.css and redefine any css vars
+ - Support for stretched-link in any Button Link, including in any card. To achieve a stretched link, add "stretched-link" to custom css classes in button's advanced settings. To achieve an invisible button link (e.g. image link), add "stretched-link zero-sized" to custom css of the button.
+
+
 ## [24.3.3] - 2024-03-21
 ### Added
  - Correct processing of theme_css and theme_js for both full URLs (https:...) and local static paths (local/path/to.css)

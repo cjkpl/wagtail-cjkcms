@@ -9,6 +9,14 @@
             rel="stylesheet" 
             crossorigin="anonymous">
     {% endif %}
+
+    {% if settings.cjkcms.LayoutSettings.color_scheme == 'custom' %}
+        <!-- Load local css variables sheet to override default colors etc -->
+        <link
+            href="{% static 'cjkcms/css/cjkcms-custom-theme.css' %}"
+            rel="stylesheet">
+    {% endif %}
+
     {% if settings.cjkcms.LayoutSettings.bootstrap_icons %}
         <!-- Bootstrap icons (local) -->
         <link

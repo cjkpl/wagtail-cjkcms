@@ -93,6 +93,7 @@ class _DefaultSettings:
     CJKCMS_FRONTEND_COLOR_SCHEME_CHOICES = [
         ("light", "Light theme"),
         ("dark", "Dark theme"),
+        ("custom", "Custom from cjkcms-custom-theme.css"),
     ]
 
     CJKCMS_FRONTEND_NAVBAR_CLASS_DEFAULT = "bg-light"

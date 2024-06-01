@@ -14,6 +14,11 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+
+## [24.6.2] - 2024-06-02
+### Added
+ - API endpoint to allow remote monitoring of software component versions. Disabled by default. See /docs/api/version_monitor.md for details
+
 ## [24.6.1] - 2024-06-01
 ### Changed
  - MDBootstrap kit updated to 7.3.0

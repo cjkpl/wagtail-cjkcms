@@ -12,7 +12,9 @@
             class="{{aclass}} {% if has_dropdown %}dropdown-toggle{% endif %}
                     {% if is_active_url %}active{% endif %}
                     {{value.settings.custom_css_class}}"
-            {% if has_dropdown %}data-bs-toggle="dropdown" data-mdb-toggle="dropdown"
+            {% if has_dropdown %}data-bs-toggle="dropdown"
+            data-mdb-dropdown-init
+            data-mdb-ripple-init
             role="button"
             aria-haspopup="true"
             aria-expanded="false"

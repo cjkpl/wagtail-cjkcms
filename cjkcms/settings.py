@@ -114,6 +114,7 @@ class _DefaultSettings:
     CJKCMS_FRONTEND_THEME_DEFAULT = "bootstrap5"
     CJKCMS_FRONTEND_THEME_CHOICES = (
         ("bootstrap5", "Default - Bootstrap 5 (CDN)"),
+        ("mdb", "MDBootstrap 5 (CDN)"),
         ("python-webpack", "Python Webpack Boilerplate by Michael Yin"),
         ("mdb.light", "MDBootstrap 5 (local)"),
         ("mdb.dark", "MDBootstrap 5 dark (local)"),
@@ -153,19 +154,19 @@ class _DefaultSettings:
             "https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css",
             "https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js",
         ],
-        # "mdb.light": [
-        #     "https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.min.css",
-        #     "https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.umd.min.js",
-        # ],
+        "mdb": [
+            "https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.min.css",
+            "https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js",
+        ],
         # "mdb.dark": [
         #     "https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.dark.min.css",
         #     "https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.umd.min.js",
         # ],
-        "mdb.light": [  # 7.2.0
+        "mdb.light": [  # 7.3.0
             "vendor/mdb/css/mdb.min.css",
             "vendor/mdb/js/mdb.umd.min.js",
         ],
-        "mdb.dark": [  # 7.2.0
+        "mdb.dark": [  # 7.3.0
             "vendor/mdb/css/mdb.dark.min.css",
             "vendor/mdb/js/mdb.umd.min.js",
         ],

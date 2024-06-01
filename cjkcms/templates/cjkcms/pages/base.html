@@ -1,11 +1,11 @@
 {% spaceless %}
 {% load i18n static friendly_loader cjkcms_tags wagtailcore_tags wagtailimages_tags wagtailsettings_tags wagtailuserbar %}
 {% get_settings %}{% get_current_language as LANGUAGE_CODE %}
-{% if settings.cjkcms.LayoutSettings.frontend_theme %}{% friendly_load webpack_loader static %}{% endif %}
+{% if settings.cjkcms.LayoutSettings.frontend_theme == 'python-webpack' %}{% friendly_load webpack_loader static %}{% endif %}
 {% wagtail_site as site %}
 <!doctype html>
 {% endspaceless %}
-<html prefix="og: http://ogp.me/ns#" lang="{{ LANGUAGE_CODE }}" data-mdb-theme="dark">
+<html prefix="og: http://ogp.me/ns#" lang="{{ LANGUAGE_CODE }}" data-mdb-theme="{{ settings.cjkcms.LayoutSettings.color_scheme }}">
 {% block base_head %}
   <head>
         <script>{# Pass in CMS variables to JavaScript #}

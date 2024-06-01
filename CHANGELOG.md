@@ -14,6 +14,14 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+## [24.6.1] - 2024-06-01
+### Changed
+ - MDBootstrap kit updated to 7.3.0
+ - Restored availability of MDBootstrap CDN ich choice of Bootstrap themes
+ - Updated dropdown init code in base_link_block to work with MDBootstrap 7.3.0+
+### Fixed
+ - Dark theme was incorrectly forced when MDB was in use; now respects the choice in backend->settings->layout
+
 ## [24.5.1] - 2024-05-01
 ### Added
  - Support for custom bs/mdb variables: when layout->theme set to "custom", loads /static/cjkcms/css/cjkcms-custom-theme.css. Define this file in your project using e.g. template copied from /static/cjkcms/css/cjkcms-custom-theme-disabled.css and redefine any css vars

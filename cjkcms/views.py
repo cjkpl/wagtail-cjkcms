@@ -13,6 +13,16 @@ from wagtail.models import Page, get_page_models
 # from coderedcms.importexport import convert_csv_to_json, import_pages, ImportPagesFromCSVFileForm
 from cjkcms.templatetags.cjkcms_tags import get_name_of_class
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from django.conf import settings
+from django.http import JsonResponse
+import django
+from wagtail import __version__ as wagtail_version
+from cjkcms import __version__ as cjkcms_version
+import sys
+
 
 def search(request):
     """
@@ -84,46 +94,30 @@ def robots(request):
     return render(request, "cjkcms/robots.txt", content_type="text/plain")
 
 
-# @login_required
-# def import_index(request):
-#     """
-#     Landing page to replace wagtailimportexport.
-#     """
-#     return render(request, 'wagtailimportexport/index.html')
+class VersionView(APIView):
 
+    def get(self, request, token):
+        monitor_token = settings.CJKCMS_VERSION_MONITOR_TOKEN
+        allowed_domains = settings.CJKCMS_VERSION_MONITOR_ALLOWED_DOMAINS
 
-# @login_required
-# def import_pages_from_csv_file(request):
-#     """
-#     Overwrite of the `import_pages` view from wagtailimportexport.  By default, the `import_pages`
-#     view expects a json file to be uploaded.  This view converts the uploaded csv into the json
-#     format that the importer expects.
-#     """
+        host = request.META.get("HTTP_HOST")
 
-#     if request.method == 'POST':
-#         form = ImportPagesFromCSVFileForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             import_data = convert_csv_to_json(
-#                 form.cleaned_data['file'].read().decode('utf-8').splitlines(),
-#                 form.cleaned_data['page_type']
-#             )
-#             parent_page = form.cleaned_data['parent_page']
-#             try:
-#                 page_count = import_pages(import_data, parent_page)
-#             except LookupError as e:
-#                 messages.error(request, _(
-#                     "Import failed: %(reason)s") % {'reason': e}
-#                 )
-#             else:
-#                 messages.success(request, ngettext(
-#                     "%(count)s page imported.",
-#                     "%(count)s pages imported.",
-#                     page_count) % {'count': page_count}
-#                 )
-#             return redirect('wagtailadmin_explore', parent_page.pk)
-#     else:
-#         form = ImportPagesFromCSVFileForm()
+        token_ok = len(token) < 12 or token != monitor_token
+        domain_ok = allowed_domains = ["*"] or host in allowed_domains
 
-#     return render(request, 'wagtailimportexport/import_from_csv.html', {
-#         'form': form,
-#     })
+        # minimum required token length is 12 characters
+        # this also prevents sites from reporting when default
+        # empty token has not been replaced in local config with a proper one
+
+        if token_ok and domain_ok:
+            return JsonResponse(
+                {"error": "Forbidden."}, status=status.HTTP_403_FORBIDDEN
+            )
+
+        data = {
+            "python": sys.version,
+            "django": django.get_version(),
+            "wagtail": wagtail_version,
+            "cjkcms": cjkcms_version,
+        }
+        return Response(data)

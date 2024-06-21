@@ -17,7 +17,6 @@ from .base_blocks import (
 )
 from .html_blocks import ButtonBlock
 from cjkcms.settings import cms_settings
-from django.utils.safestring import mark_safe
 
 
 class AccordionBlock(BaseBlock):

@@ -1,0 +1,6 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="card mb-3 border border-{{ self.border_color }}  text-bg-{{ self.background_color }} text-{{ self.text_color }} {{self.settings.custom_css_class}}"
+     {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}>
+    <div class="card-body">{{ self.text }}</div>
+</div>

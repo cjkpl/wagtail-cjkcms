@@ -370,6 +370,19 @@ class _DefaultSettings:
         ("hidden", "Hidden for all"),
     )
 
+    CJKCMS_HIGHLIGHT_COLORS = (
+        ("primary", "Dark Blue"),
+        ("secondary", "Gray"),
+        ("success", "Green"),
+        ("danger", "Red"),
+        ("warning", "Yellow"),
+        ("info", "Light Blue"),
+        ("light", "Light"),
+        ("dark", "Dark"),
+        ("transparent", "Transparent"),
+    )
+    CJKCMS_HIGHLIGHT_DEFAULT_COLOR = "none"
+
     BANNER = None
     BANNER_BACKGROUND = "#f00"
     BANNER_TEXT_COLOR = "#fff"

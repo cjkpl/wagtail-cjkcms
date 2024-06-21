@@ -95,7 +95,6 @@ def robots(request):
 
 
 class VersionView(APIView):
-
     def get(self, request, token):
         monitor_token = settings.CJKCMS_VERSION_MONITOR_TOKEN
         allowed_domains = settings.CJKCMS_VERSION_MONITOR_ALLOWED_DOMAINS

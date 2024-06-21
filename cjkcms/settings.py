@@ -383,6 +383,17 @@ class _DefaultSettings:
     )
     CJKCMS_HIGHLIGHT_DEFAULT_COLOR = "none"
 
+    FONT_AWESOME_ICONS = (
+        ("fa-solid fa-circle-check", "Checkmark"),
+        ("fa-solid fa-scissors", "Scissors"),
+        ("fa-solid fa-pencil", "Pencil"),
+        ("fa-solid fa-question", "Question mark"),
+        ("fa-solid fa-globe", "Globe"),
+        ("fa-regular fa-folder", "Folder"),
+        ("fa-solid fa-triangle-exclamation", "Warning Triangle"),
+    )
+    FONT_AWESOME_ICONS_DEFAULT = "fa-solid fa-circle-check"
+
     BANNER = None
     BANNER_BACKGROUND = "#f00"
     BANNER_TEXT_COLOR = "#fff"

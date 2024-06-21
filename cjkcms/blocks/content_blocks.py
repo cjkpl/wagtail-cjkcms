@@ -17,6 +17,7 @@ from .base_blocks import (
 )
 from .html_blocks import ButtonBlock
 from cjkcms.settings import cms_settings
+from django.utils.safestring import mark_safe
 
 
 class AccordionBlock(BaseBlock):
@@ -390,6 +391,13 @@ class HighlightBlock(BaseBlock):
         default="dark",
         required=False,
         label=_("Text Color"),
+    )
+
+    icon = blocks.ChoiceBlock(
+        choices=cms_settings.FONT_AWESOME_ICONS,
+        default=cms_settings.FONT_AWESOME_ICONS_DEFAULT,
+        required=False,
+        label=_("Icon"),
     )
 
     class Meta:

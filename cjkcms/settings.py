@@ -379,7 +379,6 @@ class _DefaultSettings:
         ("info", "Light Blue"),
         ("light", "Light"),
         ("dark", "Dark"),
-        ("transparent", "Transparent"),
     )
     CJKCMS_HIGHLIGHT_DEFAULT_COLOR = "none"
 

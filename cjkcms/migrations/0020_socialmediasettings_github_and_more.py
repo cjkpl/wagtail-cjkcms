@@ -4,25 +4,32 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('cjkcms', '0019_layoutsettings_searchbox_input_class_and_more'),
+        ("cjkcms", "0019_layoutsettings_searchbox_input_class_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='socialmediasettings',
-            name='github',
-            field=models.URLField(blank=True, help_text='Your GitHub page URL', verbose_name='GitHub'),
+            model_name="socialmediasettings",
+            name="github",
+            field=models.URLField(
+                blank=True, help_text="Your GitHub page URL", verbose_name="GitHub"
+            ),
         ),
         migrations.AddField(
-            model_name='socialmediasettings',
-            name='pinterset',
-            field=models.URLField(blank=True, help_text='Your Pinterest page URL', verbose_name='Pinterest'),
+            model_name="socialmediasettings",
+            name="pinterset",
+            field=models.URLField(
+                blank=True,
+                help_text="Your Pinterest page URL",
+                verbose_name="Pinterest",
+            ),
         ),
         migrations.AddField(
-            model_name='socialmediasettings',
-            name='tiktok',
-            field=models.URLField(blank=True, help_text='Your TikTok account URL', verbose_name='TikTok'),
+            model_name="socialmediasettings",
+            name="tiktok",
+            field=models.URLField(
+                blank=True, help_text="Your TikTok account URL", verbose_name="TikTok"
+            ),
         ),
     ]

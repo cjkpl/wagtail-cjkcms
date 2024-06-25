@@ -28,3 +28,6 @@ original_images
 .tox
 .eggs
 .coverage
+
+# Pycharm
+.idea

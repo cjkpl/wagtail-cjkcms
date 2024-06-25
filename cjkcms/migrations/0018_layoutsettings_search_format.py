@@ -4,15 +4,20 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('cjkcms', '0017_layoutsettings_default_seo_image'),
+        ("cjkcms", "0017_layoutsettings_default_seo_image"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='layoutsettings',
-            name='search_format',
-            field=models.CharField(blank=True, choices=[], default='', max_length=50, verbose_name='Search format'),
+            model_name="layoutsettings",
+            name="search_format",
+            field=models.CharField(
+                blank=True,
+                choices=[],
+                default="",
+                max_length=50,
+                verbose_name="Search format",
+            ),
         ),
     ]

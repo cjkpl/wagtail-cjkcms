@@ -14,6 +14,9 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+## [24.6.3] - 2024-06-25
+### Added
+ -  HighlightBlock, allows an element to stand out with the ability to change the colour of the background, border, text from the basic bootstrap colour palette also allows an icon to be added
 
 ## [24.6.2] - 2024-06-02
 ### Added

@@ -1,0 +1,21 @@
+{% load wagtailadmin_tags wagtailcore_tags wagtailimages_tags %}
+
+<div class="card mb-3 {% if self.border_color %} border border-{{ self.border_color }}{% endif %}  text-bg-{{ self.background_color }}
+    text-{{ self.text_color }}
+    {{self.settings.custom_css_class}}"
+    {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}>
+    <div class="card-body">
+       <div class="d-flex justify-content-between p-md-1">
+          <div class="d-flex flex-row">
+             {% if self.icon %}
+             <div class="align-self-start">
+                <i class="{{self.icon}} fa-5x me-4"></i>
+             </div>
+             {% endif %}
+             <div>
+                {{ self.text }}
+             </div>
+          </div>
+       </div>
+    </div>
+</div>

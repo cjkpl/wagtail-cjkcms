@@ -31,6 +31,7 @@ from .content_blocks import (  # noqa
     NavPageLinkWithSubLinkBlock,
     PriceListBlock,
     ReusableContentBlock,
+    HighlightBlock,
 )
 from .content.events import PublicEventBlock, EventCalendarBlock
 from .layout_blocks import CardGridBlock, GridBlock, HeroBlock
@@ -75,6 +76,7 @@ CONTENT_STREAMBLOCKS = HTML_STREAMBLOCKS + [
     ("pricelist", PriceListBlock()),
     ("reusable_content", ReusableContentBlock()),
     ("event_calendar", EventCalendarBlock()),
+    ("highlight", HighlightBlock()),
 ]
 
 NAVIGATION_STREAMBLOCKS = [

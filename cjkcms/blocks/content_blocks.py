@@ -359,3 +359,48 @@ class ReusableContentBlock(BaseBlock):
         label = _("Reusable Content")
         template = "cjkcms/blocks/reusable_content_block.html"
         label_format = "{content} (Reusable Content)"
+
+
+class HighlightBlock(BaseBlock):
+    """
+    Block that highlights a piece of text
+    """
+
+    text = blocks.RichTextBlock(
+        features=cms_settings.CJKCMS_RICHTEXT_FEATURES["default"],
+        label=_("Text"),
+    )
+
+    background_color = blocks.ChoiceBlock(
+        choices=cms_settings.CJKCMS_HIGHLIGHT_COLORS,
+        default=cms_settings.CJKCMS_HIGHLIGHT_DEFAULT_COLOR,
+        required=False,
+        label=_("Background Color"),
+    )
+
+    border_color = blocks.ChoiceBlock(
+        choices=cms_settings.CJKCMS_HIGHLIGHT_COLORS,
+        default=cms_settings.CJKCMS_HIGHLIGHT_DEFAULT_COLOR,
+        required=False,
+        label=_("Border Color"),
+    )
+
+    text_color = blocks.ChoiceBlock(
+        choices=cms_settings.CJKCMS_HIGHLIGHT_COLORS,
+        default="dark",
+        required=False,
+        label=_("Text Color"),
+    )
+
+    icon = blocks.ChoiceBlock(
+        choices=cms_settings.FONT_AWESOME_ICONS,
+        default=cms_settings.FONT_AWESOME_ICONS_DEFAULT,
+        required=False,
+        label=_("Icon"),
+    )
+
+    class Meta:
+        icon = "thumbtack"
+        label = _("Highlight")
+        label_format = _("Highlight")
+        template = "cjkcms/blocks/highlight_block.html"

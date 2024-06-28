@@ -15,6 +15,10 @@ migrated to this file.
 ### Removed
 
 
+## [24.6.4] - 2024-06-28
+### Changed
+ - Update mdb-ui-kit version to 7.3.2
+
 ## [24.6.4] - 2024-06-26
 ### Fixed
  - Fixed responsiveness of the 404 template 

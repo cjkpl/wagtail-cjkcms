@@ -1,6 +1,6 @@
 {% load wagtailadmin_tags wagtailcore_tags wagtailimages_tags %}
 
-<div class="card mb-3 {% if self.border_color %} border border-{{ self.border_color }}{% endif %}  text-bg-{{ self.background_color }}
+<div class="card mb-3 {% if self.border_color %} border border-2 border-{{ self.border_color }}{% endif %}  text-bg-{{ self.background_color }}
     text-{{ self.text_color }}
     {{self.settings.custom_css_class}}"
     {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}>

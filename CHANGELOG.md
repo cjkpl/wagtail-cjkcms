@@ -14,6 +14,9 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+## [24.8.1] - 2024-08-27
+### Fixed
+ - Update malformed robots.txt file
 
 ## [24.6.4] - 2024-06-28
 ### Changed

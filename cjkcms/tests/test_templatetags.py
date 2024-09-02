@@ -7,7 +7,7 @@ from cjkcms.models import AdobeApiSettings
 from datetime import datetime, timedelta
 from django.test import TestCase
 from django.template import Template, Context
-from cjkcms.templatetags.cjkcms_tags import is_in_future, is_in_past
+from cjkcms.templatetags.cjkcms_tags import is_in_future, is_in_past, first_non_empty
 
 
 django_engine = engines["django"]
@@ -142,3 +142,21 @@ class TemplateTagTests(TestCase):
         context = Context({"the_date": datetime.now() - timedelta(days=1)})
         result = template.render(context)
         self.assertEqual(result, "past")
+
+    def test_all_empty(self):
+        self.assertEqual(first_non_empty("", None, False, 0), "")
+
+    def test_first_non_empty(self):
+        self.assertEqual(first_non_empty("", None, "first", "second"), "first")
+
+    def test_middle_non_empty(self):
+        self.assertEqual(first_non_empty("", None, "first", "second"), "first")
+
+    def test_last_non_empty(self):
+        self.assertEqual(first_non_empty("", None, "", "last"), "last")
+
+    def test_all_non_empty(self):
+        self.assertEqual(first_non_empty("first", "second", "third"), "first")
+
+    def test_no_arguments(self):
+        self.assertEqual(first_non_empty(), "")

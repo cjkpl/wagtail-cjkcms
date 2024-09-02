@@ -301,3 +301,14 @@ def is_in_past(the_date):
         datetime_date = datetime(the_date.year, the_date.month, the_date.day)
         return datetime_date < datetime.now()
     return False
+
+
+@register.simple_tag
+def first_non_empty(*args):
+    """
+    Returns the first non-empty argument.
+    """
+    for arg in args:
+        if arg:
+            return arg
+    return ""

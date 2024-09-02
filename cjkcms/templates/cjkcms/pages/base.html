@@ -92,7 +92,7 @@
                     {% endif %}
                 {% endblock %}
 
-                {% if settings.cjkcms.LayoutSettings.breadcrumbs %}
+                {% if settings.cjkcms.LayoutSettings.breadcrumbs and page.breadcrumbs_visible %}
                 {% block breadcrumbs %}{% endblock %}
                 {% endif %}
 

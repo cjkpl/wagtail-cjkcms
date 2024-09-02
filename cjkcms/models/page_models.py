@@ -374,6 +374,13 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
         return edit_handler.bind_to_model(cls)
 
     @property
+    def breadcrumb_title(self) -> str:
+        """
+        Gets breadcrumb title, or page title if not set.
+        """
+        return self.breadcrumb_label or self.title  # type: ignore
+
+    @property
     def default_seo_image(self) -> "Optional[AbstractImage]":
         """
         Gets default image seo image defined in Settings->Layout->Branding

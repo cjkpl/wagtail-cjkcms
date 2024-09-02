@@ -261,6 +261,22 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
         help_text=_("Show breadcrumbs in page header"),
     )
 
+    # # defines layout for the breadcrumb: full, shortened
+    # breadcrumb_layout_default = "full"
+    # breadcrumb_layout_choices = (
+    #     ("full", _("Display full")),
+    #     ("shortened_dots", _("Shortened with dots in middle levels")),
+    #     ("shortened_mobile_dots", _("Shortened with dots on mobile view")),
+    # )
+
+    # breadcrumb_layout = models.CharField(
+    #     max_length=255,
+    #     choices=breadcrumb_layout_choices,
+    #     default=breadcrumb_layout_default,
+    #     blank=True,
+    #     verbose_name=_("Breadcrumbs layout"),
+    # )
+
     breadcrumb_icon = models.CharField(
         blank=True,
         max_length=32,

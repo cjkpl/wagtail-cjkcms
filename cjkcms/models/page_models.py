@@ -209,6 +209,25 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
     )
 
     ###############
+    # Breadcrumbs fields (on layout tab)
+    ###############
+
+    breadcrumbs_visible = models.BooleanField(
+        default=False,
+        verbose_name=_("Breadcrumbs"),
+        help_text=_(
+            "Show breadcrumbs in this page header. For global change, see Settings->Layout"
+        ),
+    )
+
+    breadcrumb_label = models.CharField(
+        blank=True,
+        max_length=128,
+        verbose_name=_("Breadcrumb label"),
+        help_text=_("If empty, page title will be used."),
+    )
+
+    ###############
     # SEO overrides
     ###############
 
@@ -269,6 +288,13 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
 
     layout_panels = [
         MultiFieldPanel([FieldPanel("custom_template")], heading=_("Visual Design")),
+        MultiFieldPanel(
+            [
+                FieldPanel("breadcrumbs_visible"),
+                FieldPanel("breadcrumb_label"),
+            ],
+            heading=_("Breadcrumbs settings"),
+        ),
         MultiFieldPanel(
             [
                 FieldPanel("index_show_subpages"),

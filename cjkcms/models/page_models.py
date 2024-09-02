@@ -213,7 +213,7 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
     ###############
 
     breadcrumbs_visible = models.BooleanField(
-        default=False,
+        default=True,
         verbose_name=_("Breadcrumbs"),
         help_text=_(
             "Show breadcrumbs in this page header. For global change, see Settings->Layout"

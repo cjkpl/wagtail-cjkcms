@@ -14,6 +14,12 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+## [24.9.1] - 2024-09-02
+### Added
+ - Support for breadcrumbs per-page visibility
+ - breadcrumb_title page property for all CMS pages, choosing new "breadcrumb_label" field or page title if new field empty
+ - Added new templatetag with tests: first_not_empty which returns first not empty argument from the list, e.g. {% first_not_empty var1 var2 var3 %} 
+
 ## [24.8.1] - 2024-08-27
 ### Fixed
  - Update malformed robots.txt file

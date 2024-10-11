@@ -31,3 +31,6 @@ original_images
 
 # Pycharm
 .idea
+
+#Mac
+.DS_Store

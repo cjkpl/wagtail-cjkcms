@@ -312,3 +312,14 @@ def first_non_empty(*args):
         if arg:
             return arg
     return ""
+
+
+from wagtail.models import Page
+
+
+@register.filter(name="is_not_page")
+def is_not_page(model):
+    if isinstance(model, Page):
+        return False
+    else:
+        return True

@@ -1,6 +1,7 @@
 import contextlib
-import string
 import random
+import string
+from datetime import date, datetime
 
 from bs4 import BeautifulSoup
 from django import template
@@ -9,18 +10,15 @@ from django.db.models.query import QuerySet
 
 # from django.forms import ClearableFileInput
 from django.utils.safestring import mark_safe
-from wagtail.models import Collection
 from wagtail.images.models import Image
+from wagtail.models import Collection, Page
 
 from cjkcms import __version__
-
 from cjkcms.blocks.base_blocks import CjkcmsAdvSettings
 from cjkcms.forms import SearchForm
 from cjkcms.models import Footer, Navbar
-from cjkcms.settings import cms_settings
-from datetime import datetime, date
-
 from cjkcms.models.wagtailsettings_models import LayoutSettings
+from cjkcms.settings import cms_settings
 
 register = template.Library()
 
@@ -312,9 +310,6 @@ def first_non_empty(*args):
         if arg:
             return arg
     return ""
-
-
-from wagtail.models import Page
 
 
 @register.filter(name="is_not_page")

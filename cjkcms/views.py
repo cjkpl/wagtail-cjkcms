@@ -22,6 +22,41 @@ import django
 from wagtail import __version__ as wagtail_version
 from cjkcms import __version__ as cjkcms_version
 import sys
+from rest_framework import status
+from django.conf import settings
+from django.http import JsonResponse
+import django
+from wagtail import __version__ as wagtail_version
+from cjkcms import __version__ as cjkcms_version
+import sys
+from django.apps import apps
+from wagtail.search.backends import get_search_backend
+from wagtail.models import Page
+from wagtail.search import index
+from cjkcms.forms import SearchForm
+from cjkcms.models import (
+    GeneralSettings,
+    LayoutSettings,
+)
+from wagtail.search import index
+from django.http import Http404, HttpResponsePermanentRedirect
+from django.contrib.contenttypes.models import ContentType
+from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
+from django.shortcuts import render
+
+# from coderedcms.importexport import convert_csv_to_json, import_pages, ImportPagesFromCSVFileForm
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from django.conf import settings
+from django.http import JsonResponse
+import django
+from wagtail import __version__ as wagtail_version
+from cjkcms import __version__ as cjkcms_version
+import sys
+from django.apps import apps
+from wagtail.search.backends import get_search_backend
+from wagtail.models import Page
 
 
 def search(request):
@@ -29,34 +64,37 @@ def search(request):
     Searches pages across the entire site.
     """
     search_form = SearchForm(request.GET)
-    pagetypes = []
     results = None
     results_paginated = None
+    indexed_models = []
+    for model in apps.get_models():
+        if (
+            issubclass(model, index.Indexed)
+            and hasattr(model, "search_filterable")
+            and model.search_filterable
+        ):
+            indexed_models.append(model)
 
     if search_form.is_valid():
         search_query = search_form.cleaned_data["s"]
         search_model = search_form.cleaned_data["t"]
-
-        # get all page models
-        pagemodels = sorted(get_page_models(), key=get_name_of_class)
-        # filter based on is search_filterable
-        for model in pagemodels:
-            if hasattr(model, "search_filterable") and model.search_filterable:
-                pagetypes.append(model)
-
-        results = Page.objects.live()
+        s = get_search_backend()
         if search_model:
             try:
                 # If provided a model name, try to get it
                 model = ContentType.objects.get(model=search_model).model_class()
-                results = results.type(model)
+                results = s.search(search_query, model)
             except ContentType.DoesNotExist:
                 # Maintain existing behavior of only returning objects if the page type is real
                 results = None
-
+        else:
+            results = Page.objects.live()
+            results = list(results.search(search_query))
+            #results=[]
+            for model in indexed_models:
+                results += s.search(search_query, model)
         # get and paginate results
         if results:
-            results = results.search(search_query)
             paginator = Paginator(
                 results, GeneralSettings.for_request(request).search_num_results
             )
@@ -69,16 +107,16 @@ def search(request):
                 results_paginated = paginator.page(1)
             except InvalidPage:
                 results_paginated = paginator.page(1)
-
     # Render template
+    print(results_paginated)
     return render(
         request,
         "cjkcms/pages/search.html",
         {
             "request": request,
-            "pagetypes": pagetypes,
             "form": search_form,
             "results": results,
+            "pagetypes": indexed_models,
             "results_paginated": results_paginated,
         },
     )

@@ -59,6 +59,10 @@
         {% if results_paginated.object_list %}
             {% for page in results_paginated %}
             <div class="mb-5">
+                {% if results_paginated.object_list %}
+                {% if page|is_not_page %}
+                {% include page.search_template %}
+                {% endif %}
                 {% with page=page.specific %}
                     {% if page.search_template %}
                         {% include page.search_template %}
@@ -66,6 +70,7 @@
                         {% include "cjkcms/pages/search_result.html" %}
                     {% endif %}
                 {% endwith %}
+                {% endif %}
             </div>
             {% endfor %}
             {% include "cjkcms/includes/pagination.html" with items=results_paginated %}

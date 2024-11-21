@@ -1,5 +1,6 @@
-from .snippet_models import Navbar, EventCalendar
+from .snippet_models import Navbar, NavbarForm, EventCalendar
 from wagtail.snippets.views.snippets import SnippetViewSet
+from django.utils.translation import gettext_lazy as _
 
 
 class NavbarSnippet(SnippetViewSet):
@@ -15,6 +16,9 @@ class NavbarSnippet(SnippetViewSet):
     search_fields = [
         "name",
     ]
+
+    def get_form_class(self, for_update=False):
+        return NavbarForm
 
 
 class EventCalendarSnippet(SnippetViewSet):

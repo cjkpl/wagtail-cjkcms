@@ -25,6 +25,7 @@ from django.conf import settings
 from cjkcms.fields import CjkcmsStreamField
 from wagtail_color_panel.fields import ColorField
 from wagtail_color_panel.edit_handlers import NativeColorPanel
+from django.forms import ModelForm
 
 
 @register_snippet
@@ -342,7 +343,7 @@ class Navbar(models.Model):
     language = models.CharField(
         blank=True,
         max_length=10,
-        choices=[("_all_", _("All languages"))],
+        choices=[],
         default="_all_",
         verbose_name=_("Show in language"),
         help_text=_("Select a language to limit display to specific locale."),
@@ -371,22 +372,36 @@ class Navbar(models.Model):
     def __str__(self):
         return self.name
 
+    @staticmethod
+    def get_available_langs():
+        available_langs = [("_all_", _("All languages"))]
+        if hasattr(settings, "WAGTAIL_CONTENT_LANGUAGES"):
+            available_langs += settings.WAGTAIL_CONTENT_LANGUAGES
+        return available_langs
+
     def __init__(self, *args, **kwargs):
         """
         Inject custom choices and defaults into the form fields
         to enable customization of settings without causing migration issues.
         """
         super().__init__(*args, **kwargs)
-        # Set choices dynamically.
 
-        available_langs = [("_all_", _("All languages"))]
-        if hasattr(settings, "WAGTAIL_CONTENT_LANGUAGES"):
-            available_langs += settings.WAGTAIL_CONTENT_LANGUAGES
-
-        self._meta.get_field("language").choices = available_langs  # type: ignore
+        self._meta.get_field("language").choices = Navbar.get_available_langs()  # type: ignore
         # Set default dynamically.
         if not self.id:  # type: ignore
             self.language = "_all_"
+
+
+class NavbarForm(ModelForm):
+    class Meta:
+        model = Navbar
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Set the dynamic choices
+        self.fields["language"].choices = Navbar.get_available_langs()
 
 
 @register_snippet

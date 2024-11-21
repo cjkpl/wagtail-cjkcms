@@ -1,71 +1,42 @@
+import sys
+
+import django
+from django.apps import apps
+from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
+from django.core.paginator import EmptyPage, InvalidPage, PageNotAnInteger, Paginator
+from django.http import Http404, HttpResponsePermanentRedirect, JsonResponse
+from django.shortcuts import render
+from rest_framework import status
+from rest_framework.response import Response
+
+from rest_framework.views import APIView
+from wagtail import __version__ as wagtail_version
+from wagtail.models import Page
+from wagtail.search import index
+from wagtail.search.backends import get_search_backend
+
+from cjkcms import __version__ as cjkcms_version
 from cjkcms.forms import SearchForm
 from cjkcms.models import (
     GeneralSettings,
     LayoutSettings,
 )
-
-from django.http import Http404, HttpResponsePermanentRedirect
-from django.contrib.contenttypes.models import ContentType
-from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
-from django.shortcuts import render
-from wagtail.models import Page, get_page_models
-
-# from coderedcms.importexport import convert_csv_to_json, import_pages, ImportPagesFromCSVFileForm
-from cjkcms.templatetags.cjkcms_tags import get_name_of_class
-
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from django.conf import settings
-from django.http import JsonResponse
-import django
-from wagtail import __version__ as wagtail_version
-from cjkcms import __version__ as cjkcms_version
-import sys
-from rest_framework import status
-from django.conf import settings
-from django.http import JsonResponse
-import django
-from wagtail import __version__ as wagtail_version
-from cjkcms import __version__ as cjkcms_version
-import sys
-from django.apps import apps
-from wagtail.search.backends import get_search_backend
-from wagtail.models import Page
-from wagtail.search import index
-from cjkcms.forms import SearchForm
-from cjkcms.models import (
-    GeneralSettings,
-    LayoutSettings,
-)
-from wagtail.search import index
-from django.http import Http404, HttpResponsePermanentRedirect
-from django.contrib.contenttypes.models import ContentType
-from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
-from django.shortcuts import render
-
-# from coderedcms.importexport import convert_csv_to_json, import_pages, ImportPagesFromCSVFileForm
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from django.conf import settings
-from django.http import JsonResponse
-import django
-from wagtail import __version__ as wagtail_version
-from cjkcms import __version__ as cjkcms_version
-import sys
-from django.apps import apps
-from wagtail.search.backends import get_search_backend
-from wagtail.models import Page
 
 
 def search(request):
     """
     Searches pages across the entire site.
+
+    Parameters:
+    request (HttpRequest): The HTTP request object containing GET parameters for the search.
+
+    Returns:
+    HttpResponse: The rendered search results page.
     """
     search_form = SearchForm(request.GET)
-    results = None
-    results_paginated = None
+    results = []
+    results_paginated = []
     indexed_models = []
     for model in apps.get_models():
         if (
@@ -78,21 +49,20 @@ def search(request):
     if search_form.is_valid():
         search_query = search_form.cleaned_data["s"]
         search_model = search_form.cleaned_data["t"]
-        s = get_search_backend()
-        if search_model:
+        backend = get_search_backend()
+        if search_model and ContentType.objects.filter(model=search_model).exists():
             try:
                 # If provided a model name, try to get it
                 model = ContentType.objects.get(model=search_model).model_class()
-                results = s.search(search_query, model)
+                results = backend.search(search_query, model)
             except ContentType.DoesNotExist:
                 # Maintain existing behavior of only returning objects if the page type is real
-                results = None
+                results = []
         else:
-            results = Page.objects.live()
-            results = list(results.search(search_query))
-            #results=[]
+            results = list(Page.objects.live().search(search_query))
+            # results=[]
             for model in indexed_models:
-                results += s.search(search_query, model)
+                results += backend.search(search_query, model)
         # get and paginate results
         if results:
             paginator = Paginator(
@@ -106,19 +76,20 @@ def search(request):
             except EmptyPage:
                 results_paginated = paginator.page(1)
             except InvalidPage:
-                results_paginated = paginator.page(1)
+                results_paginated = paginator.page(paginator.num_pages)
+
+    context = {
+        "request": request,
+        "form": search_form,
+        "results": results,
+        "pagetypes": indexed_models,
+        "results_paginated": results_paginated,
+    }
     # Render template
-    print(results_paginated)
     return render(
         request,
         "cjkcms/pages/search.html",
-        {
-            "request": request,
-            "form": search_form,
-            "results": results,
-            "pagetypes": indexed_models,
-            "results_paginated": results_paginated,
-        },
+        context,
     )
 
 

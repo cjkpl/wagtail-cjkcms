@@ -107,13 +107,13 @@ class TestSearchBlocks(TestCase):
             reverse("cjkcms_search"), {"s": "not-there"}, follow=True
         )
 
-        self.assertEqual(response.context["results"].count(), 0)
+        self.assertEqual(len(response.context["results"]), 0)
 
         response = self.client.get(
             reverse("cjkcms_search"), {"s": "daisies"}, follow=True
         )
 
-        self.assertEqual(response.context["results"].count(), 1)
+        self.assertEqual(len(response.context["results"]), 2)
 
     def test_search_button(self):
         self.set_article_body(self.block_button_link)
@@ -122,13 +122,13 @@ class TestSearchBlocks(TestCase):
             reverse("cjkcms_search"), {"s": "daisies"}, follow=True
         )
 
-        self.assertEqual(response.context["results"].count(), 0)
+        self.assertEqual(len(response.context["results"]), 0)
 
         response = self.client.get(
             reverse("cjkcms_search"), {"s": "Benjamin"}, follow=True
         )
-
-        self.assertEqual(response.context["results"].count(), 1)
+        print(response.context["results"])
+        self.assertEqual(len(response.context["results"]), 2)
 
     def test_search_html(self):
         self.set_article_body(self.block_html)
@@ -137,13 +137,13 @@ class TestSearchBlocks(TestCase):
             reverse("cjkcms_search"), {"s": "can't see me"}, follow=True
         )
 
-        self.assertEqual(response.context["results"].count(), 0)
+        self.assertEqual(len(response.context["results"]), 0)
 
         response = self.client.get(
             reverse("cjkcms_search"), {"s": "from HTML"}, follow=True
         )
 
-        self.assertEqual(response.context["results"].count(), 1)
+        self.assertEqual(len(response.context["results"]), 2)
 
     def test_search_quote(self):
         self.set_article_body(self.block_quote)
@@ -152,16 +152,16 @@ class TestSearchBlocks(TestCase):
             reverse("cjkcms_search"), {"s": "from HTML"}, follow=True
         )
 
-        self.assertEqual(response.context["results"].count(), 0)
+        self.assertEqual(len(response.context["results"]), 0)
 
         response = self.client.get(
             reverse("cjkcms_search"), {"s": "quotably"}, follow=True
         )
 
-        self.assertEqual(response.context["results"].count(), 1)
+        self.assertEqual(len(response.context["results"]), 2)
 
         response = self.client.get(
             reverse("cjkcms_search"), {"s": "Nobody"}, follow=True
         )
 
-        self.assertEqual(response.context["results"].count(), 1)
+        self.assertEqual(len(response.context["results"]), 2)

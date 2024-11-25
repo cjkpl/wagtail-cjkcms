@@ -2,7 +2,7 @@
 
 {% can_show_item value.visible_for as csi %}
 {% if csi %}
-<a href="{% if request.LANGUAGE_CODE and request.LANGUAGE_CODE != 'en' %}/{{ request.LANGUAGE_CODE }}{% endif %}{{ self.url }}"
+<a href="{% if request.LANGUAGE_CODE and request.LANGUAGE_CODE != 'en' and request.LANGUAGE_CODE != 'en-us' %}/{{ request.LANGUAGE_CODE }}{% endif %}{{ self.url }}"
     {% if settings.cjkcms.AnalyticsSettings.ga_track_button_clicks %}
         data-ga-event-category='{{self.settings.ga_tracking_event_category|default:"Button"}}'
         data-ga-event-label='{{self.settings.ga_tracking_event_label|default:self.button_title}}'

@@ -318,3 +318,8 @@ def is_not_page(model):
         return False
     else:
         return True
+
+
+@register.filter(name="not_starts_with")
+def not_starts_with(value, arg):
+    return not value.startswith(arg)

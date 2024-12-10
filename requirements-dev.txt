@@ -8,7 +8,7 @@ cjkcms-color-panel
 mkdocstrings[python]>=0.18
 black
 codespell
-flake8
+ruff
 mypy
 pytest
 pytest-cov

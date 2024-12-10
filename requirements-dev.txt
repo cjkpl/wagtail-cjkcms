@@ -18,4 +18,4 @@ sphinx-wagtail-theme
 twine
 wheel
 django-extensions
-wagtail-cjkcms
+-e .

@@ -16,8 +16,8 @@ class NavbarSnippet(SnippetViewSet):
         "name",
     ]
 
-    # def get_form_class(self, for_update=False):
-    #     return NavbarForm
+    def get_form_class(self, for_update=False):
+        return NavbarForm
 
 
 class EventCalendarSnippet(SnippetViewSet):

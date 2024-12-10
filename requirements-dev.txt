@@ -1,9 +1,5 @@
 django-bootstrap5
 wagtail>=4.1
-# until these packages support Wagtail 5, use cjkpl forks
-cjkcms-seo
-wagtail-cache
-cjkcms-color-panel
 
 mkdocstrings[python]>=0.18
 black

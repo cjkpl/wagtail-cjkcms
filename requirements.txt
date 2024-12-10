@@ -3,4 +3,4 @@ django>=4.2
 wagtail>=5.1
 wagtail-seo
 wagtail-cache
-git+https://github.com/torchbox-forks/wagtail-color-panel.git
+git+https://github.com/torchbox-forks/wagtail-color-panel.git#egg=wagtail-color-panel

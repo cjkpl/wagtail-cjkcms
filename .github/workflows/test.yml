@@ -36,4 +36,4 @@ jobs:
         # env:
         #   DJANGO_ALLOW_ASYNC_UNSAFE: 1
         run: |
-          pytest lxp
+          pytest cjkcms

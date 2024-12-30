@@ -1,0 +1,24 @@
+{% load wagtailcore_tags static %}
+
+{% block block_render %}
+{% with 'vendor/simplycountdown/css/'|add:self.theme|add:'.css' as theme_css %}
+<link rel="stylesheet" href="{% static theme_css %}">
+{% endwith %}
+{% if self.url %}<a href="{{self.url}}" class="text-decoration-none">{% endif %}
+<div class="simply-countdown-{{self.theme}} {%if self.settings.custom_css_class%}{{self.settings.custom_css_class}}{% endif %}" id="mycountdown">
+    {% if self.title %}<h3 class="w-100 text-center">{{ self.title }}</h3>{% endif %}
+</div>
+{% if self.url %}</a>{% endif %}
+<script src="{% static 'vendor/simplycountdown/js/simplyCountdown.umd.js' %}"></script>
+<script>
+    simplyCountdown("#mycountdown", {
+        year: {{ year }},
+        month: {{ month }},
+        day: {{ day }},
+        hours: {{ hour }},
+        minutes: {{ minute }},
+        seconds: {{ second }},
+        enableUtc: true,
+    });
+</script>
+{% endblock %}

@@ -5,6 +5,11 @@
 * [Quick start](getting-started/01.quick-start.md) - A quick start guide for new projects.
 * [Manual installation details](getting-started/03.installation.md) - A step by step installation guide.
 
+## Blocks
+
+### Content blocks
+* [Countdown] - implemented simplyCountdown by VincentLoy. See https://vincentloy.github.io/simplyCountdown.js/ for more info
+
 
 ## Management commands
 

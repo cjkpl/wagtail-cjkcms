@@ -14,6 +14,12 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+## [24.12.2] - 2024-12-31
+### Added
+ - "countdown" content block using VincentLoy's library. See https://vincentloy.github.io/simplyCountdown.js/ for more info
+ - added themes and tests for the "countdown" block
+
+
 ## [24.9.1] - 2024-09-02
 ### Added
  - Support for breadcrumbs per-page visibility

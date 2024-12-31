@@ -2,6 +2,7 @@
 Content blocks are for building complex, nested HTML structures that usually
 contain sub-blocks, and may require javascript to function properly.
 """
+
 from django.utils.translation import gettext_lazy as _
 from wagtail import blocks
 from wagtail.documents.blocks import DocumentChooserBlock
@@ -180,15 +181,17 @@ class NavBaseLinkBlock(BaseBlock):
         required=False,
         label=_("Image"),
     )
-    visible_for = blocks.ChoiceBlock(
-        choices=cms_settings.CJKCMS_AUTH_VISIBILITY_CHOICES,
-        default=cms_settings.CJKCMS_AUTH_VISIBILITY_DEFAULT,
-        required=False,
-        label=_("Item visibility"),
-        help_text=_(
-            "DEPRECATED. Use the visibility options in the `Advanced Settings`. "
-        ),
-    )
+
+    if cms_settings.CJKCMS_NAVBAR_SHOW_VISIBLE_FOR:
+        visible_for = blocks.ChoiceBlock(
+            choices=cms_settings.CJKCMS_AUTH_VISIBILITY_CHOICES,
+            default=cms_settings.CJKCMS_AUTH_VISIBILITY_DEFAULT,
+            required=False,
+            label=_("Item visibility"),
+            help_text=_(
+                "DEPRECATED. Use the visibility options in the `Advanced Settings`. "
+            ),
+        )
 
 
 class NavExternalLinkBlock(NavBaseLinkBlock):

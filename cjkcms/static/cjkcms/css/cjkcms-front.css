@@ -82,6 +82,11 @@ License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
   content: ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . " ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . " ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . " ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ";
 }
 
+.leaders-dots {
+  border-bottom: 1px dotted currentColor;
+  margin-bottom: 5px;
+}
+
 .leaders span:first-child {
   padding-right: 0.33em;
   background: white;

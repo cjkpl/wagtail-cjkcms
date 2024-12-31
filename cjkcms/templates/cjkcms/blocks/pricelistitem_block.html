@@ -1,16 +1,20 @@
 {% load wagtailimages_tags %}
 
-<div class="row">
+<div class="row {%if self.settings.custom_css_class%}{{self.settings.custom_css_class}}{% endif %}">
 {% if self.image %}
     <div class="col-md-4">
     {% image self.image original as imagedata %}
     <img src="{{imagedata.url}}" alt="Photo of {{self.name}}" class="w-100" />
     </div>
-    <div class="col-md-8" style="overflow-x: hidden;">
+    <div class="col-md-8">
 {% else %}
-    <div class="col-md-12" style="overflow-x: hidden;">
+    <div class="col-md-12">
 {% endif %}
-    <strong class="leaders"><span>{{self.name}}</span><span>{{self.price}}</span></strong>
-    <div>{{self.description}}</div>
+        <div class="d-flex">
+            <span class="flex-shrink-1 fs-5">{{self.name}}</span>
+            <span class="leaders-dots flex-grow-1"></span>
+            <span class="flex-shrink-1 fs-5  text-end">{{self.price}}</span>
+        </div>
+        <div><em>{{self.description}}</em></div>
     </div>
 </div>

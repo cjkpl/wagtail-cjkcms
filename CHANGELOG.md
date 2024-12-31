@@ -14,6 +14,12 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+## [24.12.4] - 2024-12-31
+### Removed
+ - Removed deprecated menu visibility management via visible_for field in NavBlocks
+CMS blocks are JSON-based, and ignored in migrations, so If we removed the field in block defintion, this would not cause the data in database disappear. As a result we might have blocks in various websites which are strangely invisible to users, even if nothing is set in the visible block definition. So for safety, a new setting has been added: CJKCMS_NAVBAR_SHOW_VISIBLE_FOR = False. Switch it to True to restore visibility of that block component, if you have problems with any websites. For security, implementation of the visibility checks in templates (can_show_item value.visible_for ) was NOT removed from code.
+- Corrected issue with fixed top navbars. Important - this changed some implementation details (e.g. css styling), so check your site if it uses fixed navbar
+
 ## [24.12.2] - 2024-12-31
 ### Added
  - "countdown" content block using VincentLoy's library. See https://vincentloy.github.io/simplyCountdown.js/ for more info

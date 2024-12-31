@@ -253,12 +253,38 @@ License: https://github.com/coderedcorp/coderedcms/blob/dev/LICENSE
 }
 
 .-fixed-img-offset {
-  margin-top: 76px;
+  margin-top: 104px;
 }
 
 .-fixed-offset {
-  margin-top: 56px;
+  margin-top: 104px;
 }
+
+.cjkcms-navbar-center-fixed-img-offset {
+  margin-top: 175px;
+}
+
+.cjkcms-navbar-center-fixed-offset {
+  margin-top: 104px;
+}
+
+.cjkcms-navbar-center {
+  text-align: center;
+}
+
+.cjkcms-navbar-center .navbar-collapse {
+  justify-content: center;
+}
+
+.cjkcms-navbar-center .navbar-brand {
+  margin: 0;
+}
+
+.cjkcms-navbar-center .navbar-brand img {
+  height: 150px;
+  width: auto;
+}
+
 
 [class^="container"] [class^="container"] {
   width: 100%;

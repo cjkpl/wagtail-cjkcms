@@ -132,12 +132,25 @@ def get_pictures(collection_id, tag=None):
 @register.simple_tag(takes_context=True)
 def get_navbar_css(context):
     layout = LayoutSettings.for_request(context["request"])
-    fixed = "fixed-top" if layout.navbar_fixed else ""
+    fixed = "sticky-top" if layout.navbar_fixed else ""
+
+    # if layout.navba_class is not set, but layout.navbar_fixed is set,
+    # we need a background color for the navbar to protect from overlapping
+    # content below when scrolling. So, try to guess the navbar class:
+    # if layout.color_scheme is set, use that, else use "navbar-light bg-light"
+    if not layout.navbar_class and layout.navbar_fixed:
+        if layout.color_scheme:
+            layout.navbar_class = (
+                f"navbar-{layout.color_scheme} bg-{layout.color_scheme}"
+            )
+        else:
+            layout.navbar_class = "navbar-light bg-light"
+
     return " ".join(
         [
             fixed,
             layout.navbar_collapse_mode,
-            layout.color_scheme,
+            # layout.color_scheme,
             layout.navbar_format,
             layout.navbar_class,
         ]

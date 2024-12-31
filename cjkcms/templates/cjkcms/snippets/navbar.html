@@ -50,7 +50,7 @@
       {% endif %}
 
       {% if settings.cjkcms.LayoutSettings.navbar_search %}
-        {% include "cjkcms/snippets/navbar_search.html" %}
+        {% include "cjkcms/snippets/navbar_search_button.html" %}
       {% endif %}
     </div>
 
@@ -62,11 +62,7 @@
 </div><!-- /.container -->
 {% endif %}
 
-{# Navbar offset #}
-{% if settings.cjkcms.LayoutSettings.navbar_fixed %}
-    {% if settings.cjkcms.LayoutSettings.logo %}
-      <div class="{{settings.cjkcms.LayoutSettings.navbar_format}}-fixed-img-offset {{settings.cjkcms.LayoutSettings.navbar_collapse_mode}}"></div>
-    {% else %}
-      <div class="{{settings.cjkcms.LayoutSettings.navbar_format}}-fixed-offset {{settings.cjkcms.LayoutSettings.navbar_collapse_mode}}"></div>
-    {% endif %}
+{# Search Modal must be injected outside of the nav, because if the nav is fixed/sticky it breaks the modal #}
+{% if settings.cjkcms.LayoutSettings.navbar_search and "popup" in settings.cjkcms.LayoutSettings.search_format %}
+  {% include "cjkcms/snippets/navbar_search_modal.html" %}
 {% endif %}

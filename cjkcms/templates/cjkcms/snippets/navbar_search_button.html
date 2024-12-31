@@ -1,0 +1,18 @@
+{% load wagtailcore_tags cjkcms_tags django_bootstrap5 i18n %}
+    <form action="{% url 'cjkcms_search' %}" method="GET" class="row row-cols-lg-auto g-3 align-items-center">
+      {% csrf_token %}
+      {% get_searchform request as form %}
+      {% bootstrap_form_errors form type='non_fields' %}        
+        {% if settings.cjkcms.LayoutSettings.search_format == "" or settings.cjkcms.LayoutSettings.search_format|slice:":3" == "box" %}
+          {% bootstrap_field form.s layout='inline' show_label=False %}
+        {% endif %}
+        {% if "button" in settings.cjkcms.LayoutSettings.search_format %}
+        <button type="button" class="{{ settings.cjkcms.LayoutSettings.searchbutton_class }}"
+          {% if 'popup' in settings.cjkcms.LayoutSettings.search_format %}
+           data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#searchModal"
+            data-bs-toggle="modal" data-bs-target="#searchModal"    
+          {% endif %}
+        >{{ settings.cjkcms.LayoutSettings.searchbutton_label | richtext }}</button>
+        {% endif %}
+      
+      </form>

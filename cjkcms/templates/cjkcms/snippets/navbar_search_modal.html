@@ -1,7 +1,7 @@
 {% load wagtailcore_tags cjkcms_tags django_bootstrap5 i18n %}
 
 
-<form action="{% url 'cjkcms_search' %}" method="GET" class="row row-cols-lg-auto g-3 align-items-center">
+<form action="{% url 'cjkcms_search' %}" method="GET" class="align-items-center">
   {% csrf_token %}
   {% get_searchform request as form %}
   {% bootstrap_form_errors form type='non_fields' %}

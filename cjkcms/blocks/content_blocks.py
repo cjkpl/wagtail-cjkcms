@@ -182,17 +182,6 @@ class NavBaseLinkBlock(BaseBlock):
         label=_("Image"),
     )
 
-    if cms_settings.CJKCMS_NAVBAR_SHOW_VISIBLE_FOR:
-        visible_for = blocks.ChoiceBlock(
-            choices=cms_settings.CJKCMS_AUTH_VISIBILITY_CHOICES,
-            default=cms_settings.CJKCMS_AUTH_VISIBILITY_DEFAULT,
-            required=False,
-            label=_("Item visibility"),
-            help_text=_(
-                "DEPRECATED. Use the visibility options in the `Advanced Settings`. "
-            ),
-        )
-
 
 class NavExternalLinkBlock(NavBaseLinkBlock):
     """

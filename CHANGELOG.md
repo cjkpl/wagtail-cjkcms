@@ -14,6 +14,11 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+## [25.1.1] - 2025-01-01
+### Fixed
+ - Fixed regression bug causing menu items to be hidden. This required me to fully remove
+ check for the deprecated menu items visibility options.
+
 ## [24.12.4] - 2024-12-31
 ### Removed
  - Removed deprecated menu visibility management via visible_for field in NavBlocks

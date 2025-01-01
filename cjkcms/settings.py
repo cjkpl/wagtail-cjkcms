@@ -485,10 +485,6 @@ class _DefaultSettings:
     CJKCMS_VERSION_MONITOR_TOKEN = ""  # blank token = disabled version monitor api
     CJKCMS_VERSION_MONITOR_ALLOWED_DOMAINS = []  # disallow from any domain by default
 
-    CJKCMS_NAVBAR_SHOW_VISIBLE_FOR = (
-        False  # safety fallback for a deprecated and removed feature
-    )
-
     def __getattribute__(self, attr: str):
         # First load from Django settings.
         # If it does not exist, load from _DefaultSettings.

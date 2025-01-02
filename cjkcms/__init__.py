@@ -1,4 +1,4 @@
-VERSION = (25, 1, 2, "")
+VERSION = (25, 1, 3, "")
 
 __version_info__ = VERSION
 __version__ = ".".join(map(str, VERSION[:3])) + (f"-{VERSION[3]}" if VERSION[3] else "")

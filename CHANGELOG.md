@@ -14,6 +14,10 @@ migrated to this file.
 ### Fixed
 ### Removed
 
+## [25.1.3] - 2025-01-03
+### Fixed
+ - Fixed problems on some websites resulting from renaming navbar_search.html. Restored the previous template file name.
+
 ## [25.1.1] - 2025-01-01
 ### Fixed
  - Fixed regression bug causing menu items to be hidden. This required me to fully remove

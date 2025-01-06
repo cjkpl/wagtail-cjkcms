@@ -252,13 +252,16 @@ def link_display(context, text: str) -> str:
     }:
         return text
     u = context["request"].user
-    if text == "{{ user.username }}":
-        return u.username
-    if text == "{{ user.first_name }}":
-        return u.first_name
-    if text == "{{ user.last_name }}":
-        return u.last_name
-    return f"{u.first_name} {u.last_name}"
+    if u.is_authenticated:
+        if text == "{{ user.username }}":
+            return u.username
+        if text == "{{ user.first_name }}":
+            return u.first_name
+        if text == "{{ user.last_name }}":
+            return u.last_name
+        return f"{u.first_name} {u.last_name}"
+    else:
+        return "Guest"
 
 
 @register.filter

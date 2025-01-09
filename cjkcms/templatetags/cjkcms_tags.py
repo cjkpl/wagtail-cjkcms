@@ -159,11 +159,29 @@ def get_navbar_css(context):
 
 @register.simple_tag(takes_context=True)
 def get_navbars(context) -> "QuerySet[Navbar]":
+    """Returns all Navbar objects that are associated with the current site layout
+
+    Returns:
+        QuerySet[Navbar]: _description_
+    """
     layout = LayoutSettings.for_request(context["request"])
     navbarorderables = layout.site_navbar.all()
     return Navbar.objects.filter(navbarorderable__in=navbarorderables).order_by(
         "navbarorderable__sort_order"
     )
+
+
+@register.simple_tag(takes_context=True)
+def get_navbar(context, navbar_id) -> "Navbar":
+    """Returns the Navbar object with the given custom_id
+
+    Args:
+        custom_id: Custom_id of the Navbar defined in its settings
+
+    Returns:
+        Navbar: The Navbar object with the given id
+    """
+    return Navbar.objects.get(custom_id=navbar_id)
 
 
 @register.simple_tag(takes_context=True)

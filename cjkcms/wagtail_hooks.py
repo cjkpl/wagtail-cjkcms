@@ -7,7 +7,7 @@ from cjkcms.draftail import (
     register_inline_styling,
 )
 
-from cjkcms.models.admin_sidebar import NavbarSnippet, EventCalendarSnippet
+# from cjkcms.models.admin_sidebar import NavbarSnippet, EventCalendarSnippet
 from django.http.response import HttpResponse
 from django.templatetags.static import static
 from django.utils.html import format_html
@@ -15,6 +15,42 @@ from wagtail import hooks
 from wagtail.admin.menu import MenuItem
 from wagtail.snippets.models import register_snippet
 from wagtailcache.cache import clear_cache
+
+from cjkcms.models.snippet_models import Navbar, NavbarForm, EventCalendar
+from wagtail.snippets.views.snippets import SnippetViewSet
+
+
+class NavbarSnippet(SnippetViewSet):
+    model = Navbar
+    menu_label = "Navigation"
+    menu_icon = "link"  # change as required
+    add_to_admin_menu = True
+    list_display = (
+        "name",
+        "custom_css_class",
+        "custom_id",
+    )
+    search_fields = [
+        "name",
+    ]
+
+    def get_form_class(self, for_update=False):
+        return NavbarForm
+
+
+class EventCalendarSnippet(SnippetViewSet):
+    model = EventCalendar
+    menu_label = "Public Events"
+    menu_icon = "calendar"  # change as required
+    # add_to_admin_menu = True
+    list_display = ("name",)
+    search_fields = [
+        "name",
+    ]
+
+
+register_snippet(NavbarSnippet)
+register_snippet(EventCalendarSnippet)
 
 
 @hooks.register("insert_global_admin_css")  # type: ignore
@@ -196,7 +232,3 @@ def register_align_right_feature(features):
 @hooks.register("register_rich_text_features")  # type: ignore
 def register_external_link(features):
     features.register_link_type(NewWindowExternalLinkHandler)
-
-
-register_snippet(NavbarSnippet)
-register_snippet(EventCalendarSnippet)

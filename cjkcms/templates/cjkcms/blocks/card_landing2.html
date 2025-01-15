@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags static txtutils_tags %}
 
   <!-- Section: Landing Card Type 2 -->
-  <section class="mb-10 text-center text-md-start {{self.settings.custom_css_class}}" {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}>
+  <section class="mb-2 pb-2 text-center text-md-start {{self.settings.custom_css_class}}" {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}>
     {% if page.cover_image %}
     {% image page.cover_image width-1920 as card_img %}
     {% assign card_img.url as img_url %}
@@ -43,7 +43,7 @@
           </div>
           <div class="col-8 col-lg-9 col-xl-10 text-center text-md-start">
             {% if self.title %}
-            <h1 class="fw-bold" style="color:#FF7600;">
+            <h1 class="fw-bold" style="color:#FFFFFF; position: relative; z-index: 1; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
             {{self.title}}
             </h1>
             {% endif %}
@@ -56,7 +56,7 @@
         </div>
         <div class="row d-flex justify-content-center align-items-center">
           <div class="col-12" style="z-index:1">
-            <div class="fs-5">
+            <div>
               {{self.description | richtext}}
             </div>
             {% if self.links %}

@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags static txtutils_tags %}
 
   <!-- Section: Landing 1 Card -->
-  <section class="mb-8">
+  <section>
 
     <style>
       .page-header {
@@ -32,7 +32,7 @@
       }
     </style>
 
-    <div class="page-header {{self.settings.custom_css_class}}" style="min-height: 45vh;" {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}>
+    <div class="mb-2 pb-2 page-header {{self.settings.custom_css_class}}" style="min-height: 45vh;" {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}>
       <div class="oblique position-absolute top-0 h-100 d-md-block d-none gradient-custom-10">
         {% if self.image %}
             {% image self.image fill-900x600 as card_img %}

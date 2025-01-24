@@ -155,7 +155,7 @@
         {% endblock %}
 
         {% block frontend_scripts %}
-            {% include "cjkcms/snippets/frontend_scripts.html" %}
+            {% include "cjkcms/snippets/frontend_scripts.html" with app_name='app' %}
         {% endblock %}
 
         {% block cjkcms_scripts %}

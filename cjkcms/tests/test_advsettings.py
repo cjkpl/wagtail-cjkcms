@@ -133,7 +133,7 @@ class AdvSettingsTests(WagtailPageTests):
 
         ap = ArticlePage.objects.get(slug="test-article5")
         response = self.client.get(ap.url)
-        print(response.content)
+        # print(response.content)
 
         # @TODO: improve the test
         # note: the page meta description will contain the "Quotably interesting",

@@ -127,7 +127,7 @@ class TestSearchBlocks(TestCase):
         response = self.client.get(
             reverse("cjkcms_search"), {"s": "Benjamin"}, follow=True
         )
-        print(response.context["results"])
+        # print(response.context["results"])
         self.assertEqual(len(response.context["results"]), 2)
 
     def test_search_html(self):

@@ -181,7 +181,11 @@ def get_navbar(context, navbar_id) -> "Navbar":
     Returns:
         Navbar: The Navbar object with the given id
     """
-    return Navbar.objects.get(custom_id=navbar_id)
+    try:
+        n = Navbar.objects.get(custom_id=navbar_id)
+    except Navbar.DoesNotExist:
+        n = None
+    return n
 
 
 @register.simple_tag(takes_context=True)

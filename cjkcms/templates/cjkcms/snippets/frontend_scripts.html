@@ -3,7 +3,11 @@
 
     {% if settings.cjkcms.LayoutSettings.frontend_theme == 'python-webpack' %}
         {% if_has_tag javascript_pack %}
+            {% if app_name %}
             {% javascript_pack 'app' app_name attrs='charset="UTF-8"' %} {# you may add space-separated 'app2' etc after 'app' #}
+            {% else %}
+            {% javascript_pack 'app' attrs='charset="UTF-8"' %} {# you may add space-separated 'app2' etc after 'app' #}
+            {% endif %}
         {% endif_has_tag %}
     {% else %}
         <script src="{% theme_js %}" 

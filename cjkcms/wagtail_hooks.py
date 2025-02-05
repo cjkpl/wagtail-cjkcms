@@ -18,6 +18,7 @@ from wagtailcache.cache import clear_cache
 
 from cjkcms.models.snippet_models import Navbar, NavbarForm, EventCalendar
 from wagtail.snippets.views.snippets import SnippetViewSet
+from cjkcms.settings import cms_settings
 
 
 class NavbarSnippet(SnippetViewSet):
@@ -130,19 +131,6 @@ hooks.register("after_unpublish_page", clear_wagtailcache)
 hooks.register("after_create_snippet", clear_wagtailcache)
 hooks.register("after_edit_snippet", clear_wagtailcache)
 hooks.register("after_delete_snippet", clear_wagtailcache)
-
-
-@hooks.register("before_serve_document")  # type: ignore
-def serve_document_directly(document, request):
-    """
-    This hook prevents documents from being downloaded unless
-    specified by an <a> tag with the download attribute.
-    """
-    content_type, content_encoding = mimetypes.guess_type(document.filename)
-    response = HttpResponse(document.file.read(), content_type=content_type)
-    response["Content-Disposition"] = 'inline;filename="{0}"'.format(document.filename)
-    response["Content-Encoding"] = str(content_encoding)
-    return response
 
 
 class ImportExportMenuItem(MenuItem):

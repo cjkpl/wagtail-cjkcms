@@ -1,6 +1,7 @@
 """
 Three main creatable page types used in Cjk CMS.
 """
+
 from django.utils.translation import gettext_lazy as _
 from cjkcms.models import (
     CjkcmsArticlePage,

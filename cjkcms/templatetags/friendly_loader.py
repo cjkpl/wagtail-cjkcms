@@ -2,6 +2,7 @@
 https://github.com/ataylor32/django-friendly-tag-loader/blob/master/src/friendlytagloader/templatetags/friendly_loader.py
 Sadly, this repo has not been updated for 3 years
 """
+
 import contextlib
 
 from django import template

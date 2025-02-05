@@ -6,6 +6,7 @@ HTML blocks should NOT contain more sub-blocks or sub-streamfields.
 They must be safe to nest within more robust "content blocks" without
 creating recursion.
 """
+
 import logging
 
 from django.utils.encoding import force_str

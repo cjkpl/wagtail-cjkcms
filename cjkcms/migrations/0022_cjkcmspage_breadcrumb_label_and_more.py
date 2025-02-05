@@ -6,18 +6,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cjkcms', '0021_remove_layoutsettings_navbar_color_scheme_and_more'),
+        ("cjkcms", "0021_remove_layoutsettings_navbar_color_scheme_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='cjkcmspage',
-            name='breadcrumb_label',
-            field=models.CharField(blank=True, help_text='If empty, page title will be used.', max_length=128, verbose_name='Breadcrumb label'),
+            model_name="cjkcmspage",
+            name="breadcrumb_label",
+            field=models.CharField(
+                blank=True,
+                help_text="If empty, page title will be used.",
+                max_length=128,
+                verbose_name="Breadcrumb label",
+            ),
         ),
         migrations.AddField(
-            model_name='cjkcmspage',
-            name='breadcrumbs_visible',
-            field=models.BooleanField(default=True, help_text='Show breadcrumbs in this page header. For global change, see Settings->Layout', verbose_name='Breadcrumbs'),
+            model_name="cjkcmspage",
+            name="breadcrumbs_visible",
+            field=models.BooleanField(
+                default=True,
+                help_text="Show breadcrumbs in this page header. For global change, see Settings->Layout",
+                verbose_name="Breadcrumbs",
+            ),
         ),
     ]

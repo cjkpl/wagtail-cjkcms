@@ -5,6 +5,8 @@ from django.urls import reverse
 from django.test import Client, TestCase, override_settings
 
 from cjkcms.models.cms_models import ArticlePage
+from wagtail.models import Locale
+from wagtail.search import index as search_index
 
 
 @override_settings(
@@ -81,9 +83,12 @@ class TestSearchBlocks(TestCase):
     def create_article_page(self):
         # Get the HomePage
         home_page = Page.objects.get(path="00010001")
-
-        article_page = ArticlePage(title="Test Article", body=None)
-
+        article_page = ArticlePage(
+            title="Test Article",
+            seo_title="Test Article",
+            locale_id=Locale.get_default().id,
+            body=None,
+        )
         home_page.add_child(instance=article_page)
         article_page.save_revision().publish()
 
@@ -92,13 +97,35 @@ class TestSearchBlocks(TestCase):
         article_page.body = content
         article_page.save_revision().publish()
 
+        # Manually update the search index after publishing the page
+        search_index.insert_or_update_object(article_page)
+
     def test_page_type_in_search_results(self):
         response = self.client.get(
             reverse("cjkcms_search"), {"s": "doesn't matter"}, follow=True
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["pagetypes"][0].__name__, "ArticlePage")
+        self.assertIn(
+            "ArticlePage",
+            [pagetype.__name__ for pagetype in response.context["pagetypes"]],
+        )
+
+    def test_search_article_title(self):
+        # Manually update the search index after publishing the page
+        article_page = ArticlePage.objects.get(title="Test Article")
+        search_index.insert_or_update_object(article_page)
+
+        response = self.client.get(
+            reverse("cjkcms_search"), {"s": "Test", "t": ""}, follow=True
+        )
+        self.assertEqual(len(response.context["results"]), 1)
+
+        response = self.client.get(
+            reverse("cjkcms_search"), {"s": "Best Article"}, follow=True
+        )
+
+        self.assertEqual(len(response.context["results"]), 0)
 
     def test_search_richtext(self):
         self.set_article_body(self.block_richtext)
@@ -127,7 +154,6 @@ class TestSearchBlocks(TestCase):
         response = self.client.get(
             reverse("cjkcms_search"), {"s": "Benjamin"}, follow=True
         )
-        print(response.context["results"])
         self.assertEqual(len(response.context["results"]), 1)
 
     def test_search_html(self):

@@ -1,4 +1,3 @@
-
 from cjkcms import __version__
 from cjkcms.draftail import (
     NewWindowExternalLinkHandler,

@@ -24,7 +24,6 @@ from cjkcms.models import (
 )
 
 from wagtail.models import Locale
-from django.utils.translation import get_language
 
 
 def search_model_backend(model, search_query, current_locale):

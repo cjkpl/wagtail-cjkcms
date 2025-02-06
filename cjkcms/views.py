@@ -66,6 +66,7 @@ def search(request):
     results = None
     results_paginated = []
     indexed_models = []
+    results_by_model = {}
 
     if search_form.is_valid():
         current_locale = Locale.get_active()
@@ -86,6 +87,11 @@ def search(request):
                 # If provided a model name, try to get it
                 model = ContentType.objects.get(model=search_model).model_class()
                 results = search_model_backend(model, search_query, current_locale)
+                # Store the count of results for this model
+                results_by_model[model._meta.model_name] = {
+                    "model": model,
+                    "count": results.count(),
+                }
             except ContentType.DoesNotExist:
                 results = None
         else:
@@ -94,6 +100,11 @@ def search(request):
                 model_results = search_model_backend(
                     model, search_query, current_locale
                 )
+                # Store the count of results for this model
+                results_by_model[model._meta.model_name] = {
+                    "model": model,
+                    "count": model_results.count(),
+                }
                 results += model_results
         # get and paginate results
         if results:
@@ -116,6 +127,7 @@ def search(request):
         "results": results,
         "pagetypes": indexed_models,
         "results_paginated": results_paginated,
+        "results_by_model": results_by_model,
     }
     # Render template
     return render(

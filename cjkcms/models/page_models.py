@@ -35,7 +35,7 @@ from wagtail.utils.decorators import cached_classmethod
 from wagtailcache.cache import WagtailCacheMixin
 from wagtailseo.models import SeoMixin, TwitterCard
 
-from cjkcms import utils
+from cjkcms.utils.richtext import get_richtext_preview
 from cjkcms.blocks import CONTENT_STREAMBLOCKS, LAYOUT_STREAMBLOCKS
 from cjkcms.models.snippet_models import ClassifierTerm
 from cjkcms.models.wagtailsettings_models import LayoutSettings
@@ -635,7 +635,7 @@ class CjkcmsWebPage(CjkcmsPage):
         """
         A shortened version of the body without HTML tags.
         """
-        return utils.get_richtext_preview(self.body)
+        return get_richtext_preview(self.body)
 
 
 class CjkcmsArticlePage(CjkcmsWebPage):

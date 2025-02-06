@@ -23,6 +23,33 @@ from cjkcms.models import (
     LayoutSettings,
 )
 
+from wagtail.models import Locale
+from django.utils.translation import get_language
+
+
+def search_model_backend(model, search_query, current_locale):
+    """
+    Helper function to search a specific model with the search backend.
+
+    Parameters:
+    - model: The model to search.
+    - search_query: The query string to search for.
+    - current_locale: The current locale for filtering pages.
+
+    Returns:
+    - list: Search results for the model.
+    """
+    backend = get_search_backend()
+    if issubclass(model, Page):
+        # Search only live and public pages for models that are Page subclasses
+        return backend.search(
+            search_query,
+            model.objects.live().public().filter(locale=current_locale),
+        )
+    else:
+        # Search normally for non-page models
+        return backend.search(search_query, model)
+
 
 def search(request):
     """
@@ -34,35 +61,40 @@ def search(request):
     Returns:
     HttpResponse: The rendered search results page.
     """
+
     search_form = SearchForm(request.GET)
-    results = []
+    results = None
     results_paginated = []
     indexed_models = []
-    for model in apps.get_models():
-        if (
-            issubclass(model, index.Indexed)
-            and hasattr(model, "search_filterable")
-            and model.search_filterable
-        ):
-            indexed_models.append(model)
 
     if search_form.is_valid():
+        current_locale = Locale.get_active()
         search_query = search_form.cleaned_data["s"]
         search_model = search_form.cleaned_data["t"]
-        backend = get_search_backend()
+        results = []
+        for model in apps.get_models():
+            if (
+                issubclass(model, index.Indexed)
+                and hasattr(model, "search_filterable")
+                and model.search_filterable
+            ):
+                indexed_models.append(model)
+
+        # If a specific model is selected
         if search_model and ContentType.objects.filter(model=search_model).exists():
             try:
                 # If provided a model name, try to get it
                 model = ContentType.objects.get(model=search_model).model_class()
-                results = backend.search(search_query, model)
+                results = search_model_backend(model, search_query, current_locale)
             except ContentType.DoesNotExist:
-                # Maintain existing behavior of only returning objects if the page type is real
-                results = []
+                results = None
         else:
-            results = list(Page.objects.live().search(search_query))
-            # results=[]
+            # Search all indexed models
             for model in indexed_models:
-                results += backend.search(search_query, model)
+                model_results = search_model_backend(
+                    model, search_query, current_locale
+                )
+                results += model_results
         # get and paginate results
         if results:
             paginator = Paginator(

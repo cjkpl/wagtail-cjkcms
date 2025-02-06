@@ -60,8 +60,8 @@ class ArticleIndexPage(CjkcmsArticleIndexPage):
 
     # Only allow ArticlePages beneath this page.
     subpage_types = ["cjkcms.ArticlePage"]
-
     template = "cjkcms/pages/article_index_page.html"
+    search_filterable = True
 
 
 class WebPage(CjkcmsWebPage):
@@ -79,3 +79,4 @@ class WebPage(CjkcmsWebPage):
         verbose_name = _("Web Page")
 
     template = "cjkcms/pages/web_page.html"
+    search_filterable = True

@@ -113,7 +113,7 @@ class TestSearchBlocks(TestCase):
             reverse("cjkcms_search"), {"s": "daisies"}, follow=True
         )
 
-        self.assertEqual(len(response.context["results"]), 2)
+        self.assertEqual(len(response.context["results"]), 1)
 
     def test_search_button(self):
         self.set_article_body(self.block_button_link)
@@ -128,7 +128,7 @@ class TestSearchBlocks(TestCase):
             reverse("cjkcms_search"), {"s": "Benjamin"}, follow=True
         )
         print(response.context["results"])
-        self.assertEqual(len(response.context["results"]), 2)
+        self.assertEqual(len(response.context["results"]), 1)
 
     def test_search_html(self):
         self.set_article_body(self.block_html)
@@ -143,7 +143,7 @@ class TestSearchBlocks(TestCase):
             reverse("cjkcms_search"), {"s": "from HTML"}, follow=True
         )
 
-        self.assertEqual(len(response.context["results"]), 2)
+        self.assertEqual(len(response.context["results"]), 1)
 
     def test_search_quote(self):
         self.set_article_body(self.block_quote)
@@ -158,10 +158,10 @@ class TestSearchBlocks(TestCase):
             reverse("cjkcms_search"), {"s": "quotably"}, follow=True
         )
 
-        self.assertEqual(len(response.context["results"]), 2)
+        self.assertEqual(len(response.context["results"]), 1)
 
         response = self.client.get(
             reverse("cjkcms_search"), {"s": "Nobody"}, follow=True
         )
 
-        self.assertEqual(len(response.context["results"]), 2)
+        self.assertEqual(len(response.context["results"]), 1)

@@ -374,6 +374,11 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
         return edit_handler.bind_to_model(cls)
 
     @property
+    def search_name(self) -> str:
+        """Unless override, get the verbose name of the model"""
+        return self._meta.verbose_name
+
+    @property
     def breadcrumb_title(self) -> str:
         """
         Gets breadcrumb title, or page title if not set.

@@ -7,7 +7,8 @@
         {{self.settings.custom_css_class}}
     {% else %}
         row-cols-1 row-cols-md-2 row-cols-lg-3 g-4
-    {% endif %} ">
+    {% endif %}" 
+    {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}>
       {% for block in self.content %}
           <div class="col">
             {% include_block block %}

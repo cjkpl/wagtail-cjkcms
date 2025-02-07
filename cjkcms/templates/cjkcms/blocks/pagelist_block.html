@@ -2,7 +2,10 @@
 {% load wagtailcore_tags %}
 
 {% block block_render %}
-<div class="row">
+<div class="row {{self.settings.custom_css_class}}"
+     {% if self.settings.custom_id %}
+     id="{{self.settings.custom_id}}"
+     {% endif %}>
   {% if self.title %}
   <h3>{{ self.title }}</h3>
   {% endif %}

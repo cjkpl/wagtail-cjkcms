@@ -5,7 +5,10 @@
 
     {% for page in pages %}
     {% with page.specific as article %}
-    <div class="media">
+    <div class="media{{self.settings.custom_css_class}}"
+     {% if self.settings.custom_id %}
+     id="{{self.settings.custom_id}}"
+     {% endif %}>
         {% if article.cover_image %}
             {% image article.cover_image fill-150x100 as cover_image %}
             <a href="{{article.url}}"><img class="mr-3" src="{{cover_image.url}}" alt="{{cover_image.title}}"></a>

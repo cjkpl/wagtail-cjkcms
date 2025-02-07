@@ -2,7 +2,9 @@
 {% load wagtailcore_tags %}
 
 {% block grid_content %}
-<div class="row {{self.settings.custom_css_class}} position-relative" data-masonry='{"percentPosition": true }'>
+<div class="row {{self.settings.custom_css_class}} position-relative" 
+      data-masonry='{"percentPosition": true }' 
+      {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}>
       {% for block in self.content %}
       <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute;left:0;top:0;">
         {% include_block block %}

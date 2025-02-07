@@ -3,7 +3,10 @@
 
 {% block block_render %}
 
-<div class="list-group">
+<div class="list-group {{self.settings.custom_css_class}}"
+     {% if self.settings.custom_id %}
+     id="{{self.settings.custom_id}}"
+     {% endif %}>
     {% for page in pages %}
     {% with page=page.specific %}
     <a class="list-group-item list-group-item-action flex-column align-items-start {% if request.path == page.url %}active{% endif %}" href="{{page.url}}">

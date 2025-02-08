@@ -315,8 +315,8 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
         ),
     ]
 
-    promote_panels = SeoMixin.seo_meta_panels + SeoMixin.seo_struct_panels
-
+    promote_panels = SeoMixin.seo_meta_panels
+    
     integration_panels = []
 
     def __init__(self, *args, **kwargs):

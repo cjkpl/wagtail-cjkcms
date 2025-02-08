@@ -8,7 +8,6 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('cjkcms', '0023_alter_navbar_language'),
-        ('wagtailimages', '0027_image_description'),
     ]
 
     operations = [

@@ -1,6 +1,6 @@
 django-bootstrap5
-django>=4.2
-wagtail>=5.1
+django>=5.0
+wagtail>=6.0
 wagtail-seo>=3.0
 wagtail-cache>=2.5.1
 cjkcms-color-panel

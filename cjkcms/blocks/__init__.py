@@ -99,29 +99,7 @@ BASIC_LAYOUT_STREAMBLOCKS = [
     ),
 ]
 
-LAYOUT_STREAMBLOCKS = [
-    (
-        "hero",
-        HeroBlock(
-            [
-                ("row", GridBlock(CONTENT_STREAMBLOCKS)),
-                (
-                    "cardgrid",
-                    CardGridBlock(
-                        [
-                            ("card", CardBlock()),
-                        ]
-                    ),
-                ),
-                (
-                    "html",
-                    SearchableHTMLBlock(
-                        icon="code", form_classname="monospace", label=_("HTML")
-                    ),
-                ),
-            ]
-        ),
-    ),
+FLAT_LAYOUT_STREAMBLOCKS = [
     ("row", GridBlock(CONTENT_STREAMBLOCKS)),
     (
         "cardgrid",
@@ -136,3 +114,38 @@ LAYOUT_STREAMBLOCKS = [
         SearchableHTMLBlock(icon="code", form_classname="monospace", label=_("HTML")),
     ),
 ]
+
+LAYOUT_STREAMBLOCKS = [
+    ("hero", HeroBlock(FLAT_LAYOUT_STREAMBLOCKS)),
+    *FLAT_LAYOUT_STREAMBLOCKS,
+]
+
+
+def replace_contentblocks(flat_layout_blocks, full_layout_blocks, new_content_blocks):
+    """helper function to add new content blocks in projects,
+    replacing the default content blocks in the layout blocks.
+
+    Args:
+        flat_layout_blocks (_type_): CJKCMS layout blocks which contains "row" of content blocks
+        full_layout_blocks (_type_): CJKCMS outer layout with hero and flat layout blocks
+        new_content_blocks (_type_): full set of new content blocks to replace the old ones
+
+    Returns:
+        full_layout_blocks: full layout blocks with new content blocks, readty to include
+        in the project models' body fields
+    """
+    for i, item in enumerate(flat_layout_blocks):
+        if item[0] == "row":
+            # Replace each 'row' entry with new content blocks
+            flat_layout_blocks[i] = (
+                "row",
+                GridBlock(new_content_blocks),
+            )
+    full_layout_blocks = [
+        (
+            "hero",
+            HeroBlock(flat_layout_blocks),
+        ),
+        *flat_layout_blocks,
+    ]
+    return full_layout_blocks

@@ -63,6 +63,7 @@
         {% block tracking %}
             {% if settings.cjkcms.AnalyticsSettings.matomo_site_id and settings.cjkcms.AnalyticsSettings.matomo_hostname %}
                 {% include "cjkcms/snippets/tracking_matomo.html" %}
+                {% include "cjkcms/snippets/tracking_matomo_noscript.html" %}
             {% endif %}
             {% if settings.cjkcms.AnalyticsSettings.g4_tracking_id  %}
                 {% include "cjkcms/snippets/tracking_g4.html" %}

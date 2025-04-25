@@ -1,0 +1,15 @@
+{% load wagtailcore_tags wagtailimages_tags cjkcms_tags static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'cjkcms/css/multi_step_instructions_{{ self.multi_step_instructions_light_dark_toggle }}.css' %}">
+\{% endblock %}
+
+{% if self.is_multi_step_instructions_visible == "True" %}
+    <div class="block-multi_step_instructions">
+        <div class="container my-5">
+            <div class="row mb-5 pb-4">
+                {% include "home/includes/multi_step_instructions_{{ self.multi_step_instructions_styling }}.html" %}
+            </div>
+        </div>
+    </div>
+{% endif %}

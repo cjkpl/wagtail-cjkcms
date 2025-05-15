@@ -12,11 +12,11 @@
         <h2 class="mb-0">
           <button 
             class="accordion-button {% if not forloop.first %}collapsed{% endif %}" 
-            type="button" 
+            type="button"
+            data-mdb-collapse-init
             data-bs-toggle="collapse" 
-            data-mdb-toggle="collapse" 
             data-bs-target="#collapse-{{a_id}}-{{forloop.counter}}" 
-            data-mdb-target="#collapse-{{a_id}}-{{forloop.counter}}" 
+            data-mdb-target="#collapse-{{a_id}}-{{forloop.counter}}"
             aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="collapse-{{a_id}}-{{forloop.counter}}">
             {{panel.name}}
           </button>
@@ -27,7 +27,7 @@
            aria-labelledby="accordion-heading-{{forloop.counter}}" 
            data-bs-parent="#accordion-{{a_id}}"
            data-mdb-parent="#accordion-{{a_id}}">
-        <div class="card-body">
+        <div class="{% if panel.custom_css_class %}{{panel.custom_css_class}}{% else %}card-body{% endif %}">
           {% include_block panel.content %}
         </div>
       </div>

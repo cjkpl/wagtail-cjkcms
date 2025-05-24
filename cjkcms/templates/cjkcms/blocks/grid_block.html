@@ -4,7 +4,13 @@
   {% if self.settings.custom_id %} id="{{self.settings.custom_id}}"{% endif %}    
 >
   {% block grid_content %}
-  <div class="row {{self.settings.custom_css_class}}">
+  <div
+      {% if self.settings.force_theme %}
+        data-bs-theme="{{ self.settings.force_theme }}" data-mdb-theme="{{ self.settings.force_theme }}"
+    {% endif %}
+  
+  class="row {{self.settings.custom_css_class}}
+   {% if self.settings.force_theme %} bg-body text-body{% endif %}">
       {% for column in self.content %}
             {% include_block column %}
       {% endfor %}

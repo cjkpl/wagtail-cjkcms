@@ -188,6 +188,20 @@ class CjkcmsAdvSettings(blocks.StructBlock):
     # placeholder, real value get set in __init__()
     custom_template = blocks.Block()
 
+    force_theme = blocks.ChoiceBlock(
+        choices=[
+            (None, _("None")),
+            ("light", _("Light")),
+            ("dark", _("Dark")),
+        ],
+        default=None,
+        required=False,
+        label=_("Force Theme"),
+        help_text=_(
+            "Override the theme for this block, also adding bg-body and text-body classes."
+        ),
+    )
+
     custom_css_class = blocks.CharBlock(
         required=False,
         max_length=255,

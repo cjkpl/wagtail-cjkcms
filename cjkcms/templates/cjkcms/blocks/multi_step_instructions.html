@@ -1,7 +1,10 @@
 {% load wagtailcore_tags wagtailimages_tags cjkcms_tags static %}
-
-<div 
-    class="multi_step_instructions {%if self.settings.custom_css_class%}{{self.settings.custom_css_class}}{% else %} p-2 m-2 {% endif %}">
+<div
+    {% if self.settings.force_theme %}
+        data-bs-theme="{{ self.settings.force_theme }}" data-mdb-theme="{{ self.settings.force_theme }}"
+    {% endif %}
+    class="multi_step_instructions {%if self.settings.custom_css_class%}{{self.settings.custom_css_class}}{% else %} p-2 m-2 {% endif %}
+    {% if self.settings.force_theme %} bg-body text-body{% endif %}">
         {% if self.header %}
         <h2 class="text-center py-2 fw-bolder">{{ self.header }}</h2>
         {% endif %}

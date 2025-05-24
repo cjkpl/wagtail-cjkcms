@@ -1,0 +1,61 @@
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+{% block extra_js %}
+    {% if self.multi_step_instructions_styling == "Sequential Cards" %}
+        <script>
+
+            document.addEventListener("DOMContentLoaded", function () {
+                let WYSWIG_elements = document.getElementsByClassName('multi-step-instructions-sequential-cards-content');
+                const img_elements = []
+                for (let i = 0; i < WYSWIG_elements.length; i++) {
+                    img_elements.push(WYSWIG_elements[i].innerHTML.match(/(<img[^>]+>)/g))
+                }
+                let WYSWIG_images = document.getElementsByClassName('multi-step-instructions-sequential-cards-images');
+                for (let i = 0; i < WYSWIG_images.length; i++) {
+                    let array_of_img_elements = String(img_elements[i]).split(',');
+                    for (let j = 0; j < array_of_img_elements.length; j++) {
+                        if (array_of_img_elements[j] === "null") {
+                            // WYSWIG_images[i].previousSibling.classList.add("col-12")
+                            // WYSWIG_images[i].previousSibling.classList.remove("col-lg-6")
+                            // WYSWIG_images[i].classList.add("hidden")
+                            break
+                        }
+                        WYSWIG_images[i].innerHTML += array_of_img_elements[j]
+                    }
+                }
+                document.querySelectorAll(".multi-step-instructions-sequential-cards-content img").forEach(img => {
+                    img.remove()
+                });
+            });
+
+        </script>
+    {% endif %}
+
+{% endblock %}
+
+<div class="container-fluid pb-5">
+    <section>
+        {% if self.is_headline_visible == "True" %}
+            <h1 class="text-center my-5 fw-bolder">{{ self.headline }}</h1>
+            <div class="py-4"> </div>
+        {% endif %}
+        <div class="row d-flex align-items-center h-100">
+            {% for instruction in self.instruction %}
+                {% if forloop.counter|divisibleby:2 %}
+                    <div class="col-lg-6 px-lg-0 multi-step-instructions-sequential-cards-images text-center"></div>
+                {% endif %}
+                <div class="col-lg-6 px-lg-0">
+                    <h3 class="mb-4 {% if self.multi_step_instructions_header_and_buttons_alignment == "Align to the Center" %} text-center {% endif %}">{{ instruction.value.header }}</h3>
+                    <div class="px-5 mx-4 multi-step-instructions-sequential-cards-content">
+                        {{ instruction.value.content|richtext }}
+                    </div>
+                    {% include "home/includes/multi_step_instructions_button.html" %}
+                </div>
+                {% if not forloop.counter|divisibleby:2 %}
+                    <div class="col-lg-6 px-lg-0 multi-step-instructions-sequential-cards-images text-center"></div>
+                {% endif %}
+                <div class="my-5 py-2"> </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>

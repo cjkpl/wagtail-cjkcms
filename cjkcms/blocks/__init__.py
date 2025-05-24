@@ -35,6 +35,7 @@ from .content_blocks import (  # noqa
 )
 from .content.events import PublicEventBlock, EventCalendarBlock
 from .content.countdown import CountdownBlock
+from .content.multistep import MultiStepInstructionsBlock
 from .layout_blocks import CardGridBlock, GridBlock, HeroBlock
 from cjkcms.settings import cms_settings
 
@@ -79,6 +80,7 @@ CONTENT_STREAMBLOCKS = HTML_STREAMBLOCKS + [
     ("event_calendar", EventCalendarBlock()),
     ("highlight", HighlightBlock()),
     ("countdown", CountdownBlock()),
+    ("multistep_instructions", MultiStepInstructionsBlock()),
 ]
 
 NAVIGATION_STREAMBLOCKS = [

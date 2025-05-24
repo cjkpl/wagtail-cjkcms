@@ -1,15 +1,12 @@
 {% load wagtailcore_tags wagtailimages_tags cjkcms_tags static %}
 
-{% block extra_head %}
-    <link rel="stylesheet" type="text/css" href="{% static 'cjkcms/css/multi_step_instructions_{{ self.multi_step_instructions_light_dark_toggle }}.css' %}">
-\{% endblock %}
-
-{% if self.is_multi_step_instructions_visible == "True" %}
-    <div class="block-multi_step_instructions">
-        <div class="container my-5">
-            <div class="row mb-5 pb-4">
-                {% include "home/includes/multi_step_instructions_{{ self.multi_step_instructions_styling }}.html" %}
-            </div>
+<div class="multi_step_instructions {%if self.settings.custom_css_class%}{{self.settings.custom_css_class}}{% endif %}">
+        {% if self.header %}
+        <h2 class="text-center py-2 fw-bolder">{{ self.header }}</h2>
+        {% endif %}
+        <div class="row mb-5 pb-4">
+            {% with "cjkcms/snippets/multistep/"|add:self.layout|add:".html" as layout_template %}
+                {% include layout_template %}
+            {% endwith %}
         </div>
-    </div>
-{% endif %}
+</div>

@@ -1,6 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
 
-<div class="row">
+<div class="row {%if self.settings.item_css_class%}{{self.settings.item_css_class}}{% else %}gx-4 gy-4{% endif %}">
     <div class="col-3">
         <!-- Tab navs -->
         <div

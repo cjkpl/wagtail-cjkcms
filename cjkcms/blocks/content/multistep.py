@@ -3,22 +3,10 @@ from wagtail.blocks import StructBlock, StreamBlock
 from cjkcms.blocks.html_blocks import ButtonBlock
 from cjkcms.blocks.base_blocks import BaseBlock
 from cjkcms.settings import cms_settings
-
-# Shared color choices for reuse
-BOOTSTRAP_COLOR_CHOICES = [
-    ("primary", "Primary (Blue)"),
-    ("secondary", "Secondary (Grey)"),
-    ("success", "Success (Green)"),
-    ("danger", "Danger (Red)"),
-    ("warning", "Warning (Yellow)"),
-    ("info", "Info (Light Blue)"),
-    ("light", "Light (White)"),
-    ("dark", "Dark (Black))"),
-]
+from django.utils.translation import gettext_lazy as _
 
 
 class BootstrapColorChoiceBlock(blocks.ChoiceBlock):
-    choices = BOOTSTRAP_COLOR_CHOICES
 
     class Meta:
         label = "Color"
@@ -65,10 +53,6 @@ class InstructionBlock(StructBlock):
 class MultiStepInstructionsBlock(BaseBlock):
     header = blocks.CharBlock(label="Headline", required=False)
 
-    theme = blocks.ChoiceBlock(
-        label="Theme", choices=[("dark", "Dark"), ("light", "Light")], default="dark"
-    )
-
     layout = blocks.ChoiceBlock(
         label="Layout",
         choices=[
@@ -88,10 +72,12 @@ class MultiStepInstructionsBlock(BaseBlock):
         default="center",
     )
 
-    leading_color = BootstrapColorChoiceBlock(
-        required=False,
-        default="primary",
-        help_text="Defaults to primary (blue)",
+    # gutter size for content spacing, dropdown choices for intengers 0-5
+    content_gutter = blocks.ChoiceBlock(
+        label="Content Gutter Size",
+        choices=[(str(i), str(i)) for i in range(6)],
+        default="3",
+        help_text="Horizontal gutter size for content spacing, 0-5",
     )
 
     steps = StreamBlock(

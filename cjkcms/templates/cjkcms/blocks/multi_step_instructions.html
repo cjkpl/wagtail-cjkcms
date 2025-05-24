@@ -1,12 +1,11 @@
 {% load wagtailcore_tags wagtailimages_tags cjkcms_tags static %}
 
-<div class="multi_step_instructions {%if self.settings.custom_css_class%}{{self.settings.custom_css_class}}{% endif %}">
+<div 
+    class="multi_step_instructions {%if self.settings.custom_css_class%}{{self.settings.custom_css_class}}{% else %} p-2 m-2 {% endif %}">
         {% if self.header %}
         <h2 class="text-center py-2 fw-bolder">{{ self.header }}</h2>
         {% endif %}
-        <div class="row mb-5 pb-4">
-            {% with "cjkcms/snippets/multistep/"|add:self.layout|add:".html" as layout_template %}
-                {% include layout_template %}
-            {% endwith %}
-        </div>
+        {% with "cjkcms/snippets/multistep/"|add:self.layout|add:".html" as layout_template %}
+            {% include layout_template %}
+        {% endwith %}
 </div>

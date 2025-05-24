@@ -3,7 +3,6 @@ from wagtail.blocks import StructBlock, StreamBlock
 from cjkcms.blocks.html_blocks import ButtonBlock
 from cjkcms.blocks.base_blocks import BaseBlock
 from cjkcms.settings import cms_settings
-from django.utils.translation import gettext_lazy as _
 
 
 class BootstrapColorChoiceBlock(blocks.ChoiceBlock):

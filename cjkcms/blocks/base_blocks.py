@@ -193,6 +193,14 @@ class CjkcmsAdvSettings(blocks.StructBlock):
         max_length=255,
         label=_("Custom CSS Class"),
     )
+
+    item_css_class = blocks.CharBlock(
+        required=False,
+        max_length=255,
+        label=_("Item CSS Class"),
+        help_text=_("Used for multi-item blocks, like galleries or lists."),
+    )
+
     custom_id = blocks.CharBlock(
         required=False,
         max_length=255,

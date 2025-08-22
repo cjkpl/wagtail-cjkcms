@@ -2,6 +2,7 @@ from cjkcms.blocks.base_blocks import BaseBlock
 from wagtail import blocks
 from django.utils.translation import gettext_lazy as _
 from wagtail.snippets.blocks import SnippetChooserBlock
+from wagtail.images.blocks import ImageChooserBlock
 
 
 class PublicEventBlock(BaseBlock):
@@ -41,10 +42,21 @@ class PublicEventBlock(BaseBlock):
         required=False,
     )
 
+    image = ImageChooserBlock(
+        required=False,
+        label=_("Image"),
+    )
+
     url = blocks.URLBlock(
         max_length=255,
         label=_("Event website"),
         required=False,
+    )
+
+    subpage = blocks.PageChooserBlock(
+        required=False,
+        label=_("Subpage"),
+        help_text=_("Optional internal page to link as Read More"),
     )
 
     hide_after_end_date = blocks.BooleanBlock(

@@ -329,6 +329,12 @@ class _DefaultSettings:
             ("cjkcms/blocks/quote_block_leftbar.html", "Quote with left bar"),
             ("cjkcms/blocks/quote_block_start_end_quote.html", "With start/end quote"),
         ],
+        "eventcalendarblock": [
+            (
+                "cjkcms/blocks/event_calendar_vertical_timeline.html",
+                "Vertical Timeline",
+            ),
+        ],
         # templates that are available for all block types
         "*": [
             ("", "Default"),

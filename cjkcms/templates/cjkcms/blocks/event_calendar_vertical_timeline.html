@@ -1,0 +1,194 @@
+{% load static cjkcms_tags wagtailimages_tags wagtailcore_tags %}
+
+<div {% if self.settings.custom_id %}id="{{ self.settings.custom_id }}"{% endif %}
+     class="block-html {{ self.settings.custom_css_class }}">
+    {% if self.event_calendar.name %}<h4>{{ self.event_calendar.name }}</h4>{% endif %}
+</div>
+
+<section class="event-calendar-vertical-timeline">
+    <div class="container py-5">
+        <div class="main-timeline-2">
+            {% for child in self.event_calendar.events %}
+                {% with ev=child.value %}
+                    {% if not ev.hide_after_end_date or ev.start_date|is_in_future %}
+                        <div class="timeline-2 {% if forloop.counter0|divisibleby:2 %}left-2{% else %}right-2{% endif %}">
+                            <div class="card">
+                                {% if ev.image %}
+                                    {% if ev.subpage %}
+                                        <a href="{{ ev.subpage.url }}" class="d-block">
+                                            {% image ev.image fill-400x200 format-webp webpquality-75 class="card-img-top img-fluid" style="filter: brightness(0.75);" %}
+                                        </a>
+                                    {% elif ev.url %}
+                                        <a href="{{ ev.url }}" target="_blank" class="d-block">
+                                            {% image ev.image fill-400x200 format-webp webpquality-75 class="card-img-top img-fluid" style="filter: brightness(0.75);" %}
+                                        </a>
+                                    {% else %}
+                                        {% image ev.image fill-400x200 format-webp webpquality-75 class="card-img-top img-fluid" style="filter: brightness(0.75);" %}
+                                    {% endif %}
+                                {% endif %}
+                                <div class="card-body p-4">
+                                    <p class="text-muted small mb-2">
+                                        {% if ev.end_date %}
+                                            {% with sm=ev.start_date|date:"F" sy=ev.start_date|date:"Y" em=ev.end_date|date:"F" ey=ev.end_date|date:"Y" %}
+                                                {% if sm == em and sy == ey %}
+                                                    {{ ev.start_date|date:"j" }} - {{ ev.end_date|date:"j F Y" }}
+                                                {% else %}
+                                                    {{ ev.start_date|date:"j F Y" }} - {{ ev.end_date|date:"j F Y" }}
+                                                {% endif %}
+                                            {% endwith %}
+                                        {% else %}
+                                            {{ ev.start_date|date:"j F Y" }}
+                                        {% endif %}
+                                    </p>
+                                    {% if ev.title %}
+                                        <h4 class="fw-bold mt-2 mb-2">
+                                            {% if ev.subpage %}
+                                                <a href="{{ ev.subpage.url }}"
+                                                   class="link-body-emphasis text-decoration-none">{{ ev.title }}</a>
+                                            {% elif ev.url %}
+                                                <a href="{{ ev.url }}" target="_blank"
+                                                   class="link-body-emphasis text-decoration-none">{{ ev.title }}</a>
+                                            {% else %}
+                                                {{ ev.title }}
+                                            {% endif %}
+                                        </h4>
+                                    {% endif %}
+                                    {% if ev.location %}
+                                        <div class="text-muted small mb-1">{{ ev.location }}</div>
+                                    {% endif %}
+                                    {% if ev.description %}{{ ev.description }}{% endif %}
+                                    {% if ev.url %}
+                                        <div class="align-items-center d-flex mt-2">
+                                            <object data="{% static 'cjkcms/images/icons/world.svg' %}"
+                                                    class="me-1 opacity-50"></object>
+                                            <a href="{{ ev.url }}" target="_blank"
+                                               class="link-body-emphasis">{{ ev.url }}</a>
+                                        </div>
+                                    {% endif %}
+                                    {% if ev.subpage or ev.url %}
+                                        <div class="mt-3">
+                                            {% if ev.subpage %}
+                                                <a href="{{ ev.subpage.url }}" class="btn btn-primary btn-sm">Read
+                                                    More</a>
+                                            {% elif ev.url %}
+                                                <a href="{{ ev.url }}" target="_blank" class="btn btn-primary btn-sm">Read
+                                                    More</a>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            {% empty %}
+                <p class="text-center text-muted">No Events</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<style>
+
+    .main-timeline-2 {
+        position: relative;
+    }
+
+    .main-timeline-2::after {
+        content: "";
+        position: absolute;
+        width: 3px;
+        background-color: #FF8300;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        margin-left: -3px;
+    }
+
+    .timeline-2 {
+        position: relative;
+        background-color: inherit;
+        width: 50%;
+    }
+
+    .timeline-2::after {
+        content: "";
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        right: -11px;
+        background-color: #FF8300;
+        top: 15px;
+        border-radius: 50%;
+        z-index: 1;
+    }
+
+    .left-2 {
+        padding: 0px 40px 20px 0px;
+        left: 0;
+    }
+
+    .right-2 {
+        padding: 0px 0px 20px 40px;
+        left: 50%;
+    }
+
+    .left-2::before {
+        content: " ";
+        position: absolute;
+        top: 18px;
+        z-index: 1;
+        right: 30px;
+        border: medium solid white;
+        border-width: 10px 0 10px 10px;
+        border-color: transparent transparent transparent white;
+    }
+
+    .right-2::before {
+        content: " ";
+        position: absolute;
+        top: 18px;
+        z-index: 1;
+        left: 30px;
+        border: medium solid white;
+        border-width: 10px 10px 10px 0;
+        border-color: transparent white transparent transparent;
+    }
+
+    .right-2::after {
+        left: -14px;
+    }
+
+    @media screen and (max-width: 600px) {
+        .main-timeline-2::after {
+            left: 31px;
+        }
+
+        .timeline-2 {
+            width: 100%;
+            padding-left: 70px;
+            padding-right: 25px;
+        }
+
+        .timeline-2::before {
+            left: 60px;
+            border: medium solid white;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent white transparent transparent;
+        }
+
+        .left-2::after,
+        .right-2::after {
+            left: 18px;
+        }
+
+        .left-2::before {
+            right: auto;
+        }
+
+        .right-2 {
+            left: 0%;
+        }
+    }
+
+</style>

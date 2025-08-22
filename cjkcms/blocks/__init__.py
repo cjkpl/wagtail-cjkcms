@@ -32,10 +32,12 @@ from .content_blocks import (  # noqa
     PriceListBlock,
     ReusableContentBlock,
     HighlightBlock,
+    IconWithTextBlock,
 )
 from .content.events import PublicEventBlock, EventCalendarBlock
 from .content.countdown import CountdownBlock
 from .content.multistep import MultiStepInstructionsBlock
+from .content.steps import StepsBlock
 from .layout_blocks import CardGridBlock, GridBlock, HeroBlock
 from cjkcms.settings import cms_settings
 
@@ -79,6 +81,8 @@ CONTENT_STREAMBLOCKS = HTML_STREAMBLOCKS + [
     ("reusable_content", ReusableContentBlock()),
     ("event_calendar", EventCalendarBlock()),
     ("highlight", HighlightBlock()),
+    ("icon_with_text", IconWithTextBlock()),
+    ("steps", StepsBlock()),
     ("countdown", CountdownBlock()),
     ("multistep_instructions", MultiStepInstructionsBlock()),
 ]

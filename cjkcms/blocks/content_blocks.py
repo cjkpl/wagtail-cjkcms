@@ -396,3 +396,51 @@ class HighlightBlock(BaseBlock):
         label = _("Highlight")
         label_format = _("Highlight")
         template = "cjkcms/blocks/highlight_block.html"
+
+
+class IconWithTextBlock(BaseBlock):
+    """Configurable block for an icon with optional statistic value, title and text.
+
+    Two layouts are supported:
+    - "stat": stacked, suitable for statistics (icon, big number, label/text)
+    - "media": icon on the left, content on the right (title, text)
+    """
+
+    icon = blocks.CharBlock(
+        required=True,
+        label=_("Icon"),
+    )
+    title = blocks.CharBlock(
+        required=False,
+        max_length=255,
+        label=_("Title"),
+    )
+    text = blocks.CharBlock(
+        required=False,
+        max_length=255,
+        label=_("Text"),
+    )
+    icon_color = blocks.CharBlock(
+        required=False,
+        max_length=255,
+        label=_("Icon color"),
+        help_text=_("Hex/RGBA/CSS color. Leave blank to use default styles."),
+    )
+    icon_background_color = blocks.CharBlock(
+        required=False,
+        max_length=255,
+        label=_("Icon background color"),
+        help_text=_("Hex/RGBA/CSS color. Leave blank to use default styles."),
+    )
+    layout = blocks.ChoiceBlock(
+        choices=[("horizontal", _("Horizontal")), ("vertical", _("Vertical"))],
+        default="horizontal",
+        required=False,
+        label=_("Layout"),
+    )
+
+    class Meta:
+        icon = "info-circle"
+        label = _("Icon with Text")
+        label_format = _("Icon with Text: {title}")
+        template = "cjkcms/blocks/icon_text_block.html"

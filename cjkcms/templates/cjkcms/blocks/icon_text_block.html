@@ -1,0 +1,38 @@
+{% load wagtailcore_tags %}
+
+<style scoped>
+  {% if self.icon_background_color %}
+    .icon-text-{{block.id}} .icon-bg {
+      background: {{ self.icon_background_color }} !important;
+    }
+  {% endif %}
+  {% if self.icon_color %}
+    .icon-text-{{block.id}} .icon-color {
+      color: {{ self.icon_color }} !important;
+    }
+  {% endif %}
+</style>
+
+{% if self.layout == "horizontal" %}
+  <div class="icon-text-{{block.id}} d-flex align-items-start gap-3 {{ self.settings.custom_css_class }}" 
+    {% if self.settings.custom_id %}id="{{ self.settings.custom_id }}"{% endif %}
+  >
+    <div class="rounded d-inline-flex align-items-center justify-content-center p-3 icon-bg" style="aspect-ratio: 1/1;">
+      {% if self.icon %}<i class="{{ self.icon }} fs-1 fa-fw icon-color"></i>{% endif %}
+    </div>
+    {% if self.title %}<h3 class="fw-semibold fs-2 mb-0">{{ self.title }}</h3>{% endif %}
+    {% if self.text %}<p class="fs-5 fw-lighter mb-0">{{ self.text }}</p>{% endif %}
+  </div>
+{% else %}
+  <div class="icon-text-{{block.id}} text-center {{ self.settings.custom_css_class }}"
+    {% if self.settings.custom_id %}id="{{ self.settings.custom_id }}"{% endif %}
+  >
+    <div class="mx-auto mb-2 rounded d-inline-flex align-items-center justify-content-center p-3 bg-primary icon-bg" style="aspect-ratio: 1/1;">
+      {% if self.icon %}<i class="{{ self.icon }} fs-1 fa-fw text-white icon-color"></i>{% endif %}
+    </div>
+    {% if self.title %}<h3 class="fs-3 fw-bold lh-1 mb-0">{{ self.title }}</h3>{% endif %}
+    {% if self.text %}<p class="fs-6 fw-lighter mb-0">{{ self.text }}</p>{% endif %}
+  </div>
+{% endif %}
+
+

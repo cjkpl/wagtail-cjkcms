@@ -1,0 +1,130 @@
+{% load wagtailcore_tags %}
+
+<style>
+  .steps-container {
+    flex-direction: column;
+    width: fit-content;
+  }
+
+  .connecting-line {
+    width: 6px;
+    height: 50%;
+    background: {{ self.color_settings.line_color|default:'#F3F3F3' }};
+  }
+
+  .step-item {
+    display: flex;
+  }
+
+  .step-item-content {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+  }
+  
+  .connecting-line.before {
+    left: calc(50% - 3px);
+    top: 0;
+  }
+
+  @media (min-width: 768px) {
+    .steps-container {
+      flex-direction: row;
+      width: auto;
+    }
+
+    .connecting-line {
+      height: 6px;
+      top: calc(50% - 3px);
+      width: 50%;
+    }
+
+    .step-item {
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .step-item-content {
+      text-align: center;
+      flex-direction: column;
+    }
+
+    .connecting-line.after {
+      left: 50%;
+    }
+
+    .connecting-line.before {
+      left: 0;
+      top: auto;
+    }
+  }
+
+  /* Icon Color Settings */
+  {% if self.color_settings.icon_background_color %}
+    .steps-container-{{block.id}} .icon-bg:not(.active) {
+      background: {{ self.color_settings.icon_background_color }} !important;
+    }
+  {% endif %}
+  {% if self.color_settings.icon_border_color %}
+    .steps-container-{{block.id}} .icon-border:not(.active) {
+      border: 2px solid {{ self.color_settings.icon_border_color }} !important;
+    }
+  {% endif %}
+  {% if self.color_settings.icon_color %}
+    .steps-container-{{block.id}} .icon-color:not(.active) {
+      color: {{ self.color_settings.icon_color }} !important;
+    }
+  {% endif %}
+  /* Active Icon Color Settings */
+  {% if self.color_settings.active_icon_background_color %}
+    .steps-container-{{block.id}} .icon-bg.active {
+      background: {{ self.color_settings.active_icon_background_color }} !important;
+    }
+  {% endif %}
+  {% if self.color_settings.active_icon_border_color %}
+    .steps-container-{{block.id}} .icon-border.active {
+      border: 2px solid {{ self.color_settings.active_icon_border_color }} !important;
+    }
+  {% endif %}
+  {% if self.color_settings.active_icon_color %}
+    .steps-container-{{block.id}} .icon-color.active {
+      color: {{ self.color_settings.active_icon_color }} !important;
+    }
+  {% endif %}
+</style>
+
+<section class="position-relative fw-lighter {{ self.settings.custom_css_class }}" {% if self.settings.custom_id %}id="{{ self.settings.custom_id }}"{% endif %}>
+
+  <div class="container">
+    <ol class="steps-container-{{block.id}} d-flex ms-3 ms-lg-0 list-unstyled">
+      {% for item in self.items %}
+          <li class="step-item">
+
+            <div class="d-flex align-items-center justify-content-center position-relative">
+              {% if not forloop.first %}
+                <div class="connecting-line before position-absolute" aria-hidden="true"></div>
+              {% endif %}
+              {% if not forloop.last %}
+                <div class="connecting-line after d-none d-md-block position-absolute" aria-hidden="true"></div>
+              {% endif %}
+              <div class="rounded d-inline-flex align-items-center justify-content-center p-3 position-relative
+                  {% if item.is_active %}active bg-primary text-white{% else %}bg-white text-primary{% endif %} border border-2 border-primary icon-bg icon-border icon-color
+                  {% if not forloop.first %}mt-5 mt-md-0{% endif %}"
+                  style="aspect-ratio: 1/1;"
+              >
+                <i class="{{ item.icon }} fs-1 fa-fw" aria-label="{{ item.title }}" role="img"></i>
+              </div>
+            </div>
+
+            <div class="step-item-content ms-3 ms-md-0 {% if not forloop.first %}mt-5 mt-md-0{% endif %}">
+              <div class="mt-md-2">Step {{ forloop.counter }}</div>
+              <p class="fs-5 mb-0">{{ item.title }}</p>
+            </div>
+
+          </li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+

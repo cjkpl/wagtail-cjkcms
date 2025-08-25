@@ -329,6 +329,9 @@ class _DefaultSettings:
             ("cjkcms/blocks/quote_block_leftbar.html", "Quote with left bar"),
             ("cjkcms/blocks/quote_block_start_end_quote.html", "With start/end quote"),
         ],
+        "personbioblock": [
+            ("public_persons/blocks/person_bio_card.html", "Cards"),
+        ],
         "eventcalendarblock": [
             (
                 "cjkcms/blocks/event_calendar_vertical_timeline.html",

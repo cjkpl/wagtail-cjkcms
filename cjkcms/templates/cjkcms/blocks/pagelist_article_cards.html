@@ -11,11 +11,11 @@
                             <div class="card-body">
                                 <div class="row">
                                     {% if article.cover_image and self.show_covers %}
-                                        <div class="col-6 col-md-12 col-lg-4 col-xl-4 mb-4 mb-lg-0">
+                                        <div class="col-12 col-lg-4 col-xl-4 mb-4 mb-lg-0">
                                             <div class="bg-image hover-zoom ripple rounded-3 ripple-surface">
                                                 {% image article.cover_image fill-900x600 as cover_image %}
-                                                <div class="d-flex justify-content-end">
-                                                    <a href="{{ article.url }}" title="{{ article.title }}">
+                                                <div class="d-flex justify-content-center">
+                                                    <a href="{{ article.url }}" title="{{ article.title }}" style="max-width: 320px; width: 100%;">
                                                         <div class="bg-image rounded-3 hover-overlay">
                                                             <img src="{{ cover_image.url }}" class="img-fluid shadow-2-strong shadow-4 rounded-3"
                                                                  alt="{{ cover_image.title }}"/>
@@ -29,7 +29,7 @@
                                             </div>
                                         </div>
                                     {% endif %}
-                                    <div class="{% if article.cover_image and self.show_covers %}col-6 col-md-12 col-lg-8 col-xl-8{% else %}col-12{% endif %}">
+                                    <div class="{% if article.cover_image and self.show_covers %}col-12 col-lg-8 col-xl-8{% else %}col-12{% endif %}">
                                         {% if self.show_dates %}
                                             <div class="mb-2 text-muted small">{{ article.seo_published_at|date:"j F Y" }}</div>
                                         {% endif %}

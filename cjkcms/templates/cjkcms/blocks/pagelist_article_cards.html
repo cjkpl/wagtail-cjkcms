@@ -1,71 +1,63 @@
 {# Article Cards layout using MDB product card style adapted for articles #}
 {% load wagtailcore_tags wagtailimages_tags %}
 
-<section style="background-color: #eee;"
-  {% if self.settings.custom_id %}id="{{ self.settings.custom_id }}"{% endif %}>
-  <div class="container py-5 {% if self.settings.custom_css_class %}{{ self.settings.custom_css_class }}{% endif %}">
+{% if self.settings.custom_id %}id="{{ self.settings.custom_id }}"{% endif %}
+<div class="container{% if self.settings.custom_css_class %}{{ self.settings.custom_css_class }}{% endif %}">
 
     {% for page in pages %}
-      {% with page.specific as article %}
-        <div class="row justify-content-center mb-3">
-          <div class="col-md-12 col-xl-10">
-            <div class="card shadow-0 border rounded-3">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
-                    <div class="bg-image hover-zoom ripple rounded ripple-surface">
-                      {% if article.cover_image and self.show_covers %}
-                        {% image article.cover_image fill-900x600 as cover_image %}
-                        <a href="{{ article.url }}" title="{{ article.title }}">
-                          <img src="{{ cover_image.url }}" class="w-100" alt="{{ cover_image.title }}"/>
-                          <div class="hover-overlay">
-                            <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
-                          </div>
-                        </a>
-                      {% endif %}
-                    </div>
-                  </div>
+        {% with page.specific as article %}
+            <div class="row justify-content-center mb-3">
+                <div class="col-md-12 col-xl-10">
+                    <div class="card shadow-0 border rounded-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                                    <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                                        {% if article.cover_image and self.show_covers %}
+                                            {% image article.cover_image fill-900x600 as cover_image %}
+                                            <a href="{{ article.url }}" title="{{ article.title }}">
+                                                <img src="{{ cover_image.url }}" class="w-100"
+                                                     alt="{{ cover_image.title }}"/>
+                                                <div class="hover-overlay">
+                                                    <div class="mask"
+                                                         style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                                                </div>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-9 col-xl-9">
+                                    {% if self.show_dates %}
+                                        <div class="mb-2 text-muted small">
+                                            {{ article.seo_published_at }}
+                                        </div>
+                                    {% endif %}
+                                    <h5 class="mb-1"><a href="{{ article.url }}">{{ article.title }}</a></h5>
+                                    {% if article.author_display %}
+                                        <div class="mb-2 text-muted small">
+                                            {{ article.author_display }}
+                                        </div>
+                                    {% endif %}
+                                    {% if article.seo_description %}
+                                        <div>
+                                            <span>{{ article.seo_description }}</span>
+                                        </div>
+                                    {% endif %}
+                                    <a href="{{ article.url }}" class="btn btn-primary btn-sm" type="button">Read More</a>
+                                    {% if request.user.is_authenticated and perms.wagtailadmin.access_admin %}
+                                        <a href="/backend/pages/{{ article.id }}/edit/"
+                                           class="btn btn-outline-primary btn-sm ms-2"
+                                           title="Edit this article in Wagtail admin">Edit</a>
+                                    {% endif %}
+                                </div>
 
-                  <div class="col-md-6 col-lg-6 col-xl-6">
-                    <h5 class="mb-1"><a href="{{ article.url }}">{{ article.title }}</a></h5>
-                    <div class="mb-2 text-muted small">
-                      {% if self.show_dates %}{{ article.seo_published_at }}{% endif %}
-                      {% if article.author_display %} <span class="text-primary"> • </span> {{ article.author_display }}
-                      {% elif self.show_authors and article.seo_author %} <span class="text-primary"> • </span> {{ article.seo_author }}
-                      {% endif %}
+                            </div>
+                        </div>
                     </div>
-                    {% if article.seo_description %}
-                      <div class="mt-1 mb-2 text-muted small">
-                        <span>{{ article.seo_description }}</span>
-                      </div>
-                    {% endif %}
-                    <p class="text-truncate mb-4 mb-md-0">
-                      {% if article.body_preview %}
-                        {{ article.body_preview }}
-                      {% elif article.body %}
-                        {{ article.body }}
-                      {% endif %}
-                    </p>
-                  </div>
-
-                  <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
-                    <div class="d-flex flex-column mt-4">
-                      <a href="{{ article.url }}" class="btn btn-primary btn-sm" type="button">Read</a>
-                      {% if article.seo_author %}
-                        <span class="btn btn-outline-primary btn-sm mt-2 disabled" aria-disabled="true">
-                          {{ article.seo_author }}
-                        </span>
-                      {% endif %}
-                    </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
-        </div>
-      {% endwith %}
+        {% endwith %}
     {% endfor %}
 
-  </div>
-</section>
+</div>
 

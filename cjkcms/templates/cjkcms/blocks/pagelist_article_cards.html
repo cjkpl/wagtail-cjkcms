@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 <section {% if self.settings.custom_id %}id="{{ self.settings.custom_id }}"{% endif %}>
-    <div class="container py-5 {% if self.settings.custom_css_class %}{{ self.settings.custom_css_class }}{% endif %}">
+    <div class="container {% if self.settings.custom_css_class %}{{ self.settings.custom_css_class }}{% endif %}">
         <div class="row row-cols-1 row-cols-lg-2 justify-content-center g-3">
       {% for page in pages %}
         {% if not self.num_posts or forloop.counter <= self.num_posts %}

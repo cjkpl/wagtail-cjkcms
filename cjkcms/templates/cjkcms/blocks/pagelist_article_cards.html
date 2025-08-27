@@ -1,63 +1,61 @@
 {# Article Cards layout using MDB product card style adapted for articles #}
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% if self.settings.custom_id %}id="{{ self.settings.custom_id }}"{% endif %}
-<div class="container{% if self.settings.custom_css_class %}{{ self.settings.custom_css_class }}{% endif %}">
-
-    {% for page in pages %}
+<section style="background-color: #eee;" {% if self.settings.custom_id %}id="{{ self.settings.custom_id }}"{% endif %}>
+  <div class="container py-5 {% if self.settings.custom_css_class %}{{ self.settings.custom_css_class }}{% endif %}">
+    <div class="row row-cols-1 row-cols-lg-2 justify-content-center g-3">
+      {% for page in pages %}
         {% with page.specific as article %}
-            <div class="row justify-content-center mb-3">
-                <div class="col-md-12 col-xl-10">
-                    <div class="card shadow-0 border rounded-3">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
-                                    <div class="bg-image hover-zoom ripple rounded ripple-surface">
-                                        {% if article.cover_image and self.show_covers %}
-                                            {% image article.cover_image fill-900x600 as cover_image %}
-                                            <a href="{{ article.url }}" title="{{ article.title }}">
-                                                <img src="{{ cover_image.url }}" class="w-100"
-                                                     alt="{{ cover_image.title }}"/>
-                                                <div class="hover-overlay">
-                                                    <div class="mask"
-                                                         style="background-color: rgba(253, 253, 253, 0.15);"></div>
-                                                </div>
-                                            </a>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-9 col-xl-9">
-                                    {% if self.show_dates %}
-                                        <div class="mb-2 text-muted small">
-                                            {{ article.seo_published_at }}
-                                        </div>
-                                    {% endif %}
-                                    <h5 class="mb-1"><a href="{{ article.url }}">{{ article.title }}</a></h5>
-                                    {% if article.author_display %}
-                                        <div class="mb-2 text-muted small">
-                                            {{ article.author_display }}
-                                        </div>
-                                    {% endif %}
-                                    {% if article.seo_description %}
-                                        <div>
-                                            <span>{{ article.seo_description }}</span>
-                                        </div>
-                                    {% endif %}
-                                    <a href="{{ article.url }}" class="btn btn-primary btn-sm" type="button">Read More</a>
-                                    {% if request.user.is_authenticated and perms.wagtailadmin.access_admin %}
-                                        <a href="/backend/pages/{{ article.id }}/edit/"
-                                           class="btn btn-outline-primary btn-sm ms-2"
-                                           title="Edit this article in Wagtail admin">Edit</a>
-                                    {% endif %}
-                                </div>
-
-                            </div>
-                        </div>
+          <div class="col">
+            <div class="card shadow-0 border rounded-3 h-100">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12 col-lg-4 col-xl-4 mb-4 mb-lg-0">
+                    <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                      {% if article.cover_image and self.show_covers %}
+                        {% image article.cover_image fill-900x600 as cover_image %}
+                        <a href="{{ article.url }}" title="{{ article.title }}">
+                          <img src="{{ cover_image.url }}" class="w-100" alt="{{ cover_image.title }}"/>
+                          <div class="hover-overlay">
+                            <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                          </div>
+                        </a>
+                      {% endif %}
                     </div>
+                  </div>
+                  <div class="col-md-12 col-lg-8 col-xl-8">
+                    {% if self.show_dates %}
+                      <div class="mb-2 text-muted small">{{ article.seo_published_at|date:"j F Y" }}</div>
+                    {% endif %}
+                    <h5 class="mb-1"><a href="{{ article.url }}">{{ article.title }}</a></h5>
+                    {% if article.author_display %}
+                      <div class="mb-2 text-muted small">{{ article.author_display }}</div>
+                    {% elif self.show_authors and article.seo_author %}
+                      <div class="mb-2 text-muted small">{{ article.seo_author }}</div>
+                    {% endif %}
+                    {% if article.seo_description %}
+                      <div class="mb-2 text-muted small"><span>{{ article.seo_description }}</span></div>
+                    {% endif %}
+                    <p class="text-truncate mb-4 mb-md-0">
+                      {% if article.body_preview %}
+                        {{ article.body_preview }}
+                      {% elif article.body %}
+                        {{ article.body }}
+                      {% endif %}
+                    </p>
+                    <div class="mt-3">
+                      <a href="{{ article.url }}" class="btn btn-primary btn-sm" type="button">Read More</a>
+                      {% if request.user.is_authenticated and perms.wagtailadmin.access_admin %}
+                        <a href="/backend/pages/{{ article.id }}/edit/" class="btn btn-outline-primary btn-sm ms-2" title="Edit this article in Wagtail admin">Edit</a>
+                      {% endif %}
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
         {% endwith %}
-    {% endfor %}
-
-</div>
-
+      {% endfor %}
+    </div>
+  </div>
+</section>

@@ -10,20 +10,25 @@
             <div class="card shadow-0 border rounded-3 h-100">
               <div class="card-body">
                 <div class="row">
+                  {% if article.cover_image and self.show_covers %}
                   <div class="col-md-12 col-lg-4 col-xl-4 mb-4 mb-lg-0">
                     <div class="bg-image hover-zoom ripple rounded ripple-surface">
-                      {% if article.cover_image and self.show_covers %}
-                        {% image article.cover_image fill-900x600 as cover_image %}
-                        <a href="{{ article.url }}" title="{{ article.title }}">
-                          <img src="{{ cover_image.url }}" class="w-100" alt="{{ cover_image.title }}"/>
+                      {% image article.cover_image fill-900x600 as cover_image %}
+                      <a href="{{ article.url }}" title="{{ article.title }}">
+                          <div class="bg-image">
+                            <img src="{{ cover_image.url }}" class="img-fluid" alt="{{ cover_image.title }}"/>
+                            <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+                              <div class="d-flex justify-content-center align-items-center h-100"></div>
+                            </div>
+                          </div>
                           <div class="hover-overlay">
                             <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
                           </div>
-                        </a>
-                      {% endif %}
+                      </a>
                     </div>
                   </div>
-                  <div class="col-md-12 col-lg-8 col-xl-8">
+                  {% endif %}
+                  <div class="{% if article.cover_image and self.show_covers %}col-md-12 col-lg-8 col-xl-8{% else %}col-12{% endif %}">
                     {% if self.show_dates %}
                       <div class="mb-2 text-muted small">{{ article.seo_published_at|date:"j F Y" }}</div>
                     {% endif %}

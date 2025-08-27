@@ -319,6 +319,7 @@ class _DefaultSettings:
                 "cjkcms/blocks/pagelist_article_card_columns.html",
                 "Article, card masonry - fluid brick pattern",
             ),
+            ("cjkcms/blocks/pagelist_article_cards.html", "Article Cards"),
         ],
         # DEPRECATED
         "pagepreviewblock": [

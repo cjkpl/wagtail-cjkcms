@@ -319,7 +319,6 @@ class _DefaultSettings:
                 "cjkcms/blocks/pagelist_article_card_columns.html",
                 "Article, card masonry - fluid brick pattern",
             ),
-            ("cjkcms/blocks/pagelist_article_cards.html", "Article Cards"),
         ],
         # DEPRECATED
         "pagepreviewblock": [
@@ -330,16 +329,7 @@ class _DefaultSettings:
             ("cjkcms/blocks/quote_block_leftbar.html", "Quote with left bar"),
             ("cjkcms/blocks/quote_block_start_end_quote.html", "With start/end quote"),
         ],
-        "personbioblock": [
-            ("public_persons/blocks/person_bio_card.html", "Cards"),
-        ],
-        "eventcalendarblock": [
-            (
-                "cjkcms/blocks/event_calendar_vertical_timeline.html",
-                "Vertical Timeline",
-            ),
-        ],
-        # templates that are available for all block types
+        "eventcalendarblock": [],
         "*": [
             ("", "Default"),
         ],

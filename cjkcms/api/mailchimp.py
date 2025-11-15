@@ -7,6 +7,7 @@ import requests
 class MailchimpApi:
     user_string = "Website"
     proto_base_url = "https://{0}.api.mailchimp.com/3.0/"
+    request_timeout = 5
 
     def __init__(self, site=None):
         self.set_access_token(site)
@@ -24,7 +25,12 @@ class MailchimpApi:
         """
         The base url for the mailchimip api is dependent on the api key.
         """
-        key, datacenter = self.access_token.split("-")
+        try:
+            _, datacenter = self.access_token.rsplit("-", 1)
+        except ValueError:
+            self.base_url = None
+            self.is_active = False
+            return
         self.base_url = self.proto_base_url.format(datacenter)
 
     def default_headers(self):
@@ -63,20 +69,29 @@ class MailchimpApi:
         endpoint = "lists/{0}".format(list_id)
         return self._post(endpoint, data=data)
 
-    def _get(self, endpoint, data=None, auth=None, headers=None, **kwargs):
-        if data is None:
-            data = {}
+    def _request(self, method, endpoint, params=None, data=None, json_data=None, auth=None, headers=None, timeout=None, **kwargs):
+        if not getattr(self, "is_active", False) or not getattr(self, "base_url", None):
+            raise RuntimeError("Mailchimp API is not configured with a valid key.")
         auth = auth or self.default_auth()
         headers = headers or self.default_headers()
-        full_url = "{0}{1}".format(self.base_url, endpoint)
-        r = requests.get(full_url, auth=auth, headers=headers, data=data, **kwargs)
-        return r.json()
+        full_url = f"{self.base_url}{endpoint}"
+        timeout = timeout or self.request_timeout
+        response = requests.request(
+            method,
+            full_url,
+            params=params,
+            data=data,
+            json=json_data,
+            auth=auth,
+            headers=headers,
+            timeout=timeout,
+            **kwargs,
+        )
+        response.raise_for_status()
+        return response.json()
 
-    def _post(self, endpoint, data=None, auth=None, headers=None, **kwargs):
-        if data is None:
-            data = {}
-        auth = auth or self.default_auth()
-        headers = headers or self.default_headers()
-        full_url = "{0}{1}".format(self.base_url, endpoint)
-        r = requests.post(full_url, auth=auth, headers=headers, data=data, **kwargs)
-        return r.json()
+    def _get(self, endpoint, params=None, **kwargs):
+        return self._request("get", endpoint, params=params, **kwargs)
+
+    def _post(self, endpoint, data=None, **kwargs):
+        return self._request("post", endpoint, json_data=data, **kwargs)

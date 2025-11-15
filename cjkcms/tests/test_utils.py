@@ -8,6 +8,7 @@ from cjkcms.blocks import (
     CardGridBlock,
     # replace_contentblocks,
 )
+from cjkcms.utils.richtext import get_richtext_preview
 
 
 class TestReplaceContentBlocks(unittest.TestCase):
@@ -78,3 +79,13 @@ class TestReplaceContentBlocks(unittest.TestCase):
 
     #     # Check if the structure remains unchanged
     #     self.assertEqual(updated_full_layout_blocks[1], empty_structure)
+
+
+class TestRichTextPreview(unittest.TestCase):
+    def test_trims_to_max_length(self):
+        preview = get_richtext_preview("<p>Hello world</p>", max_length=5)
+        self.assertEqual(preview, "Hello...")
+
+    def test_returns_full_text_when_within_limit(self):
+        preview = get_richtext_preview("<p>Hello</p>", max_length=10)
+        self.assertEqual(preview, "Hello")

@@ -12,5 +12,5 @@ def get_richtext_preview(content, max_length=200):
     # strip tags
     c = strip_tags(content)
     # truncate and add ellipses
-    preview = f"{c[:max_length]}..." if len(c) > 200 else c
+    preview = f"{c[:max_length]}..." if len(c) > max_length else c
     return mark_safe(preview)

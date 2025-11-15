@@ -69,7 +69,18 @@ class MailchimpApi:
         endpoint = "lists/{0}".format(list_id)
         return self._post(endpoint, data=data)
 
-    def _request(self, method, endpoint, params=None, data=None, json_data=None, auth=None, headers=None, timeout=None, **kwargs):
+    def _request(
+        self,
+        method,
+        endpoint,
+        params=None,
+        data=None,
+        json_data=None,
+        auth=None,
+        headers=None,
+        timeout=None,
+        **kwargs,
+    ):
         if not getattr(self, "is_active", False) or not getattr(self, "base_url", None):
             raise RuntimeError("Mailchimp API is not configured with a valid key.")
         auth = auth or self.default_auth()

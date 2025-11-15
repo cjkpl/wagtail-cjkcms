@@ -1,22 +1,12 @@
-import sys
-
-import django
 from django.apps import apps
-from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import EmptyPage, InvalidPage, PageNotAnInteger, Paginator
-from django.http import Http404, HttpResponsePermanentRedirect, JsonResponse
+from django.http import Http404, HttpResponsePermanentRedirect
 from django.shortcuts import render
-from rest_framework import status
-from rest_framework.response import Response
-
-from rest_framework.views import APIView
-from wagtail import __version__ as wagtail_version
 from wagtail.models import Page
 from wagtail.search import index
 from wagtail.search.backends import get_search_backend
 
-from cjkcms import __version__ as cjkcms_version
 from cjkcms.forms import SearchForm
 from cjkcms.models import (
     GeneralSettings,

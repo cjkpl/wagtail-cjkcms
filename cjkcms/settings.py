@@ -478,8 +478,7 @@ class _DefaultSettings:
         ("btn-outline-link", "Link Outline"),
     ]
 
-    CJKCMS_VERSION_MONITOR_TOKEN = ""  # blank token = disabled version monitor api
-    CJKCMS_VERSION_MONITOR_ALLOWED_DOMAINS = []  # disallow from any domain by default
+    CJKCMS_DJANGO_SETTINGS_WHITELIST = ["DEBUG", "TIME_ZONE"]
 
     def __getattribute__(self, attr: str):
         # First load from Django settings.

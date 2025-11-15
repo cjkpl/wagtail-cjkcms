@@ -1,6 +1,6 @@
 import re
 
-from django.template import engines
+from django.template import engines, TemplateSyntaxError
 from wagtail.models import Site
 
 from cjkcms.models import AdobeApiSettings
@@ -46,13 +46,19 @@ class TemplateTagTests(TestCase):
 
     def test_django_settings_filter(self):
         rt = django_engine.from_string(
-            "{% load cjkcms_tags %}{{ 'APPEND_SLASH'|django_settings  }}"
+            "{% load cjkcms_tags %}{{ 'DEBUG'|django_settings  }}"
         ).render(None)
         self.assertIn(
             rt,
             ["True", "False"],
-            f"Django setting APPEND_SLASH is neither True nor False, instead is {rt}",
+            f"Django setting DEBUG is neither True nor False, instead is {rt}",
         )
+
+    def test_django_settings_filter_not_whitelisted(self):
+        with self.assertRaises(TemplateSyntaxError):
+            django_engine.from_string(
+                "{% load cjkcms_tags %}{{ 'APPEND_SLASH'|django_settings  }}"
+            ).render(None)
 
     def test_map_to_bootstrap_alert_filter(self):
         rt = django_engine.from_string(

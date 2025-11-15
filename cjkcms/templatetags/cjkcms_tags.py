@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 from django import template
 from django.conf import settings
 from django.db.models.query import QuerySet
+from django.template import TemplateSyntaxError
 
 # from django.forms import ClearableFileInput
 from django.utils.safestring import mark_safe
@@ -213,7 +214,17 @@ def cjkcms_settings(value):
 
 @register.filter
 def django_settings(value):
-    return getattr(settings, value)
+    allowed = cms_settings.CJKCMS_DJANGO_SETTINGS_WHITELIST
+    if value not in allowed:
+        raise TemplateSyntaxError(
+            f"Setting '{value}' is not whitelisted via CJKCMS_DJANGO_SETTINGS_WHITELIST."
+        )
+    try:
+        return getattr(settings, value)
+    except AttributeError as exc:
+        raise TemplateSyntaxError(
+            f"Setting '{value}' is not defined on Django settings."
+        ) from exc
 
 
 @register.simple_tag

@@ -144,31 +144,3 @@ def favicon(request):
 
 def robots(request):
     return render(request, "cjkcms/robots.txt", content_type="text/plain")
-
-
-class VersionView(APIView):
-    def get(self, request, token):
-        monitor_token = settings.CJKCMS_VERSION_MONITOR_TOKEN
-        allowed_domains = settings.CJKCMS_VERSION_MONITOR_ALLOWED_DOMAINS
-
-        host = request.META.get("HTTP_HOST")
-
-        token_ok = len(token) < 12 or token != monitor_token
-        domain_ok = allowed_domains = ["*"] or host in allowed_domains
-
-        # minimum required token length is 12 characters
-        # this also prevents sites from reporting when default
-        # empty token has not been replaced in local config with a proper one
-
-        if token_ok and domain_ok:
-            return JsonResponse(
-                {"error": "Forbidden."}, status=status.HTTP_403_FORBIDDEN
-            )
-
-        data = {
-            "python": sys.version,
-            "django": django.get_version(),
-            "wagtail": wagtail_version,
-            "cjkcms": cjkcms_version,
-        }
-        return Response(data)

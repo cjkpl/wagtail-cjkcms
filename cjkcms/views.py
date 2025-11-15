@@ -1,9 +1,11 @@
 from collections import OrderedDict
+import contextlib
 
 from django.apps import apps
 from django.core.paginator import EmptyPage, InvalidPage, PageNotAnInteger, Paginator
 from django.http import Http404, HttpResponsePermanentRedirect
 from django.shortcuts import render
+from django.utils import translation
 from wagtail.models import Page
 from wagtail.search import index
 from wagtail.search.backends import get_search_backend
@@ -32,10 +34,10 @@ def search_model_backend(model, search_query, current_locale):
     backend = get_search_backend()
     if issubclass(model, Page):
         # Search only live and public pages for models that are Page subclasses
-        return backend.search(
-            search_query,
-            model.objects.live().public().filter(locale=current_locale),
-        )
+        queryset = model.objects.live().public()
+        if current_locale:
+            queryset = queryset.filter(locale=current_locale)
+        return backend.search(search_query, queryset)
     else:
         # Search normally for non-page models
         return backend.search(search_query, model)
@@ -43,6 +45,19 @@ def search_model_backend(model, search_query, current_locale):
 
 def _model_identifier(model):
     return f"{model._meta.app_label}.{model._meta.model_name}"
+
+
+def _get_request_locale(request):
+    language_code = getattr(request, "LANGUAGE_CODE", None) or translation.get_language()
+    if language_code:
+        normalized = language_code.split("-")[0]
+        with contextlib.suppress(Locale.DoesNotExist):
+            return Locale.objects.get(language_code=normalized)
+    with contextlib.suppress(Locale.DoesNotExist):
+        return Locale.get_active()
+    with contextlib.suppress(Locale.DoesNotExist):
+        return Locale.get_default()
+    return Locale.objects.first()
 
 
 def search(request):
@@ -64,7 +79,7 @@ def search(request):
     active_search_model = None
 
     if search_form.is_valid():
-        current_locale = Locale.get_active()
+        current_locale = _get_request_locale(request)
         search_query = search_form.cleaned_data["s"]
         search_model = search_form.cleaned_data["t"]
 
@@ -116,42 +131,24 @@ def search(request):
                 }
                 model_result_sets.append((identifier, model_results, count))
 
-        total_results = sum(count for _, _, count in model_result_sets)
-        if total_results:
+        merged_results = []
+        for _, model_results, _ in model_result_sets:
+            merged_results.extend(model_results)
+
+        if merged_results:
             per_page = GeneralSettings.for_request(request).search_num_results
-            paginator = Paginator(range(total_results), per_page)
+            paginator = Paginator(merged_results, per_page)
             page_number = request.GET.get("p", 1)
             try:
-                page = paginator.page(page_number)
+                results_paginated = paginator.page(page_number)
             except PageNotAnInteger:
-                page = paginator.page(1)
+                results_paginated = paginator.page(1)
             except EmptyPage:
-                page = paginator.page(paginator.num_pages)
+                results_paginated = paginator.page(paginator.num_pages)
             except InvalidPage:
-                page = paginator.page(paginator.num_pages)
+                results_paginated = paginator.page(paginator.num_pages)
 
-            start_index = page.start_index() - 1
-            end_index = page.end_index()
-            needed = end_index - start_index
-            page_results = []
-            offset = 0
-
-            for _, model_results, count in model_result_sets:
-                if start_index >= offset + count:
-                    offset += count
-                    continue
-                local_start = max(0, start_index - offset)
-                remaining = needed - len(page_results)
-                local_end = min(count, local_start + remaining)
-                if local_start < local_end:
-                    page_results.extend(model_results[local_start:local_end])
-                offset += count
-                if len(page_results) >= needed:
-                    break
-
-            page.object_list = page_results
-            results_paginated = page
-            results = page_results
+        results = merged_results
 
     context = {
         "request": request,

@@ -1,7 +1,9 @@
 import pytest
+from unittest import mock
 
 from wagtail.models import Page
 from django.urls import reverse
+from django.test import RequestFactory
 from django.test import Client, TestCase, override_settings
 
 from cjkcms.models.cms_models import ArticlePage
@@ -218,3 +220,26 @@ class TestSearchBlocks(TestCase):
             "cjkcms.articlepage", response.context["results_by_model"]
         )
         self.assertEqual(len(response.context["results"]), 1)
+
+    def test_search_without_active_locale(self):
+        article_page = ArticlePage.objects.get(title="Test Article")
+        search_index.insert_or_update_object(article_page)
+        default_locale = Locale.get_default()
+
+        with mock.patch("wagtail.models.Locale.get_active", return_value=None), mock.patch(
+            "wagtail.models.Locale.get_default", return_value=default_locale
+        ):
+            response = self.client.get(
+                reverse("cjkcms_search"), {"s": "Test"}, follow=True
+            )
+
+        self.assertEqual(len(response.context["results"]), 1)
+
+    def test_get_request_locale_from_language_code(self):
+        from cjkcms.views import _get_request_locale
+
+        rf = RequestFactory()
+        request = rf.get("/")
+        request.LANGUAGE_CODE = Locale.get_default().language_code
+        locale = _get_request_locale(request)
+        self.assertEqual(locale, Locale.get_default())

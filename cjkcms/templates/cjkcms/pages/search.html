@@ -41,13 +41,13 @@
             <ul class="nav nav-pills">
                 <li class="nav-item">
                     {% query_update qs_nop 't' None as qs_t %}
-                    <a class="nav-link {% if not form.t.value %}active{% endif %}" href="?{{ qs_t.urlencode }}">{% trans 'All Results' %}</a>
+                    <a class="nav-link {% if not active_search_model %}active{% endif %}" href="?{{ qs_t.urlencode }}">{% trans 'All Results' %}</a>
                 </li>
                 {% for key, result in results_by_model.items %}
                     {% if result.count > 0 %}
                         {% query_update qs_nop 't' key as qs_t %}
                         <li class="nav-item">
-                            <a class="nav-link {% if form.t.value == key %}active{% endif %}" href="?{{ qs_t.urlencode }}">{{ result.model|get_plural_name_of_class }}
+                            <a class="nav-link {% if active_search_model == key %}active{% endif %}" href="?{{ qs_t.urlencode }}">{{ result.model|get_plural_name_of_class }}
                             <span class="badge badge-info">
                                 {{ result.count }}
                                 <span class="visually-hidden">search results</span>

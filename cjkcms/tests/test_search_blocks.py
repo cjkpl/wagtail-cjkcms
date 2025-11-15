@@ -191,3 +191,30 @@ class TestSearchBlocks(TestCase):
         )
 
         self.assertEqual(len(response.context["results"]), 1)
+
+    def test_search_filter_whitelist(self):
+        article_page = ArticlePage.objects.get(title="Test Article")
+        search_index.insert_or_update_object(article_page)
+
+        response = self.client.get(
+            reverse("cjkcms_search"), {"s": "Test", "t": "auth.user"}, follow=True
+        )
+
+        self.assertIsNone(response.context["active_search_model"])
+        self.assertEqual(len(response.context["results"]), 1)
+
+    def test_search_legacy_model_identifier(self):
+        article_page = ArticlePage.objects.get(title="Test Article")
+        search_index.insert_or_update_object(article_page)
+
+        response = self.client.get(
+            reverse("cjkcms_search"), {"s": "Test", "t": "articlepage"}, follow=True
+        )
+
+        self.assertEqual(
+            response.context["active_search_model"], "cjkcms.articlepage"
+        )
+        self.assertIn(
+            "cjkcms.articlepage", response.context["results_by_model"]
+        )
+        self.assertEqual(len(response.context["results"]), 1)

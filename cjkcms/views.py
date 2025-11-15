@@ -1,5 +1,6 @@
+from collections import OrderedDict
+
 from django.apps import apps
-from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import EmptyPage, InvalidPage, PageNotAnInteger, Paginator
 from django.http import Http404, HttpResponsePermanentRedirect
 from django.shortcuts import render
@@ -40,6 +41,10 @@ def search_model_backend(model, search_query, current_locale):
         return backend.search(search_query, model)
 
 
+def _model_identifier(model):
+    return f"{model._meta.app_label}.{model._meta.model_name}"
+
+
 def search(request):
     """
     Searches pages across the entire site.
@@ -52,16 +57,19 @@ def search(request):
     """
 
     search_form = SearchForm(request.GET)
-    results = None
+    results: list = []
     results_paginated = []
     indexed_models = []
-    results_by_model = {}
+    results_by_model: OrderedDict[str, dict] = OrderedDict()
+    active_search_model = None
 
     if search_form.is_valid():
         current_locale = Locale.get_active()
         search_query = search_form.cleaned_data["s"]
         search_model = search_form.cleaned_data["t"]
-        results = []
+
+        filterable_models = {}
+        legacy_model_names = {}
         for model in apps.get_models():
             if (
                 issubclass(model, index.Indexed)
@@ -69,46 +77,81 @@ def search(request):
                 and model.search_filterable
             ):
                 indexed_models.append(model)
+                identifier = _model_identifier(model)
+                filterable_models[identifier] = model
+                legacy_model_names.setdefault(model._meta.model_name, model)
 
-        # If a specific model is selected
-        if search_model and ContentType.objects.filter(model=search_model).exists():
-            try:
-                # If provided a model name, try to get it
-                model = ContentType.objects.get(model=search_model).model_class()
-                results = search_model_backend(model, search_query, current_locale)
-                # Store the count of results for this model
-                results_by_model[model._meta.model_name] = {
-                    "model": model,
-                    "count": results.count(),
-                }
-            except ContentType.DoesNotExist:
-                results = None
+        model_result_sets = []
+
+        selected_model = None
+        if search_model:
+            selected_model = filterable_models.get(search_model)
+            if not selected_model:
+                legacy_model = legacy_model_names.get(search_model)
+                if legacy_model:
+                    selected_model = legacy_model
+                    search_model = _model_identifier(legacy_model)
+
+        if selected_model:
+            active_search_model = _model_identifier(selected_model)
+            model_results = search_model_backend(
+                selected_model, search_query, current_locale
+            )
+            count = model_results.count()
+            results_by_model[active_search_model] = {
+                "model": selected_model,
+                "count": count,
+            }
+            model_result_sets.append((active_search_model, model_results, count))
         else:
-            # Search all indexed models
             for model in indexed_models:
+                identifier = _model_identifier(model)
                 model_results = search_model_backend(
                     model, search_query, current_locale
                 )
-                # Store the count of results for this model
-                results_by_model[model._meta.model_name] = {
+                count = model_results.count()
+                results_by_model[identifier] = {
                     "model": model,
-                    "count": model_results.count(),
+                    "count": count,
                 }
-                results += model_results
-        # get and paginate results
-        if results:
-            paginator = Paginator(
-                results, GeneralSettings.for_request(request).search_num_results
-            )
-            page = request.GET.get("p", 1)
+                model_result_sets.append((identifier, model_results, count))
+
+        total_results = sum(count for _, _, count in model_result_sets)
+        if total_results:
+            per_page = GeneralSettings.for_request(request).search_num_results
+            paginator = Paginator(range(total_results), per_page)
+            page_number = request.GET.get("p", 1)
             try:
-                results_paginated = paginator.page(page)
+                page = paginator.page(page_number)
             except PageNotAnInteger:
-                results_paginated = paginator.page(1)
+                page = paginator.page(1)
             except EmptyPage:
-                results_paginated = paginator.page(1)
+                page = paginator.page(paginator.num_pages)
             except InvalidPage:
-                results_paginated = paginator.page(paginator.num_pages)
+                page = paginator.page(paginator.num_pages)
+
+            start_index = page.start_index() - 1
+            end_index = page.end_index()
+            needed = end_index - start_index
+            page_results = []
+            offset = 0
+
+            for _, model_results, count in model_result_sets:
+                if start_index >= offset + count:
+                    offset += count
+                    continue
+                local_start = max(0, start_index - offset)
+                remaining = needed - len(page_results)
+                local_end = min(count, local_start + remaining)
+                if local_start < local_end:
+                    page_results.extend(model_results[local_start:local_end])
+                offset += count
+                if len(page_results) >= needed:
+                    break
+
+            page.object_list = page_results
+            results_paginated = page
+            results = page_results
 
     context = {
         "request": request,
@@ -117,6 +160,7 @@ def search(request):
         "pagetypes": indexed_models,
         "results_paginated": results_paginated,
         "results_by_model": results_by_model,
+        "active_search_model": active_search_model,
     }
     # Render template
     return render(

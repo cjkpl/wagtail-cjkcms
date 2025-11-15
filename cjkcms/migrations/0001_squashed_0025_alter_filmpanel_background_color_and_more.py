@@ -15,642 +15,2599 @@ from django.db import migrations, models
 # RunPython operations to refer to the local versions:
 # cjkcms.migrations.0008_alter_layoutsettings_navbar_langselector
 
+
 class Migration(migrations.Migration):
 
-    replaces = [('cjkcms', '0001_initial'), ('cjkcms', '0002_alter_body_to_cjkcmsstreamfield'), ('cjkcms', '0003_alter_footer_content_alter_navbar_menu_items'), ('cjkcms', '0004_layoutsettings_articles_date_format_and_more'), ('cjkcms', '0005_layoutsettings_custom_font_and_more'), ('cjkcms', '0006_analyticssettings_consent_modal_layout_and_more'), ('cjkcms', '0007_layoutsettings_bootstrap_icons'), ('cjkcms', '0008_alter_layoutsettings_navbar_langselector'), ('cjkcms', '0009_navbar_language'), ('cjkcms', '0010_filmstrip_filmpanel'), ('cjkcms', '0011_cjkcmspage_related_classifier_term_and_more'), ('cjkcms', '0012_remove_analyticssettings_ga_tracking_id_and_more'), ('cjkcms', '0013_socialmediasettings_location'), ('cjkcms', '0014_navbar_alignment'), ('cjkcms', '0015_eventcalendar'), ('cjkcms', '0016_layoutsettings_breadcrumb_icon_and_more'), ('cjkcms', '0017_layoutsettings_default_seo_image'), ('cjkcms', '0018_layoutsettings_search_format'), ('cjkcms', '0019_layoutsettings_searchbox_input_class_and_more'), ('cjkcms', '0020_socialmediasettings_github_and_more'), ('cjkcms', '0021_remove_layoutsettings_navbar_color_scheme_and_more'), ('cjkcms', '0022_cjkcmspage_breadcrumb_label_and_more'), ('cjkcms', '0023_alter_navbar_language'), ('cjkcms', '0024_remove_cjkcmspage_struct_org_actions_and_more'), ('cjkcms', '0025_alter_filmpanel_background_color_and_more')]
+    replaces = [
+        ("cjkcms", "0001_initial"),
+        ("cjkcms", "0002_alter_body_to_cjkcmsstreamfield"),
+        ("cjkcms", "0003_alter_footer_content_alter_navbar_menu_items"),
+        ("cjkcms", "0004_layoutsettings_articles_date_format_and_more"),
+        ("cjkcms", "0005_layoutsettings_custom_font_and_more"),
+        ("cjkcms", "0006_analyticssettings_consent_modal_layout_and_more"),
+        ("cjkcms", "0007_layoutsettings_bootstrap_icons"),
+        ("cjkcms", "0008_alter_layoutsettings_navbar_langselector"),
+        ("cjkcms", "0009_navbar_language"),
+        ("cjkcms", "0010_filmstrip_filmpanel"),
+        ("cjkcms", "0011_cjkcmspage_related_classifier_term_and_more"),
+        ("cjkcms", "0012_remove_analyticssettings_ga_tracking_id_and_more"),
+        ("cjkcms", "0013_socialmediasettings_location"),
+        ("cjkcms", "0014_navbar_alignment"),
+        ("cjkcms", "0015_eventcalendar"),
+        ("cjkcms", "0016_layoutsettings_breadcrumb_icon_and_more"),
+        ("cjkcms", "0017_layoutsettings_default_seo_image"),
+        ("cjkcms", "0018_layoutsettings_search_format"),
+        ("cjkcms", "0019_layoutsettings_searchbox_input_class_and_more"),
+        ("cjkcms", "0020_socialmediasettings_github_and_more"),
+        ("cjkcms", "0021_remove_layoutsettings_navbar_color_scheme_and_more"),
+        ("cjkcms", "0022_cjkcmspage_breadcrumb_label_and_more"),
+        ("cjkcms", "0023_alter_navbar_language"),
+        ("cjkcms", "0024_remove_cjkcmspage_struct_org_actions_and_more"),
+        ("cjkcms", "0025_alter_filmpanel_background_color_and_more"),
+    ]
 
     initial = True
 
     dependencies = [
-        ('taggit', '0004_alter_taggeditem_content_type_alter_taggeditem_tag'),
-        ('wagtailcore', '0069_log_entry_jsonfield'),
-        ('wagtailcore', '0083_workflowcontenttype'),
-        ('wagtailimages', '0024_index_image_file_hash'),
-        ('wagtailimages', '0025_alter_image_file_alter_rendition_file'),
+        ("taggit", "0004_alter_taggeditem_content_type_alter_taggeditem_tag"),
+        ("wagtailcore", "0069_log_entry_jsonfield"),
+        ("wagtailcore", "0083_workflowcontenttype"),
+        ("wagtailimages", "0024_index_image_file_hash"),
+        ("wagtailimages", "0025_alter_image_file_alter_rendition_file"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Accordion',
+            name="Accordion",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255, verbose_name='Name')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255, verbose_name="Name")),
             ],
             options={
-                'verbose_name': 'Accordion',
-                'verbose_name_plural': 'Accordions',
+                "verbose_name": "Accordion",
+                "verbose_name_plural": "Accordions",
             },
         ),
         migrations.CreateModel(
-            name='Carousel',
+            name="Carousel",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255, verbose_name='Name')),
-                ('show_controls', models.BooleanField(default=True, help_text='Shows arrows on the left and right of the carousel to advance next or previous slides.', verbose_name='Show controls')),
-                ('show_indicators', models.BooleanField(default=True, help_text='Shows small indicators at the bottom of the carousel based on the number of slides.', verbose_name='Show indicators')),
-                ('animation', models.CharField(blank=True, default='', help_text='The animation when transitioning between slides.', max_length=20, verbose_name='Animation')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255, verbose_name="Name")),
+                (
+                    "show_controls",
+                    models.BooleanField(
+                        default=True,
+                        help_text="Shows arrows on the left and right of the carousel to advance next or previous slides.",
+                        verbose_name="Show controls",
+                    ),
+                ),
+                (
+                    "show_indicators",
+                    models.BooleanField(
+                        default=True,
+                        help_text="Shows small indicators at the bottom of the carousel based on the number of slides.",
+                        verbose_name="Show indicators",
+                    ),
+                ),
+                (
+                    "animation",
+                    models.CharField(
+                        blank=True,
+                        default="",
+                        help_text="The animation when transitioning between slides.",
+                        max_length=20,
+                        verbose_name="Animation",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Carousel',
+                "verbose_name": "Carousel",
             },
         ),
         migrations.CreateModel(
-            name='CjkcmsPage',
+            name="CjkcmsPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.page')),
-                ('canonical_url', models.URLField(blank=True, help_text="Leave blank to use the page's URL.", max_length=255, verbose_name='Canonical URL')),
-                ('struct_org_type', models.CharField(blank=True, choices=[('Organization', 'Organization'), ('Airline', 'Organization > Airline'), ('Corporation', 'Organization > Corporation'), ('EducationalOrganization', 'Organization > EducationalOrganization'), ('CollegeOrUniversity', 'Organization > EducationalOrganization > CollegeOrUniversity'), ('ElementarySchool', 'Organization > EducationalOrganization > ElementarySchool'), ('HighSchool', 'Organization > EducationalOrganization > HighSchool'), ('MiddleSchool', 'Organization > EducationalOrganization > MiddleSchool'), ('Preschool', 'Organization > EducationalOrganization > Preschool'), ('School', 'Organization > EducationalOrganization > School'), ('GovernmentOrganization', 'Organization > GovernmentOrganization'), ('LocalBusiness', 'Organization > LocalBusiness'), ('AnimalShelter', 'Organization > LocalBusiness > AnimalShelter'), ('AutomotiveBusiness', 'Organization > LocalBusiness > AutomotiveBusiness'), ('AutoBodyShop', 'Organization > LocalBusiness > AutomotiveBusiness > AutoBodyShop'), ('AutoDealer', 'Organization > LocalBusiness > AutomotiveBusiness > AutoDealer'), ('AutoPartsStore', 'Organization > LocalBusiness > AutomotiveBusiness > AutoPartsStore'), ('AutoRental', 'Organization > LocalBusiness > AutomotiveBusiness > AutoRental'), ('AutoRepair', 'Organization > LocalBusiness > AutomotiveBusiness > AutoRepair'), ('AutoWash', 'Organization > LocalBusiness > AutomotiveBusiness > AutoWash'), ('GasStation', 'Organization > LocalBusiness > AutomotiveBusiness > GasStation'), ('MotorcycleDealer', 'Organization > LocalBusiness > AutomotiveBusiness > MotorcycleDealer'), ('MotorcycleRepair', 'Organization > LocalBusiness > AutomotiveBusiness > MotorcycleRepair'), ('ChildCare', 'Organization > LocalBusiness > ChildCare'), ('Dentist', 'Organization > LocalBusiness > Dentist'), ('DryCleaningOrLaundry', 'Organization > LocalBusiness > DryCleaningOrLaundry'), ('EmergencyService', 'Organization > LocalBusiness > EmergencyService'), ('FireStation', 'Organization > LocalBusiness > EmergencyService > FireStation'), ('Hospital', 'Organization > LocalBusiness > EmergencyService > Hospital'), ('PoliceStation', 'Organization > LocalBusiness > EmergencyService > PoliceStation'), ('EmploymentAgency', 'Organization > LocalBusiness > EmploymentAgency'), ('EntertainmentBusiness', 'Organization > LocalBusiness > EntertainmentBusiness'), ('AdultEntertainment', 'Organization > LocalBusiness > EntertainmentBusiness > AdultEntertainment'), ('AmusementPark', 'Organization > LocalBusiness > EntertainmentBusiness > AmusementPark'), ('ArtGallery', 'Organization > LocalBusiness > EntertainmentBusiness > ArtGallery'), ('Casino', 'Organization > LocalBusiness > EntertainmentBusiness > Casino'), ('ComedyClub', 'Organization > LocalBusiness > EntertainmentBusiness > ComedyClub'), ('MovieTheater', 'Organization > LocalBusiness > EntertainmentBusiness > MovieTheater'), ('NightClub', 'Organization > LocalBusiness > EntertainmentBusiness > NightClub'), ('FinancialService', 'Organization > LocalBusiness > FinancialService'), ('AccountingService', 'Organization > LocalBusiness > FinancialService > AccountingService'), ('AutomatedTeller', 'Organization > LocalBusiness > FinancialService > AutomatedTeller'), ('BankOrCreditUnion', 'Organization > LocalBusiness > FinancialService > BankOrCreditUnion'), ('InsuranceAgency', 'Organization > LocalBusiness > FinancialService > InsuranceAgency'), ('FoodEstablishment', 'Organization > LocalBusiness > FoodEstablishment'), ('Bakery', 'Organization > LocalBusiness > FoodEstablishment > Bakery'), ('BarOrPub', 'Organization > LocalBusiness > FoodEstablishment > BarOrPub'), ('Brewery', 'Organization > LocalBusiness > FoodEstablishment > Brewery'), ('CafeOrCoffeeShop', 'Organization > LocalBusiness > FoodEstablishment > CafeOrCoffeeShop'), ('FastFoodRestaurant', 'Organization > LocalBusiness > FoodEstablishment > FastFoodRestaurant'), ('IceCreamShop', 'Organization > LocalBusiness > FoodEstablishment > IceCreamShop'), ('Restaurant', 'Organization > LocalBusiness > FoodEstablishment > Restaurant'), ('Winery', 'Organization > LocalBusiness > FoodEstablishment > Winery'), ('GovernmentOffice', 'Organization > LocalBusiness > GovernmentOffice'), ('PostOffice', 'Organization > LocalBusiness > GovernmentOffice > PostOffice'), ('HealthAndBeautyBusiness', 'Organization > LocalBusiness > HealthAndBeautyBusiness'), ('BeautySalon', 'Organization > LocalBusiness > HealthAndBeautyBusiness > BeautySalon'), ('DaySpa', 'Organization > LocalBusiness > HealthAndBeautyBusiness > DaySpa'), ('HairSalon', 'Organization > LocalBusiness > HealthAndBeautyBusiness > HairSalon'), ('HealthClub', 'Organization > LocalBusiness > HealthAndBeautyBusiness > HealthClub'), ('NailSalon', 'Organization > LocalBusiness > HealthAndBeautyBusiness > NailSalon'), ('TattooParlor', 'Organization > LocalBusiness > HealthAndBeautyBusiness > TattooParlor'), ('HomeAndConstructionBusiness', 'Organization > LocalBusiness > HomeAndConstructionBusiness'), ('Electrician', 'Organization > LocalBusiness > HomeAndConstructionBusiness > Electrician'), ('GeneralContractor', 'Organization > LocalBusiness > HomeAndConstructionBusiness > GeneralContractor'), ('HVACBusiness', 'Organization > LocalBusiness > HomeAndConstructionBusiness > HVACBusiness'), ('HousePainter', 'Organization > LocalBusiness > HomeAndConstructionBusiness > HousePainter'), ('Locksmith', 'Organization > LocalBusiness > HomeAndConstructionBusiness > Locksmith'), ('MovingCompany', 'Organization > LocalBusiness > HomeAndConstructionBusiness > MovingCompany'), ('Plumber', 'Organization > LocalBusiness > HomeAndConstructionBusiness > Plumber'), ('RoofingContractor', 'Organization > LocalBusiness > HomeAndConstructionBusiness > RoofingContractor'), ('InternetCafe', 'Organization > LocalBusiness > InternetCafe'), ('LegalService', 'Organization > LocalBusiness > LegalService'), ('Attorney', 'Organization > LocalBusiness > LegalService > Attorney'), ('Notary', 'Organization > LocalBusiness > LegalService > Notary'), ('Library', 'Organization > LocalBusiness > Library'), ('LodgingBusiness', 'Organization > LocalBusiness > LodgingBusiness'), ('BedAndBreakfast', 'Organization > LocalBusiness > LodgingBusiness > BedAndBreakfast'), ('Campground', 'Organization > LocalBusiness > LodgingBusiness > Campground'), ('Hostel', 'Organization > LocalBusiness > LodgingBusiness > Hostel'), ('Hotel', 'Organization > LocalBusiness > LodgingBusiness > Hotel'), ('Motel', 'Organization > LocalBusiness > LodgingBusiness > Motel'), ('Resort', 'Organization > LocalBusiness > LodgingBusiness > Resort'), ('ProfessionalService', 'Organization > LocalBusiness > ProfessionalService'), ('RadioStation', 'Organization > LocalBusiness > RadioStation'), ('RealEstateAgent', 'Organization > LocalBusiness > RealEstateAgent'), ('RecyclingCenter', 'Organization > LocalBusiness > RecyclingCenter'), ('SelfStorage', 'Organization > LocalBusiness > SelfStorage'), ('ShoppingCenter', 'Organization > LocalBusiness > ShoppingCenter'), ('SportsActivityLocation', 'Organization > LocalBusiness > SportsActivityLocation'), ('BowlingAlley', 'Organization > LocalBusiness > SportsActivityLocation > BowlingAlley'), ('ExerciseGym', 'Organization > LocalBusiness > SportsActivityLocation > ExerciseGym'), ('GolfCourse', 'Organization > LocalBusiness > SportsActivityLocation > GolfCourse'), ('HealthClub', 'Organization > LocalBusiness > SportsActivityLocation > HealthClub'), ('PublicSwimmingPool', 'Organization > LocalBusiness > SportsActivityLocation > PublicSwimmingPool'), ('SkiResort', 'Organization > LocalBusiness > SportsActivityLocation > SkiResort'), ('SportsClub', 'Organization > LocalBusiness > SportsActivityLocation > SportsClub'), ('StadiumOrArena', 'Organization > LocalBusiness > SportsActivityLocation > StadiumOrArena'), ('TennisComplex', 'Organization > LocalBusiness > SportsActivityLocation > TennisComplex'), ('Store', 'Organization > LocalBusiness > Store'), ('AutoPartsStore', 'Organization > LocalBusiness > Store > AutoPartsStore'), ('BikeStore', 'Organization > LocalBusiness > Store > BikeStore'), ('BookStore', 'Organization > LocalBusiness > Store > BookStore'), ('ClothingStore', 'Organization > LocalBusiness > Store > ClothingStore'), ('ComputerStore', 'Organization > LocalBusiness > Store > ComputerStore'), ('ConvenienceStore', 'Organization > LocalBusiness > Store > ConvenienceStore'), ('DepartmentStore', 'Organization > LocalBusiness > Store > DepartmentStore'), ('ElectronicsStore', 'Organization > LocalBusiness > Store > ElectronicsStore'), ('Florist', 'Organization > LocalBusiness > Store > Florist'), ('FurnitureStore', 'Organization > LocalBusiness > Store > FurnitureStore'), ('GardenStore', 'Organization > LocalBusiness > Store > GardenStore'), ('GroceryStore', 'Organization > LocalBusiness > Store > GroceryStore'), ('HardwareStore', 'Organization > LocalBusiness > Store > HardwareStore'), ('HobbyShop', 'Organization > LocalBusiness > Store > HobbyShop'), ('HomeGoodsStore', 'Organization > LocalBusiness > Store > HomeGoodsStore'), ('JewelryStore', 'Organization > LocalBusiness > Store > JewelryStore'), ('LiquorStore', 'Organization > LocalBusiness > Store > LiquorStore'), ('MensClothingStore', 'Organization > LocalBusiness > Store > MensClothingStore'), ('MobilePhoneStore', 'Organization > LocalBusiness > Store > MobilePhoneStore'), ('MovieRentalStore', 'Organization > LocalBusiness > Store > MovieRentalStore'), ('MusicStore', 'Organization > LocalBusiness > Store > MusicStore'), ('OfficeEquipmentStore', 'Organization > LocalBusiness > Store > OfficeEquipmentStore'), ('OutletStore', 'Organization > LocalBusiness > Store > OutletStore'), ('PawnShop', 'Organization > LocalBusiness > Store > PawnShop'), ('PetStore', 'Organization > LocalBusiness > Store > PetStore'), ('ShoeStore', 'Organization > LocalBusiness > Store > ShoeStore'), ('SportingGoodsStore', 'Organization > LocalBusiness > Store > SportingGoodsStore'), ('TireShop', 'Organization > LocalBusiness > Store > TireShop'), ('ToyStore', 'Organization > LocalBusiness > Store > ToyStore'), ('WholesaleStore', 'Organization > LocalBusiness > Store > WholesaleStore'), ('TelevisionStation', 'Organization > LocalBusiness > TelevisionStation'), ('TouristInformationCenter', 'Organization > LocalBusiness > TouristInformationCenter'), ('TravelAgency', 'Organization > LocalBusiness > TravelAgency'), ('MedicalOrganization', 'Organization > MedicalOrganization'), ('Dentist', 'Organization > MedicalOrganization > Dentist'), ('Hospital', 'Organization > MedicalOrganization > Hospital'), ('Pharmacy', 'Organization > MedicalOrganization > Pharmacy'), ('Physician', 'Organization > MedicalOrganization > Physician'), ('NGO', 'Organization > NGO'), ('PerformingGroup', 'Organization > PerformingGroup'), ('DanceGroup', 'Organization > PerformingGroup > DanceGroup'), ('MusicGroup', 'Organization > PerformingGroup > MusicGroup'), ('TheaterGroup', 'Organization > PerformingGroup > TheaterGroup'), ('SportsOrganization', 'Organization > SportsOrganization'), ('SportsTeam', 'Organization > SportsOrganization > SportsTeam')], default='', help_text='If blank, no structured data will be used on this page.', max_length=255, verbose_name='Organization type')),
-                ('struct_org_name', models.CharField(blank=True, default='', help_text='Leave blank to use the site name in Settings > Sites', max_length=255, verbose_name='Organization name')),
-                ('struct_org_phone', models.CharField(blank=True, help_text='Include country code for best results. For example: +1-216-555-8000', max_length=255, verbose_name='Telephone number')),
-                ('struct_org_address_street', models.CharField(blank=True, help_text='House number and street. For example, 55 Public Square Suite 1710', max_length=255, verbose_name='Street address')),
-                ('struct_org_address_locality', models.CharField(blank=True, help_text='City or locality. For example, Cleveland', max_length=255, verbose_name='City')),
-                ('struct_org_address_region', models.CharField(blank=True, help_text='State, province, county, or region. For example, OH', max_length=255, verbose_name='State')),
-                ('struct_org_address_postal', models.CharField(blank=True, help_text='Zip or postal code. For example, 44113', max_length=255, verbose_name='Postal code')),
-                ('struct_org_address_country', models.CharField(blank=True, help_text='For example, USA. Two-letter ISO 3166-1 alpha-2 country code is also acceptable https://en.wikipedia.org/wiki/ISO_3166-1', max_length=255, verbose_name='Country')),
-                ('struct_org_geo_lat', models.DecimalField(blank=True, decimal_places=8, max_digits=11, null=True, verbose_name='Geographic latitude')),
-                ('struct_org_geo_lng', models.DecimalField(blank=True, decimal_places=8, max_digits=11, null=True, verbose_name='Geographic longitude')),
-                ('struct_org_hours', wagtail.fields.StreamField([('hours', 3)], blank=True, block_lookup={0: ('wagtail.blocks.MultipleChoiceBlock', [], {'choices': [('Monday', 'Monday'), ('Tuesday', 'Tuesday'), ('Wednesday', 'Wednesday'), ('Thursday', 'Thursday'), ('Friday', 'Friday'), ('Saturday', 'Saturday'), ('Sunday', 'Sunday')], 'help_text': 'For late night hours past 23:59, define each day in a separate block.', 'verbose_name': 'Days'}), 1: ('wagtail.blocks.TimeBlock', (), {'verbose_name': 'Opening time'}), 2: ('wagtail.blocks.TimeBlock', (), {'verbose_name': 'Closing time'}), 3: ('wagtail.blocks.StructBlock', [[('days', 0), ('start_time', 1), ('end_time', 2)]], {})}, verbose_name='Hours of operation')),
-                ('struct_org_actions', wagtail.fields.StreamField([('actions', 6)], blank=True, block_lookup={0: ('wagtail.blocks.ChoiceBlock', [], {'choices': [('OrderAction', 'OrderAction'), ('ReserveAction', 'ReserveAction')], 'verbose_name': 'Action Type'}), 1: ('wagtail.blocks.URLBlock', (), {'verbose_name': 'Target URL'}), 2: ('wagtail.blocks.CharBlock', (), {'default': 'en-US', 'help_text': 'If the action is offered in multiple languages, create separate actions for each language.', 'verbose_name': 'Language'}), 3: ('wagtail.blocks.ChoiceBlock', [], {'choices': [('Reservation', 'Reservation'), ('BusReservation', 'BusReservation'), ('EventReservation', 'EventReservation'), ('FlightReservation', 'FlightReservation'), ('FoodEstablishmentReservation', 'FoodEstablishmentReservation'), ('LodgingReservation', 'LodgingReservation'), ('RentalCarReservation', 'RentalCarReservation'), ('ReservationPackage', 'ReservationPackage'), ('TaxiReservation', 'TaxiReservation'), ('TrainReservation', 'TrainReservation')], 'help_text': 'Leave blank for OrderAction', 'required': False, 'verbose_name': 'Result Type'}), 4: ('wagtail.blocks.CharBlock', (), {'help_text': 'Example: "Reserve a table", "Book an appointment", etc.', 'required': False, 'verbose_name': 'Result Name'}), 5: ('wagtail.blocks.RawHTMLBlock', (), {'form_classname': 'monospace', 'help_text': 'Additional JSON-LD inserted into the Action dictionary. Must be properties of https://schema.org/Action.', 'required': False, 'verbose_name': 'Additional action markup'}), 6: ('wagtail.blocks.StructBlock', [[('action_type', 0), ('target', 1), ('language', 2), ('result_type', 3), ('result_name', 4), ('extra_json', 5)]], {})}, verbose_name='Actions')),
-                ('struct_org_extra_json', models.TextField(blank=True, help_text='Additional JSON-LD inserted into the Organization dictionary. Must be properties of https://schema.org/Organization or the selected organization type.', verbose_name='Additional Organization markup')),
-                ('index_show_subpages', models.BooleanField(default=False, verbose_name='Show list of child pages')),
-                ('index_order_by', models.CharField(blank=True, choices=[('', 'Default Ordering'), ('-first_published_at', 'Date first published, newest to oldest'), ('first_published_at', 'Date first published, oldest to newest'), ('-last_published_at', 'Date updated, newest to oldest'), ('last_published_at', 'Date updated, oldest to newest'), ('title', 'Title, alphabetical'), ('-title', 'Title, reverse alphabetical')], default='', max_length=255, verbose_name='Order child pages by')),
-                ('index_num_per_page', models.PositiveIntegerField(default=10, verbose_name='Number per page')),
-                ('custom_template', models.CharField(blank=True, max_length=255, verbose_name='Template')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.page",
+                    ),
+                ),
+                (
+                    "canonical_url",
+                    models.URLField(
+                        blank=True,
+                        help_text="Leave blank to use the page's URL.",
+                        max_length=255,
+                        verbose_name="Canonical URL",
+                    ),
+                ),
+                (
+                    "struct_org_type",
+                    models.CharField(
+                        blank=True,
+                        choices=[
+                            ("Organization", "Organization"),
+                            ("Airline", "Organization > Airline"),
+                            ("Corporation", "Organization > Corporation"),
+                            (
+                                "EducationalOrganization",
+                                "Organization > EducationalOrganization",
+                            ),
+                            (
+                                "CollegeOrUniversity",
+                                "Organization > EducationalOrganization > CollegeOrUniversity",
+                            ),
+                            (
+                                "ElementarySchool",
+                                "Organization > EducationalOrganization > ElementarySchool",
+                            ),
+                            (
+                                "HighSchool",
+                                "Organization > EducationalOrganization > HighSchool",
+                            ),
+                            (
+                                "MiddleSchool",
+                                "Organization > EducationalOrganization > MiddleSchool",
+                            ),
+                            (
+                                "Preschool",
+                                "Organization > EducationalOrganization > Preschool",
+                            ),
+                            (
+                                "School",
+                                "Organization > EducationalOrganization > School",
+                            ),
+                            (
+                                "GovernmentOrganization",
+                                "Organization > GovernmentOrganization",
+                            ),
+                            ("LocalBusiness", "Organization > LocalBusiness"),
+                            (
+                                "AnimalShelter",
+                                "Organization > LocalBusiness > AnimalShelter",
+                            ),
+                            (
+                                "AutomotiveBusiness",
+                                "Organization > LocalBusiness > AutomotiveBusiness",
+                            ),
+                            (
+                                "AutoBodyShop",
+                                "Organization > LocalBusiness > AutomotiveBusiness > AutoBodyShop",
+                            ),
+                            (
+                                "AutoDealer",
+                                "Organization > LocalBusiness > AutomotiveBusiness > AutoDealer",
+                            ),
+                            (
+                                "AutoPartsStore",
+                                "Organization > LocalBusiness > AutomotiveBusiness > AutoPartsStore",
+                            ),
+                            (
+                                "AutoRental",
+                                "Organization > LocalBusiness > AutomotiveBusiness > AutoRental",
+                            ),
+                            (
+                                "AutoRepair",
+                                "Organization > LocalBusiness > AutomotiveBusiness > AutoRepair",
+                            ),
+                            (
+                                "AutoWash",
+                                "Organization > LocalBusiness > AutomotiveBusiness > AutoWash",
+                            ),
+                            (
+                                "GasStation",
+                                "Organization > LocalBusiness > AutomotiveBusiness > GasStation",
+                            ),
+                            (
+                                "MotorcycleDealer",
+                                "Organization > LocalBusiness > AutomotiveBusiness > MotorcycleDealer",
+                            ),
+                            (
+                                "MotorcycleRepair",
+                                "Organization > LocalBusiness > AutomotiveBusiness > MotorcycleRepair",
+                            ),
+                            ("ChildCare", "Organization > LocalBusiness > ChildCare"),
+                            ("Dentist", "Organization > LocalBusiness > Dentist"),
+                            (
+                                "DryCleaningOrLaundry",
+                                "Organization > LocalBusiness > DryCleaningOrLaundry",
+                            ),
+                            (
+                                "EmergencyService",
+                                "Organization > LocalBusiness > EmergencyService",
+                            ),
+                            (
+                                "FireStation",
+                                "Organization > LocalBusiness > EmergencyService > FireStation",
+                            ),
+                            (
+                                "Hospital",
+                                "Organization > LocalBusiness > EmergencyService > Hospital",
+                            ),
+                            (
+                                "PoliceStation",
+                                "Organization > LocalBusiness > EmergencyService > PoliceStation",
+                            ),
+                            (
+                                "EmploymentAgency",
+                                "Organization > LocalBusiness > EmploymentAgency",
+                            ),
+                            (
+                                "EntertainmentBusiness",
+                                "Organization > LocalBusiness > EntertainmentBusiness",
+                            ),
+                            (
+                                "AdultEntertainment",
+                                "Organization > LocalBusiness > EntertainmentBusiness > AdultEntertainment",
+                            ),
+                            (
+                                "AmusementPark",
+                                "Organization > LocalBusiness > EntertainmentBusiness > AmusementPark",
+                            ),
+                            (
+                                "ArtGallery",
+                                "Organization > LocalBusiness > EntertainmentBusiness > ArtGallery",
+                            ),
+                            (
+                                "Casino",
+                                "Organization > LocalBusiness > EntertainmentBusiness > Casino",
+                            ),
+                            (
+                                "ComedyClub",
+                                "Organization > LocalBusiness > EntertainmentBusiness > ComedyClub",
+                            ),
+                            (
+                                "MovieTheater",
+                                "Organization > LocalBusiness > EntertainmentBusiness > MovieTheater",
+                            ),
+                            (
+                                "NightClub",
+                                "Organization > LocalBusiness > EntertainmentBusiness > NightClub",
+                            ),
+                            (
+                                "FinancialService",
+                                "Organization > LocalBusiness > FinancialService",
+                            ),
+                            (
+                                "AccountingService",
+                                "Organization > LocalBusiness > FinancialService > AccountingService",
+                            ),
+                            (
+                                "AutomatedTeller",
+                                "Organization > LocalBusiness > FinancialService > AutomatedTeller",
+                            ),
+                            (
+                                "BankOrCreditUnion",
+                                "Organization > LocalBusiness > FinancialService > BankOrCreditUnion",
+                            ),
+                            (
+                                "InsuranceAgency",
+                                "Organization > LocalBusiness > FinancialService > InsuranceAgency",
+                            ),
+                            (
+                                "FoodEstablishment",
+                                "Organization > LocalBusiness > FoodEstablishment",
+                            ),
+                            (
+                                "Bakery",
+                                "Organization > LocalBusiness > FoodEstablishment > Bakery",
+                            ),
+                            (
+                                "BarOrPub",
+                                "Organization > LocalBusiness > FoodEstablishment > BarOrPub",
+                            ),
+                            (
+                                "Brewery",
+                                "Organization > LocalBusiness > FoodEstablishment > Brewery",
+                            ),
+                            (
+                                "CafeOrCoffeeShop",
+                                "Organization > LocalBusiness > FoodEstablishment > CafeOrCoffeeShop",
+                            ),
+                            (
+                                "FastFoodRestaurant",
+                                "Organization > LocalBusiness > FoodEstablishment > FastFoodRestaurant",
+                            ),
+                            (
+                                "IceCreamShop",
+                                "Organization > LocalBusiness > FoodEstablishment > IceCreamShop",
+                            ),
+                            (
+                                "Restaurant",
+                                "Organization > LocalBusiness > FoodEstablishment > Restaurant",
+                            ),
+                            (
+                                "Winery",
+                                "Organization > LocalBusiness > FoodEstablishment > Winery",
+                            ),
+                            (
+                                "GovernmentOffice",
+                                "Organization > LocalBusiness > GovernmentOffice",
+                            ),
+                            (
+                                "PostOffice",
+                                "Organization > LocalBusiness > GovernmentOffice > PostOffice",
+                            ),
+                            (
+                                "HealthAndBeautyBusiness",
+                                "Organization > LocalBusiness > HealthAndBeautyBusiness",
+                            ),
+                            (
+                                "BeautySalon",
+                                "Organization > LocalBusiness > HealthAndBeautyBusiness > BeautySalon",
+                            ),
+                            (
+                                "DaySpa",
+                                "Organization > LocalBusiness > HealthAndBeautyBusiness > DaySpa",
+                            ),
+                            (
+                                "HairSalon",
+                                "Organization > LocalBusiness > HealthAndBeautyBusiness > HairSalon",
+                            ),
+                            (
+                                "HealthClub",
+                                "Organization > LocalBusiness > HealthAndBeautyBusiness > HealthClub",
+                            ),
+                            (
+                                "NailSalon",
+                                "Organization > LocalBusiness > HealthAndBeautyBusiness > NailSalon",
+                            ),
+                            (
+                                "TattooParlor",
+                                "Organization > LocalBusiness > HealthAndBeautyBusiness > TattooParlor",
+                            ),
+                            (
+                                "HomeAndConstructionBusiness",
+                                "Organization > LocalBusiness > HomeAndConstructionBusiness",
+                            ),
+                            (
+                                "Electrician",
+                                "Organization > LocalBusiness > HomeAndConstructionBusiness > Electrician",
+                            ),
+                            (
+                                "GeneralContractor",
+                                "Organization > LocalBusiness > HomeAndConstructionBusiness > GeneralContractor",
+                            ),
+                            (
+                                "HVACBusiness",
+                                "Organization > LocalBusiness > HomeAndConstructionBusiness > HVACBusiness",
+                            ),
+                            (
+                                "HousePainter",
+                                "Organization > LocalBusiness > HomeAndConstructionBusiness > HousePainter",
+                            ),
+                            (
+                                "Locksmith",
+                                "Organization > LocalBusiness > HomeAndConstructionBusiness > Locksmith",
+                            ),
+                            (
+                                "MovingCompany",
+                                "Organization > LocalBusiness > HomeAndConstructionBusiness > MovingCompany",
+                            ),
+                            (
+                                "Plumber",
+                                "Organization > LocalBusiness > HomeAndConstructionBusiness > Plumber",
+                            ),
+                            (
+                                "RoofingContractor",
+                                "Organization > LocalBusiness > HomeAndConstructionBusiness > RoofingContractor",
+                            ),
+                            (
+                                "InternetCafe",
+                                "Organization > LocalBusiness > InternetCafe",
+                            ),
+                            (
+                                "LegalService",
+                                "Organization > LocalBusiness > LegalService",
+                            ),
+                            (
+                                "Attorney",
+                                "Organization > LocalBusiness > LegalService > Attorney",
+                            ),
+                            (
+                                "Notary",
+                                "Organization > LocalBusiness > LegalService > Notary",
+                            ),
+                            ("Library", "Organization > LocalBusiness > Library"),
+                            (
+                                "LodgingBusiness",
+                                "Organization > LocalBusiness > LodgingBusiness",
+                            ),
+                            (
+                                "BedAndBreakfast",
+                                "Organization > LocalBusiness > LodgingBusiness > BedAndBreakfast",
+                            ),
+                            (
+                                "Campground",
+                                "Organization > LocalBusiness > LodgingBusiness > Campground",
+                            ),
+                            (
+                                "Hostel",
+                                "Organization > LocalBusiness > LodgingBusiness > Hostel",
+                            ),
+                            (
+                                "Hotel",
+                                "Organization > LocalBusiness > LodgingBusiness > Hotel",
+                            ),
+                            (
+                                "Motel",
+                                "Organization > LocalBusiness > LodgingBusiness > Motel",
+                            ),
+                            (
+                                "Resort",
+                                "Organization > LocalBusiness > LodgingBusiness > Resort",
+                            ),
+                            (
+                                "ProfessionalService",
+                                "Organization > LocalBusiness > ProfessionalService",
+                            ),
+                            (
+                                "RadioStation",
+                                "Organization > LocalBusiness > RadioStation",
+                            ),
+                            (
+                                "RealEstateAgent",
+                                "Organization > LocalBusiness > RealEstateAgent",
+                            ),
+                            (
+                                "RecyclingCenter",
+                                "Organization > LocalBusiness > RecyclingCenter",
+                            ),
+                            (
+                                "SelfStorage",
+                                "Organization > LocalBusiness > SelfStorage",
+                            ),
+                            (
+                                "ShoppingCenter",
+                                "Organization > LocalBusiness > ShoppingCenter",
+                            ),
+                            (
+                                "SportsActivityLocation",
+                                "Organization > LocalBusiness > SportsActivityLocation",
+                            ),
+                            (
+                                "BowlingAlley",
+                                "Organization > LocalBusiness > SportsActivityLocation > BowlingAlley",
+                            ),
+                            (
+                                "ExerciseGym",
+                                "Organization > LocalBusiness > SportsActivityLocation > ExerciseGym",
+                            ),
+                            (
+                                "GolfCourse",
+                                "Organization > LocalBusiness > SportsActivityLocation > GolfCourse",
+                            ),
+                            (
+                                "HealthClub",
+                                "Organization > LocalBusiness > SportsActivityLocation > HealthClub",
+                            ),
+                            (
+                                "PublicSwimmingPool",
+                                "Organization > LocalBusiness > SportsActivityLocation > PublicSwimmingPool",
+                            ),
+                            (
+                                "SkiResort",
+                                "Organization > LocalBusiness > SportsActivityLocation > SkiResort",
+                            ),
+                            (
+                                "SportsClub",
+                                "Organization > LocalBusiness > SportsActivityLocation > SportsClub",
+                            ),
+                            (
+                                "StadiumOrArena",
+                                "Organization > LocalBusiness > SportsActivityLocation > StadiumOrArena",
+                            ),
+                            (
+                                "TennisComplex",
+                                "Organization > LocalBusiness > SportsActivityLocation > TennisComplex",
+                            ),
+                            ("Store", "Organization > LocalBusiness > Store"),
+                            (
+                                "AutoPartsStore",
+                                "Organization > LocalBusiness > Store > AutoPartsStore",
+                            ),
+                            (
+                                "BikeStore",
+                                "Organization > LocalBusiness > Store > BikeStore",
+                            ),
+                            (
+                                "BookStore",
+                                "Organization > LocalBusiness > Store > BookStore",
+                            ),
+                            (
+                                "ClothingStore",
+                                "Organization > LocalBusiness > Store > ClothingStore",
+                            ),
+                            (
+                                "ComputerStore",
+                                "Organization > LocalBusiness > Store > ComputerStore",
+                            ),
+                            (
+                                "ConvenienceStore",
+                                "Organization > LocalBusiness > Store > ConvenienceStore",
+                            ),
+                            (
+                                "DepartmentStore",
+                                "Organization > LocalBusiness > Store > DepartmentStore",
+                            ),
+                            (
+                                "ElectronicsStore",
+                                "Organization > LocalBusiness > Store > ElectronicsStore",
+                            ),
+                            (
+                                "Florist",
+                                "Organization > LocalBusiness > Store > Florist",
+                            ),
+                            (
+                                "FurnitureStore",
+                                "Organization > LocalBusiness > Store > FurnitureStore",
+                            ),
+                            (
+                                "GardenStore",
+                                "Organization > LocalBusiness > Store > GardenStore",
+                            ),
+                            (
+                                "GroceryStore",
+                                "Organization > LocalBusiness > Store > GroceryStore",
+                            ),
+                            (
+                                "HardwareStore",
+                                "Organization > LocalBusiness > Store > HardwareStore",
+                            ),
+                            (
+                                "HobbyShop",
+                                "Organization > LocalBusiness > Store > HobbyShop",
+                            ),
+                            (
+                                "HomeGoodsStore",
+                                "Organization > LocalBusiness > Store > HomeGoodsStore",
+                            ),
+                            (
+                                "JewelryStore",
+                                "Organization > LocalBusiness > Store > JewelryStore",
+                            ),
+                            (
+                                "LiquorStore",
+                                "Organization > LocalBusiness > Store > LiquorStore",
+                            ),
+                            (
+                                "MensClothingStore",
+                                "Organization > LocalBusiness > Store > MensClothingStore",
+                            ),
+                            (
+                                "MobilePhoneStore",
+                                "Organization > LocalBusiness > Store > MobilePhoneStore",
+                            ),
+                            (
+                                "MovieRentalStore",
+                                "Organization > LocalBusiness > Store > MovieRentalStore",
+                            ),
+                            (
+                                "MusicStore",
+                                "Organization > LocalBusiness > Store > MusicStore",
+                            ),
+                            (
+                                "OfficeEquipmentStore",
+                                "Organization > LocalBusiness > Store > OfficeEquipmentStore",
+                            ),
+                            (
+                                "OutletStore",
+                                "Organization > LocalBusiness > Store > OutletStore",
+                            ),
+                            (
+                                "PawnShop",
+                                "Organization > LocalBusiness > Store > PawnShop",
+                            ),
+                            (
+                                "PetStore",
+                                "Organization > LocalBusiness > Store > PetStore",
+                            ),
+                            (
+                                "ShoeStore",
+                                "Organization > LocalBusiness > Store > ShoeStore",
+                            ),
+                            (
+                                "SportingGoodsStore",
+                                "Organization > LocalBusiness > Store > SportingGoodsStore",
+                            ),
+                            (
+                                "TireShop",
+                                "Organization > LocalBusiness > Store > TireShop",
+                            ),
+                            (
+                                "ToyStore",
+                                "Organization > LocalBusiness > Store > ToyStore",
+                            ),
+                            (
+                                "WholesaleStore",
+                                "Organization > LocalBusiness > Store > WholesaleStore",
+                            ),
+                            (
+                                "TelevisionStation",
+                                "Organization > LocalBusiness > TelevisionStation",
+                            ),
+                            (
+                                "TouristInformationCenter",
+                                "Organization > LocalBusiness > TouristInformationCenter",
+                            ),
+                            (
+                                "TravelAgency",
+                                "Organization > LocalBusiness > TravelAgency",
+                            ),
+                            (
+                                "MedicalOrganization",
+                                "Organization > MedicalOrganization",
+                            ),
+                            ("Dentist", "Organization > MedicalOrganization > Dentist"),
+                            (
+                                "Hospital",
+                                "Organization > MedicalOrganization > Hospital",
+                            ),
+                            (
+                                "Pharmacy",
+                                "Organization > MedicalOrganization > Pharmacy",
+                            ),
+                            (
+                                "Physician",
+                                "Organization > MedicalOrganization > Physician",
+                            ),
+                            ("NGO", "Organization > NGO"),
+                            ("PerformingGroup", "Organization > PerformingGroup"),
+                            (
+                                "DanceGroup",
+                                "Organization > PerformingGroup > DanceGroup",
+                            ),
+                            (
+                                "MusicGroup",
+                                "Organization > PerformingGroup > MusicGroup",
+                            ),
+                            (
+                                "TheaterGroup",
+                                "Organization > PerformingGroup > TheaterGroup",
+                            ),
+                            ("SportsOrganization", "Organization > SportsOrganization"),
+                            (
+                                "SportsTeam",
+                                "Organization > SportsOrganization > SportsTeam",
+                            ),
+                        ],
+                        default="",
+                        help_text="If blank, no structured data will be used on this page.",
+                        max_length=255,
+                        verbose_name="Organization type",
+                    ),
+                ),
+                (
+                    "struct_org_name",
+                    models.CharField(
+                        blank=True,
+                        default="",
+                        help_text="Leave blank to use the site name in Settings > Sites",
+                        max_length=255,
+                        verbose_name="Organization name",
+                    ),
+                ),
+                (
+                    "struct_org_phone",
+                    models.CharField(
+                        blank=True,
+                        help_text="Include country code for best results. For example: +1-216-555-8000",
+                        max_length=255,
+                        verbose_name="Telephone number",
+                    ),
+                ),
+                (
+                    "struct_org_address_street",
+                    models.CharField(
+                        blank=True,
+                        help_text="House number and street. For example, 55 Public Square Suite 1710",
+                        max_length=255,
+                        verbose_name="Street address",
+                    ),
+                ),
+                (
+                    "struct_org_address_locality",
+                    models.CharField(
+                        blank=True,
+                        help_text="City or locality. For example, Cleveland",
+                        max_length=255,
+                        verbose_name="City",
+                    ),
+                ),
+                (
+                    "struct_org_address_region",
+                    models.CharField(
+                        blank=True,
+                        help_text="State, province, county, or region. For example, OH",
+                        max_length=255,
+                        verbose_name="State",
+                    ),
+                ),
+                (
+                    "struct_org_address_postal",
+                    models.CharField(
+                        blank=True,
+                        help_text="Zip or postal code. For example, 44113",
+                        max_length=255,
+                        verbose_name="Postal code",
+                    ),
+                ),
+                (
+                    "struct_org_address_country",
+                    models.CharField(
+                        blank=True,
+                        help_text="For example, USA. Two-letter ISO 3166-1 alpha-2 country code is also acceptable https://en.wikipedia.org/wiki/ISO_3166-1",
+                        max_length=255,
+                        verbose_name="Country",
+                    ),
+                ),
+                (
+                    "struct_org_geo_lat",
+                    models.DecimalField(
+                        blank=True,
+                        decimal_places=8,
+                        max_digits=11,
+                        null=True,
+                        verbose_name="Geographic latitude",
+                    ),
+                ),
+                (
+                    "struct_org_geo_lng",
+                    models.DecimalField(
+                        blank=True,
+                        decimal_places=8,
+                        max_digits=11,
+                        null=True,
+                        verbose_name="Geographic longitude",
+                    ),
+                ),
+                (
+                    "struct_org_hours",
+                    wagtail.fields.StreamField(
+                        [("hours", 3)],
+                        blank=True,
+                        block_lookup={
+                            0: (
+                                "wagtail.blocks.MultipleChoiceBlock",
+                                [],
+                                {
+                                    "choices": [
+                                        ("Monday", "Monday"),
+                                        ("Tuesday", "Tuesday"),
+                                        ("Wednesday", "Wednesday"),
+                                        ("Thursday", "Thursday"),
+                                        ("Friday", "Friday"),
+                                        ("Saturday", "Saturday"),
+                                        ("Sunday", "Sunday"),
+                                    ],
+                                    "help_text": "For late night hours past 23:59, define each day in a separate block.",
+                                    "verbose_name": "Days",
+                                },
+                            ),
+                            1: (
+                                "wagtail.blocks.TimeBlock",
+                                (),
+                                {"verbose_name": "Opening time"},
+                            ),
+                            2: (
+                                "wagtail.blocks.TimeBlock",
+                                (),
+                                {"verbose_name": "Closing time"},
+                            ),
+                            3: (
+                                "wagtail.blocks.StructBlock",
+                                [[("days", 0), ("start_time", 1), ("end_time", 2)]],
+                                {},
+                            ),
+                        },
+                        verbose_name="Hours of operation",
+                    ),
+                ),
+                (
+                    "struct_org_actions",
+                    wagtail.fields.StreamField(
+                        [("actions", 6)],
+                        blank=True,
+                        block_lookup={
+                            0: (
+                                "wagtail.blocks.ChoiceBlock",
+                                [],
+                                {
+                                    "choices": [
+                                        ("OrderAction", "OrderAction"),
+                                        ("ReserveAction", "ReserveAction"),
+                                    ],
+                                    "verbose_name": "Action Type",
+                                },
+                            ),
+                            1: (
+                                "wagtail.blocks.URLBlock",
+                                (),
+                                {"verbose_name": "Target URL"},
+                            ),
+                            2: (
+                                "wagtail.blocks.CharBlock",
+                                (),
+                                {
+                                    "default": "en-US",
+                                    "help_text": "If the action is offered in multiple languages, create separate actions for each language.",
+                                    "verbose_name": "Language",
+                                },
+                            ),
+                            3: (
+                                "wagtail.blocks.ChoiceBlock",
+                                [],
+                                {
+                                    "choices": [
+                                        ("Reservation", "Reservation"),
+                                        ("BusReservation", "BusReservation"),
+                                        ("EventReservation", "EventReservation"),
+                                        ("FlightReservation", "FlightReservation"),
+                                        (
+                                            "FoodEstablishmentReservation",
+                                            "FoodEstablishmentReservation",
+                                        ),
+                                        ("LodgingReservation", "LodgingReservation"),
+                                        (
+                                            "RentalCarReservation",
+                                            "RentalCarReservation",
+                                        ),
+                                        ("ReservationPackage", "ReservationPackage"),
+                                        ("TaxiReservation", "TaxiReservation"),
+                                        ("TrainReservation", "TrainReservation"),
+                                    ],
+                                    "help_text": "Leave blank for OrderAction",
+                                    "required": False,
+                                    "verbose_name": "Result Type",
+                                },
+                            ),
+                            4: (
+                                "wagtail.blocks.CharBlock",
+                                (),
+                                {
+                                    "help_text": 'Example: "Reserve a table", "Book an appointment", etc.',
+                                    "required": False,
+                                    "verbose_name": "Result Name",
+                                },
+                            ),
+                            5: (
+                                "wagtail.blocks.RawHTMLBlock",
+                                (),
+                                {
+                                    "form_classname": "monospace",
+                                    "help_text": "Additional JSON-LD inserted into the Action dictionary. Must be properties of https://schema.org/Action.",
+                                    "required": False,
+                                    "verbose_name": "Additional action markup",
+                                },
+                            ),
+                            6: (
+                                "wagtail.blocks.StructBlock",
+                                [
+                                    [
+                                        ("action_type", 0),
+                                        ("target", 1),
+                                        ("language", 2),
+                                        ("result_type", 3),
+                                        ("result_name", 4),
+                                        ("extra_json", 5),
+                                    ]
+                                ],
+                                {},
+                            ),
+                        },
+                        verbose_name="Actions",
+                    ),
+                ),
+                (
+                    "struct_org_extra_json",
+                    models.TextField(
+                        blank=True,
+                        help_text="Additional JSON-LD inserted into the Organization dictionary. Must be properties of https://schema.org/Organization or the selected organization type.",
+                        verbose_name="Additional Organization markup",
+                    ),
+                ),
+                (
+                    "index_show_subpages",
+                    models.BooleanField(
+                        default=False, verbose_name="Show list of child pages"
+                    ),
+                ),
+                (
+                    "index_order_by",
+                    models.CharField(
+                        blank=True,
+                        choices=[
+                            ("", "Default Ordering"),
+                            (
+                                "-first_published_at",
+                                "Date first published, newest to oldest",
+                            ),
+                            (
+                                "first_published_at",
+                                "Date first published, oldest to newest",
+                            ),
+                            ("-last_published_at", "Date updated, newest to oldest"),
+                            ("last_published_at", "Date updated, oldest to newest"),
+                            ("title", "Title, alphabetical"),
+                            ("-title", "Title, reverse alphabetical"),
+                        ],
+                        default="",
+                        max_length=255,
+                        verbose_name="Order child pages by",
+                    ),
+                ),
+                (
+                    "index_num_per_page",
+                    models.PositiveIntegerField(
+                        default=10, verbose_name="Number per page"
+                    ),
+                ),
+                (
+                    "custom_template",
+                    models.CharField(
+                        blank=True, max_length=255, verbose_name="Template"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'CjkCMS Page',
+                "verbose_name": "CjkCMS Page",
             },
-            bases=(wagtailcache.cache.WagtailCacheMixin, 'wagtailcore.page'),
+            bases=(wagtailcache.cache.WagtailCacheMixin, "wagtailcore.page"),
         ),
         migrations.CreateModel(
-            name='Classifier',
+            name="Classifier",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('slug', models.SlugField(allow_unicode=True, unique=True, verbose_name='Slug')),
-                ('name', models.CharField(max_length=255, verbose_name='Name')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "slug",
+                    models.SlugField(
+                        allow_unicode=True, unique=True, verbose_name="Slug"
+                    ),
+                ),
+                ("name", models.CharField(max_length=255, verbose_name="Name")),
             ],
             options={
-                'verbose_name': 'Classifier',
-                'verbose_name_plural': 'Classifiers',
-                'ordering': ['name'],
+                "verbose_name": "Classifier",
+                "verbose_name_plural": "Classifiers",
+                "ordering": ["name"],
             },
         ),
         migrations.CreateModel(
-            name='Footer',
+            name="Footer",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255, verbose_name='Name')),
-                ('custom_css_class', models.CharField(blank=True, max_length=255, verbose_name='Custom CSS Class')),
-                ('custom_id', models.CharField(blank=True, max_length=255, verbose_name='Custom ID')),
-                ('content', cjkcms.fields.CjkcmsStreamField(block_lookup={}, verbose_name='Content')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255, verbose_name="Name")),
+                (
+                    "custom_css_class",
+                    models.CharField(
+                        blank=True, max_length=255, verbose_name="Custom CSS Class"
+                    ),
+                ),
+                (
+                    "custom_id",
+                    models.CharField(
+                        blank=True, max_length=255, verbose_name="Custom ID"
+                    ),
+                ),
+                (
+                    "content",
+                    cjkcms.fields.CjkcmsStreamField(
+                        block_lookup={}, verbose_name="Content"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Footer',
+                "verbose_name": "Footer",
             },
         ),
         migrations.CreateModel(
-            name='LayoutSettings',
+            name="LayoutSettings",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('navbar_color_scheme', models.CharField(blank=True, default='', help_text='Optimizes text and other navbar elements for use with light or dark backgrounds.', max_length=50, verbose_name='Navbar color scheme')),
-                ('navbar_class', models.CharField(blank=True, default='', help_text='Custom classes applied to navbar e.g. "bg-light", "bg-dark", "bg-primary".', max_length=255, verbose_name='Navbar CSS class')),
-                ('navbar_fixed', models.BooleanField(default=False, help_text='Fixed navbar will remain at the top of the page when scrolling.', verbose_name='Fixed navbar')),
-                ('navbar_wrapper_fluid', models.BooleanField(default=True, help_text='The navbar will fill edge to edge.', verbose_name='Full width navbar')),
-                ('navbar_content_fluid', models.BooleanField(default=False, help_text='Content within the navbar will fill edge to edge.', verbose_name='Full width navbar contents')),
-                ('navbar_collapse_mode', models.CharField(blank=True, default='', help_text='Control on what screen sizes to show and collapse the navbar menu links.', max_length=50, verbose_name='Collapse navbar menu')),
-                ('navbar_format', models.CharField(blank=True, default='', max_length=50, verbose_name='Navbar format')),
-                ('navbar_search', models.BooleanField(default=True, help_text='Show search box in navbar', verbose_name='Search box')),
-                ('navbar_langselector', models.CharField(blank=True, default=None, help_text='Choose lang choice selector', max_length=255, null=True, verbose_name='Language selector')),
-                ('frontend_theme', models.CharField(blank=True, default='', help_text='Change the source of your Bootstrap theme.', max_length=50, verbose_name='Theme variant')),
-                ('awesome_cdn', models.BooleanField(default=False, help_text='Load font awesome from CDN', verbose_name='Font Awesome')),
-                ('base_template', models.CharField(blank=True, default='cjkcms/pages/base.html', help_text='Base template used by CMS pages, defaults to CMS built-in one', max_length=200, verbose_name='Base template')),
-                ('favicon', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='favicon', to='wagtailimages.image', verbose_name='Favicon')),
-                ('logo', models.ForeignKey(blank=True, help_text='Brand logo used in the navbar and throughout the site', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image', verbose_name='Logo')),
-                ('site', models.OneToOneField(editable=False, on_delete=django.db.models.deletion.CASCADE, to='wagtailcore.site')),
-                ('articles_date_format', models.CharField(blank=True, default='Y-m-d', help_text='Format of the publication date in articles. Set blank to hide.', max_length=200, verbose_name='Date format in articles')),
-                ('articles_show_author', models.BooleanField(default=True, help_text='If disabled, override by filling `display author as` in article', verbose_name='Show author in articles')),
-                ('custom_font', models.BooleanField(default=False, help_text='Custom body font e.g. from CDN & include css body override', verbose_name='Use custom font')),
-                ('font_family', models.CharField(blank=True, default='Roboto, sans-serif', help_text="Font family name, e.g. 'Open Sans, sans-serif'", max_length=128, verbose_name='Font Family')),
-                ('font_url', models.CharField(blank=True, default='https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap', help_text='Full URL to font css file', max_length=250, verbose_name='Font URL')),
-                ('bootstrap_icons', models.BooleanField(default=False, help_text='Load bootstrap icons css from local/static folder', verbose_name='Bootstrap Icons CSS')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "navbar_color_scheme",
+                    models.CharField(
+                        blank=True,
+                        default="",
+                        help_text="Optimizes text and other navbar elements for use with light or dark backgrounds.",
+                        max_length=50,
+                        verbose_name="Navbar color scheme",
+                    ),
+                ),
+                (
+                    "navbar_class",
+                    models.CharField(
+                        blank=True,
+                        default="",
+                        help_text='Custom classes applied to navbar e.g. "bg-light", "bg-dark", "bg-primary".',
+                        max_length=255,
+                        verbose_name="Navbar CSS class",
+                    ),
+                ),
+                (
+                    "navbar_fixed",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Fixed navbar will remain at the top of the page when scrolling.",
+                        verbose_name="Fixed navbar",
+                    ),
+                ),
+                (
+                    "navbar_wrapper_fluid",
+                    models.BooleanField(
+                        default=True,
+                        help_text="The navbar will fill edge to edge.",
+                        verbose_name="Full width navbar",
+                    ),
+                ),
+                (
+                    "navbar_content_fluid",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Content within the navbar will fill edge to edge.",
+                        verbose_name="Full width navbar contents",
+                    ),
+                ),
+                (
+                    "navbar_collapse_mode",
+                    models.CharField(
+                        blank=True,
+                        default="",
+                        help_text="Control on what screen sizes to show and collapse the navbar menu links.",
+                        max_length=50,
+                        verbose_name="Collapse navbar menu",
+                    ),
+                ),
+                (
+                    "navbar_format",
+                    models.CharField(
+                        blank=True,
+                        default="",
+                        max_length=50,
+                        verbose_name="Navbar format",
+                    ),
+                ),
+                (
+                    "navbar_search",
+                    models.BooleanField(
+                        default=True,
+                        help_text="Show search box in navbar",
+                        verbose_name="Search box",
+                    ),
+                ),
+                (
+                    "navbar_langselector",
+                    models.CharField(
+                        blank=True,
+                        default=None,
+                        help_text="Choose lang choice selector",
+                        max_length=255,
+                        null=True,
+                        verbose_name="Language selector",
+                    ),
+                ),
+                (
+                    "frontend_theme",
+                    models.CharField(
+                        blank=True,
+                        default="",
+                        help_text="Change the source of your Bootstrap theme.",
+                        max_length=50,
+                        verbose_name="Theme variant",
+                    ),
+                ),
+                (
+                    "awesome_cdn",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Load font awesome from CDN",
+                        verbose_name="Font Awesome",
+                    ),
+                ),
+                (
+                    "base_template",
+                    models.CharField(
+                        blank=True,
+                        default="cjkcms/pages/base.html",
+                        help_text="Base template used by CMS pages, defaults to CMS built-in one",
+                        max_length=200,
+                        verbose_name="Base template",
+                    ),
+                ),
+                (
+                    "favicon",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="favicon",
+                        to="wagtailimages.image",
+                        verbose_name="Favicon",
+                    ),
+                ),
+                (
+                    "logo",
+                    models.ForeignKey(
+                        blank=True,
+                        help_text="Brand logo used in the navbar and throughout the site",
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="wagtailimages.image",
+                        verbose_name="Logo",
+                    ),
+                ),
+                (
+                    "site",
+                    models.OneToOneField(
+                        editable=False,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="wagtailcore.site",
+                    ),
+                ),
+                (
+                    "articles_date_format",
+                    models.CharField(
+                        blank=True,
+                        default="Y-m-d",
+                        help_text="Format of the publication date in articles. Set blank to hide.",
+                        max_length=200,
+                        verbose_name="Date format in articles",
+                    ),
+                ),
+                (
+                    "articles_show_author",
+                    models.BooleanField(
+                        default=True,
+                        help_text="If disabled, override by filling `display author as` in article",
+                        verbose_name="Show author in articles",
+                    ),
+                ),
+                (
+                    "custom_font",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Custom body font e.g. from CDN & include css body override",
+                        verbose_name="Use custom font",
+                    ),
+                ),
+                (
+                    "font_family",
+                    models.CharField(
+                        blank=True,
+                        default="Roboto, sans-serif",
+                        help_text="Font family name, e.g. 'Open Sans, sans-serif'",
+                        max_length=128,
+                        verbose_name="Font Family",
+                    ),
+                ),
+                (
+                    "font_url",
+                    models.CharField(
+                        blank=True,
+                        default="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap",
+                        help_text="Full URL to font css file",
+                        max_length=250,
+                        verbose_name="Font URL",
+                    ),
+                ),
+                (
+                    "bootstrap_icons",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Load bootstrap icons css from local/static folder",
+                        verbose_name="Bootstrap Icons CSS",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Layout',
+                "verbose_name": "Layout",
             },
         ),
         migrations.CreateModel(
-            name='Navbar',
+            name="Navbar",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255, verbose_name='Name')),
-                ('custom_css_class', models.CharField(blank=True, max_length=255, verbose_name='Custom CSS Class')),
-                ('custom_id', models.CharField(blank=True, max_length=255, verbose_name='Custom ID')),
-                ('menu_items', cjkcms.fields.CjkcmsStreamField(block_lookup={}, verbose_name='Navigation links')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255, verbose_name="Name")),
+                (
+                    "custom_css_class",
+                    models.CharField(
+                        blank=True, max_length=255, verbose_name="Custom CSS Class"
+                    ),
+                ),
+                (
+                    "custom_id",
+                    models.CharField(
+                        blank=True, max_length=255, verbose_name="Custom ID"
+                    ),
+                ),
+                (
+                    "menu_items",
+                    cjkcms.fields.CjkcmsStreamField(
+                        block_lookup={}, verbose_name="Navigation links"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Navigation Bar',
+                "verbose_name": "Navigation Bar",
             },
         ),
         migrations.CreateModel(
-            name='ReusableContent',
+            name="ReusableContent",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255, verbose_name='Name')),
-                ('content', cjkcms.fields.CjkcmsStreamField(block_lookup={}, verbose_name='content')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255, verbose_name="Name")),
+                (
+                    "content",
+                    cjkcms.fields.CjkcmsStreamField(
+                        block_lookup={}, verbose_name="content"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Reusable Content',
-                'verbose_name_plural': 'Reusable Content',
+                "verbose_name": "Reusable Content",
+                "verbose_name_plural": "Reusable Content",
             },
         ),
         migrations.CreateModel(
-            name='SocialMediaSettings',
+            name="SocialMediaSettings",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('facebook', models.URLField(blank=True, help_text='Your Facebook page URL', verbose_name='Facebook')),
-                ('twitter', models.URLField(blank=True, help_text='Your Twitter page URL', verbose_name='Twitter')),
-                ('instagram', models.CharField(blank=True, help_text='Your Instagram username, without the @', max_length=255, verbose_name='Instagram')),
-                ('linkedin', models.URLField(blank=True, help_text='Your LinkedIn page URL', verbose_name='LinkedIn')),
-                ('youtube', models.URLField(blank=True, help_text='Your YouTube channel or user account URL', verbose_name='YouTube')),
-                ('vimeo', models.URLField(blank=True, help_text='Your Vimeo channel or user account URL', verbose_name='Vimeo')),
-                ('site', models.OneToOneField(editable=False, on_delete=django.db.models.deletion.CASCADE, to='wagtailcore.site')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "facebook",
+                    models.URLField(
+                        blank=True,
+                        help_text="Your Facebook page URL",
+                        verbose_name="Facebook",
+                    ),
+                ),
+                (
+                    "twitter",
+                    models.URLField(
+                        blank=True,
+                        help_text="Your Twitter page URL",
+                        verbose_name="Twitter",
+                    ),
+                ),
+                (
+                    "instagram",
+                    models.CharField(
+                        blank=True,
+                        help_text="Your Instagram username, without the @",
+                        max_length=255,
+                        verbose_name="Instagram",
+                    ),
+                ),
+                (
+                    "linkedin",
+                    models.URLField(
+                        blank=True,
+                        help_text="Your LinkedIn page URL",
+                        verbose_name="LinkedIn",
+                    ),
+                ),
+                (
+                    "youtube",
+                    models.URLField(
+                        blank=True,
+                        help_text="Your YouTube channel or user account URL",
+                        verbose_name="YouTube",
+                    ),
+                ),
+                (
+                    "vimeo",
+                    models.URLField(
+                        blank=True,
+                        help_text="Your Vimeo channel or user account URL",
+                        verbose_name="Vimeo",
+                    ),
+                ),
+                (
+                    "site",
+                    models.OneToOneField(
+                        editable=False,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="wagtailcore.site",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Social Media',
+                "verbose_name": "Social Media",
             },
         ),
         migrations.CreateModel(
-            name='NavbarOrderable',
+            name="NavbarOrderable",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('navbar', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='cjkcms.navbar')),
-                ('navbar_chooser', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='site_navbar', to='cjkcms.layoutsettings', verbose_name='Site Navbars')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "navbar",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="cjkcms.navbar",
+                    ),
+                ),
+                (
+                    "navbar_chooser",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="site_navbar",
+                        to="cjkcms.layoutsettings",
+                        verbose_name="Site Navbars",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
+                "ordering": ["sort_order"],
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='MailchimpApiSettings',
+            name="MailchimpApiSettings",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('mailchimp_api_key', models.CharField(blank=True, help_text='The API Key used for Mailchimp.', max_length=255, verbose_name='Mailchimp API Key')),
-                ('site', models.OneToOneField(editable=False, on_delete=django.db.models.deletion.CASCADE, to='wagtailcore.site')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "mailchimp_api_key",
+                    models.CharField(
+                        blank=True,
+                        help_text="The API Key used for Mailchimp.",
+                        max_length=255,
+                        verbose_name="Mailchimp API Key",
+                    ),
+                ),
+                (
+                    "site",
+                    models.OneToOneField(
+                        editable=False,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="wagtailcore.site",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Mailchimp API',
+                "verbose_name": "Mailchimp API",
             },
         ),
         migrations.CreateModel(
-            name='GeneralSettings',
+            name="GeneralSettings",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('from_email_address', models.CharField(blank=True, help_text='The default email address this site appears to send from. For example: "sender@example.com" or "Sender Name <sender@example.com>" (without quotes)', max_length=255, verbose_name='From email address')),
-                ('search_num_results', models.PositiveIntegerField(default=20, verbose_name='Number of results per page')),
-                ('external_new_tab', models.BooleanField(default=False, verbose_name='Open all external links in new tab')),
-                ('gravatar', models.ForeignKey(blank=True, help_text='Gravatar image when user email not found in gravatar db', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image', verbose_name='Gravatar Default')),
-                ('site', models.OneToOneField(editable=False, on_delete=django.db.models.deletion.CASCADE, to='wagtailcore.site')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "from_email_address",
+                    models.CharField(
+                        blank=True,
+                        help_text='The default email address this site appears to send from. For example: "sender@example.com" or "Sender Name <sender@example.com>" (without quotes)',
+                        max_length=255,
+                        verbose_name="From email address",
+                    ),
+                ),
+                (
+                    "search_num_results",
+                    models.PositiveIntegerField(
+                        default=20, verbose_name="Number of results per page"
+                    ),
+                ),
+                (
+                    "external_new_tab",
+                    models.BooleanField(
+                        default=False, verbose_name="Open all external links in new tab"
+                    ),
+                ),
+                (
+                    "gravatar",
+                    models.ForeignKey(
+                        blank=True,
+                        help_text="Gravatar image when user email not found in gravatar db",
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="wagtailimages.image",
+                        verbose_name="Gravatar Default",
+                    ),
+                ),
+                (
+                    "site",
+                    models.OneToOneField(
+                        editable=False,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="wagtailcore.site",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'General',
+                "verbose_name": "General",
             },
         ),
         migrations.CreateModel(
-            name='FooterOrderable',
+            name="FooterOrderable",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('footer', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='cjkcms.footer')),
-                ('footer_chooser', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='site_footer', to='cjkcms.layoutsettings', verbose_name='Site Footers')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "footer",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="cjkcms.footer",
+                    ),
+                ),
+                (
+                    "footer_chooser",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="site_footer",
+                        to="cjkcms.layoutsettings",
+                        verbose_name="Site Footers",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
+                "ordering": ["sort_order"],
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='ClassifierTerm',
+            name="ClassifierTerm",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('slug', models.SlugField(allow_unicode=True, unique=True, verbose_name='Slug')),
-                ('name', models.CharField(max_length=255, verbose_name='Name')),
-                ('classifier', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='terms', to='cjkcms.classifier', verbose_name='Classifier')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "slug",
+                    models.SlugField(
+                        allow_unicode=True, unique=True, verbose_name="Slug"
+                    ),
+                ),
+                ("name", models.CharField(max_length=255, verbose_name="Name")),
+                (
+                    "classifier",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="terms",
+                        to="cjkcms.classifier",
+                        verbose_name="Classifier",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Classifier Term',
-                'verbose_name_plural': 'Classifier Terms',
+                "verbose_name": "Classifier Term",
+                "verbose_name_plural": "Classifier Terms",
             },
         ),
         migrations.CreateModel(
-            name='CjkcmsTag',
+            name="CjkcmsTag",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('content_object', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='tagged_items', to='cjkcms.cjkcmspage')),
-                ('tag', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='%(app_label)s_%(class)s_items', to='taggit.tag')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "content_object",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="tagged_items",
+                        to="cjkcms.cjkcmspage",
+                    ),
+                ),
+                (
+                    "tag",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="%(app_label)s_%(class)s_items",
+                        to="taggit.tag",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'CMS Tag',
+                "verbose_name": "CMS Tag",
             },
         ),
         migrations.AddField(
-            model_name='cjkcmspage',
-            name='classifier_terms',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, help_text='Categorize and group pages together with classifiers. Used to organize and filter pages across the site.', to='cjkcms.classifierterm', verbose_name='Classifiers'),
+            model_name="cjkcmspage",
+            name="classifier_terms",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True,
+                help_text="Categorize and group pages together with classifiers. Used to organize and filter pages across the site.",
+                to="cjkcms.classifierterm",
+                verbose_name="Classifiers",
+            ),
         ),
         migrations.AddField(
-            model_name='cjkcmspage',
-            name='cover_image',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image', verbose_name='Cover image'),
+            model_name="cjkcmspage",
+            name="cover_image",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="wagtailimages.image",
+                verbose_name="Cover image",
+            ),
         ),
         migrations.AddField(
-            model_name='cjkcmspage',
-            name='index_classifiers',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, help_text='Enable filtering child pages by these classifiers.', to='cjkcms.classifier', verbose_name='Filter child pages by'),
+            model_name="cjkcmspage",
+            name="index_classifiers",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True,
+                help_text="Enable filtering child pages by these classifiers.",
+                to="cjkcms.classifier",
+                verbose_name="Filter child pages by",
+            ),
         ),
         migrations.AddField(
-            model_name='cjkcmspage',
-            name='index_order_by_classifier',
-            field=models.ForeignKey(blank=True, help_text='Child pages will first be sorted following the order of this classifier’s terms (from Snippets > Classifiers).', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='cjkcms.classifier', verbose_name='Order child pages by classifier'),
+            model_name="cjkcmspage",
+            name="index_order_by_classifier",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="Child pages will first be sorted following the order of this classifier’s terms (from Snippets > Classifiers).",
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="cjkcms.classifier",
+                verbose_name="Order child pages by classifier",
+            ),
         ),
         migrations.AddField(
-            model_name='cjkcmspage',
-            name='og_image',
-            field=models.ForeignKey(blank=True, help_text='Shown when linking to this page on social media.', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image', verbose_name='Preview image'),
+            model_name="cjkcmspage",
+            name="og_image",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="Shown when linking to this page on social media.",
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="wagtailimages.image",
+                verbose_name="Preview image",
+            ),
         ),
         migrations.AddField(
-            model_name='cjkcmspage',
-            name='struct_org_image',
-            field=models.ForeignKey(blank=True, help_text='A photo of the facility. This photo will be cropped to 1:1, 4:3, and 16:9 aspect ratios automatically.', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image', verbose_name='Photo of Organization'),
+            model_name="cjkcmspage",
+            name="struct_org_image",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="A photo of the facility. This photo will be cropped to 1:1, 4:3, and 16:9 aspect ratios automatically.",
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="wagtailimages.image",
+                verbose_name="Photo of Organization",
+            ),
         ),
         migrations.AddField(
-            model_name='cjkcmspage',
-            name='struct_org_logo',
-            field=models.ForeignKey(blank=True, help_text='Leave blank to use the logo in Settings > Layout > Logo', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image', verbose_name='Organization logo'),
+            model_name="cjkcmspage",
+            name="struct_org_logo",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="Leave blank to use the logo in Settings > Layout > Logo",
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="wagtailimages.image",
+                verbose_name="Organization logo",
+            ),
         ),
         migrations.AddField(
-            model_name='cjkcmspage',
-            name='tags',
-            field=modelcluster.contrib.taggit.ClusterTaggableManager(blank=True, help_text='Used to organize pages across the site.', through='cjkcms.CjkcmsTag', to='taggit.Tag', verbose_name='Tags'),
+            model_name="cjkcmspage",
+            name="tags",
+            field=modelcluster.contrib.taggit.ClusterTaggableManager(
+                blank=True,
+                help_text="Used to organize pages across the site.",
+                through="cjkcms.CjkcmsTag",
+                to="taggit.Tag",
+                verbose_name="Tags",
+            ),
         ),
         migrations.CreateModel(
-            name='CarouselSlide',
+            name="CarouselSlide",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('background_color', models.CharField(blank=True, help_text='Hexadecimal, rgba, or CSS color notation (e.g. #ff0011)', max_length=255, verbose_name='Background color')),
-                ('custom_css_class', models.CharField(blank=True, max_length=255, verbose_name='Custom CSS class')),
-                ('custom_id', models.CharField(blank=True, max_length=255, verbose_name='Custom ID')),
-                ('content', cjkcms.fields.CjkcmsStreamField(blank=True, block_lookup={})),
-                ('carousel', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='carousel_slides', to='cjkcms.carousel', verbose_name='Carousel')),
-                ('image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image', verbose_name='Image')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "background_color",
+                    models.CharField(
+                        blank=True,
+                        help_text="Hexadecimal, rgba, or CSS color notation (e.g. #ff0011)",
+                        max_length=255,
+                        verbose_name="Background color",
+                    ),
+                ),
+                (
+                    "custom_css_class",
+                    models.CharField(
+                        blank=True, max_length=255, verbose_name="Custom CSS class"
+                    ),
+                ),
+                (
+                    "custom_id",
+                    models.CharField(
+                        blank=True, max_length=255, verbose_name="Custom ID"
+                    ),
+                ),
+                (
+                    "content",
+                    cjkcms.fields.CjkcmsStreamField(blank=True, block_lookup={}),
+                ),
+                (
+                    "carousel",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="carousel_slides",
+                        to="cjkcms.carousel",
+                        verbose_name="Carousel",
+                    ),
+                ),
+                (
+                    "image",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="wagtailimages.image",
+                        verbose_name="Image",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Carousel Slide',
+                "verbose_name": "Carousel Slide",
             },
         ),
         migrations.CreateModel(
-            name='AdobeApiSettings',
+            name="AdobeApiSettings",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('adobe_embed_id', models.CharField(blank=True, help_text='Adobe PDF Embed API Client ID', max_length=64, null=True, verbose_name='Adobe Embed API ID')),
-                ('site', models.OneToOneField(editable=False, on_delete=django.db.models.deletion.CASCADE, to='wagtailcore.site')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "adobe_embed_id",
+                    models.CharField(
+                        blank=True,
+                        help_text="Adobe PDF Embed API Client ID",
+                        max_length=64,
+                        null=True,
+                        verbose_name="Adobe Embed API ID",
+                    ),
+                ),
+                (
+                    "site",
+                    models.OneToOneField(
+                        editable=False,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="wagtailcore.site",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='AccordionPanel',
+            name="AccordionPanel",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('name', models.CharField(max_length=255, verbose_name='Name')),
-                ('content', cjkcms.fields.CjkcmsStreamField(blank=True, block_lookup={})),
-                ('custom_css_class', models.CharField(blank=True, max_length=255, verbose_name='Custom CSS class')),
-                ('custom_id', models.CharField(blank=True, max_length=255, verbose_name='Custom ID')),
-                ('accordion', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='accordion_panels', to='cjkcms.accordion', verbose_name='Accordion')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                ("name", models.CharField(max_length=255, verbose_name="Name")),
+                (
+                    "content",
+                    cjkcms.fields.CjkcmsStreamField(blank=True, block_lookup={}),
+                ),
+                (
+                    "custom_css_class",
+                    models.CharField(
+                        blank=True, max_length=255, verbose_name="Custom CSS class"
+                    ),
+                ),
+                (
+                    "custom_id",
+                    models.CharField(
+                        blank=True, max_length=255, verbose_name="Custom ID"
+                    ),
+                ),
+                (
+                    "accordion",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="accordion_panels",
+                        to="cjkcms.accordion",
+                        verbose_name="Accordion",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
+                "ordering": ["sort_order"],
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='ArticleIndexPage',
+            name="ArticleIndexPage",
             fields=[
-                ('cjkcmspage_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='cjkcms.cjkcmspage')),
-                ('body', cjkcms.fields.CjkcmsStreamField(blank=True, block_lookup={}, null=True)),
-                ('show_images', models.BooleanField(default=True, verbose_name='Show images')),
-                ('show_captions', models.BooleanField(default=True)),
-                ('show_meta', models.BooleanField(default=True, verbose_name='Show author and date info')),
-                ('show_preview_text', models.BooleanField(default=True, verbose_name='Show preview text')),
+                (
+                    "cjkcmspage_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="cjkcms.cjkcmspage",
+                    ),
+                ),
+                (
+                    "body",
+                    cjkcms.fields.CjkcmsStreamField(
+                        blank=True, block_lookup={}, null=True
+                    ),
+                ),
+                (
+                    "show_images",
+                    models.BooleanField(default=True, verbose_name="Show images"),
+                ),
+                ("show_captions", models.BooleanField(default=True)),
+                (
+                    "show_meta",
+                    models.BooleanField(
+                        default=True, verbose_name="Show author and date info"
+                    ),
+                ),
+                (
+                    "show_preview_text",
+                    models.BooleanField(default=True, verbose_name="Show preview text"),
+                ),
             ],
             options={
-                'verbose_name': 'Article Landing Page',
+                "verbose_name": "Article Landing Page",
             },
-            bases=('cjkcms.cjkcmspage',),
+            bases=("cjkcms.cjkcmspage",),
         ),
         migrations.CreateModel(
-            name='ArticlePage',
+            name="ArticlePage",
             fields=[
-                ('cjkcmspage_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='cjkcms.cjkcmspage')),
-                ('body', cjkcms.fields.CjkcmsStreamField(blank=True, block_lookup={}, null=True)),
-                ('caption', models.CharField(blank=True, max_length=255, verbose_name='Caption')),
-                ('author_display', models.CharField(blank=True, help_text='Override how the author’s name displays on this article.', max_length=255, verbose_name='Display author as')),
-                ('date_display', models.DateField(blank=True, null=True, verbose_name='Display publish date')),
-                ('author', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL, verbose_name='Author')),
+                (
+                    "cjkcmspage_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="cjkcms.cjkcmspage",
+                    ),
+                ),
+                (
+                    "body",
+                    cjkcms.fields.CjkcmsStreamField(
+                        blank=True, block_lookup={}, null=True
+                    ),
+                ),
+                (
+                    "caption",
+                    models.CharField(
+                        blank=True, max_length=255, verbose_name="Caption"
+                    ),
+                ),
+                (
+                    "author_display",
+                    models.CharField(
+                        blank=True,
+                        help_text="Override how the author’s name displays on this article.",
+                        max_length=255,
+                        verbose_name="Display author as",
+                    ),
+                ),
+                (
+                    "date_display",
+                    models.DateField(
+                        blank=True, null=True, verbose_name="Display publish date"
+                    ),
+                ),
+                (
+                    "author",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Author",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Article',
-                'ordering': ['-first_published_at'],
+                "verbose_name": "Article",
+                "ordering": ["-first_published_at"],
             },
-            bases=('cjkcms.cjkcmspage',),
+            bases=("cjkcms.cjkcmspage",),
         ),
         migrations.CreateModel(
-            name='WebPage',
+            name="WebPage",
             fields=[
-                ('cjkcmspage_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='cjkcms.cjkcmspage')),
-                ('body', cjkcms.fields.CjkcmsStreamField(blank=True, block_lookup={}, null=True)),
+                (
+                    "cjkcmspage_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="cjkcms.cjkcmspage",
+                    ),
+                ),
+                (
+                    "body",
+                    cjkcms.fields.CjkcmsStreamField(
+                        blank=True, block_lookup={}, null=True
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Web Page',
+                "verbose_name": "Web Page",
             },
-            bases=('cjkcms.cjkcmspage',),
+            bases=("cjkcms.cjkcmspage",),
         ),
         migrations.CreateModel(
-            name='AnalyticsSettings',
+            name="AnalyticsSettings",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('ga_tracking_id', models.CharField(blank=True, help_text='Google Analytics tracking ID (begins with "UA-"). Note: will stop working by 1 July 2023!', max_length=255, verbose_name='Universal Analytics Tracking ID')),
-                ('g4_tracking_id', models.CharField(blank=True, help_text='G4 Google Analytics tracking ID ("G-..."). If both G4 & UA set, both will be used.', max_length=255, verbose_name='G4 Analytics Tracking ID')),
-                ('ga_track_button_clicks', models.BooleanField(default=False, help_text='Track all button clicks using Google Analytics event tracking. Event tracking details can be specified in each button’s advanced settings options.', verbose_name='Track button clicks')),
-                ('gtm_id', models.CharField(blank=True, help_text='Begins with "GTM-"', max_length=255, verbose_name='Google Tag Manager ID')),
-                ('site', models.OneToOneField(editable=False, on_delete=django.db.models.deletion.CASCADE, to='wagtailcore.site')),
-                ('consent_modal_layout', models.CharField(choices=[('box', 'Box'), ('cloud', 'Cloud'), ('bar', 'Bar')], default='cloud', help_text='Layout of the cookie consent modal', max_length=6)),
-                ('contact_page', models.ForeignKey(blank=True, help_text='Show [More info] section with link to selected contact page in cookie consent settings.', null=True, on_delete=django.db.models.deletion.CASCADE, related_name='+', to='wagtailcore.page')),
-                ('cookie_consent', models.BooleanField(default=False, help_text="Enable simple GDPR compliant cookie consent banner. Intended as a quick solution for sites that don't need a fully customisable consent.", verbose_name='Enable cookie consent')),
-                ('cookie_consent_deny_btn', models.BooleanField(default=False, help_text='Show an [Accept Necessary Only] button in the cookie consent banner. If unchecked, the banner will only have an accept and settings buttons.', verbose_name='Show Accept Necessary')),
-                ('privacy_page', models.ForeignKey(blank=True, help_text='Show a link to selected privacy policy page in cookie consent settings.', null=True, on_delete=django.db.models.deletion.CASCADE, related_name='+', to='wagtailcore.page')),
-                ('settings_modal_layout', models.CharField(choices=[('box', 'Box'), ('bar', 'Bar')], default='box', help_text='Layout of the full cookie consent settings modal.', max_length=6)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "ga_tracking_id",
+                    models.CharField(
+                        blank=True,
+                        help_text='Google Analytics tracking ID (begins with "UA-"). Note: will stop working by 1 July 2023!',
+                        max_length=255,
+                        verbose_name="Universal Analytics Tracking ID",
+                    ),
+                ),
+                (
+                    "g4_tracking_id",
+                    models.CharField(
+                        blank=True,
+                        help_text='G4 Google Analytics tracking ID ("G-..."). If both G4 & UA set, both will be used.',
+                        max_length=255,
+                        verbose_name="G4 Analytics Tracking ID",
+                    ),
+                ),
+                (
+                    "ga_track_button_clicks",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Track all button clicks using Google Analytics event tracking. Event tracking details can be specified in each button’s advanced settings options.",
+                        verbose_name="Track button clicks",
+                    ),
+                ),
+                (
+                    "gtm_id",
+                    models.CharField(
+                        blank=True,
+                        help_text='Begins with "GTM-"',
+                        max_length=255,
+                        verbose_name="Google Tag Manager ID",
+                    ),
+                ),
+                (
+                    "site",
+                    models.OneToOneField(
+                        editable=False,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="wagtailcore.site",
+                    ),
+                ),
+                (
+                    "consent_modal_layout",
+                    models.CharField(
+                        choices=[("box", "Box"), ("cloud", "Cloud"), ("bar", "Bar")],
+                        default="cloud",
+                        help_text="Layout of the cookie consent modal",
+                        max_length=6,
+                    ),
+                ),
+                (
+                    "contact_page",
+                    models.ForeignKey(
+                        blank=True,
+                        help_text="Show [More info] section with link to selected contact page in cookie consent settings.",
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="+",
+                        to="wagtailcore.page",
+                    ),
+                ),
+                (
+                    "cookie_consent",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Enable simple GDPR compliant cookie consent banner. Intended as a quick solution for sites that don't need a fully customisable consent.",
+                        verbose_name="Enable cookie consent",
+                    ),
+                ),
+                (
+                    "cookie_consent_deny_btn",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Show an [Accept Necessary Only] button in the cookie consent banner. If unchecked, the banner will only have an accept and settings buttons.",
+                        verbose_name="Show Accept Necessary",
+                    ),
+                ),
+                (
+                    "privacy_page",
+                    models.ForeignKey(
+                        blank=True,
+                        help_text="Show a link to selected privacy policy page in cookie consent settings.",
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="+",
+                        to="wagtailcore.page",
+                    ),
+                ),
+                (
+                    "settings_modal_layout",
+                    models.CharField(
+                        choices=[("box", "Box"), ("bar", "Bar")],
+                        default="box",
+                        help_text="Layout of the full cookie consent settings modal.",
+                        max_length=6,
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Tracking',
+                "verbose_name": "Tracking",
             },
         ),
-        migrations.RunPython(
-            code=cjkcms.migrations.0008_alter_layoutsettings_navbar_langselector.convert_boolean_to_char,
-            reverse_code=cjkcms.migrations.0008_alter_layoutsettings_navbar_langselector.convert_char_to_boolean,
-        ),
+        # migrations.RunPython(
+        #     code=cjkcms.migrations.0008_alter_layoutsettings_navbar_langselector.convert_boolean_to_char,
+        #     reverse_code=cjkcms.migrations.0008_alter_layoutsettings_navbar_langselector.convert_char_to_boolean,
+        # ),
         migrations.CreateModel(
-            name='FilmStrip',
+            name="FilmStrip",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255, verbose_name='Name')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255, verbose_name="Name")),
             ],
             options={
-                'verbose_name': 'Film Strip',
+                "verbose_name": "Film Strip",
             },
         ),
         migrations.AddField(
-            model_name='cjkcmspage',
-            name='related_classifier_term',
-            field=models.ForeignKey(blank=True, help_text='When getting related pages, pages with this term will be weighted over other classifier terms. By default, pages with the greatest number of classifiers in common are ranked highest.', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='cjkcms.classifierterm', verbose_name='Preferred related classifier term'),
+            model_name="cjkcmspage",
+            name="related_classifier_term",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="When getting related pages, pages with this term will be weighted over other classifier terms. By default, pages with the greatest number of classifiers in common are ranked highest.",
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="cjkcms.classifierterm",
+                verbose_name="Preferred related classifier term",
+            ),
         ),
         migrations.AddField(
-            model_name='cjkcmspage',
-            name='related_num',
-            field=models.PositiveIntegerField(default=3, verbose_name='Number of related pages to show'),
+            model_name="cjkcmspage",
+            name="related_num",
+            field=models.PositiveIntegerField(
+                default=3, verbose_name="Number of related pages to show"
+            ),
         ),
         migrations.AddField(
-            model_name='cjkcmspage',
-            name='related_show',
-            field=models.BooleanField(default=False, verbose_name='Show list of related pages'),
+            model_name="cjkcmspage",
+            name="related_show",
+            field=models.BooleanField(
+                default=False, verbose_name="Show list of related pages"
+            ),
         ),
         migrations.RemoveField(
-            model_name='analyticssettings',
-            name='ga_tracking_id',
+            model_name="analyticssettings",
+            name="ga_tracking_id",
         ),
         migrations.AddField(
-            model_name='analyticssettings',
-            name='matomo_disable_cookies',
-            field=models.BooleanField(default=False, help_text='Disable Matomo cookies. Useful for GDPR compliance.', verbose_name='Disable Matomo Cookies'),
+            model_name="analyticssettings",
+            name="matomo_disable_cookies",
+            field=models.BooleanField(
+                default=False,
+                help_text="Disable Matomo cookies. Useful for GDPR compliance.",
+                verbose_name="Disable Matomo Cookies",
+            ),
         ),
         migrations.AddField(
-            model_name='analyticssettings',
-            name='matomo_hostname',
-            field=models.CharField(blank=True, help_text='Matomo hostname (e.g. https://tracker.com). Without trailing slash.', max_length=128, verbose_name='Hostname (including http(s)://)'),
+            model_name="analyticssettings",
+            name="matomo_hostname",
+            field=models.CharField(
+                blank=True,
+                help_text="Matomo hostname (e.g. https://tracker.com). Without trailing slash.",
+                max_length=128,
+                verbose_name="Hostname (including http(s)://)",
+            ),
         ),
         migrations.AddField(
-            model_name='analyticssettings',
-            name='matomo_site_id',
-            field=models.IntegerField(blank=True, help_text='Numeric site id from Matomo website configuration.', null=True, verbose_name='Site ID'),
+            model_name="analyticssettings",
+            name="matomo_site_id",
+            field=models.IntegerField(
+                blank=True,
+                help_text="Numeric site id from Matomo website configuration.",
+                null=True,
+                verbose_name="Site ID",
+            ),
         ),
         migrations.AddField(
-            model_name='socialmediasettings',
-            name='location',
-            field=models.CharField(blank=True, choices=[('left', 'left'), ('right', 'right'), ('menu', 'menu'), ('none', 'none')], default='none', max_length=50, verbose_name='Location of social media block'),
+            model_name="socialmediasettings",
+            name="location",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("left", "left"),
+                    ("right", "right"),
+                    ("menu", "menu"),
+                    ("none", "none"),
+                ],
+                default="none",
+                max_length=50,
+                verbose_name="Location of social media block",
+            ),
         ),
         migrations.AddField(
-            model_name='navbar',
-            name='alignment',
-            field=models.CharField(blank=True, choices=[('me-auto', 'Left (me-auto)'), ('ms-auto', 'Right (ms-auto)'), ('mx-auto', 'Center (mx-auto)'), ('', 'None')], default='me-auto', help_text='Force navbar alignment', max_length=32, verbose_name='Alignment'),
+            model_name="navbar",
+            name="alignment",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("me-auto", "Left (me-auto)"),
+                    ("ms-auto", "Right (ms-auto)"),
+                    ("mx-auto", "Center (mx-auto)"),
+                    ("", "None"),
+                ],
+                default="me-auto",
+                help_text="Force navbar alignment",
+                max_length=32,
+                verbose_name="Alignment",
+            ),
         ),
         migrations.CreateModel(
-            name='EventCalendar',
+            name="EventCalendar",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255, verbose_name='Name')),
-                ('custom_css_class', models.CharField(blank=True, max_length=255, verbose_name='Custom CSS Class')),
-                ('custom_id', models.CharField(blank=True, max_length=255, verbose_name='Custom ID')),
-                ('events', cjkcms.fields.CjkcmsStreamField(block_lookup={}, verbose_name='Events')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255, verbose_name="Name")),
+                (
+                    "custom_css_class",
+                    models.CharField(
+                        blank=True, max_length=255, verbose_name="Custom CSS Class"
+                    ),
+                ),
+                (
+                    "custom_id",
+                    models.CharField(
+                        blank=True, max_length=255, verbose_name="Custom ID"
+                    ),
+                ),
+                (
+                    "events",
+                    cjkcms.fields.CjkcmsStreamField(
+                        block_lookup={}, verbose_name="Events"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Event calendar',
+                "verbose_name": "Event calendar",
             },
         ),
         migrations.AddField(
-            model_name='layoutsettings',
-            name='breadcrumb_icon',
-            field=models.CharField(blank=True, default='slash', help_text='Bootstrap icon name. See docs for built-in options.', max_length=32, verbose_name='Breadcrumb icon'),
+            model_name="layoutsettings",
+            name="breadcrumb_icon",
+            field=models.CharField(
+                blank=True,
+                default="slash",
+                help_text="Bootstrap icon name. See docs for built-in options.",
+                max_length=32,
+                verbose_name="Breadcrumb icon",
+            ),
         ),
         migrations.AddField(
-            model_name='layoutsettings',
-            name='breadcrumbs',
-            field=models.BooleanField(default=False, help_text='Show breadcrumbs in page header', verbose_name='Breadcrumbs'),
+            model_name="layoutsettings",
+            name="breadcrumbs",
+            field=models.BooleanField(
+                default=False,
+                help_text="Show breadcrumbs in page header",
+                verbose_name="Breadcrumbs",
+            ),
         ),
         migrations.AddField(
-            model_name='layoutsettings',
-            name='default_seo_image',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='default_seo_image', to='wagtailimages.image', verbose_name='Default SEO Image'),
+            model_name="layoutsettings",
+            name="default_seo_image",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="default_seo_image",
+                to="wagtailimages.image",
+                verbose_name="Default SEO Image",
+            ),
         ),
         migrations.AddField(
-            model_name='layoutsettings',
-            name='search_format',
-            field=models.CharField(blank=True, choices=[], default='', max_length=50, verbose_name='Search format'),
+            model_name="layoutsettings",
+            name="search_format",
+            field=models.CharField(
+                blank=True,
+                choices=[],
+                default="",
+                max_length=50,
+                verbose_name="Search format",
+            ),
         ),
         migrations.AddField(
-            model_name='layoutsettings',
-            name='searchbox_input_class',
-            field=models.CharField(blank=True, default='border-secondary mb-0', help_text='Classes applied to searchbox input', max_length=255, verbose_name='Searchbox input class'),
+            model_name="layoutsettings",
+            name="searchbox_input_class",
+            field=models.CharField(
+                blank=True,
+                default="border-secondary mb-0",
+                help_text="Classes applied to searchbox input",
+                max_length=255,
+                verbose_name="Searchbox input class",
+            ),
         ),
         migrations.AddField(
-            model_name='layoutsettings',
-            name='searchbutton_class',
-            field=models.CharField(blank=True, default='btn btn-outline-secondary', help_text='Classes applied to search button. Add e.g. `fas fa-search` for icon.', max_length=255, verbose_name='Search button (with text) class'),
+            model_name="layoutsettings",
+            name="searchbutton_class",
+            field=models.CharField(
+                blank=True,
+                default="btn btn-outline-secondary",
+                help_text="Classes applied to search button. Add e.g. `fas fa-search` for icon.",
+                max_length=255,
+                verbose_name="Search button (with text) class",
+            ),
         ),
         migrations.AddField(
-            model_name='layoutsettings',
-            name='searchbutton_label',
-            field=models.CharField(blank=True, default='Search', help_text='Leave empty when using icon-only button. Otherwise, add button label.', max_length=255, verbose_name='Search button label'),
+            model_name="layoutsettings",
+            name="searchbutton_label",
+            field=models.CharField(
+                blank=True,
+                default="Search",
+                help_text="Leave empty when using icon-only button. Otherwise, add button label.",
+                max_length=255,
+                verbose_name="Search button label",
+            ),
         ),
         migrations.AddField(
-            model_name='socialmediasettings',
-            name='github',
-            field=models.URLField(blank=True, help_text='Your GitHub page URL', verbose_name='GitHub'),
+            model_name="socialmediasettings",
+            name="github",
+            field=models.URLField(
+                blank=True, help_text="Your GitHub page URL", verbose_name="GitHub"
+            ),
         ),
         migrations.AddField(
-            model_name='socialmediasettings',
-            name='pinterset',
-            field=models.URLField(blank=True, help_text='Your Pinterest page URL', verbose_name='Pinterest'),
+            model_name="socialmediasettings",
+            name="pinterset",
+            field=models.URLField(
+                blank=True,
+                help_text="Your Pinterest page URL",
+                verbose_name="Pinterest",
+            ),
         ),
         migrations.AddField(
-            model_name='socialmediasettings',
-            name='tiktok',
-            field=models.URLField(blank=True, help_text='Your TikTok account URL', verbose_name='TikTok'),
+            model_name="socialmediasettings",
+            name="tiktok",
+            field=models.URLField(
+                blank=True, help_text="Your TikTok account URL", verbose_name="TikTok"
+            ),
         ),
         migrations.RemoveField(
-            model_name='layoutsettings',
-            name='navbar_color_scheme',
+            model_name="layoutsettings",
+            name="navbar_color_scheme",
         ),
         migrations.AddField(
-            model_name='layoutsettings',
-            name='color_scheme',
-            field=models.CharField(blank=True, choices=[], default='', help_text='Default light/dark/custom theme. (MD/Bootstrap only)', max_length=50, verbose_name='Color scheme'),
+            model_name="layoutsettings",
+            name="color_scheme",
+            field=models.CharField(
+                blank=True,
+                choices=[],
+                default="",
+                help_text="Default light/dark/custom theme. (MD/Bootstrap only)",
+                max_length=50,
+                verbose_name="Color scheme",
+            ),
         ),
         migrations.AddField(
-            model_name='layoutsettings',
-            name='light_dark_switch',
-            field=models.BooleanField(default=False, help_text='Show switch to toggle light/dark theme (MD/Bootstrap only)', verbose_name='Light/Dark switch'),
+            model_name="layoutsettings",
+            name="light_dark_switch",
+            field=models.BooleanField(
+                default=False,
+                help_text="Show switch to toggle light/dark theme (MD/Bootstrap only)",
+                verbose_name="Light/Dark switch",
+            ),
         ),
         migrations.AlterField(
-            model_name='layoutsettings',
-            name='frontend_theme',
-            field=models.CharField(blank=True, choices=[], default='', help_text='Change the source of your Bootstrap theme.', max_length=50, verbose_name='Theme variant'),
+            model_name="layoutsettings",
+            name="frontend_theme",
+            field=models.CharField(
+                blank=True,
+                choices=[],
+                default="",
+                help_text="Change the source of your Bootstrap theme.",
+                max_length=50,
+                verbose_name="Theme variant",
+            ),
         ),
         migrations.AlterField(
-            model_name='layoutsettings',
-            name='navbar_collapse_mode',
-            field=models.CharField(blank=True, choices=[], default='', help_text='Control on what screen sizes to show and collapse the navbar menu links.', max_length=50, verbose_name='Collapse navbar menu'),
+            model_name="layoutsettings",
+            name="navbar_collapse_mode",
+            field=models.CharField(
+                blank=True,
+                choices=[],
+                default="",
+                help_text="Control on what screen sizes to show and collapse the navbar menu links.",
+                max_length=50,
+                verbose_name="Collapse navbar menu",
+            ),
         ),
         migrations.AlterField(
-            model_name='layoutsettings',
-            name='navbar_format',
-            field=models.CharField(blank=True, choices=[], default='', max_length=50, verbose_name='Navbar format'),
+            model_name="layoutsettings",
+            name="navbar_format",
+            field=models.CharField(
+                blank=True,
+                choices=[],
+                default="",
+                max_length=50,
+                verbose_name="Navbar format",
+            ),
         ),
         migrations.AlterField(
-            model_name='layoutsettings',
-            name='navbar_langselector',
-            field=models.CharField(blank=True, choices=[], default=None, help_text='Choose lang choice selector', max_length=255, null=True, verbose_name='Language selector'),
+            model_name="layoutsettings",
+            name="navbar_langselector",
+            field=models.CharField(
+                blank=True,
+                choices=[],
+                default=None,
+                help_text="Choose lang choice selector",
+                max_length=255,
+                null=True,
+                verbose_name="Language selector",
+            ),
         ),
         migrations.AddField(
-            model_name='cjkcmspage',
-            name='breadcrumb_label',
-            field=models.CharField(blank=True, help_text='If empty, page title will be used.', max_length=128, verbose_name='Breadcrumb label'),
+            model_name="cjkcmspage",
+            name="breadcrumb_label",
+            field=models.CharField(
+                blank=True,
+                help_text="If empty, page title will be used.",
+                max_length=128,
+                verbose_name="Breadcrumb label",
+            ),
         ),
         migrations.AddField(
-            model_name='cjkcmspage',
-            name='breadcrumbs_visible',
-            field=models.BooleanField(default=True, help_text='Show breadcrumbs in this page header. For global change, see Settings->Layout', verbose_name='Breadcrumbs'),
+            model_name="cjkcmspage",
+            name="breadcrumbs_visible",
+            field=models.BooleanField(
+                default=True,
+                help_text="Show breadcrumbs in this page header. For global change, see Settings->Layout",
+                verbose_name="Breadcrumbs",
+            ),
         ),
         migrations.AddField(
-            model_name='navbar',
-            name='language',
-            field=models.CharField(blank=True, choices=[], default='_all_', help_text='Select a language to limit display to specific locale.', max_length=10, verbose_name='Show in language'),
+            model_name="navbar",
+            name="language",
+            field=models.CharField(
+                blank=True,
+                choices=[],
+                default="_all_",
+                help_text="Select a language to limit display to specific locale.",
+                max_length=10,
+                verbose_name="Show in language",
+            ),
         ),
         migrations.RemoveField(
-            model_name='cjkcmspage',
-            name='struct_org_actions',
+            model_name="cjkcmspage",
+            name="struct_org_actions",
         ),
         migrations.RemoveField(
-            model_name='cjkcmspage',
-            name='struct_org_address_country',
+            model_name="cjkcmspage",
+            name="struct_org_address_country",
         ),
         migrations.RemoveField(
-            model_name='cjkcmspage',
-            name='struct_org_address_locality',
+            model_name="cjkcmspage",
+            name="struct_org_address_locality",
         ),
         migrations.RemoveField(
-            model_name='cjkcmspage',
-            name='struct_org_address_postal',
+            model_name="cjkcmspage",
+            name="struct_org_address_postal",
         ),
         migrations.RemoveField(
-            model_name='cjkcmspage',
-            name='struct_org_address_region',
+            model_name="cjkcmspage",
+            name="struct_org_address_region",
         ),
         migrations.RemoveField(
-            model_name='cjkcmspage',
-            name='struct_org_address_street',
+            model_name="cjkcmspage",
+            name="struct_org_address_street",
         ),
         migrations.RemoveField(
-            model_name='cjkcmspage',
-            name='struct_org_extra_json',
+            model_name="cjkcmspage",
+            name="struct_org_extra_json",
         ),
         migrations.RemoveField(
-            model_name='cjkcmspage',
-            name='struct_org_geo_lat',
+            model_name="cjkcmspage",
+            name="struct_org_geo_lat",
         ),
         migrations.RemoveField(
-            model_name='cjkcmspage',
-            name='struct_org_geo_lng',
+            model_name="cjkcmspage",
+            name="struct_org_geo_lng",
         ),
         migrations.RemoveField(
-            model_name='cjkcmspage',
-            name='struct_org_hours',
+            model_name="cjkcmspage",
+            name="struct_org_hours",
         ),
         migrations.RemoveField(
-            model_name='cjkcmspage',
-            name='struct_org_image',
+            model_name="cjkcmspage",
+            name="struct_org_image",
         ),
         migrations.RemoveField(
-            model_name='cjkcmspage',
-            name='struct_org_logo',
+            model_name="cjkcmspage",
+            name="struct_org_logo",
         ),
         migrations.RemoveField(
-            model_name='cjkcmspage',
-            name='struct_org_name',
+            model_name="cjkcmspage",
+            name="struct_org_name",
         ),
         migrations.RemoveField(
-            model_name='cjkcmspage',
-            name='struct_org_phone',
+            model_name="cjkcmspage",
+            name="struct_org_phone",
         ),
         migrations.RemoveField(
-            model_name='cjkcmspage',
-            name='struct_org_type',
+            model_name="cjkcmspage",
+            name="struct_org_type",
         ),
         migrations.AlterField(
-            model_name='cjkcmspage',
-            name='og_image',
-            field=models.ForeignKey(blank=True, help_text='Shown when linking to this page on social media. If blank, may show an image from the page, or the default from Settings > SEO.', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image', verbose_name='Preview image'),
+            model_name="cjkcmspage",
+            name="og_image",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="Shown when linking to this page on social media. If blank, may show an image from the page, or the default from Settings > SEO.",
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="wagtailimages.image",
+                verbose_name="Preview image",
+            ),
         ),
         migrations.CreateModel(
-            name='FilmPanel',
+            name="FilmPanel",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('background_color', cjkcms.fields.ColorField(blank=True, max_length=255, verbose_name='Background color')),
-                ('foreground_color', cjkcms.fields.ColorField(blank=True, max_length=255, verbose_name='Text color')),
-                ('custom_css_class', models.CharField(blank=True, max_length=255, verbose_name='Custom CSS class')),
-                ('custom_id', models.CharField(blank=True, max_length=255, verbose_name='Custom ID')),
-                ('content', cjkcms.fields.CjkcmsStreamField(blank=True, block_lookup={})),
-                ('background_image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image', verbose_name='Background image')),
-                ('film_strip', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='film_panels', to='cjkcms.filmstrip', verbose_name='Film Panel')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "background_color",
+                    cjkcms.fields.ColorField(
+                        blank=True, max_length=255, verbose_name="Background color"
+                    ),
+                ),
+                (
+                    "foreground_color",
+                    cjkcms.fields.ColorField(
+                        blank=True, max_length=255, verbose_name="Text color"
+                    ),
+                ),
+                (
+                    "custom_css_class",
+                    models.CharField(
+                        blank=True, max_length=255, verbose_name="Custom CSS class"
+                    ),
+                ),
+                (
+                    "custom_id",
+                    models.CharField(
+                        blank=True, max_length=255, verbose_name="Custom ID"
+                    ),
+                ),
+                (
+                    "content",
+                    cjkcms.fields.CjkcmsStreamField(blank=True, block_lookup={}),
+                ),
+                (
+                    "background_image",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="wagtailimages.image",
+                        verbose_name="Background image",
+                    ),
+                ),
+                (
+                    "film_strip",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="film_panels",
+                        to="cjkcms.filmstrip",
+                        verbose_name="Film Panel",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Film Panel',
+                "verbose_name": "Film Panel",
             },
         ),
     ]

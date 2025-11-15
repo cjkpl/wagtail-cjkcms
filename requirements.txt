@@ -3,4 +3,3 @@ django>=5.0
 wagtail>=6.0
 wagtail-seo>=3.0
 wagtail-cache>=2.5.1
-wagtail-color-panel>=1.6.0

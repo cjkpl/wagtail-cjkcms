@@ -67,7 +67,7 @@ class ColorField(models.CharField):
     """
 
     def __init__(self, *args, **kwargs):
-        kwargs["max_length"] = 255
+        kwargs.setdefault("max_length", 255)
         super().__init__(*args, **kwargs)
 
     def formfield(self, **kwargs):

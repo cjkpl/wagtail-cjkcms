@@ -22,9 +22,7 @@ from cjkcms.blocks import (
 )
 from cjkcms.settings import cms_settings
 from django.conf import settings
-from cjkcms.fields import CjkcmsStreamField
-from wagtail_color_panel.fields import ColorField
-from wagtail_color_panel.edit_handlers import NativeColorPanel
+from cjkcms.fields import CjkcmsStreamField, ColorField
 from django.forms import ModelForm
 
 
@@ -295,8 +293,8 @@ class FilmPanel(Orderable, models.Model):
 
     panels = [
         FieldPanel("background_image"),
-        NativeColorPanel("background_color"),
-        NativeColorPanel("foreground_color"),
+        FieldPanel("background_color"),
+        FieldPanel("foreground_color"),
         FieldPanel("custom_css_class"),
         FieldPanel("custom_id"),
         FieldPanel("content"),

@@ -18,7 +18,6 @@ INSTALLED_APPS = [
     "wagtailcache",
     "wagtail.contrib.table_block",
     "wagtail.contrib.settings",
-    "wagtail_color_panel",
     "django_bootstrap5",
     # --- end-wagtail-cjkcms #
     "wagtail.contrib.forms",

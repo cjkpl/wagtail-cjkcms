@@ -30,7 +30,6 @@ def boot_django():
             "wagtail.contrib.settings",
             # "wagtail.contrib.modeladmin",
             "django_bootstrap5",
-            "wagtail_color_panel",
             # --- end wagtail-cjkcms #
             # "wagtail.contrib.forms",
             # "wagtail.contrib.redirects",

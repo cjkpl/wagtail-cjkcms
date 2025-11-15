@@ -13,6 +13,7 @@ migrated to this file.
 ### Changed
 ### Fixed
 ### Removed
+- Dropped the `wagtail-color-panel` dependency; internal color fields now use native widgets.
 
 ## [25.1.3] - 2025-01-03
 ### Fixed

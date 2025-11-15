@@ -2,6 +2,7 @@ import hashlib
 import urllib.parse
 
 from django.template import Library
+from django.utils.html import format_html
 from wagtail.models import Site
 
 from cjkcms.models import GeneralSettings
@@ -36,4 +37,11 @@ def gravatar_url(email, size=80, default_url=None):
 @register.simple_tag
 def gravatar(email, size=80, default_url=None, options=""):
     url = gravatar_url(email, size, default_url)
-    return '<img src="%s" width="%s" height="%s" %s >' % (url, size, size, options)
+    extra = format_html(" {}", options) if options else ""
+    return format_html(
+        '<img src="{}" width="{}" height="{}"{} >',
+        url,
+        size,
+        size,
+        extra,
+    )

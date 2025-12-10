@@ -18,7 +18,9 @@ class SurroundingDivImageFormat(Format):
         default_html = super().image_to_html(image, alt_text, extra_attributes)
 
         return format_html(
-            f'<div class="{self.surrounding_classes}">{default_html}</div>',
+            '<div class="{}">{}</div>',
+            self.surrounding_classes,
+            default_html,
         )
 
 

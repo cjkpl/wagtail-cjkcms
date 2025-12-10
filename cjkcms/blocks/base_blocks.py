@@ -6,6 +6,7 @@ from django import forms
 from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
+from django.utils import translation
 from django.utils.translation import gettext_lazy as _
 from wagtail import blocks
 from wagtail.models import Collection
@@ -375,15 +376,45 @@ class LinkStructValue(blocks.StructValue):
     Generates a URL for blocks with multiple link choices.
     """
 
+    def _get_localized_page(self, page):
+        """
+        Return a localized version of the page for the active language, if it
+        exists. Falls back to the original page when no translation is found.
+        """
+        if not page:
+            return None
+
+        try:
+            language = translation.get_language()
+        except Exception:
+            language = None
+
+        # Wagtail's `localized` uses the active language when set.
+        localized_page = getattr(page, "localized", None)
+
+        # If the active language is known and localized didn't give us a result,
+        # try fetching an explicit translation (available on Wagtail >= 2.11).
+        if language and localized_page in (None, page):
+            get_translation = getattr(page, "get_translation", None)
+            if callable(get_translation):
+                try:
+                    localized_page = get_translation(language, fallback=True)
+                except Exception:
+                    localized_page = page
+
+        return localized_page or page
+
     @property
     def url(self):
         page = self.get("page_link")
         doc = self.get("doc_link")
         ext = self.get("other_link")
         if page and ext:
-            return "{0}{1}".format(page.url, ext)
+            localized_page = self._get_localized_page(page)
+            return "{0}{1}".format(localized_page.url, ext)
         elif page:
-            return page.url
+            localized_page = self._get_localized_page(page)
+            return localized_page.url
         elif doc:
             return doc.url
         else:

@@ -22,11 +22,16 @@
 
         {# if not settings.cjkcms.LayoutSettings.navbar_search #}
         <form class="mt-5" action="{% url 'cjkcms_search' %}" method="GET">
-            <div class="row">
-                <div class="col-sm-9">
-                    {% bootstrap_form form size='lg' layout='inline' %}
+            {% bootstrap_form_errors form type='non_fields' %}
+            {{ form.t }}
+            <div class="row g-3 align-items-end">
+                <div class="col-lg-6">
+                    {% bootstrap_field form.s size='lg' show_label=False %}
                 </div>
-                <div class="col-sm-3">
+                <div class="col-lg-3">
+                    {% bootstrap_field form.sort size='lg' %}
+                </div>
+                <div class="col-lg-3 pb-3">
                     <div class="form-group">
                         <button class="btn btn-lg btn-block btn-outline-primary" type="submit">{% trans 'Search' %}</button>
                     </div>

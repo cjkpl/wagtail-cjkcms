@@ -1,11 +1,13 @@
 from collections import OrderedDict
 import contextlib
+from datetime import date, datetime
+from typing import Any
 
 from django.apps import apps
 from django.core.paginator import EmptyPage, InvalidPage, PageNotAnInteger, Paginator
 from django.http import Http404, HttpResponsePermanentRedirect
 from django.shortcuts import render
-from django.utils import translation
+from django.utils import timezone, translation
 from wagtail.models import Page
 from wagtail.search import index
 from wagtail.search.backends import get_search_backend
@@ -17,6 +19,24 @@ from cjkcms.models import (
 )
 
 from wagtail.models import Locale
+
+
+# Lists of common datetime attributes used for sorting pages and other models.
+UPDATED_FIELD_NAMES = (
+    "latest_revision_created_at",
+    "last_published_at",
+    "updated_at",
+    "last_updated",
+    "modified",
+    "modified_at",
+)
+CREATED_FIELD_NAMES = (
+    "first_published_at",
+    "created_at",
+    "created",
+    "published_at",
+    "pub_date",
+)
 
 
 def search_model_backend(model, search_query, current_locale):
@@ -60,6 +80,52 @@ def _get_request_locale(request):
     return Locale.objects.first()
 
 
+def _value_from_attrs(obj: Any, attrs: tuple[str, ...]):
+    """
+    Returns the first non-empty attribute found on obj from attrs.
+    """
+    for attr in attrs:
+        value = getattr(obj, attr, None)
+        if callable(value):
+            with contextlib.suppress(TypeError):
+                value = value()
+        if value:
+            return value
+    return None
+
+
+def _coerce_datetime(value: Any):
+    """
+    Convert date/datetime values to timezone-aware datetime for comparisons.
+    """
+    if isinstance(value, date) and not isinstance(value, datetime):
+        value = datetime.combine(value, datetime.min.time())
+    if isinstance(value, datetime):
+        if timezone.is_naive(value):
+            value = timezone.make_aware(value, timezone.get_current_timezone())
+        return value
+    return None
+
+
+def _timestamp_key(obj: Any, attrs: tuple[str, ...], missing_high: bool):
+    """
+    Build a timestamp key for sorting; missing values are pushed to the end.
+    """
+    value = _value_from_attrs(obj, attrs)
+    dt_value = _coerce_datetime(value)
+    if dt_value:
+        return dt_value.timestamp()
+    return float("inf") if missing_high else float("-inf")
+
+
+def _title_key(obj: Any):
+    """
+    Build a lowercase title-like key for alpha sorts.
+    """
+    value = _value_from_attrs(obj, ("title", "name"))
+    return str(value).lower() if value else ""
+
+
 def search(request):
     """
     Searches pages across the entire site.
@@ -77,11 +143,13 @@ def search(request):
     indexed_models = []
     results_by_model: OrderedDict[str, dict] = OrderedDict()
     active_search_model = None
+    sort_option = ""
 
     if search_form.is_valid():
         current_locale = _get_request_locale(request)
         search_query = search_form.cleaned_data["s"]
         search_model = search_form.cleaned_data["t"]
+        sort_option = search_form.cleaned_data.get("sort", "")
 
         filterable_models = {}
         legacy_model_names = {}
@@ -136,6 +204,31 @@ def search(request):
             merged_results.extend(model_results)
 
         if merged_results:
+            sort_handlers = {
+                "updated_desc": (
+                    lambda obj: _timestamp_key(obj, UPDATED_FIELD_NAMES, False),
+                    True,
+                ),
+                "updated_asc": (
+                    lambda obj: _timestamp_key(obj, UPDATED_FIELD_NAMES, True),
+                    False,
+                ),
+                "created_desc": (
+                    lambda obj: _timestamp_key(obj, CREATED_FIELD_NAMES, False),
+                    True,
+                ),
+                "created_asc": (
+                    lambda obj: _timestamp_key(obj, CREATED_FIELD_NAMES, True),
+                    False,
+                ),
+                "title_asc": (_title_key, False),
+                "title_desc": (_title_key, True),
+            }
+
+            if sort_option in sort_handlers:
+                key_func, reverse = sort_handlers[sort_option]
+                merged_results = sorted(merged_results, key=key_func, reverse=reverse)
+
             per_page = GeneralSettings.for_request(request).search_num_results
             paginator = Paginator(merged_results, per_page)
             page_number = request.GET.get("p", 1)
@@ -158,6 +251,7 @@ def search(request):
         "results_paginated": results_paginated,
         "results_by_model": results_by_model,
         "active_search_model": active_search_model,
+        "sort_option": sort_option if search_form.is_valid() else "",
     }
     # Render template
     return render(

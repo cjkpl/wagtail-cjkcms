@@ -4,7 +4,7 @@ import string
 from datetime import date, datetime
 
 from bs4 import BeautifulSoup
-from django import template
+from django import forms, template
 from django.conf import settings
 from django.db.models.query import QuerySet
 from django.template import TemplateSyntaxError
@@ -204,6 +204,7 @@ def get_searchform(request=None):
     form.fields["s"].widget.attrs["class"] = LayoutSettings.for_request(
         request
     ).searchbox_input_class
+    form.fields["sort"].widget = forms.HiddenInput()
     return form
 
 

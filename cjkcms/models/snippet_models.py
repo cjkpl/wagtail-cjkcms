@@ -77,9 +77,6 @@ class Carousel(ClusterableModel):
         InlinePanel("carousel_slides", label=_("Slides")),
     ]
 
-    def __str__(self):
-        return self.name
-
     def __init__(self, *args, **kwargs):
         """
         Inject custom choices and defaults into the form fields
@@ -182,7 +179,12 @@ class Classifier(ClusterableModel):
         return super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.name
+        try:
+            lang_label = self.get_language_display()
+        except Exception:
+            lang_label = self.language or ""
+        suffix = f" [{lang_label}]" if lang_label else ""
+        return f"{self.name}{suffix}"
 
 
 class ClassifierTerm(Orderable, models.Model):
@@ -368,7 +370,12 @@ class Navbar(models.Model):
     ]
 
     def __str__(self):
-        return self.name
+        try:
+            lang_label = self.get_language_display()
+        except Exception:
+            lang_label = self.language or ""
+        suffix = f" [{lang_label}]" if lang_label else ""
+        return f"{self.name}{suffix}"
 
     @staticmethod
     def get_available_langs():
@@ -451,7 +458,12 @@ class Footer(models.Model):
     ]
 
     def __str__(self):
-        return self.name
+        try:
+            lang_label = self.get_language_display()
+        except Exception:
+            lang_label = self.language or ""
+        suffix = f" [{lang_label}]" if lang_label else ""
+        return f"{self.name}{suffix}"
 
     @staticmethod
     def get_available_langs():

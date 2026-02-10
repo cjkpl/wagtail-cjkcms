@@ -77,9 +77,6 @@ class Carousel(ClusterableModel):
         InlinePanel("carousel_slides", label=_("Slides")),
     ]
 
-    def __str__(self):
-        return self.name
-
     def __init__(self, *args, **kwargs):
         """
         Inject custom choices and defaults into the form fields
@@ -182,7 +179,12 @@ class Classifier(ClusterableModel):
         return super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.name
+        try:
+            lang_label = self.get_language_display()
+        except Exception:
+            lang_label = self.language or ""
+        suffix = f" [{lang_label}]" if lang_label else ""
+        return f"{self.name}{suffix}"
 
 
 class ClassifierTerm(Orderable, models.Model):
@@ -368,7 +370,12 @@ class Navbar(models.Model):
     ]
 
     def __str__(self):
-        return self.name
+        try:
+            lang_label = self.get_language_display()
+        except Exception:
+            lang_label = self.language or ""
+        suffix = f" [{lang_label}]" if lang_label else ""
+        return f"{self.name}{suffix}"
 
     @staticmethod
     def get_available_langs():
@@ -402,7 +409,6 @@ class NavbarForm(ModelForm):
         self.fields["language"].choices = Navbar.get_available_langs()
 
 
-@register_snippet
 class Footer(models.Model):
     """
     Snippet for website footer content.
@@ -425,6 +431,15 @@ class Footer(models.Model):
         blank=True,
         verbose_name=_("Custom ID"),
     )
+    language = models.CharField(
+        blank=True,
+        max_length=10,
+        choices=[],
+        default="_all_",
+        verbose_name=_("Show in language"),
+        help_text=_("Select a language to limit display to specific locale."),
+    )
+
     content = CjkcmsStreamField(
         LAYOUT_STREAMBLOCKS, verbose_name=_("Content"), use_json_field=True
     )
@@ -438,11 +453,48 @@ class Footer(models.Model):
             ],
             heading=_("Attributes"),
         ),
+        FieldPanel("language"),
         FieldPanel("content"),
     ]
 
     def __str__(self):
-        return self.name
+        try:
+            lang_label = self.get_language_display()
+        except Exception:
+            lang_label = self.language or ""
+        suffix = f" [{lang_label}]" if lang_label else ""
+        return f"{self.name}{suffix}"
+
+    @staticmethod
+    def get_available_langs():
+        available_langs = [("_all_", _("All languages"))]
+        if hasattr(settings, "WAGTAIL_CONTENT_LANGUAGES"):
+            available_langs += settings.WAGTAIL_CONTENT_LANGUAGES
+        return available_langs
+
+    def __init__(self, *args, **kwargs):
+        """
+        Inject custom choices and defaults into the form fields
+        to enable customization of settings without causing migration issues.
+        """
+        super().__init__(*args, **kwargs)
+
+        self._meta.get_field("language").choices = Footer.get_available_langs()  # type: ignore
+        # Set default dynamically.
+        if not self.id:  # type: ignore
+            self.language = "_all_"
+
+
+class FooterForm(ModelForm):
+    class Meta:
+        model = Footer
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Set the dynamic choices
+        self.fields["language"].choices = Footer.get_available_langs()
 
 
 @register_snippet

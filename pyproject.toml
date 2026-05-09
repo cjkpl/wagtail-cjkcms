@@ -54,3 +54,8 @@ classifiers = [
 [project.urls]
 "Homepage" = "https://cjkcms.com"
 "Repository" = "https://github.com/cjkpl/wagtail-cjkcms"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "cjkcms.tests.settings"
+# Doctest collection pulls in Django/Wagtail before optional deps are available.
+addopts = "--durations=0"

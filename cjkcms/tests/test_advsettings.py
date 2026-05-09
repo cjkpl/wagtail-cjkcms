@@ -141,7 +141,7 @@ class AdvSettingsTests(WagtailPageTests):
         # and so it sees the page as not-logged-in
 
         self.assertContains(
-            response, '<div class="block-quote"></div>', status_code=200
+            response, '<div class="w-block-quote block-quote"></div>', status_code=200
         )
 
     def test_visible_to_specific_group(self):

@@ -1,6 +1,7 @@
 from collections import OrderedDict
 import contextlib
 from datetime import date, datetime
+import re
 from typing import Any
 
 from django.apps import apps
@@ -37,6 +38,19 @@ CREATED_FIELD_NAMES = (
     "published_at",
     "pub_date",
 )
+SEARCH_TERM_RE = re.compile(r"[^\W_]+(?:['’][^\W_]+)?", re.UNICODE)
+
+
+def _normalise_search_query_for_backend(search_query: str) -> str:
+    """
+    Keep user-facing search input as plain text before passing it to Wagtail's
+    database backend.
+
+    The PostgreSQL backend builds a raw tsquery from whitespace-separated terms.
+    Punctuation-only chunks such as ``(''`` can become invalid lexemes and raise
+    a database error during result evaluation.
+    """
+    return " ".join(SEARCH_TERM_RE.findall(search_query))
 
 
 def search_model_backend(model, search_query, current_locale):
@@ -148,6 +162,7 @@ def search(request):
     if search_form.is_valid():
         current_locale = _get_request_locale(request)
         search_query = search_form.cleaned_data["s"]
+        backend_search_query = _normalise_search_query_for_backend(search_query)
         search_model = search_form.cleaned_data["t"]
         sort_option = search_form.cleaned_data.get("sort", "")
 
@@ -164,84 +179,87 @@ def search(request):
                 filterable_models[identifier] = model
                 legacy_model_names.setdefault(model._meta.model_name, model)
 
-        model_result_sets = []
+        if backend_search_query:
+            model_result_sets = []
 
-        selected_model = None
-        if search_model:
-            selected_model = filterable_models.get(search_model)
-            if not selected_model:
-                legacy_model = legacy_model_names.get(search_model)
-                if legacy_model:
-                    selected_model = legacy_model
-                    search_model = _model_identifier(legacy_model)
+            selected_model = None
+            if search_model:
+                selected_model = filterable_models.get(search_model)
+                if not selected_model:
+                    legacy_model = legacy_model_names.get(search_model)
+                    if legacy_model:
+                        selected_model = legacy_model
+                        search_model = _model_identifier(legacy_model)
 
-        if selected_model:
-            active_search_model = _model_identifier(selected_model)
-            model_results = search_model_backend(
-                selected_model, search_query, current_locale
-            )
-            count = model_results.count()
-            results_by_model[active_search_model] = {
-                "model": selected_model,
-                "count": count,
-            }
-            model_result_sets.append((active_search_model, model_results, count))
-        else:
-            for model in indexed_models:
-                identifier = _model_identifier(model)
+            if selected_model:
+                active_search_model = _model_identifier(selected_model)
                 model_results = search_model_backend(
-                    model, search_query, current_locale
+                    selected_model, backend_search_query, current_locale
                 )
                 count = model_results.count()
-                results_by_model[identifier] = {
-                    "model": model,
+                results_by_model[active_search_model] = {
+                    "model": selected_model,
                     "count": count,
                 }
-                model_result_sets.append((identifier, model_results, count))
+                model_result_sets.append((active_search_model, model_results, count))
+            else:
+                for model in indexed_models:
+                    identifier = _model_identifier(model)
+                    model_results = search_model_backend(
+                        model, backend_search_query, current_locale
+                    )
+                    count = model_results.count()
+                    results_by_model[identifier] = {
+                        "model": model,
+                        "count": count,
+                    }
+                    model_result_sets.append((identifier, model_results, count))
 
-        merged_results = []
-        for _, model_results, _ in model_result_sets:
-            merged_results.extend(model_results)
+            merged_results = []
+            for _, model_results, _ in model_result_sets:
+                merged_results.extend(model_results)
 
-        if merged_results:
-            sort_handlers = {
-                "updated_desc": (
-                    lambda obj: _timestamp_key(obj, UPDATED_FIELD_NAMES, False),
-                    True,
-                ),
-                "updated_asc": (
-                    lambda obj: _timestamp_key(obj, UPDATED_FIELD_NAMES, True),
-                    False,
-                ),
-                "created_desc": (
-                    lambda obj: _timestamp_key(obj, CREATED_FIELD_NAMES, False),
-                    True,
-                ),
-                "created_asc": (
-                    lambda obj: _timestamp_key(obj, CREATED_FIELD_NAMES, True),
-                    False,
-                ),
-                "title_asc": (_title_key, False),
-                "title_desc": (_title_key, True),
-            }
+            if merged_results:
+                sort_handlers = {
+                    "updated_desc": (
+                        lambda obj: _timestamp_key(obj, UPDATED_FIELD_NAMES, False),
+                        True,
+                    ),
+                    "updated_asc": (
+                        lambda obj: _timestamp_key(obj, UPDATED_FIELD_NAMES, True),
+                        False,
+                    ),
+                    "created_desc": (
+                        lambda obj: _timestamp_key(obj, CREATED_FIELD_NAMES, False),
+                        True,
+                    ),
+                    "created_asc": (
+                        lambda obj: _timestamp_key(obj, CREATED_FIELD_NAMES, True),
+                        False,
+                    ),
+                    "title_asc": (_title_key, False),
+                    "title_desc": (_title_key, True),
+                }
 
-            if sort_option in sort_handlers:
-                key_func, reverse = sort_handlers[sort_option]
-                merged_results = sorted(merged_results, key=key_func, reverse=reverse)
+                if sort_option in sort_handlers:
+                    key_func, reverse = sort_handlers[sort_option]
+                    merged_results = sorted(
+                        merged_results, key=key_func, reverse=reverse
+                    )
 
-            per_page = GeneralSettings.for_request(request).search_num_results
-            paginator = Paginator(merged_results, per_page)
-            page_number = request.GET.get("p", 1)
-            try:
-                results_paginated = paginator.page(page_number)
-            except PageNotAnInteger:
-                results_paginated = paginator.page(1)
-            except EmptyPage:
-                results_paginated = paginator.page(paginator.num_pages)
-            except InvalidPage:
-                results_paginated = paginator.page(paginator.num_pages)
+                per_page = GeneralSettings.for_request(request).search_num_results
+                paginator = Paginator(merged_results, per_page)
+                page_number = request.GET.get("p", 1)
+                try:
+                    results_paginated = paginator.page(page_number)
+                except PageNotAnInteger:
+                    results_paginated = paginator.page(1)
+                except EmptyPage:
+                    results_paginated = paginator.page(paginator.num_pages)
+                except InvalidPage:
+                    results_paginated = paginator.page(paginator.num_pages)
 
-        results = merged_results
+            results = merged_results
 
     context = {
         "request": request,

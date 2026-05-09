@@ -81,7 +81,7 @@ class CreateProject(TemplateCommand):
             options["template"] = template_path
 
         # Treat these files as Django templates to render the boilerplate.
-        options["extensions"] = ["py", "md", "txt"]
+        options["extensions"] = ["py", "md", "txt", "toml"]
         options["files"] = ["Dockerfile"]
 
         # Set options

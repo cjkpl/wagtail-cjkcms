@@ -25,7 +25,7 @@ name = "wagtail-cjkcms"
 dynamic = ["version", "dependencies"]
 description = "Wagtail Content Management System, installable as a Django app into any Wagtail 7.x site."
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 license = { text = "BSD-3-Clause" }
 authors = [{ name = "Grzegorz Krol", email = "gk@cjk.pl" }]
 keywords = ["wagtail", "django", "cms"]
@@ -42,6 +42,7 @@ classifiers = [
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
     "Topic :: Internet :: WWW/HTTP",

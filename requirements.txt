@@ -1,6 +1,6 @@
 django-bootstrap5>=25.2
-django>=5.2,<7.0
-wagtail>=7.0,<8.0
-wagtail-seo>=3.1,<4.0
-wagtail-cache>=3.0,<4.0
+django>=5.2
+wagtail>=7.0
+wagtail-seo>=3.1
+wagtail-cache>=3.0
 wagtail-color-panel # for deprecaated migration 0010. To be removed in future

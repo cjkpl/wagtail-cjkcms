@@ -29,7 +29,7 @@ SQL_INJECTION_SEARCH_PATTERNS: Final[tuple[re.Pattern[str], ...]] = (
 
 def normalize_search_query_for_validation(value: str) -> str:
     normalized = value
-    for _ in range(2):
+    for _decode_attempt in range(2):
         decoded = unquote_plus(normalized)
         if decoded == normalized:
             break

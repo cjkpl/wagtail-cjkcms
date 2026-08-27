@@ -6,24 +6,19 @@ single `blocks` module.
 
 from django.utils.translation import gettext_lazy as _
 
-from .html_blocks import (
-    ButtonBlock,
-    ImageBlock,
-    ImageLinkBlock,
-    DownloadBlock,
-    EmbedVideoBlock,
-    PageListBlock,
-    PagePreviewBlock,
-    QuoteBlock,
-    RichTextBlock,
-    TableBlock,
-    SearchableHTMLBlock,
-)
-from .content_blocks import (  # noqa
+from cjkcms.settings import cms_settings
+
+from .content.countdown import CountdownBlock
+from .content.events import EventCalendarBlock, PublicEventBlock
+from .content.multistep import MultiStepInstructionsBlock
+from .content.steps import StepsBlock
+from .content_blocks import (
     AccordionBlock,
     CardBlock,
     CarouselBlock,
     FilmStripBlock,
+    HighlightBlock,
+    IconWithTextBlock,
     ImageGalleryBlock,
     ModalBlock,
     NavDocumentLinkWithSubLinkBlock,
@@ -31,15 +26,21 @@ from .content_blocks import (  # noqa
     NavPageLinkWithSubLinkBlock,
     PriceListBlock,
     ReusableContentBlock,
-    HighlightBlock,
-    IconWithTextBlock,
 )
-from .content.events import PublicEventBlock, EventCalendarBlock
-from .content.countdown import CountdownBlock
-from .content.multistep import MultiStepInstructionsBlock
-from .content.steps import StepsBlock
+from .html_blocks import (
+    ButtonBlock,
+    DownloadBlock,
+    EmbedVideoBlock,
+    ImageBlock,
+    ImageLinkBlock,
+    PageListBlock,
+    PagePreviewBlock,
+    QuoteBlock,
+    RichTextBlock,
+    SearchableHTMLBlock,
+    TableBlock,
+)
 from .layout_blocks import CardGridBlock, GridBlock, HeroBlock
-from cjkcms.settings import cms_settings
 
 # Collections of blocks commonly used together.
 

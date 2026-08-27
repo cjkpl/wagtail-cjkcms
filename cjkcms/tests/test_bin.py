@@ -2,11 +2,11 @@ import os
 import shutil
 import sys
 import unittest
-from unittest import mock
 from io import StringIO
+from unittest import mock
 
-from cjkcms.bin.cjkcms import main as cms_main
 from cjkcms.bin.cjkcms import CreateProject
+from cjkcms.bin.cjkcms import main as cms_main
 
 
 class TestCjkcmsStart(unittest.TestCase):

@@ -1,10 +1,11 @@
-from datetime import datetime, timedelta, timezone
-from wagtail.test.utils import WagtailPageTests
-from django.contrib.auth.models import User, Group
-
-from wagtail.models import Page
-from cjkcms.models.cms_models import ArticlePage
 import uuid
+from datetime import UTC, datetime, timedelta
+
+from django.contrib.auth.models import Group, User
+from wagtail.models import Page
+from wagtail.test.utils import WagtailPageTests
+
+from cjkcms.models.cms_models import ArticlePage
 
 
 class AdvSettingsTests(WagtailPageTests):
@@ -34,8 +35,8 @@ class AdvSettingsTests(WagtailPageTests):
         test_user4.groups.add(self.group23)
         test_user4.save()
 
-        self.in_the_past = datetime.now(tz=timezone.utc) - timedelta(days=1)
-        self.in_the_future = datetime.now(tz=timezone.utc) + timedelta(days=1)
+        self.in_the_past = datetime.now(tz=UTC) - timedelta(days=1)
+        self.in_the_future = datetime.now(tz=UTC) + timedelta(days=1)
 
     def createArticlePage(self, title: str, settings: dict):
         # Get the HomePage

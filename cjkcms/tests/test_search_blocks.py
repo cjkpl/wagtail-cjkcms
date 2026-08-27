@@ -1,14 +1,12 @@
-import pytest
 from unittest import mock
 
-from wagtail.models import Page
+import pytest
+from django.test import Client, RequestFactory, TestCase, override_settings
 from django.urls import reverse
-from django.test import RequestFactory
-from django.test import Client, TestCase, override_settings
+from wagtail.models import Locale, Page
+from wagtail.search import index as search_index
 
 from cjkcms.models.cms_models import ArticlePage
-from wagtail.models import Locale
-from wagtail.search import index as search_index
 
 
 @override_settings(

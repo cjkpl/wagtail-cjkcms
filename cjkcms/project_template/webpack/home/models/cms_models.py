@@ -3,14 +3,15 @@ Three main creatable page types used in Cjk CMS.
 """
 
 from django.utils.translation import gettext_lazy as _
+
+from cjkcms.blocks import CONTENT_STREAMBLOCKS, LAYOUT_STREAMBLOCKS
+from cjkcms.blocks.layout_blocks import GridBlock
+from cjkcms.fields import CjkcmsStreamField
 from cjkcms.models import (
-    CjkcmsArticlePage,
     CjkcmsArticleIndexPage,
+    CjkcmsArticlePage,
     CjkcmsWebPage,
 )
-from cjkcms.fields import CjkcmsStreamField
-from cjkcms.blocks import LAYOUT_STREAMBLOCKS, CONTENT_STREAMBLOCKS
-from cjkcms.blocks.layout_blocks import GridBlock
 from home.blocks import (
     PROJECT_CONTENT_STREAMBLOCKS,
     PROJECT_LAYOUT_STREAMBLOCKS,

@@ -1,5 +1,6 @@
-from django import template
 from typing import TypeVar
+
+from django import template
 
 register = template.Library()
 T = TypeVar("T")

@@ -1,9 +1,9 @@
+
 from django.conf import settings
-from typing import Optional
 
 
 class _DefaultSettings:
-    CJKCMS_FONT_URL = "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"  # noqa
+    CJKCMS_FONT_URL = "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
 
     CJKCMS_FONT_FAMILY = "Roboto, sans-serif"
 
@@ -82,7 +82,7 @@ class _DefaultSettings:
         ("button-popup", "Button opening search popup"),
     ]
 
-    CJKCMS_LANGUAGE_SELECTOR_DEFAULT: Optional[str] = None
+    CJKCMS_LANGUAGE_SELECTOR_DEFAULT: str | None = None
     CJKCMS_LANGUAGE_SELECTOR_CHOICES = [
         (None, "None"),
         ("cjkcms/snippets/navbar_lang_selector.html", "Menu Dropdown Selector"),

@@ -6,13 +6,15 @@ in your Wagtail project. Copy+paste and modify as needed.
 """
 
 from django.utils.translation import gettext_lazy as _
+
+from cjkcms.blocks import CONTENT_STREAMBLOCKS, LAYOUT_STREAMBLOCKS
+from cjkcms.fields import CjkcmsStreamField
+
 from . import (
-    CjkcmsArticlePage,
     CjkcmsArticleIndexPage,
+    CjkcmsArticlePage,
     CjkcmsWebPage,
 )
-from cjkcms.fields import CjkcmsStreamField
-from cjkcms.blocks import LAYOUT_STREAMBLOCKS, CONTENT_STREAMBLOCKS
 
 
 class ArticlePage(CjkcmsArticlePage):

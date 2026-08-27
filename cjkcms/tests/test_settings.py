@@ -1,12 +1,13 @@
-from cjkcms.models.wagtailsettings_models import AdobeApiSettings
-from cjkcms.settings import cms_settings
 from django.contrib.staticfiles import finders
+
+# import TemplateDoesNotExist
+from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
 from django.test import TestCase
 from wagtail.models import Site
 
-# import TemplateDoesNotExist
-from django.template import TemplateDoesNotExist
+from cjkcms.models.wagtailsettings_models import AdobeApiSettings
+from cjkcms.settings import cms_settings
 
 # Test the settings.py file and all templates and static files defined.
 
@@ -43,7 +44,7 @@ class SettingsTests(TestCase):
                     self.assertIn("{{self.settings.custom_id}}", tpl.template.source)
 
             except TemplateDoesNotExist as e:
-                self.fail(f"Template not found: {str(e)}")
+                self.fail(f"Template not found: {e!s}")
 
     def test_cardblock_templates(self):
         templates = cms_settings.CJKCMS_FRONTEND_TEMPLATES_BLOCKS["cardblock"]

@@ -2,9 +2,9 @@ import unittest
 from unittest.mock import Mock
 
 from cjkcms.draftail import (
+    NewWindowExternalLinkHandler,
     register_block_feature,
     register_inline_styling,
-    NewWindowExternalLinkHandler,
 )
 from cjkcms.draftail.draftail_extensions import create_control_dict
 

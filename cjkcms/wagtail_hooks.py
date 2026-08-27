@@ -1,26 +1,25 @@
-from cjkcms import __version__
-from cjkcms.draftail import (
-    NewWindowExternalLinkHandler,
-    register_block_feature,
-    register_inline_styling,
-)
-
 # from cjkcms.models.admin_sidebar import NavbarSnippet, EventCalendarSnippet
 from django.templatetags.static import static
 from django.utils.html import format_html
 from wagtail import hooks
 from wagtail.admin.menu import MenuItem
 from wagtail.snippets.models import register_snippet
+from wagtail.snippets.views.snippets import SnippetViewSet
 from wagtailcache.cache import clear_cache
 
+from cjkcms import __version__
+from cjkcms.draftail import (
+    NewWindowExternalLinkHandler,
+    register_block_feature,
+    register_inline_styling,
+)
 from cjkcms.models.snippet_models import (
+    EventCalendar,
+    Footer,
+    FooterForm,
     Navbar,
     NavbarForm,
-    EventCalendar,
-    FooterForm,
-    Footer,
 )
-from wagtail.snippets.views.snippets import SnippetViewSet
 
 
 class NavbarSnippet(SnippetViewSet):

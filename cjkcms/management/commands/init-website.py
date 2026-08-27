@@ -1,6 +1,6 @@
+from django.apps import apps
 from django.core.management.base import BaseCommand
 from wagtail.models import Page
-from django.apps import apps
 
 
 class Command(BaseCommand):

@@ -1,20 +1,18 @@
 import re
+from datetime import datetime, timedelta
 
-from django.template import engines, TemplateSyntaxError
+from django.template import Context, Template, TemplateSyntaxError, engines
+from django.test import TestCase
 from wagtail.models import Site
 
 from cjkcms.models import AdobeApiSettings
-from datetime import datetime, timedelta
-from django.test import TestCase
-from django.template import Template, Context
-from cjkcms.templatetags.cjkcms_tags import is_in_future, is_in_past, first_non_empty
-
+from cjkcms.templatetags.cjkcms_tags import first_non_empty, is_in_future, is_in_past
 
 django_engine = engines["django"]
 html_id_re = re.compile(r"^[A-Za-z][A-Za-z0-9_:.-]*$")
 
 version_re = re.compile(
-    r"^(\d+!)?(\d+)(\.\d+)+([\.\-\_])?((a(lpha)?|b(eta)?|c|r(c|ev)?|pre(view)?)\d*)?(\.?(post|dev)\d*)?$"  # noqa: E501
+    r"^(\d+!)?(\d+)(\.\d+)+([\.\-\_])?((a(lpha)?|b(eta)?|c|r(c|ev)?|pre(view)?)\d*)?(\.?(post|dev)\d*)?$"
 )
 
 
@@ -75,7 +73,7 @@ class TemplateTagTests(TestCase):
         self.assertIn(
             rt[-4:],
             [".png", ".jpg", ".webp", ".svg"],
-            f"Django setting BRAND_LOGO_LONG does not seem to return one of [png,jpg,webp,svg]: {rt}",  # noqa: E501
+            f"Django setting BRAND_LOGO_LONG does not seem to return one of [png,jpg,webp,svg]: {rt}",
         )
 
     def test_brand_logo_square_tag(self):
@@ -85,7 +83,7 @@ class TemplateTagTests(TestCase):
         self.assertIn(
             rt[-4:],
             [".png", ".jpg", ".webp", ".svg"],
-            f"Django setting BRAND_LOGO_LONG does not seem to return one of [png,jpg,webp,svg]: {rt}",  # noqa: E501
+            f"Django setting BRAND_LOGO_LONG does not seem to return one of [png,jpg,webp,svg]: {rt}",
         )
 
     def test_AdobeApiKeyInTemplate(self):
@@ -95,7 +93,7 @@ class TemplateTagTests(TestCase):
         adobe_api_key.save()
 
         rt = django_engine.from_string(
-            "{% load wagtailsettings_tags %}{% get_settings use_default_site=True %}{{ settings.cjkcms.AdobeApiSettings.adobe_embed_id }}"  # noqa: E501
+            "{% load wagtailsettings_tags %}{% get_settings use_default_site=True %}{{ settings.cjkcms.AdobeApiSettings.adobe_embed_id }}"
         ).render(None)
         self.assertEqual(
             rt, "test_key", "Adobe API key not returned in template context"
@@ -135,7 +133,7 @@ class TemplateTagTests(TestCase):
 
     def test_is_in_future_template_tag(self):
         template = Template(
-            """{% load cjkcms_tags %}{% if the_date|is_in_future %}future{% else %}not future{% endif %}"""  # noqa: E501
+            """{% load cjkcms_tags %}{% if the_date|is_in_future %}future{% else %}not future{% endif %}"""
         )
         context = Context({"the_date": datetime.now() + timedelta(days=1)})
         result = template.render(context)

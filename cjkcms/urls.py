@@ -1,5 +1,6 @@
 from django.urls import include, path
 from wagtail.contrib.sitemaps.views import sitemap
+
 from cjkcms import search_urls as cjkcms_search_urls
 
 # from .settings import cms_settings

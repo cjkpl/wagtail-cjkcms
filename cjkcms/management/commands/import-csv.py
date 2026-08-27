@@ -1,7 +1,8 @@
-from django.core.management.base import BaseCommand
 import csv
 from os.path import exists
+
 from django.apps import apps
+from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):

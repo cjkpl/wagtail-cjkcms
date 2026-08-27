@@ -11,12 +11,12 @@ import logging
 
 from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
-from wagtail.contrib.table_block.blocks import TableBlock as WagtailTableBlock
 from wagtail import blocks
-from wagtail.rich_text import get_text_for_indexing
+from wagtail.contrib.table_block.blocks import TableBlock as WagtailTableBlock
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
+from wagtail.rich_text import get_text_for_indexing
 
 from .base_blocks import (
     BaseBlock,
@@ -189,7 +189,7 @@ class PageListBlock(BaseBlock):
         required=False,
         label=_("Parent page"),
         help_text=_(
-            "Preview of pages that are children of the selected page (default to own parent). Uses ordering specified in the page’s LAYOUT tab."  # noqa
+            "Preview of pages that are children of the selected page (default to own parent). Uses ordering specified in the page’s LAYOUT tab."
         ),
     )
     classified_by = ClassifierTermChooserBlock(
@@ -272,7 +272,7 @@ class PageListBlock(BaseBlock):
                 except AttributeError:
                     # `pages` is not a queryset, or is not a queryset of CjkcmsPage.
                     logger.warning(
-                        "Tried to filter by ClassifierTerm in PageListBlock, but <%s.%s ('%s')>.get_index_children()  # noqadid not return a queryset or is not a queryset of CjkcmsPage models.",  # noqa
+                        "Tried to filter by ClassifierTerm in PageListBlock, but <%s.%s ('%s')>.get_index_children()  # noqadid not return a queryset or is not a queryset of CjkcmsPage models.",
                         indexer._meta.app_label,
                         indexer.__class__.__name__,
                         indexer.title,

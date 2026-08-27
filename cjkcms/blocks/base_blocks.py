@@ -4,15 +4,15 @@ Blocks for StreamField content
 
 from django import forms
 from django.template.loader import render_to_string
+from django.utils import translation
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
-from django.utils import translation
 from django.utils.translation import gettext_lazy as _
-from wagtail import blocks
-from wagtail.models import Collection
 from taggit.models import Tag
+from wagtail import blocks
 from wagtail.coreutils import resolve_model_string
 from wagtail.documents.blocks import DocumentChooserBlock
+from wagtail.models import Collection
 
 from cjkcms.settings import cms_settings
 from cjkcms.utils import can_show_block
@@ -295,7 +295,7 @@ class CjkcmsAdvColumnSettings(CjkcmsAdvSettings):
         verbose_name=_("Column Breakpoint"),
         help_text=_(
             "Screen size at which the column will expand horizontally or stack vertically."
-        ),  # noqa
+        ),
     )
 
 
@@ -411,7 +411,7 @@ class LinkStructValue(blocks.StructValue):
         ext = self.get("other_link")
         if page and ext:
             localized_page = self._get_localized_page(page)
-            return "{0}{1}".format(localized_page.url, ext)
+            return f"{localized_page.url}{ext}"
         elif page:
             localized_page = self._get_localized_page(page)
             return localized_page.url

@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
 
 from django.test import TestCase
-from cjkcms.templatetags.gravatar import gravatar_url, gravatar
+
+from cjkcms.templatetags.gravatar import gravatar, gravatar_url
 
 
 class GravatarTests(TestCase):
@@ -16,13 +16,13 @@ class GravatarTests(TestCase):
         )
 
     def test_gavatar(self):
-        html = '<img src="https://www.gravatar.com/avatar/738668e0913f0841e3285ca39fa2fc4b?s=80&amp;d=" width="80" height="80" >'  # noqa
+        html = '<img src="https://www.gravatar.com/avatar/738668e0913f0841e3285ca39fa2fc4b?s=80&amp;d=" width="80" height="80" >'
         self.assertEqual(html, gravatar(email="admin@cjk.pl"))
 
-        html = '<img src="https://www.gravatar.com/avatar/738668e0913f0841e3285ca39fa2fc4b?s=130&amp;d=" width="130" height="130" >'  # noqa
+        html = '<img src="https://www.gravatar.com/avatar/738668e0913f0841e3285ca39fa2fc4b?s=130&amp;d=" width="130" height="130" >'
         self.assertEqual(html, gravatar(email="admin@cjk.pl", size=130))
 
-        html = '<img src="https://www.gravatar.com/avatar/738668e0913f0841e3285ca39fa2fc4b?s=180&amp;d=" width="180" height="180" class=&quot;avatar&quot; >'  # noqa
+        html = '<img src="https://www.gravatar.com/avatar/738668e0913f0841e3285ca39fa2fc4b?s=180&amp;d=" width="180" height="180" class=&quot;avatar&quot; >'
         self.assertEqual(
             html, gravatar(email="admin@cjk.pl", size=180, options='class="avatar"')
         )
@@ -40,15 +40,15 @@ class GravatarWithDefaultGravatarUrlTests(TestCase):
         )
 
     def test_gavatar(self):
-        html = '<img src="https://www.gravatar.com/avatar/738668e0913f0841e3285ca39fa2fc4b?s=80&amp;d=www.foo.com" width="80" height="80" >'  # noqa
+        html = '<img src="https://www.gravatar.com/avatar/738668e0913f0841e3285ca39fa2fc4b?s=80&amp;d=www.foo.com" width="80" height="80" >'
         self.assertEqual(
             html, gravatar(email="admin@cjk.pl", default_url="www.foo.com")
         )
 
-        html = '<img src="https://www.gravatar.com/avatar/738668e0913f0841e3285ca39fa2fc4b?s=130&amp;d=www.foo.com" width="130" height="130" >'  # noqa
+        html = '<img src="https://www.gravatar.com/avatar/738668e0913f0841e3285ca39fa2fc4b?s=130&amp;d=www.foo.com" width="130" height="130" >'
         self.assertEqual(html, gravatar("admin@cjk.pl", 130, "www.foo.com"))
 
-        html = '<img src="https://www.gravatar.com/avatar/738668e0913f0841e3285ca39fa2fc4b?s=180&amp;d=www.foo.com" width="180" height="180" class=&quot;avatar&quot; >'  # noqa
+        html = '<img src="https://www.gravatar.com/avatar/738668e0913f0841e3285ca39fa2fc4b?s=180&amp;d=www.foo.com" width="180" height="180" class=&quot;avatar&quot; >'
         self.assertEqual(
             html, gravatar("admin@cjk.pl", 180, "www.foo.com", 'class="avatar"')
         )

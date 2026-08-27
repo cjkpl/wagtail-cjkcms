@@ -3,11 +3,12 @@ Layout blocks are essentially a wrapper around content.
 e.g. rows, columns, hero units, etc.
 """
 
-from cjkcms.blocks.base_blocks import BaseLayoutBlock, CjkcmsAdvColumnSettings
-from cjkcms.settings import cms_settings
 from django.utils.translation import gettext_lazy as _
 from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
+
+from cjkcms.blocks.base_blocks import BaseLayoutBlock, CjkcmsAdvColumnSettings
+from cjkcms.settings import cms_settings
 
 # Level 1 layout blocks
 
@@ -96,7 +97,7 @@ class HeroBlock(BaseLayoutBlock):
         label=_("Parallax Effect"),
         help_text=_(
             "Background images scroll slower than foreground images, creating an illusion of depth."
-        ),  # noqa
+        ),
     )
     background_image = ImageChooserBlock(required=False)
     tile_image = blocks.BooleanBlock(

@@ -1,5 +1,5 @@
-from wagtail.embeds.models import Embed
 from django.core.management.base import BaseCommand
+from wagtail.embeds.models import Embed
 
 
 class Command(BaseCommand):

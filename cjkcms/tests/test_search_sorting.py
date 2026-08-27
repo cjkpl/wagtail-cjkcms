@@ -1,7 +1,7 @@
-import pytest
 from datetime import timedelta
 from unittest.mock import patch
 
+import pytest
 from django.test import Client, TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone

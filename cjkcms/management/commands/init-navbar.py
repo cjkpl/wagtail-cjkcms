@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from wagtail.models import Page, Site
-from cjkcms.models import Navbar, LayoutSettings, NavbarOrderable
+
+from cjkcms.models import LayoutSettings, Navbar, NavbarOrderable
 
 
 class Command(BaseCommand):

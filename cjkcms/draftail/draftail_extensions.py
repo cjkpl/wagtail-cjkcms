@@ -1,23 +1,23 @@
-from typing import Optional, Dict
+
+from django.utils.html import escape
 from wagtail.admin.rich_text.converters.html_to_contentstate import (
     BlockElementHandler,
     InlineStyleElementHandler,
 )
 from wagtail.admin.rich_text.editors.draftail.features import (
-    InlineStyleFeature,
     BlockFeature,
+    InlineStyleFeature,
 )
 from wagtail.rich_text import LinkHandler
-from django.utils.html import escape
 
 
 def create_control_dict(
     type_: str,
     description: str,
-    label: Optional[str] = None,
-    icon: Optional[str] = None,
-    editor_style: Optional[str] = None,
-) -> Dict[str, str]:
+    label: str | None = None,
+    icon: str | None = None,
+    editor_style: str | None = None,
+) -> dict[str, str]:
     """
     Helper function to create a control dictionary.
     """
@@ -39,10 +39,10 @@ def register_inline_styling(
     description: str,
     type_: str,
     tag: str = "span",
-    format: Optional[str] = None,
-    editor_style: Optional[str] = None,
-    label: Optional[str] = None,
-    icon: Optional[str] = None,
+    format: str | None = None,
+    editor_style: str | None = None,
+    label: str | None = None,
+    icon: str | None = None,
 ):
     """
     Registers an inline style feature in the Wagtail editor.
@@ -69,9 +69,9 @@ def register_block_feature(
     type_: str,
     css_class: str,
     element: str = "div",
-    label: Optional[str] = None,
-    icon: Optional[str] = None,
-    editor_style: Optional[str] = None,
+    label: str | None = None,
+    icon: str | None = None,
+    editor_style: str | None = None,
 ):
     """
     Registers a block feature in the Wagtail editor.
@@ -104,7 +104,7 @@ class NewWindowExternalLinkHandler(LinkHandler):
     identifier = "external"
 
     @classmethod
-    def expand_db_attributes(cls, attrs: Dict[str, str]) -> str:
+    def expand_db_attributes(cls, attrs: dict[str, str]) -> str:
         href = attrs["href"]
         if href.endswith("?_blank"):
             href = href[:-7]

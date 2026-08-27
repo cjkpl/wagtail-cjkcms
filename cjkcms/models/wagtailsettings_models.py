@@ -4,16 +4,17 @@ Custom wagtail settings, defined per-site
 
 import json
 
-from cjkcms.models.snippet_models import Footer, Navbar
-from cjkcms.settings import cms_settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, HelpPanel, InlinePanel
+from wagtail.admin.panels import FieldPanel, HelpPanel, InlinePanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.images import get_image_model_string
 from wagtail.models import Orderable
+
+from cjkcms.models.snippet_models import Footer, Navbar
+from cjkcms.settings import cms_settings
 
 
 @register_setting(icon="group")
@@ -291,7 +292,7 @@ class LayoutSettings(ClusterableModel, BaseSiteSetting):
         choices=[],
         default="",
         verbose_name=_("Color scheme"),
-        help_text=_("Default light/dark/custom theme. (MD/Bootstrap only)"),  # noqa
+        help_text=_("Default light/dark/custom theme. (MD/Bootstrap only)"),
     )
 
     light_dark_switch = models.BooleanField(
@@ -525,7 +526,7 @@ class AnalyticsSettings(BaseSiteSetting):
         help_text=_(
             "Track all button clicks using Google Analytics event tracking. "
             "Event tracking details can be specified in each button’s advanced settings options."
-        ),  # noqa
+        ),
     )
     gtm_id = models.CharField(
         blank=True,
@@ -550,7 +551,7 @@ class AnalyticsSettings(BaseSiteSetting):
     matomo_disable_cookies = models.BooleanField(
         default=False,
         verbose_name=_("Disable Matomo Cookies"),
-        help_text=_("Disable Matomo cookies. Useful for GDPR compliance."),  # noqa
+        help_text=_("Disable Matomo cookies. Useful for GDPR compliance."),
     )
     # Cookie consent - using https://github.com/orestbida/cookieconsent (MIT license)
     cookie_consent = models.BooleanField(
@@ -559,7 +560,7 @@ class AnalyticsSettings(BaseSiteSetting):
         help_text=_(
             "Enable simple GDPR compliant cookie consent banner. "
             "Intended as a quick solution for sites that don't need a fully customisable consent."
-        ),  # noqa
+        ),
     )
     cookie_consent_deny_btn = models.BooleanField(
         default=False,
@@ -567,7 +568,7 @@ class AnalyticsSettings(BaseSiteSetting):
         help_text=_(
             "Show an [Accept Necessary Only] button in the cookie consent banner. "
             "If unchecked, the banner will only have an accept and settings buttons."
-        ),  # noqa
+        ),
     )
     privacy_page = models.ForeignKey(
         "wagtailcore.Page",
@@ -587,7 +588,7 @@ class AnalyticsSettings(BaseSiteSetting):
         blank=True,
         null=True,
         help_text=_(
-            "Show [More info] section with link to selected contact page in cookie consent settings."  # noqa
+            "Show [More info] section with link to selected contact page in cookie consent settings."
         ),
     )
 
@@ -675,7 +676,6 @@ class GeneralSettings(BaseSiteSetting):
             'For example: "sender@example.com" or '
             '"Sender Name <sender@example.com>" (without quotes)'
         ),
-        # noqa
     )
     search_num_results = models.PositiveIntegerField(
         default=20,

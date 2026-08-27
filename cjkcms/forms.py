@@ -6,7 +6,6 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
-
 SQL_INJECTION_SEARCH_PATTERNS: Final[tuple[re.Pattern[str], ...]] = (
     re.compile(
         r"\bwaitfor\b\s+\bdelay\b\s+['\"]?\d{1,2}:\d{1,2}:\d{1,2}",

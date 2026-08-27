@@ -1,7 +1,7 @@
-from wagtail.models import Site
-from cjkcms.models.wagtailsettings_models import MailchimpApiSettings
-
 import requests
+from wagtail.models import Site
+
+from cjkcms.models.wagtailsettings_models import MailchimpApiSettings
 
 
 class MailchimpApi:
@@ -66,7 +66,7 @@ class MailchimpApi:
         return self._get(endpoint)
 
     def add_user_to_list(self, list_id, data):
-        endpoint = "lists/{0}".format(list_id)
+        endpoint = f"lists/{list_id}"
         return self._post(endpoint, data=data)
 
     def _request(

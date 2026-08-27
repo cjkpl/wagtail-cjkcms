@@ -1,11 +1,12 @@
 import json
 import unittest
-from unittest.mock import patch, Mock
+from datetime import datetime, timedelta
+from unittest.mock import Mock, patch
 from urllib.error import URLError
-from datetime import timedelta, datetime
+
+from wagtail.embeds.exceptions import EmbedNotFoundException
 
 from cjkcms.finders.oembed import OEmbedFinderWithReferer
-from wagtail.embeds.exceptions import EmbedNotFoundException
 
 
 class TestOEmbedFinderWithReferer(unittest.TestCase):

@@ -1,4 +1,4 @@
-from .base import *  # noqa
+from .base import *
 
 DEBUG = False
 
@@ -36,13 +36,13 @@ TEMPLATES = [
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
-        "LOCATION": os.path.join(BASE_DIR, "cache"),  # noqa
+        "LOCATION": os.path.join(BASE_DIR, "cache"),
         "KEY_PREFIX": "cjkcms",
         "TIMEOUT": 14400,  # in seconds
     }
 }
 
 try:
-    from .local import *  # noqa
+    from .local import *
 except ImportError:
     pass

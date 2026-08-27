@@ -1,7 +1,7 @@
-from collections import OrderedDict
 import contextlib
-from datetime import date, datetime
 import re
+from collections import OrderedDict
+from datetime import date, datetime
 from typing import Any
 
 from django.apps import apps
@@ -9,7 +9,7 @@ from django.core.paginator import EmptyPage, InvalidPage, PageNotAnInteger, Pagi
 from django.http import Http404, HttpResponsePermanentRedirect
 from django.shortcuts import render
 from django.utils import timezone, translation
-from wagtail.models import Page
+from wagtail.models import Locale, Page
 from wagtail.search import index
 from wagtail.search.backends import get_search_backend
 
@@ -18,9 +18,6 @@ from cjkcms.models import (
     GeneralSettings,
     LayoutSettings,
 )
-
-from wagtail.models import Locale
-
 
 # Lists of common datetime attributes used for sorting pages and other models.
 UPDATED_FIELD_NAMES = (

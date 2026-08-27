@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 
 def can_show_block(
@@ -16,7 +16,7 @@ def can_show_block(
     if item_visibility == "hidden":
         return False
 
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
 
     if visible_from and visible_from > now:
         return False

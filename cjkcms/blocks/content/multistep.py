@@ -1,7 +1,8 @@
 from wagtail import blocks
-from wagtail.blocks import StructBlock, StreamBlock
-from cjkcms.blocks.html_blocks import ButtonBlock
+from wagtail.blocks import StreamBlock, StructBlock
+
 from cjkcms.blocks.base_blocks import BaseBlock
+from cjkcms.blocks.html_blocks import ButtonBlock
 from cjkcms.settings import cms_settings
 
 

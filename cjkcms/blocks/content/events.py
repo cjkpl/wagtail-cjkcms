@@ -1,8 +1,9 @@
-from cjkcms.blocks.base_blocks import BaseBlock
-from wagtail import blocks
 from django.utils.translation import gettext_lazy as _
-from wagtail.snippets.blocks import SnippetChooserBlock
+from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
+from wagtail.snippets.blocks import SnippetChooserBlock
+
+from cjkcms.blocks.base_blocks import BaseBlock
 
 
 class PublicEventBlock(BaseBlock):

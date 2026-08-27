@@ -1,12 +1,13 @@
 import unittest
+
 from cjkcms.blocks import (
-    GridBlock,
-    HeroBlock,
     AccordionBlock,
-    CardBlock,
     ButtonBlock,
+    CardBlock,
     CardGridBlock,
     # replace_contentblocks,
+    GridBlock,
+    HeroBlock,
 )
 from cjkcms.utils.richtext import get_richtext_preview
 

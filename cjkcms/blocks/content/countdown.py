@@ -1,8 +1,10 @@
-from cjkcms.blocks.base_blocks import BaseBlock
-from wagtail import blocks
-from django.utils.translation import gettext_lazy as _
-from datetime import datetime, timedelta, timezone
 import re
+from datetime import UTC, datetime, timedelta, timezone
+
+from django.utils.translation import gettext_lazy as _
+from wagtail import blocks
+
+from cjkcms.blocks.base_blocks import BaseBlock
 
 
 def convert_to_utc(naive_dt, utc_offset_str):
@@ -27,7 +29,7 @@ def convert_to_utc(naive_dt, utc_offset_str):
     aware_local_dt = naive_dt.replace(tzinfo=tz)
 
     # Convert the timezone-aware datetime to UTC
-    utc_dt = aware_local_dt.astimezone(timezone.utc)
+    utc_dt = aware_local_dt.astimezone(UTC)
 
     return utc_dt
 

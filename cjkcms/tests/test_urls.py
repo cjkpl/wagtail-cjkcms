@@ -1,10 +1,8 @@
 import pytest
-
-from django.urls import reverse
 from django.test import Client, TestCase, override_settings
-
-from wagtail.models import Site
+from django.urls import reverse
 from wagtail.images.tests.utils import Image, get_test_image_file
+from wagtail.models import Site
 
 from cjkcms.models import LayoutSettings
 

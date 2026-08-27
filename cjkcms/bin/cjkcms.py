@@ -5,7 +5,6 @@ import sys
 from django.core.management.templates import TemplateCommand
 from django.core.management.utils import get_random_secret_key
 
-
 CURRENT_PYTHON = sys.version_info[:2]
 REQUIRED_PYTHON = (3, 7)
 

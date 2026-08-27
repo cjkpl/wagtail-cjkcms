@@ -1,9 +1,9 @@
+from wagtail.models import Page
 from wagtail.test.utils import WagtailPageTests
-from cjkcms.models import CjkcmsWebPage
-from cjkcms.models.cms_models import WebPage
 from wagtail.test.utils.form_data import nested_form_data
 
-from wagtail.models import Page
+from cjkcms.models import CjkcmsWebPage
+from cjkcms.models.cms_models import WebPage
 
 
 class WebPageTests(WagtailPageTests):

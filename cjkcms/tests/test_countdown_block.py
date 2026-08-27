@@ -1,8 +1,10 @@
+from datetime import UTC, datetime, timedelta
+
 import pytest
 from django.test import Client, TestCase, override_settings
 from wagtail.models import Page
+
 from cjkcms.models.cms_models import ArticlePage
-from datetime import datetime, timedelta, timezone
 
 
 @override_settings(
@@ -74,7 +76,7 @@ class TestCountdownBlock(TestCase):
         # generate start date that is one in the future
 
         # Get the current UTC time
-        current_utc_time = datetime.now(timezone.utc)
+        current_utc_time = datetime.now(UTC)
         # Add one minute to the current UTC time
         one_minute_ahead = current_utc_time + timedelta(minutes=1)
         # Remove timezone info from the one_minute_ahead datetime

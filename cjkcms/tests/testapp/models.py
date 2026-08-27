@@ -1,6 +1,6 @@
 from cjkcms.models import (
-    CjkcmsArticlePage,
     CjkcmsArticleIndexPage,
+    CjkcmsArticlePage,
     CjkcmsWebPage,
 )
 

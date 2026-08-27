@@ -1,26 +1,24 @@
 import json
-from typing import Optional, Any, Dict
 from datetime import timedelta
+from typing import Any
 from urllib import request as urllib_request
 from urllib.error import URLError
 from urllib.parse import urlencode
 from urllib.request import Request
 
-from django.utils import timezone
-
-from wagtail.embeds.exceptions import EmbedNotFoundException
-
-from wagtail.embeds.finders.oembed import OEmbedFinder
 from django.conf import settings
+from django.utils import timezone
+from wagtail.embeds.exceptions import EmbedNotFoundException
+from wagtail.embeds.finders.oembed import OEmbedFinder
 
 
 class OEmbedFinderWithReferer(OEmbedFinder):
     def find_embed(
         self,
         url: str,
-        max_width: Optional[int] = None,
-        max_height: Optional[int] = None,
-    ) -> Dict[str, Any]:
+        max_width: int | None = None,
+        max_height: int | None = None,
+    ) -> dict[str, Any]:
         # Find provider
         endpoint = self._get_endpoint(url)
 

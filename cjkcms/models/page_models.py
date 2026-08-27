@@ -6,7 +6,7 @@ Based on CODEREDCMS
 
 import logging
 from datetime import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Type
+from typing import TYPE_CHECKING, Any
 
 # import geocoder
 from django import forms
@@ -35,11 +35,11 @@ from wagtail.utils.decorators import cached_classmethod
 from wagtailcache.cache import WagtailCacheMixin
 from wagtailseo.models import SeoMixin, TwitterCard
 
-from cjkcms.utils.richtext import get_richtext_preview
 from cjkcms.blocks import CONTENT_STREAMBLOCKS, LAYOUT_STREAMBLOCKS
 from cjkcms.models.snippet_models import ClassifierTerm
 from cjkcms.models.wagtailsettings_models import LayoutSettings
 from cjkcms.settings import cms_settings
+from cjkcms.utils.richtext import get_richtext_preview
 from cjkcms.widgets import ClassifierSelectWidget
 
 if TYPE_CHECKING:
@@ -48,16 +48,16 @@ if TYPE_CHECKING:
 logger = logging.getLogger("cjkcms")
 
 
-CJKCMS_PAGE_MODELS: List[Type[Page]] = []
+CJKCMS_PAGE_MODELS: list[type[Page]] = []
 
 
-def get_page_models() -> List[Type[Page]]:
+def get_page_models() -> list[type[Page]]:
     return CJKCMS_PAGE_MODELS
 
 
 class CjkcmsPageMeta(PageBase):
     def __init__(
-        cls, name: str, bases: Tuple[Type[Page], ...], dct: Dict[str, Any]
+        cls, name: str, bases: tuple[type[Page], ...], dct: dict[str, Any]
     ) -> None:
         super().__init__(name, bases, dct)
         if "search_template" not in dct:
@@ -70,7 +70,7 @@ class CjkcmsTag(TaggedItemBase):
     class Meta:
         verbose_name = _("CMS Tag")
 
-    content_object = ParentalKey("cjkcms.CjkcmsPage", related_name="tagged_items")  # type: ignore  # noqa: E501
+    content_object = ParentalKey("cjkcms.CjkcmsPage", related_name="tagged_items")  # type: ignore
 
 
 class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
@@ -205,7 +205,7 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
     ###############
 
     custom_template = models.CharField(
-        blank=True, max_length=255, choices=None, verbose_name=_("Template")  # type: ignore  # noqa: E501
+        blank=True, max_length=255, choices=None, verbose_name=_("Template")  # type: ignore
     )
 
     ###############
@@ -247,7 +247,7 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
         help_text=_(
             "Categorize and group pages together with classifiers. "
             "Used to organize and filter pages across the site."
-        ),  # noqa
+        ),
     )
     tags = ClusterTaggableManager(
         through=CjkcmsTag,
@@ -386,7 +386,7 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
         return self.breadcrumb_label or self.title  # type: ignore
 
     @property
-    def default_seo_image(self) -> "Optional[AbstractImage]":
+    def default_seo_image(self) -> "AbstractImage | None":
         """
         Gets default image seo image defined in Settings->Layout->Branding
         for structured data using a fallback.
@@ -398,7 +398,7 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
         return None
 
     @property
-    def seo_logo(self) -> "Optional[AbstractImage]":
+    def seo_logo(self) -> "AbstractImage | None":
         # sourcery skip: assign-if-exp, or-if-exp-identity, use-named-expression
         """
         Gets logo for structured data using a fallback.
@@ -415,7 +415,7 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
         return None
 
     @property
-    def seo_image(self) -> "Optional[AbstractImage]":
+    def seo_image(self) -> "AbstractImage | None":
         """
         Override method in SeoMixin.
         Fallback to logo if opengraph image is not specified.

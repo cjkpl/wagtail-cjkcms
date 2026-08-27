@@ -9,6 +9,8 @@ from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.blocks import SnippetChooserBlock
 
+from cjkcms.settings import cms_settings
+
 from .base_blocks import (
     BaseBlock,
     BaseLayoutBlock,
@@ -17,7 +19,6 @@ from .base_blocks import (
     TagChooserBlock,
 )
 from .html_blocks import ButtonBlock
-from cjkcms.settings import cms_settings
 
 
 class AccordionBlock(BaseBlock):
@@ -157,7 +158,7 @@ class ModalBlock(ButtonMixin, BaseLayoutBlock):
                 blocks.CharBlock(
                     icon="file-text-o", max_length=255, label=_("Simple Text")
                 ),
-            ),  # noqa
+            ),
             ("button", ButtonBlock()),
         ],
         required=False,

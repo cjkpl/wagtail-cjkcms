@@ -1,6 +1,5 @@
 import json
 
-from cjkcms.api.mailchimp import MailchimpApi
 from django.db import models
 from django.forms.widgets import Input
 from django.template import Context, Template
@@ -9,13 +8,15 @@ from django.utils.translation import gettext_lazy as _
 from wagtail import hooks
 from wagtail.admin.panels import FieldPanel
 
+from cjkcms.api.mailchimp import MailchimpApi
+
 
 class MailchimpSubscriberIntegrationWidget(Input):
     template_name = "cjkcms/formfields/mailchimp/subscriber_integration_widget.html"
     js_template_name = "cjkcms/formfields/mailchimp/subscriber_integration_js.html"
 
     def get_context(self, name, value, attrs):
-        ctx = super(MailchimpSubscriberIntegrationWidget, self).get_context(
+        ctx = super().get_context(
             name, value, attrs
         )
 

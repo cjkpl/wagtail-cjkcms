@@ -2,17 +2,19 @@
 Snippets are for content that is reusable in nature.
 """
 
+from django.conf import settings
 from django.db import models
+from django.forms import ModelForm
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.images import get_image_model_string
 from wagtail.models import (
     Orderable,
 )  # problems with unique slug! <- TranslatableMixin
 from wagtail.snippets.models import register_snippet
-from wagtail.images import get_image_model_string
 
 from cjkcms.blocks import (
     HTML_STREAMBLOCKS,
@@ -20,10 +22,8 @@ from cjkcms.blocks import (
     NAVIGATION_STREAMBLOCKS,
     PUBLIC_EVENT_STREAMBLOCKS,
 )
-from cjkcms.settings import cms_settings
-from django.conf import settings
 from cjkcms.fields import CjkcmsStreamField, ColorField
-from django.forms import ModelForm
+from cjkcms.settings import cms_settings
 
 
 @register_snippet
@@ -46,14 +46,14 @@ class Carousel(ClusterableModel):
         verbose_name=_("Show controls"),
         help_text=_(
             "Shows arrows on the left and right of the carousel to advance next or previous slides."
-        ),  # noqa
+        ),
     )
     show_indicators = models.BooleanField(
         default=True,
         verbose_name=_("Show indicators"),
         help_text=_(
             "Shows small indicators at the bottom of the carousel based on the number of slides."
-        ),  # noqa
+        ),
     )
     animation = models.CharField(
         blank=True,
@@ -174,7 +174,7 @@ class Classifier(ClusterableModel):
                 if not Classifier.objects.filter(slug=tmpslug).exists():
                     self.slug = tmpslug
                     break
-                tmpslug = f"{newslug}-{str(suffix)}"
+                tmpslug = f"{newslug}-{suffix!s}"
                 suffix += 1
         return super().save(*args, **kwargs)
 
@@ -225,12 +225,12 @@ class ClassifierTerm(Orderable, models.Model):
                 if not ClassifierTerm.objects.filter(slug=tmpslug).exists():
                     self.slug = tmpslug
                     break
-                tmpslug = f"{newslug}-{str(suffix)}"
+                tmpslug = f"{newslug}-{suffix!s}"
                 suffix += 1
         return super().save(*args, **kwargs)
 
     def __str__(self):
-        return "{0} > {1}".format(self.classifier.name, self.name)
+        return f"{self.classifier.name} > {self.name}"
 
 
 @register_snippet
@@ -615,7 +615,7 @@ class CjkcmsEmail(ClusterableModel):
         verbose_name=_("From Address"),
         help_text=_(
             'For example: "sender@abc.com" or "Sender Name <sender@abc.com>" (without quotes).'
-        ),  # noqa
+        ),
     )
     reply_address = models.CharField(
         max_length=255,

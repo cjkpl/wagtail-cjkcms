@@ -1,8 +1,9 @@
-from cjkcms.blocks.base_blocks import BaseBlock
+from django.utils.translation import gettext_lazy as _
 from wagtail import blocks
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
-from django.utils.translation import gettext_lazy as _
+
+from cjkcms.blocks.base_blocks import BaseBlock
 
 
 class EventPresentationBlock(BaseBlock):

@@ -4,7 +4,6 @@ import cjkcms.fields
 from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.fields
-import wagtail_color_panel.fields
 
 
 class Migration(migrations.Migration):
@@ -50,13 +49,13 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "background_color",
-                    wagtail_color_panel.fields.ColorField(
+                    models.CharField(
                         blank=True, max_length=7, verbose_name="Background color"
                     ),
                 ),
                 (
                     "foreground_color",
-                    wagtail_color_panel.fields.ColorField(
+                    models.CharField(
                         blank=True, max_length=7, verbose_name="Text color"
                     ),
                 ),

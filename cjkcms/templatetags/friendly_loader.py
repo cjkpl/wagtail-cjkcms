@@ -85,7 +85,9 @@ def do_if_has_tag(parser, token, negate=False):
     """
     bits = list(token.split_contents())
     if len(bits) < 2:
-        raise template.TemplateSyntaxError("%r takes at least one arguments" % bits[0])
+        raise template.TemplateSyntaxError(
+            f"{bits[0]!r} takes at least one argument"
+        )
     end_tag = f"end{bits[0]}"
     has_tag = all(tag in parser.tags for tag in bits[1:])
     has_tag = (not negate and has_tag) or (negate and not has_tag)

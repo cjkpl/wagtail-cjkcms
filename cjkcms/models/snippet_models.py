@@ -179,12 +179,7 @@ class Classifier(ClusterableModel):
         return super().save(*args, **kwargs)
 
     def __str__(self):
-        try:
-            lang_label = self.get_language_display()
-        except Exception:
-            lang_label = self.language or ""
-        suffix = f" [{lang_label}]" if lang_label else ""
-        return f"{self.name}{suffix}"
+        return self.name
 
 
 class ClassifierTerm(Orderable, models.Model):
@@ -370,10 +365,7 @@ class Navbar(models.Model):
     ]
 
     def __str__(self):
-        try:
-            lang_label = self.get_language_display()
-        except Exception:
-            lang_label = self.language or ""
+        lang_label = self.get_language_display()
         suffix = f" [{lang_label}]" if lang_label else ""
         return f"{self.name}{suffix}"
 
@@ -458,10 +450,7 @@ class Footer(models.Model):
     ]
 
     def __str__(self):
-        try:
-            lang_label = self.get_language_display()
-        except Exception:
-            lang_label = self.language or ""
+        lang_label = self.get_language_display()
         suffix = f" [{lang_label}]" if lang_label else ""
         return f"{self.name}{suffix}"
 

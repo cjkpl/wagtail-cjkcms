@@ -53,7 +53,7 @@ class OEmbedFinderWithReferer(OEmbedFinder):
 
         # Convert photos into HTML
         if oembed["type"] == "photo":
-            html = '<img src="%s" alt="">' % (oembed["url"],)
+            html = f'<img src="{oembed["url"]}" alt="">'
         elif oembed["type"] == "video":
             html = oembed.get("html")
             # add referrerpolicty in front of iframe

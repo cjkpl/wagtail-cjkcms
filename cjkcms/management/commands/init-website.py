@@ -1,5 +1,5 @@
 from django.apps import apps
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand, CommandError
 from wagtail.models import Page
 
 
@@ -77,7 +77,7 @@ class Command(BaseCommand):
         CustomPage = apps.get_model(f"{page_app}.{page_model}")
 
         # Create or read cms page content type
-        cms_page_content_type, created = ContentType.objects.get_or_create(  # type: ignore
+        cms_page_content_type, _created = ContentType.objects.get_or_create(  # type: ignore
             model=page_model,
             app_label=page_app,
         )
@@ -91,7 +91,7 @@ class Command(BaseCommand):
             root_page = Page.objects.get(path="0001")
         except Page.DoesNotExist:
             # root page not found, something is seriously wrong
-            exit()
+            raise CommandError("The Wagtail root page does not exist.")
 
         homepage = CustomPage(  # type: ignore
             title="Home",

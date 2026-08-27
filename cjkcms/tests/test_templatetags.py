@@ -1,8 +1,9 @@
 import re
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from django.template import Context, Template, TemplateSyntaxError, engines
 from django.test import TestCase
+from django.utils import timezone
 from wagtail.models import Site
 
 from cjkcms.models import AdobeApiSettings
@@ -23,14 +24,14 @@ class TemplateTagTests(TestCase):
             "{% load cjkcms_tags %}{% generate_random_id as rid %}{{rid}}"
         )
 
-        ids = set([])
+        ids = set()
         for _ in range(count):
             ids.add(t.render(None))
         self.assertEqual(len(ids), count)
         for i, value in enumerate(ids, start=1):
             self.assertTrue(
                 html_id_re.match(value),
-                'ID #%s "%s" did not match regex %r' % (i, value, html_id_re),
+                f'ID #{i} "{value}" did not match regex {html_id_re!r}',
             )
 
     def test_cjkcms_version(self):
@@ -39,7 +40,7 @@ class TemplateTagTests(TestCase):
         ).render(None)
         self.assertTrue(
             version_re.match(rt),
-            "App Version format incorrect: %r" % version_re,
+            f"App Version format incorrect: {version_re!r}",
         )
 
     def test_django_settings_filter(self):
@@ -103,7 +104,7 @@ class TemplateTagTests(TestCase):
         rt = django_engine.from_string(
             "{% load cjkcms_tags %}{% current_year %}"
         ).render(None)
-        self.assertEqual(rt, str(datetime.now().year), "Current year not returned")
+        self.assertEqual(rt, str(timezone.localdate().year), "Current year not returned")
 
     def test_define_tag(self):
         rt = django_engine.from_string(
@@ -112,22 +113,22 @@ class TemplateTagTests(TestCase):
         self.assertEqual(rt, "test", "define tag did not return 'test'")
 
     def test_is_in_future_with_future_date(self):
-        future_date = datetime.now() + timedelta(days=1)
+        future_date = timezone.now() + timedelta(days=1)
         result = is_in_future(future_date)
         self.assertTrue(result)
 
     def test_is_in_future_with_past_date(self):
-        past_date = datetime.now() - timedelta(days=1)
+        past_date = timezone.now() - timedelta(days=1)
         result = is_in_future(past_date)
         self.assertFalse(result)
 
     def test_is_in_past_with_future_date(self):
-        future_date = datetime.now() + timedelta(days=1)
+        future_date = timezone.now() + timedelta(days=1)
         result = is_in_past(future_date)
         self.assertFalse(result)
 
     def test_is_in_past_with_past_date(self):
-        past_date = datetime.now() - timedelta(days=1)
+        past_date = timezone.now() - timedelta(days=1)
         result = is_in_past(past_date)
         self.assertTrue(result)
 
@@ -135,7 +136,7 @@ class TemplateTagTests(TestCase):
         template = Template(
             """{% load cjkcms_tags %}{% if the_date|is_in_future %}future{% else %}not future{% endif %}"""
         )
-        context = Context({"the_date": datetime.now() + timedelta(days=1)})
+        context = Context({"the_date": timezone.now() + timedelta(days=1)})
         result = template.render(context)
         self.assertEqual(result, "future")
 
@@ -143,7 +144,7 @@ class TemplateTagTests(TestCase):
         template = Template(
             "{% load cjkcms_tags %}{% if the_date|is_in_past %}past{% else %}not past{% endif %}"
         )
-        context = Context({"the_date": datetime.now() - timedelta(days=1)})
+        context = Context({"the_date": timezone.now() - timedelta(days=1)})
         result = template.render(context)
         self.assertEqual(result, "past")
 

@@ -482,7 +482,7 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
         return query
 
     def get_related_pages(
-        self, pagetype: str = None, num: int = None
+        self, pagetype: str | None = None, num: int | None = None
     ) -> models.QuerySet | None:
         """
         Returns a queryset of sibling pages, or the model type

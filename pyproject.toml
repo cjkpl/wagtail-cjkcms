@@ -20,6 +20,9 @@ extend-exclude = ["**/migrations/**"]
 [tool.ruff.lint]
 ignore = ["RUF012"]
 
+[tool.ruff.lint.per-file-ignores]
+"cjkcms/management/commands/*-*.py" = ["N999"]
+
 
 [project.scripts]
 cjkcms = "cjkcms.bin.cjkcms:main"

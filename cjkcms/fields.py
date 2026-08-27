@@ -43,7 +43,7 @@ class CjkcmsStreamField(StreamField):
         # If we did not get an arg, pass an empty list through to the parent.
         if not args:
             args = [[]]
-        return super().__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def deconstruct(self):
         """

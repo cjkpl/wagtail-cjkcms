@@ -8,6 +8,7 @@ from django import forms, template
 from django.conf import settings
 from django.db.models.query import QuerySet
 from django.template import TemplateSyntaxError
+from django.utils import timezone
 
 # from django.forms import ClearableFileInput
 from django.utils.safestring import mark_safe
@@ -35,10 +36,9 @@ def can_show_item(context, item_visibility: str) -> bool:
         return True
 
     try:
-        context["request"].user.is_authenticated
-    except KeyError:
+        is_auth = context["request"].user.is_authenticated
+    except (AttributeError, KeyError):
         return False
-    is_auth = context["request"].user.is_authenticated
     return bool(
         is_auth
         and item_visibility == "auth-only"
@@ -70,7 +70,7 @@ def generate_random_id():
 
 @register.simple_tag
 def current_year():
-    return datetime.now().year
+    return timezone.localdate().year
 
 
 @register.simple_tag
@@ -147,14 +147,9 @@ def get_navbar_css(context):
         else:
             layout.navbar_class = "navbar-light bg-light"
 
-    return " ".join(
-        [
-            fixed,
-            layout.navbar_collapse_mode,
-            # layout.color_scheme,
-            layout.navbar_format,
-            layout.navbar_class,
-        ]
+    return (
+        f"{fixed} {layout.navbar_collapse_mode} "
+        f"{layout.navbar_format} {layout.navbar_class}"
     )
 
 
@@ -332,22 +327,18 @@ def define(val=None):
 def is_in_future(the_date):
     """Checks if given date or datetime is in future"""
     if isinstance(the_date, datetime):
-        return the_date >= datetime.now()
+        return the_date >= datetime.now(tz=the_date.tzinfo)
     elif isinstance(the_date, date):
-        # Convert date to datetime with time set to midnight
-        datetime_date = datetime(the_date.year, the_date.month, the_date.day)
-        return datetime_date >= datetime.now()
+        return the_date > timezone.localdate()
     return False
 
 
 @register.filter(name="is_in_past")
 def is_in_past(the_date):
     if isinstance(the_date, datetime):
-        return the_date < datetime.now()
+        return the_date < datetime.now(tz=the_date.tzinfo)
     elif isinstance(the_date, date):
-        # Convert date to datetime with time set to midnight
-        datetime_date = datetime(the_date.year, the_date.month, the_date.day)
-        return datetime_date < datetime.now()
+        return the_date <= timezone.localdate()
     return False
 
 
@@ -364,10 +355,7 @@ def first_non_empty(*args):
 
 @register.filter(name="is_not_page")
 def is_not_page(model):
-    if isinstance(model, Page):
-        return False
-    else:
-        return True
+    return not isinstance(model, Page)
 
 
 @register.filter(name="not_starts_with")

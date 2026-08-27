@@ -7,8 +7,5 @@ class Command(BaseCommand):
     "Run this if protected vimeo embeds are failing."
 
     def handle(self, *args, **options):
-        try:
-            Embed.objects.all().delete()
-            return "All Embed model instances were successfully deleted!"
-        except Exception as e:
-            return e
+        Embed.objects.all().delete()
+        return "All Embed model instances were successfully deleted!"

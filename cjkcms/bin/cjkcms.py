@@ -56,9 +56,9 @@ class CreateProject(TemplateCommand):
             pass
         else:
             sys.exit(
-                "'%s' conflicts with the name of an existing "
+                f"'{project_name}' conflicts with the name of an existing "
                 "Python module and cannot be used as a project "
-                "name. Please try another name." % project_name
+                "name. Please try another name."
             )
 
         # Create a random SECRET_KEY to put it in the main settings.
@@ -121,10 +121,7 @@ class CreateProject(TemplateCommand):
         super().handle("project", project_name, target, **options)
 
         # Be a friend once again.
-        print(
-            "Success! %(project_name)s has been created"
-            % {"project_name": project_name}
-        )
+        print(f"Success! {project_name} has been created")
 
         nextsteps = """
 Next steps:
@@ -147,9 +144,7 @@ def prog_name():
 
 
 def help_index():
-    print(
-        "Type '%s help <subcommand>' for help on a specific subcommand.\n" % prog_name()
-    )
+    print(f"Type '{prog_name()} help <subcommand>' for help on a specific subcommand.\n")
     print("Available subcommands:\n")
     for name, cmd in sorted(COMMANDS.items()):
         print(f"    {name.ljust(20)}{cmd.help}")

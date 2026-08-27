@@ -131,7 +131,7 @@ class MailchimpSubscriberIntegration(models.Model):
     def combine_interest_categories(self):
         # sourcery skip: dict-assign-update-to-union
         interest_dict = {}
-        for category_id, value in self.get_data()["interest_categories"].items():
+        for value in self.get_data()["interest_categories"].values():
             interest_dict.update(value["interests"])
 
         return interest_dict

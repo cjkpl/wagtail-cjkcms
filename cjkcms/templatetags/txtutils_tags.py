@@ -1,9 +1,6 @@
-from typing import TypeVar
-
 from django import template
 
 register = template.Library()
-T = TypeVar("T")
 
 
 @register.tag(name="captureas")
@@ -14,7 +11,7 @@ def do_captureas(parser, token):
     that are virtually identical.
     """
     try:
-        tag_name, args = token.contents.split(None, 1)
+        _tag_name, args = token.contents.split(None, 1)
     except ValueError as e:
         raise template.TemplateSyntaxError(
             "'captureas' node requires a variable name."
@@ -37,7 +34,7 @@ class CaptureasNode(template.Node):
 
 
 @register.simple_tag
-def assign(variable: T) -> T:
+def assign[T](variable: T) -> T:
     return variable
 
 

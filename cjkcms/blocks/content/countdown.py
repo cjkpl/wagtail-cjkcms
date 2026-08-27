@@ -1,5 +1,5 @@
 import re
-from datetime import UTC, datetime, timedelta, timezone
+from datetime import UTC, timedelta, timezone
 
 from django.utils.translation import gettext_lazy as _
 from wagtail import blocks
@@ -90,16 +90,16 @@ class CountdownBlock(BaseBlock):
         context = super().get_context(value, parent_context=parent_context)
         sd = value.get("start_date")
 
-        naive_datetime = datetime(
-            sd.year, sd.month, sd.day, sd.hour, sd.minute
-        )  # Naive datetime
+        # The selected offset below is authoritative, so discard any timezone
+        # attached by the form before applying it.
+        local_datetime = sd.replace(second=0, microsecond=0, tzinfo=None)
 
         tz = value.get("timezone")
         if tz == "UTC" or tz == "":
             tz = "UTC+00:00"
 
         utc_offset_string = tz  # String containing UTC offset
-        utc = convert_to_utc(naive_datetime, utc_offset_string)
+        utc = convert_to_utc(local_datetime, utc_offset_string)
 
         # print(naive_datetime, utc, utc_offset_string)
         context["year"] = utc.year

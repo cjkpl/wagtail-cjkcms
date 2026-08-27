@@ -1,6 +1,6 @@
 import json
 import unittest
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 from unittest.mock import Mock, patch
 from urllib.error import URLError
 
@@ -31,7 +31,7 @@ class TestOEmbedFinderWithReferer(unittest.TestCase):
     @patch("django.utils.timezone.now")
     def test_find_embed_success(self, mock_now, mock_urlopen):
         # Set a fixed time for the duration of this test
-        fixed_time = datetime(2024, 1, 1, 12, 0, 0)
+        fixed_time = datetime(2024, 1, 1, 12, 0, 0, tzinfo=UTC)
         mock_now.return_value = fixed_time
 
         # Mocking the response from urlopen

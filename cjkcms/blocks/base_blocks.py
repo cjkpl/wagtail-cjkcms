@@ -3,6 +3,7 @@ Blocks for StreamField content
 """
 
 from django import forms
+from django.core.exceptions import ObjectDoesNotExist
 from django.template.loader import render_to_string
 from django.utils import translation
 from django.utils.functional import cached_property
@@ -12,7 +13,7 @@ from taggit.models import Tag
 from wagtail import blocks
 from wagtail.coreutils import resolve_model_string
 from wagtail.documents.blocks import DocumentChooserBlock
-from wagtail.models import Collection
+from wagtail.models import Collection, Locale
 
 from cjkcms.settings import cms_settings
 from cjkcms.utils import can_show_block
@@ -384,10 +385,7 @@ class LinkStructValue(blocks.StructValue):
         if not page:
             return None
 
-        try:
-            language = translation.get_language()
-        except Exception:
-            language = None
+        language = translation.get_language()
 
         # Wagtail's `localized` uses the active language when set.
         localized_page = getattr(page, "localized", None)
@@ -398,8 +396,9 @@ class LinkStructValue(blocks.StructValue):
             get_translation = getattr(page, "get_translation", None)
             if callable(get_translation):
                 try:
-                    localized_page = get_translation(language, fallback=True)
-                except Exception:
+                    locale = Locale.objects.get(language_code=language)
+                    localized_page = get_translation(locale)
+                except (ObjectDoesNotExist, TypeError, ValueError):
                     localized_page = page
 
         return localized_page or page

@@ -12,9 +12,6 @@ Out of the box, CjkCMS provides your project with generic, reusable pages:
 
 CjkCMS pages provide you with an ultra-flexible, generic "body" section and, using `wagtail-seo` package, a basic SEO functionality.
 
-## Homepage
-Project homepage, with demos, examples and documentation: [https://cjkcms.com/](https://cjkcms.com/)
-
 ## Documentation
 Direct link to the documentation: [Docs](https://cjkcms.readthedocs.io/en/latest/)
 

@@ -1,4 +1,5 @@
 import re
+import uuid
 from datetime import UTC, timedelta, timezone
 
 from django.utils.translation import gettext_lazy as _
@@ -108,6 +109,8 @@ class CountdownBlock(BaseBlock):
         context["hour"] = utc.hour
         context["minute"] = utc.minute
         context["second"] = 0
+        # Lets the script find this countdown when a page has several of them.
+        context["countdown_id"] = uuid.uuid4().hex
         return context
 
     class Meta:

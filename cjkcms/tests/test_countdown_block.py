@@ -1,3 +1,4 @@
+import re
 from datetime import UTC, datetime, timedelta
 
 import pytest
@@ -100,3 +101,36 @@ class TestCountdownBlock(TestCase):
         self.assertContains(response, "day: " + str(one_minute_ahead.day))
         self.assertContains(response, "hours: " + str(one_minute_ahead.hour))
         self.assertContains(response, "minutes: " + str(one_minute_ahead.minute))
+
+    def test_several_countdowns_on_one_page(self):
+        block_content = [
+            {
+                "type": "countdown",
+                "value": {
+                    "theme": "light",
+                    "start_date": f"{year}-01-01 00:00",
+                    "timezone": "UTC",
+                    "settings": {"custom_id": custom_id},
+                },
+                "id": f"countdown-{year}",
+            }
+            for year, custom_id in ((2029, ""), (2031, "launch"))
+        ]
+        self.set_article_body(block_content)
+        html = self.client.get("/test-article/").content.decode()
+        # Leave out the head, where the body text is reused as the description.
+        html = html.split('class="article-body"')[1]
+
+        # Each script starts the countdown of its own block only.
+        targets = re.findall(
+            r"simplyCountdown\('\[data-countdown=\"(\w+)\"\]', {\s+year: (\d+)", html
+        )
+        self.assertEqual([year for _, year in targets], ["2029", "2031"])
+        first, second = (countdown_id for countdown_id, _ in targets)
+        self.assertNotEqual(first, second)
+        self.assertEqual(html.count(f'data-countdown="{first}"'), 2)
+        self.assertEqual(html.count(f'data-countdown="{second}"'), 2)
+
+        # The element keeps its historical id unless a custom one is set.
+        self.assertIn(f'id="mycountdown" data-countdown="{first}"', html)
+        self.assertIn(f'id="launch" data-countdown="{second}"', html)

@@ -66,6 +66,9 @@ migrated to this file.
   Such a page is placed by the first of its terms.
 - Carousel block markup: the indicator buttons were missing the end of their opening tag,
   slides got their custom ID prefixed with `#`, and the control labels had a stray quote.
+- Several countdown blocks on one page no longer interfere with each other: every block
+  started every countdown on the page. The element keeps `id="mycountdown"`, unless
+  the block has a Custom ID, which is now used.
 ### Removed
 - Dropped the `wagtail-color-panel` dependency; internal color fields now use native widgets.
 

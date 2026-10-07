@@ -1,0 +1,55 @@
+.cjkcms-listing-preferences > summary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    list-style: none;
+    white-space: nowrap;
+}
+
+.cjkcms-listing-preferences > summary::-webkit-details-marker {
+    display: none;
+}
+
+.cjkcms-listing-preferences > summary .icon {
+    width: 1.1rem;
+    height: 1.1rem;
+    flex-shrink: 0;
+}
+
+.cjkcms-listing-preferences__panel {
+    box-sizing: border-box;
+    position: fixed;
+    inset-inline-end: 1rem;
+    top: 4rem;
+    z-index: 100;
+    width: min(22rem, calc(100vw - 2rem));
+    max-height: calc(100vh - 5rem);
+    overflow: auto;
+    padding: 1.25rem;
+    background: var(--w-color-surface-page);
+    color: var(--w-color-text-context);
+    border: 1px solid var(--w-color-border-furniture);
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 20%);
+}
+
+.cjkcms-listing-preferences__panel legend {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.cjkcms-listing-preferences__panel label {
+    display: block;
+    margin-block: 0.5rem;
+}
+
+.cjkcms-listing-preferences__panel input[type="checkbox"] {
+    margin-inline-end: 0.5rem;
+}
+
+.cjkcms-listing-preferences__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}

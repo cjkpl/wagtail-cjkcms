@@ -1,0 +1,16 @@
+{% extends "wagtailsnippets/snippets/index.html" %}
+{% load static %}
+
+{% block slim_header %}
+    {% include "cjkcms/admin/listing_header.html" with title=header_title search_url=index_results_url buttons=header_buttons icon_name=header_icon %}
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'cjkcms/css/listing-preferences.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    <script defer src="{% static 'cjkcms/js/listing-preferences.js' %}"></script>
+{% endblock %}

@@ -5,25 +5,30 @@ from django.utils.html import format_html
 from wagtail import hooks
 from wagtail.admin.menu import MenuItem
 from wagtail.snippets.models import register_snippet
-from wagtail.snippets.views.snippets import SnippetViewSet
 from wagtailcache.cache import clear_cache
 
 from cjkcms import __version__
+from cjkcms.admin_viewsets import CjkcmsSnippetViewSet
 from cjkcms.draftail import (
     NewWindowExternalLinkHandler,
     register_block_feature,
     register_inline_styling,
 )
 from cjkcms.models.snippet_models import (
+    Accordion,
+    Carousel,
+    Classifier,
     EventCalendar,
+    FilmStrip,
     Footer,
     FooterForm,
     Navbar,
     NavbarForm,
+    ReusableContent,
 )
 
 
-class NavbarSnippet(SnippetViewSet):
+class NavbarSnippet(CjkcmsSnippetViewSet):
     model = Navbar
     menu_label = "Navigation"
     menu_icon = "link"  # change as required
@@ -41,7 +46,7 @@ class NavbarSnippet(SnippetViewSet):
         return NavbarForm
 
 
-class FooterSnippet(SnippetViewSet):
+class FooterSnippet(CjkcmsSnippetViewSet):
     model = Footer
     menu_label = "Navigation"
     menu_icon = "link"  # change as required
@@ -59,7 +64,7 @@ class FooterSnippet(SnippetViewSet):
         return FooterForm
 
 
-class EventCalendarSnippet(SnippetViewSet):
+class EventCalendarSnippet(CjkcmsSnippetViewSet):
     model = EventCalendar
     menu_label = "Public Events"
     menu_icon = "calendar"  # change as required
@@ -68,6 +73,10 @@ class EventCalendarSnippet(SnippetViewSet):
     search_fields = [
         "name",
     ]
+
+
+for snippet_model in (Carousel, Classifier, FilmStrip, ReusableContent, Accordion):
+    register_snippet(snippet_model, viewset=CjkcmsSnippetViewSet)
 
 
 register_snippet(NavbarSnippet)

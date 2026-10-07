@@ -14,7 +14,6 @@ from wagtail.images import get_image_model_string
 from wagtail.models import (
     Orderable,
 )  # problems with unique slug! <- TranslatableMixin
-from wagtail.snippets.models import register_snippet
 
 from cjkcms.blocks import (
     HTML_STREAMBLOCKS,
@@ -26,7 +25,6 @@ from cjkcms.fields import CjkcmsStreamField, ColorField
 from cjkcms.settings import cms_settings
 
 
-@register_snippet
 class Carousel(ClusterableModel):
     """
     Model that represents a Carousel. Can be modified through the snippets UI.
@@ -141,7 +139,6 @@ class CarouselSlide(Orderable, models.Model):
     ]
 
 
-@register_snippet
 class Classifier(ClusterableModel):
     """
     Simple and generic model to organize/categorize/group pages.
@@ -228,7 +225,6 @@ class ClassifierTerm(Orderable, models.Model):
         return f"{self.classifier.name} > {self.name}"
 
 
-@register_snippet
 class FilmStrip(ClusterableModel):
     class Meta:
         verbose_name = _("Film Strip")
@@ -486,7 +482,6 @@ class FooterForm(ModelForm):
         self.fields["language"].choices = Footer.get_available_langs()
 
 
-@register_snippet
 class ReusableContent(models.Model):
     """
     Snippet for reusable content in streamfields.
@@ -510,7 +505,6 @@ class ReusableContent(models.Model):
         return self.name
 
 
-@register_snippet
 class Accordion(ClusterableModel):
     """Class for reusable content in a collapsible block."""
 

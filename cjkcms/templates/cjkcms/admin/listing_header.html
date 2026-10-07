@@ -1,0 +1,6 @@
+{% extends "wagtailadmin/shared/headers/slim_header.html" %}
+
+{% block toggles %}
+    {{ block.super }}
+    {% include "cjkcms/admin/listing_preferences.html" %}
+{% endblock %}

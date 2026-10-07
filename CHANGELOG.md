@@ -46,6 +46,9 @@ migrated to this file.
 - Mailchimp merge fields entered by editors are rendered with a bare template engine.
   They can still use form field variables and built-in filters, but can no longer load
   tag libraries (and through them read Django settings) or include other templates.
+- `OEmbedFinderWithReferer` waits at most 10 seconds for a provider instead of
+  indefinitely, and reports a video response without HTML as "embed not found"
+  rather than failing with a server error.
 ### Removed
 - Dropped the `wagtail-color-panel` dependency; internal color fields now use native widgets.
 

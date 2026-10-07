@@ -66,3 +66,45 @@ class TestOEmbedFinderWithReferer(unittest.TestCase):
 
         with self.assertRaises(EmbedNotFoundException):
             self.finder.find_embed(self.url)
+
+    @patch("urllib.request.urlopen")
+    def test_find_embed_uses_timeout(self, mock_urlopen):
+        mock_response = Mock()
+        mock_response.read.return_value = json.dumps(self.oembed_response).encode(
+            "utf-8"
+        )
+        mock_urlopen.return_value = mock_response
+        self.finder._get_endpoint = Mock(return_value=self.endpoint)
+
+        self.finder.find_embed(self.url)
+
+        self.assertEqual(mock_urlopen.call_args.kwargs["timeout"], 10)
+
+    @patch("urllib.request.urlopen")
+    def test_find_embed_timeout(self, mock_urlopen):
+        self.finder._get_endpoint = Mock(return_value=self.endpoint)
+
+        # Either connecting or reading the response may time out.
+        mock_urlopen.side_effect = TimeoutError("timed out")
+        with self.assertRaises(EmbedNotFoundException):
+            self.finder.find_embed(self.url)
+
+        mock_response = Mock()
+        mock_response.read.side_effect = TimeoutError("timed out")
+        mock_urlopen.side_effect = None
+        mock_urlopen.return_value = mock_response
+        with self.assertRaises(EmbedNotFoundException):
+            self.finder.find_embed(self.url)
+
+    @patch("urllib.request.urlopen")
+    def test_find_embed_video_without_html(self, mock_urlopen):
+        del self.oembed_response["html"]
+        mock_response = Mock()
+        mock_response.read.return_value = json.dumps(self.oembed_response).encode(
+            "utf-8"
+        )
+        mock_urlopen.return_value = mock_response
+        self.finder._get_endpoint = Mock(return_value=self.endpoint)
+
+        with self.assertRaises(EmbedNotFoundException):
+            self.finder.find_embed(self.url)

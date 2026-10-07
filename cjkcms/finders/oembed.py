@@ -2,7 +2,6 @@ import json
 from datetime import timedelta
 from typing import Any
 from urllib import request as urllib_request
-from urllib.error import URLError
 from urllib.parse import urlencode
 from urllib.request import Request
 
@@ -13,6 +12,9 @@ from wagtail.embeds.finders.oembed import OEmbedFinder
 
 
 class OEmbedFinderWithReferer(OEmbedFinder):
+    # Seconds to wait for the provider, so a slow one can not hang a worker.
+    timeout = 10
+
     def find_embed(
         self,
         url: str,
@@ -46,9 +48,10 @@ class OEmbedFinderWithReferer(OEmbedFinder):
         request.add_header("referer", settings.BASE_URL)
 
         try:
-            r = urllib_request.urlopen(request)
+            r = urllib_request.urlopen(request, timeout=self.timeout)
             oembed = json.loads(r.read().decode("utf-8"))
-        except (URLError, json.decoder.JSONDecodeError) as e:
+        # OSError covers URLError and a timeout while reading the response.
+        except (OSError, json.decoder.JSONDecodeError) as e:
             raise EmbedNotFoundException from e
 
         # Convert photos into HTML
@@ -56,6 +59,8 @@ class OEmbedFinderWithReferer(OEmbedFinder):
             html = f'<img src="{oembed["url"]}" alt="">'
         elif oembed["type"] == "video":
             html = oembed.get("html")
+            if not html:
+                raise EmbedNotFoundException
             # add referrerpolicty in front of iframe
             html = html[:7] + ' referrerpolicy="origin"' + html[7:]
         else:

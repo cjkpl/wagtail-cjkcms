@@ -34,6 +34,8 @@ migrated to this file.
 - `body_preview` is computed once per page instance and body. An article without a search
   description or caption used to render its whole body three more times per page view,
   once for each meta description tag, repeating all queries of its blocks.
+- Navbar items set to show child pages check for a live child with an `EXISTS` query
+  instead of loading every child page on each page view.
 - Blocks hidden by their visibility settings are skipped before their template context
   is built, saving the queries of e.g. a hidden "Latest Pages" block.
 - `CjkcmsPage.get_site()` now looks the site up once per page instance, and the new

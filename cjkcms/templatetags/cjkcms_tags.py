@@ -126,10 +126,13 @@ def asset_integrity(url):
 
 @register.simple_tag
 def is_menu_item_dropdown(value):
-    return len(value.get("sub_links", [])) > 0 or (
-        value.get("show_child_links", False)
-        and len(value.get("page", []).get_children().live()) > 0
-    )
+    if len(value.get("sub_links", [])) > 0:
+        return True
+    page = value.get("page")
+    if not page or not value.get("show_child_links", False):
+        return False
+    # Only check that a child exists, rather than loading all child pages.
+    return page.get_children().live().exists()
 
 
 @register.simple_tag(takes_context=True)

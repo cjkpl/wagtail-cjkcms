@@ -31,6 +31,9 @@ migrated to this file.
   `get_pictures` tag accepts a `renditions` argument listing the image filters a
   customised gallery template uses, and returns no pictures for a deleted collection
   instead of raising an error. Projects overriding the `favicon` block are not affected.
+- `body_preview` is computed once per page instance and body. An article without a search
+  description or caption used to render its whole body three more times per page view,
+  once for each meta description tag, repeating all queries of its blocks.
 - Blocks hidden by their visibility settings are skipped before their template context
   is built, saving the queries of e.g. a hidden "Latest Pages" block.
 - `CjkcmsPage.get_site()` now looks the site up once per page instance, and the new

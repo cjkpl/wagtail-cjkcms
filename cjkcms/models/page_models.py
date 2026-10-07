@@ -698,8 +698,18 @@ class CjkcmsWebPage(CjkcmsPage):
     def body_preview(self):
         """
         A shortened version of the body without HTML tags.
+
+        Making it renders the whole body, and one page view asks for it several
+        times (meta description, Open Graph, structured data), so it is kept
+        until the body is replaced.
         """
-        return get_richtext_preview(self.body)
+        body = self.body
+        cached = self.__dict__.get("_cjkcms_body_preview")
+        if cached and cached[0] is body:
+            return cached[1]
+        preview = get_richtext_preview(body)
+        self._cjkcms_body_preview = (body, preview)
+        return preview
 
 
 class CjkcmsArticlePage(CjkcmsWebPage):

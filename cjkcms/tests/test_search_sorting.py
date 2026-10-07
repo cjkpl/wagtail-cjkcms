@@ -19,6 +19,9 @@ class EmptySearchResults:
     def __iter__(self):
         return iter(())
 
+    def __getitem__(self, key):
+        return self
+
 
 @override_settings(
     STORAGES={
@@ -176,3 +179,45 @@ class TestSearchSorting(TestCase):
 
         self.assertEqual(response.status_code, 200)
         search_model_backend.assert_not_called()
+
+    def test_results_loaded_per_model_are_capped(self):
+        with override_settings(CJKCMS_SEARCH_MAX_RESULTS=1):
+            response = self.client.get(
+                reverse("cjkcms_search"),
+                {"s": "Article", "t": "cjkcms.articlepage"},
+                follow=True,
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["results"]), 1)
+        # The tab still reports how many pages matched in total.
+        self.assertEqual(
+            response.context["results_by_model"]["cjkcms.articlepage"]["count"], 2
+        )
+
+    def test_results_are_not_capped_when_limit_is_disabled(self):
+        for max_results in (None, 0):
+            with self.subTest(max_results=max_results), override_settings(
+                CJKCMS_SEARCH_MAX_RESULTS=max_results
+            ):
+                response = self.client.get(
+                    reverse("cjkcms_search"),
+                    {"s": "Article", "t": "cjkcms.articlepage"},
+                    follow=True,
+                )
+                self.assertEqual(len(response.context["results"]), 2)
+                self.assertEqual(
+                    response.context["results_by_model"]["cjkcms.articlepage"]["count"],
+                    2,
+                )
+
+    def test_results_below_cap_are_counted_without_extra_query(self):
+        class Results(list):
+            def count(self):
+                raise AssertionError("count() should not be called")
+
+        results, count = views._fetch_search_results(Results(["a", "b"]), 3)
+        self.assertEqual((results, count), (["a", "b"], 2))
+
+        results, count = views._fetch_search_results(Results(["a", "b"]), None)
+        self.assertEqual((results, count), (["a", "b"], 2))

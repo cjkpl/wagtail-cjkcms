@@ -480,6 +480,10 @@ class _DefaultSettings:
 
     CJKCMS_DJANGO_SETTINGS_WHITELIST = ["DEBUG", "TIME_ZONE"]
 
+    # Most results loaded per searchable model on the search page.
+    # Set to None to load every match.
+    CJKCMS_SEARCH_MAX_RESULTS = 1000
+
     def __getattribute__(self, attr: str):
         # First load from Django settings.
         # If it does not exist, load from _DefaultSettings.

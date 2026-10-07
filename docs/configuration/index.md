@@ -30,3 +30,18 @@ CJKCMS_DJANGO_SETTINGS_WHITELIST = ["DEBUG", "TIME_ZONE", "MY_CUSTOM_FLAG"]
 
 Any lookup that is not present in this list will raise a template error, which
 helps catch unauthorized access to sensitive settings early.
+
+### Limiting the number of search results
+
+The search page loads the matching objects of every searchable model before
+sorting and paginating them. To keep a very broad query from exhausting memory,
+at most `CJKCMS_SEARCH_MAX_RESULTS` results are loaded per model (1000 by
+default). The result counts shown next to each model still report every match.
+
+```python
+# settings.py
+CJKCMS_SEARCH_MAX_RESULTS = 200   # or None to load every match
+```
+
+When a sort order other than relevance is chosen, it is applied to the most
+relevant results within this limit.

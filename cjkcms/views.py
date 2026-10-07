@@ -18,6 +18,7 @@ from cjkcms.models import (
     GeneralSettings,
     LayoutSettings,
 )
+from cjkcms.settings import cms_settings
 
 # Lists of common datetime attributes used for sorting pages and other models.
 UPDATED_FIELD_NAMES = (
@@ -72,6 +73,22 @@ def search_model_backend(model, search_query, current_locale):
     else:
         # Search normally for non-page models
         return backend.search(search_query, model)
+
+
+def _fetch_search_results(model_results, max_results):
+    """
+    Loads the results of one model, returning them with the total match count.
+
+    At most ``max_results`` objects are loaded, so that a query matching a large
+    part of the site can not exhaust memory. A falsy limit loads everything.
+    """
+    if not max_results:
+        results = list(model_results)
+        return results, len(results)
+    results = list(model_results[:max_results])
+    if len(results) < max_results:
+        return results, len(results)
+    return results, model_results.count()
 
 
 def _model_identifier(model):
@@ -190,27 +207,22 @@ def search(request):
 
             if selected_model:
                 active_search_model = _model_identifier(selected_model)
-                model_results = search_model_backend(
-                    selected_model, backend_search_query, current_locale
+                models_to_search = [selected_model]
+            else:
+                models_to_search = indexed_models
+
+            max_results = cms_settings.CJKCMS_SEARCH_MAX_RESULTS
+            for model in models_to_search:
+                identifier = _model_identifier(model)
+                model_results, count = _fetch_search_results(
+                    search_model_backend(model, backend_search_query, current_locale),
+                    max_results,
                 )
-                count = model_results.count()
-                results_by_model[active_search_model] = {
-                    "model": selected_model,
+                results_by_model[identifier] = {
+                    "model": model,
                     "count": count,
                 }
-                model_result_sets.append((active_search_model, model_results, count))
-            else:
-                for model in indexed_models:
-                    identifier = _model_identifier(model)
-                    model_results = search_model_backend(
-                        model, backend_search_query, current_locale
-                    )
-                    count = model_results.count()
-                    results_by_model[identifier] = {
-                        "model": model,
-                        "count": count,
-                    }
-                    model_result_sets.append((identifier, model_results, count))
+                model_result_sets.append((identifier, model_results, count))
 
             merged_results = []
             for _, model_results, _ in model_result_sets:

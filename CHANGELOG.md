@@ -18,6 +18,10 @@ migrated to this file.
 - Built-in Draftail character and word counters, adapted from `wagtail-character-counter`.
   The standalone app takes precedence while it remains in `INSTALLED_APPS`, avoiding duplicate counters.
 ### Changed
+- The search page loads at most `CJKCMS_SEARCH_MAX_RESULTS` results per searchable model
+  (default 1000), so a very broad query can no longer exhaust memory. Result counts still
+  report every match. Set it to `None` to restore loading all matches. Models with fewer
+  matches than the limit now also need one query instead of two.
 - `CjkcmsPage.get_site()` now looks the site up once per page instance, and the new
   `CjkcmsPage.get_layout_settings()` does the same for the site's layout settings.
   Rendering a page no longer repeats these queries for each SEO property

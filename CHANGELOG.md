@@ -39,6 +39,9 @@ migrated to this file.
   "Show list of related pages" and "Order child pages by" to the defaults of the page type.
   Values passed when constructing a page in code are kept as well. Pages copied before
   this fix are not corrected automatically.
+- Mailchimp merge fields entered by editors are rendered with a bare template engine.
+  They can still use form field variables and built-in filters, but can no longer load
+  tag libraries (and through them read Django settings) or include other templates.
 ### Removed
 - Dropped the `wagtail-color-panel` dependency; internal color fields now use native widgets.
 

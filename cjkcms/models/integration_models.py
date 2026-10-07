@@ -2,13 +2,18 @@ import json
 
 from django.db import models
 from django.forms.widgets import Input
-from django.template import Context, Template
+from django.template import Context, Engine
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 from wagtail import hooks
 from wagtail.admin.panels import FieldPanel
 
 from cjkcms.api.mailchimp import MailchimpApi
+
+# Merge field values are typed in by editors and rendered as templates, so that
+# they can refer to the submitted form fields. Use a bare engine for them: it
+# has no template loaders and no tag libraries that could be loaded.
+MERGE_FIELD_ENGINE = Engine()
 
 
 class MailchimpSubscriberIntegrationWidget(Input):
@@ -152,9 +157,9 @@ class MailchimpSubscriberIntegration(models.Model):
             }
         )
 
-        rendered_dictionary = Template(rendered_dictionary_template).render(
-            Context(form_submission)
-        )
+        rendered_dictionary = MERGE_FIELD_ENGINE.from_string(
+            rendered_dictionary_template
+        ).render(Context(form_submission))
         return rendered_dictionary
 
     panels = [

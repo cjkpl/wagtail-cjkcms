@@ -83,6 +83,8 @@ migrated to this file.
   `/sitemap.xml`. Projects with their own `cjkcms/robots.txt` template are not affected.
 - Page previews (`body_preview`, also used as the meta description of articles) no longer
   contain the JavaScript or CSS code of blocks such as the countdown or icon with text.
+- The admin sidebar showed two "Navigation" items, one for navigation bars and one for
+  footers. Footers are listed under Snippets again; "Navigation" opens the navigation bars.
 ### Removed
 - Dropped the `wagtail-color-panel` dependency; internal color fields now use native widgets.
 

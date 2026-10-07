@@ -47,10 +47,8 @@ class NavbarSnippet(CjkcmsSnippetViewSet):
 
 
 class FooterSnippet(CjkcmsSnippetViewSet):
+    # Listed under Snippets. Only navbars have the "Navigation" menu item.
     model = Footer
-    menu_label = "Navigation"
-    menu_icon = "link"  # change as required
-    add_to_admin_menu = True
     list_display = (
         "name",
         "custom_css_class",

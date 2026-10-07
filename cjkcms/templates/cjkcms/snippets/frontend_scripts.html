@@ -8,6 +8,7 @@
             {% if_has_tag javascript_pack %}{% javascript_pack 'app' attrs='charset="UTF-8"' %}{% endif_has_tag %}
         {% endif %}
     {% else %}
-        <script src="{% theme_js %}" 
+        {% theme_js as theme_js_url %}
+        <script src="{{ theme_js_url }}"{% asset_integrity theme_js_url %}
             crossorigin="anonymous"></script>              
     {% endif %}

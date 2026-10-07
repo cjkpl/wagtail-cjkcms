@@ -45,3 +45,25 @@ CJKCMS_SEARCH_MAX_RESULTS = 200   # or None to load every match
 
 When a sort order other than relevance is chosen, it is applied to the most
 relevant results within this limit.
+
+### Integrity of theme files loaded from a CDN
+
+The built-in themes load Bootstrap, MDB, Bootswatch and Font Awesome from public
+CDNs. Each of these files is listed in `CJKCMS_ASSET_INTEGRITY` with its
+[Subresource Integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity)
+hash, so the browser refuses a file which was altered on the CDN.
+
+Files are matched by their full URL. If you point a theme to a different file
+through `CJKCMS_THEME_FILES`, it is loaded without a check unless you add its hash:
+
+```python
+# settings.py
+from cjkcms.settings import _DefaultSettings
+
+CJKCMS_ASSET_INTEGRITY = {
+    **_DefaultSettings.CJKCMS_ASSET_INTEGRITY,  # keep the built-in hashes
+    "https://cdn.example.com/my-theme.min.css": "sha384-...",
+}
+```
+
+Set `CJKCMS_ASSET_INTEGRITY = {}` to switch the checks off.

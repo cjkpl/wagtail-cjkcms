@@ -18,6 +18,10 @@ migrated to this file.
 - Built-in Draftail character and word counters, adapted from `wagtail-character-counter`.
   The standalone app takes precedence while it remains in `INSTALLED_APPS`, avoiding duplicate counters.
 ### Changed
+- Theme CSS/JS and Font Awesome loaded from CDNs now carry Subresource Integrity hashes,
+  listed by URL in the new `CJKCMS_ASSET_INTEGRITY` setting. Theme URLs overridden in
+  `CJKCMS_THEME_FILES` are loaded as before, without a check. Projects overriding
+  `frontend_assets.html` or `frontend_scripts.html` are not affected.
 - The search page loads at most `CJKCMS_SEARCH_MAX_RESULTS` results per searchable model
   (default 1000), so a very broad query can no longer exhaust memory. Result counts still
   report every match. Set it to `None` to restore loading all matches. Models with fewer

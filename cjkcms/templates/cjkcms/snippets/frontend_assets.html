@@ -5,7 +5,8 @@
             {% stylesheet_pack 'app' %}
         {% endif_has_tag %}
     {% else %}
-        <link href="{% theme_css %}" 
+        {% theme_css as theme_css_url %}
+        <link href="{{ theme_css_url }}"{% asset_integrity theme_css_url %}
             rel="stylesheet" 
             crossorigin="anonymous">
     {% endif %}
@@ -27,7 +28,7 @@
     {% if settings.cjkcms.LayoutSettings.awesome_cdn %}
         <!-- Font Awesome -->
         <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"{% asset_integrity "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" %}
             rel="stylesheet"
             crossorigin="anonymous">
     {% endif %}

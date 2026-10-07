@@ -11,6 +11,7 @@ from django.template import TemplateSyntaxError
 from django.utils import timezone
 
 # from django.forms import ClearableFileInput
+from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from wagtail.images.models import Image
 from wagtail.models import Collection, Page
@@ -102,6 +103,16 @@ def theme_js(context):
     layout = LayoutSettings.for_request(context["request"])
     theme = layout.frontend_theme or "bootstrap5"
     return static_or_url(cms_settings.CJKCMS_THEME_FILES[theme][1])
+
+
+@register.simple_tag
+def asset_integrity(url):
+    """
+    Returns the integrity attribute for a CDN file listed in
+    cms_settings.CJKCMS_ASSET_INTEGRITY, or nothing for any other URL.
+    """
+    integrity = cms_settings.CJKCMS_ASSET_INTEGRITY.get(url)
+    return format_html(' integrity="{}"', integrity) if integrity else ""
 
 
 @register.simple_tag

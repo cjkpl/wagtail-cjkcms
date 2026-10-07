@@ -268,6 +268,105 @@ class _DefaultSettings:
         ],
     }
 
+    # Subresource Integrity hashes of the CDN files above, by URL. Browsers refuse
+    # a file which does not match its hash. URLs not listed here load unchecked,
+    # so add an entry when pointing a theme to another pinned CDN file.
+    CJKCMS_ASSET_INTEGRITY = {
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js": (
+            "sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/cerulean/bootstrap.min.css": (
+            "sha384-asLHUPbwxtw7atoyDat6rx62mEsuGy1UskAbgrE21AH8wbwU3gaRpP+1mNoy+hah"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/cosmo/bootstrap.min.css": (
+            "sha384-uP6uiZz9HVllaNH5ty2qx0JUECCgFzU15rvtawVZqrnzZWNGP+XHPP4Fx9qT//AN"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/cyborg/bootstrap.min.css": (
+            "sha384-rNcF287y3SagebzMdYw4UfR7n9mOm9oP4x/keXf/qDVK/Efyy9ExRZwXaAVrT2le"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/darkly/bootstrap.min.css": (
+            "sha384-L1anLVP0mHy8N7+JjFaPC6bdKXBcXcjc8tnnCVtuTetLiWsN/mF9NE0mkMhQGVv8"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/flatly/bootstrap.min.css": (
+            "sha384-Gn6TIhloBHiLpI1VM8qQG+H8QQhHXqsiUlMLS4uhr9gqQzFsOhMTo0lSTMbOrLoI"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/journal/bootstrap.min.css": (
+            "sha384-Gk31MTcHpw0xC/3dkKPlVD2o2ewTp9JgI9g2dc+lbxunfUmNvZfJk1epzZjIKGKA"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/litera/bootstrap.min.css": (
+            "sha384-6KI5CHTW1wYSeY6vEkfx0aFqtxmQEK6vJqbdtdsoBh6FUJTWSpEvR9RFV9kKMQ+w"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/lumen/bootstrap.min.css": (
+            "sha384-1r7jbR4WWzO+KjfGhtGGtFwagPiwxiU6El7h18XVVy0sd4Flpfu5Qk/Nq0iVAoU7"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/lux/bootstrap.min.css": (
+            "sha384-yuUtBNh5RBGfK9aw54kTdfFqRLOBZuxgkp4Ybd4ll3fRDYi8Pfyitk7jDlVIO1lV"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/materia/bootstrap.min.css": (
+            "sha384-VBL1RyvoruUqGMPUNqtIIXcw1GvJClSiGRgG8jeIuaIXkjQsnjo8dY1ZFxfI6lkC"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/minty/bootstrap.min.css": (
+            "sha384-tVxKAVu2ZmXi0nO/a10peY9bl1ZgLFdNMkSC/i6X90/zry4dFmgQvjFgk5Vln8xu"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/morph/bootstrap.min.css": (
+            "sha384-duNZ3ApCxKZdoZzkmcTQ4WrdcEsuo6U+AwAbEp/EtcNE4iBWtCwmJJBjpbpe6oUK"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/pulse/bootstrap.min.css": (
+            "sha384-UdDEQwDvXGE7/pvhxutoJGxqwNNAExBrA2jeFAk3UpSlFrtRNYaxtoG0o61I0Fdt"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/quartz/bootstrap.min.css": (
+            "sha384-6NK0eW3cc81wktNbK3BwfQH8SLg6Y223c7JAV7ulxuWQfXtfwCp2Hl1RmuAZpyFS"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/sandstone/bootstrap.min.css": (
+            "sha384-3BUQwhL2XuJVQry4OmB0y2d5bwjwRYy/5QM8snGScuOZRMNZV8XqD0Q4e5KIfkhu"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/simplex/bootstrap.min.css": (
+            "sha384-TM/9zn7ZKkZSd9cY0O8SqQXcFbxm/+8wHx0h05wKMXXK80IMbbceDMPAgGEIv8D7"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/sketchy/bootstrap.min.css": (
+            "sha384-v4Tq4cTN8Ry084D5mimUn/ntnrIb81J44ytFjEwqZ8ROv+ZTG/zEEgjrbySL3fu+"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/slate/bootstrap.min.css": (
+            "sha384-p0YQgewXh6xJlJpaMe6Hl3DteovqkMO3yfTvr4q1DFEXAxhfQJd8jRzNTCzk7ZpJ"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/solar/bootstrap.min.css": (
+            "sha384-9zFXjwXauoa5Oyv/go8a9WodrUsS0X3V6/8OO1CHAdEOg7UsASU5DgjKb6IXZrqi"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/spacelab/bootstrap.min.css": (
+            "sha384-7jv7Cz/bPqbBsJ7CBCt/XsB6OhMa69zEjBu9ACVWol2jJYKJVLAwvUJVozygdb0e"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/superhero/bootstrap.min.css": (
+            "sha384-Gxp36VWOCx/ZcY7MZKdn1y8mrP+Z0PJxmBUgBFqGeZpQ0p3jvUFzmiR3pNRV0Sv+"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/united/bootstrap.min.css": (
+            "sha384-qE6cHGvSfXl7sepdYClnLw49tym5pSXk+Ra2t9HoQbhDMYr85oyMi8z2TyBj8hSf"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/vapor/bootstrap.min.css": (
+            "sha384-n6Lg+tpAHSs1BLNHYKy4VwHK260gul6k5uMR1dSKR7/twphhWOxI4gmm3UeP7TVg"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/yeti/bootstrap.min.css": (
+            "sha384-YZy6KMo8KgkXEv8ppihkcDsbyLHE2c/fDh9nKJ23hEiVrGNFWDI/+ucx8RRYYSnl"
+        ),
+        "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/zephyr/bootstrap.min.css": (
+            "sha384-HUqMmx587pEpVPUDL2fU/GZ0FWpp1BEFYrt7gdZjPHvhOw1cgj15JqvhLWdXaHrb"
+        ),
+        "https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css": (
+            "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+        ),
+        "https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js": (
+            "sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        ),
+        "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css": (
+            "sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g"
+        ),
+        "https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.1.0/mdb.min.css": (
+            "sha384-ouVFS7bbssUQZNzKuY+iLmMOeZN1EQOvv6zfv/kPLC/ecX4V6PqAsS3mFb+ngc3I"
+        ),
+        "https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.1.0/mdb.umd.min.js": (
+            "sha384-eq/A9uBQ7jtih2QcJuxQfxB0wwgbtpcNovXy2y+3/2gazFBAzF8UNpkoLY9aav1I"
+        ),
+    }
+
     CJKCMS_FRONTEND_TEMPLATES_BLOCKS = {
         "cardblock": [
             ("cjkcms/blocks/card_block.html", "Card"),

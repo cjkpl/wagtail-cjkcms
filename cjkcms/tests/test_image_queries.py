@@ -81,6 +81,8 @@ class ImageRenditionQueryTests(TestCase):
         self.assertEqual(get_pictures(collection.id, renditions="").count(), 2)
         # A collection which was deleted has no pictures.
         self.assertEqual(get_pictures(collection.id + 1000).count(), 0)
+        self.assertEqual(get_pictures("").count(), 0)
+        self.assertEqual(get_pictures(None).count(), 0)
 
     def test_favicon_loads_renditions_with_one_query(self):
         layout = LayoutSettings.for_site(Site.objects.get(is_default_site=True))

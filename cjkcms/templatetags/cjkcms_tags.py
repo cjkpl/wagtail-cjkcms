@@ -152,6 +152,8 @@ def get_pictures(collection_id, tag=None, renditions="fill-900x600 original"):
     ``renditions`` lists the image filters the template is going to use, separated
     by spaces. They are loaded with one query instead of one per image and filter.
     """
+    if not collection_id:  # e.g. the chosen collection has been deleted
+        return Image.objects.none()
     images = Image.objects.filter(collection_id=collection_id)
     if tag:
         images = images.filter(tags__name=tag)

@@ -71,6 +71,9 @@ migrated to this file.
   the block has a Custom ID, which is now used.
 - The Google Analytics snippet no longer configures a second, empty property
   (`gtag('config', '')`), left over from the removed Universal Analytics ID.
+- A page with an image gallery whose collection or tag has been deleted no longer fails
+  with a server error. Without its collection the gallery is empty; without its tag it
+  shows the whole collection. The editor is asked to choose again when the page is edited.
 ### Removed
 - Dropped the `wagtail-color-panel` dependency; internal color fields now use native widgets.
 

@@ -100,7 +100,10 @@ class CollectionChooserBlock(blocks.FieldBlock):
         Convert the serialized value back into a python object.
         """
         if isinstance(value, int):
-            return self.target_model.objects.get(pk=value)
+            try:
+                return self.target_model.objects.get(pk=value)
+            except self.target_model.DoesNotExist:
+                return None
         return value
 
     def get_prep_value(self, value):
@@ -141,7 +144,10 @@ class TagChooserBlock(blocks.FieldBlock):
         Convert the serialized value back into a python object.
         """
         if isinstance(value, int):
-            return self.target_model.objects.get(pk=value)
+            try:
+                return self.target_model.objects.get(pk=value)
+            except self.target_model.DoesNotExist:
+                return None
         return value
 
     def get_prep_value(self, value):

@@ -67,3 +67,33 @@ CJKCMS_ASSET_INTEGRITY = {
 ```
 
 Set `CJKCMS_ASSET_INTEGRITY = {}` to switch the checks off.
+
+### Page cache
+
+CjkCMS pages are cached by `wagtailcache` when its two middleware classes are
+installed. Pages are served from the cache to visitors who are not logged in.
+
+Whenever a page is published, unpublished, moved or deleted, or a snippet is
+saved or deleted, CjkCMS clears the page cache so that editors see their changes
+at once. This clears the **whole cache backend** used for pages, which is the
+`default` one unless set otherwise. If your project keeps anything else in the
+default cache (sessions, rate limits, your own cached values), give the pages
+their own backend:
+
+```python
+# settings.py
+CACHES = {
+    "default": {...},
+    "pages": {
+        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+        "LOCATION": os.path.join(BASE_DIR, "cache", "pages"),
+        "TIMEOUT": 14400,  # in seconds
+    },
+}
+WAGTAIL_CACHE_BACKEND = "pages"
+```
+
+A cached page is not rendered again until it expires or the cache is cleared.
+Blocks with "Visible from" / "Visible to" dates therefore appear or disappear
+up to one cache `TIMEOUT` late; choose a timeout that suits how precisely such
+content has to be scheduled.

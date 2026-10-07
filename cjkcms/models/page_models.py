@@ -419,6 +419,31 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
         """
         return self.breadcrumb_label or self.title  # type: ignore
 
+    def get_site(self):
+        """
+        Override to look the site up once per page instance. The SEO properties
+        ask for it repeatedly while rendering a single page.
+        """
+        key = (self.pk, self.url_path)
+        cached = self.__dict__.get("_cjkcms_site")
+        if cached and cached[0] == key:
+            return cached[1]
+        site = super().get_site()
+        if site is not None:
+            self._cjkcms_site = (key, site)
+        return site
+
+    def get_layout_settings(self) -> LayoutSettings:
+        """
+        Gets the layout settings of the page's site, loading them only once.
+        """
+        site = self.get_site()
+        if site is None:
+            return LayoutSettings.for_site(site)
+        if not hasattr(site, "_cjkcms_layout_settings"):
+            site._cjkcms_layout_settings = LayoutSettings.for_site(site)
+        return site._cjkcms_layout_settings
+
     @property
     def default_seo_image(self) -> "AbstractImage | None":
         """
@@ -426,7 +451,7 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
         for structured data using a fallback.
         """
 
-        layout_settings = LayoutSettings.for_site(self.get_site())
+        layout_settings = self.get_layout_settings()
         if layout_settings.default_seo_image:
             return layout_settings.default_seo_image
         return None
@@ -443,7 +468,7 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
         logo = super().seo_logo
         if logo:
             return logo
-        layout_settings = LayoutSettings.for_site(self.get_site())
+        layout_settings = self.get_layout_settings()
         if layout_settings.logo:
             return layout_settings.logo
         return None

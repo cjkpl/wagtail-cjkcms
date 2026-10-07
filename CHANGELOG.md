@@ -18,6 +18,10 @@ migrated to this file.
 - Built-in Draftail character and word counters, adapted from `wagtail-character-counter`.
   The standalone app takes precedence while it remains in `INSTALLED_APPS`, avoiding duplicate counters.
 ### Changed
+- `CjkcmsPage.get_site()` now looks the site up once per page instance, and the new
+  `CjkcmsPage.get_layout_settings()` does the same for the site's layout settings.
+  Rendering a page no longer repeats these queries for each SEO property
+  (an empty web page went from 41 to 22 queries).
 ### Fixed
 - Isolated page template and child-page ordering choices per page/form instance,
   preventing intermittent validation errors when different page types are instantiated.

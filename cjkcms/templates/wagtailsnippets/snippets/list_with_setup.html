@@ -1,0 +1,47 @@
+{% extends "wagtailsnippets/snippets/index.html" %}
+{% load wagtailadmin_tags %}
+
+{% block listing %}
+    <div id="list-setup-modal" style="display:none;position:fixed;inset:0;z-index:1200;background:rgba(0,0,0,0.45);">
+        <div style="background:var(--w-color-surface-page);color:var(--w-color-text-context);max-width:780px;width:95%;margin:2rem auto;padding:1.25rem;border:1px solid var(--w-color-border-furniture);border-radius:8px;max-height:calc(100vh - 4rem);overflow:auto;box-sizing:border-box;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+                <h2 style="color:inherit;margin:0;font-size:1.5rem;">List Setup</h2>
+                <button type="button" id="list-setup-close" class="button button-secondary">Close</button>
+            </div>
+            <p style="margin:0 0 0.75rem 0;">Use checkboxes to select columns you want to see. You can change position by dragging rows up or down.</p>
+
+            <ul id="list-setup-columns" style="list-style:none;padding:0;margin:0;border:1px solid var(--w-color-border-furniture);border-radius:6px;">
+                {% for column in all_list_display_choices %}
+                    <li draggable="true" data-col="{{ column.name }}" style="display:flex;align-items:center;gap:0.5rem;padding:0.65rem 0.75rem;border-bottom:1px solid var(--w-color-border-furniture);cursor:grab;">
+                        <span style="opacity:0.6;">☰</span>
+                        <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;">
+                            <input type="checkbox" {% if column.name in selected_list_display %}checked{% endif %}>
+                            <span>{{ column.label }}</span>
+                        </label>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div style="margin-top:1rem;">
+                <h3 style="color:inherit;margin:0 0 0.5rem 0;font-size:1.1rem;">Records Per Page</h3>
+                <p style="margin:0 0 0.5rem 0;">Select how many records to display on one page.</p>
+                <select id="list-setup-per-page" style="min-width:220px;">
+                    {% for option in per_page_options %}
+                        <option value="{{ option }}" {% if option == current_per_page %}selected{% endif %}>{{ option }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div style="display:flex;gap:0.5rem;justify-content:flex-end;margin-top:1rem;">
+                <button type="button" id="list-setup-reset" class="button button-secondary">Reset</button>
+                <button type="button" id="list-setup-apply" class="button button-primary">Apply</button>
+            </div>
+        </div>
+    </div>
+    {{ block.super }}
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    <script defer src="{% versioned_static 'cjkcms/js/list-setup.js' %}"></script>
+{% endblock %}

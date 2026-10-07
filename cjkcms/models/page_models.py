@@ -27,6 +27,7 @@ from wagtail.admin.panels import (
     MultiFieldPanel,
     ObjectList,
 )
+from wagtail.admin.forms import WagtailAdminPageForm
 from wagtail.coreutils import resolve_model_string
 from wagtail.fields import StreamField
 from wagtail.images import get_image_model_string
@@ -55,6 +56,18 @@ CJKCMS_PAGE_MODELS: list[type[Page]] = []
 
 def get_page_models() -> list[type[Page]]:
     return CJKCMS_PAGE_MODELS
+
+
+class CjkcmsPageAdminForm(WagtailAdminPageForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        model = self._meta.model
+
+        if "custom_template" in self.fields:
+            self.fields["custom_template"].choices = model.get_custom_template_choices()
+
+        if "index_order_by" in self.fields:
+            self.fields["index_order_by"].choices = model.get_index_order_by_choices()
 
 
 class CjkcmsPageMeta(PageBase):
@@ -86,6 +99,7 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
 
     # Do not allow this page type to be created in wagtail admin
     is_creatable = False
+    base_form_class = CjkcmsPageAdminForm
 
     # Templates
     # The page will render the following templates under certain conditions:
@@ -321,6 +335,17 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
 
     integration_panels = []
 
+    @classmethod
+    def get_custom_template_choices(cls):
+        class_name = cls.__name__.lower()
+        return cms_settings.CJKCMS_FRONTEND_TEMPLATES_PAGES.get("*", []) + (
+            cms_settings.CJKCMS_FRONTEND_TEMPLATES_PAGES.get(class_name, [])
+        )
+
+    @classmethod
+    def get_index_order_by_choices(cls):
+        return cls.index_order_by_choices
+
     def __init__(self, *args, **kwargs):
         """
         Apply defaults for new pages without mutating shared model fields.
@@ -330,6 +355,29 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
             self.index_order_by = self.index_order_by_default
             self.index_show_subpages = self.index_show_subpages_default
             self.related_show = self.related_show_default
+
+    def clean(self):
+        super().clean()
+
+        valid_templates = {value for value, _ in self.get_custom_template_choices()}
+        if self.custom_template not in valid_templates:
+            raise ValidationError(
+                {
+                    "custom_template": [
+                        f"Value {self.custom_template!r} is not a valid choice."
+                    ]
+                }
+            )
+
+        valid_ordering = {value for value, _ in self.get_index_order_by_choices()}
+        if self.index_order_by not in valid_ordering:
+            raise ValidationError(
+                {
+                    "index_order_by": [
+                        f"Value {self.index_order_by!r} is not a valid choice."
+                    ]
+                }
+            )
 
     @classmethod
     def get_custom_template_choices(cls):

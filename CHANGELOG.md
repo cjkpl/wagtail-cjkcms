@@ -69,6 +69,8 @@ migrated to this file.
 - Several countdown blocks on one page no longer interfere with each other: every block
   started every countdown on the page. The element keeps `id="mycountdown"`, unless
   the block has a Custom ID, which is now used.
+- The Google Analytics snippet no longer configures a second, empty property
+  (`gtag('config', '')`), left over from the removed Universal Analytics ID.
 ### Removed
 - Dropped the `wagtail-color-panel` dependency; internal color fields now use native widgets.
 

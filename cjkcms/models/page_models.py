@@ -326,10 +326,15 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
         Apply defaults for new pages without mutating shared model fields.
         """
         super().__init__(*args, **kwargs)
-        if not self.id:  # type: ignore
-            self.index_order_by = self.index_order_by_default
-            self.index_show_subpages = self.index_show_subpages_default
-            self.related_show = self.related_show_default
+        # Values passed in, e.g. when Wagtail copies or translates a page,
+        # take precedence over the defaults of the page type.
+        if not args and not self.id:  # type: ignore
+            if "index_order_by" not in kwargs:
+                self.index_order_by = self.index_order_by_default
+            if "index_show_subpages" not in kwargs:
+                self.index_show_subpages = self.index_show_subpages_default
+            if "related_show" not in kwargs:
+                self.related_show = self.related_show_default
 
     @classmethod
     def get_custom_template_choices(cls):

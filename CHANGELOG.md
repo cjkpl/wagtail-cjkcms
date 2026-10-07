@@ -31,6 +31,10 @@ migrated to this file.
   anonymous visitors. Warning! Sites with the navbar search box enabled will now really be
   served from the page cache: content rendered per request (e.g. blocks with "visible
   from/to" dates) stays as cached until the cache expires or a page/snippet is saved.
+- Copying, aliasing or translating a page no longer resets "Show list of child pages",
+  "Show list of related pages" and "Order child pages by" to the defaults of the page type.
+  Values passed when constructing a page in code are kept as well. Pages copied before
+  this fix are not corrected automatically.
 ### Removed
 - Dropped the `wagtail-color-panel` dependency; internal color fields now use native widgets.
 

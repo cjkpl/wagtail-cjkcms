@@ -17,6 +17,10 @@ migrated to this file.
   Deployment requires migrations and collectstatic.
 - Built-in Draftail character and word counters, adapted from `wagtail-character-counter`.
   The standalone app takes precedence while it remains in `INSTALLED_APPS`, avoiding duplicate counters.
+- Google Tag Manager support: the GTM ID from Settings -> Tracking, which was stored but
+  never used, is rendered when the project sets `CJKCMS_GTM_ENABLED = True`.
+  It is off by default, so sites with an ID already filled in do not start loading
+  Tag Manager. With the cookie consent banner enabled, the snippet waits for consent.
 ### Changed
 - Theme CSS/JS and Font Awesome loaded from CDNs now carry Subresource Integrity hashes,
   listed by URL in the new `CJKCMS_ASSET_INTEGRITY` setting. Theme URLs overridden in

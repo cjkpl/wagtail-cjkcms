@@ -579,6 +579,10 @@ class _DefaultSettings:
 
     CJKCMS_DJANGO_SETTINGS_WHITELIST = ["DEBUG", "TIME_ZONE"]
 
+    # Render the Google Tag Manager snippet on sites which have a GTM ID in
+    # Settings->Tracking. Off by default: the ID alone does not load anything.
+    CJKCMS_GTM_ENABLED = False
+
     # Most results loaded per searchable model on the search page.
     # Set to None to load every match.
     CJKCMS_SEARCH_MAX_RESULTS = 1000

@@ -97,3 +97,20 @@ A cached page is not rendered again until it expires or the cache is cleared.
 Blocks with "Visible from" / "Visible to" dates therefore appear or disappear
 up to one cache `TIMEOUT` late; choose a timeout that suits how precisely such
 content has to be scheduled.
+
+### Google Tag Manager
+
+Settings -> Tracking has a field for a Google Tag Manager ID. Entering an ID
+does not load anything by itself: the Tag Manager snippet is rendered only when
+the project also enables it.
+
+```python
+# settings.py
+CJKCMS_GTM_ENABLED = True
+```
+
+When the cookie consent banner is enabled, the snippet waits until the visitor
+accepts the analytics category, and the `<noscript>` fallback is left out.
+If you override the `tracking` block of `cjkcms/pages/base.html`, include
+`cjkcms/snippets/tracking_gtm.html` there yourself.
+

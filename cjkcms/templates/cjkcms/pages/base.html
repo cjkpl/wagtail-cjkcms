@@ -65,11 +65,22 @@
             {% if settings.cjkcms.AnalyticsSettings.g4_tracking_id  %}
                 {% include "cjkcms/snippets/tracking_g4.html" %}
             {% endif %}
+            {# Google Tag Manager is off unless the project sets CJKCMS_GTM_ENABLED = True #}
+            {% if "CJKCMS_GTM_ENABLED"|cjkcms_settings and settings.cjkcms.AnalyticsSettings.gtm_id %}
+                {% include "cjkcms/snippets/tracking_gtm.html" %}
+            {% endif %}
         {% endblock %}
     </head>
 {% endblock base_head %}
 
     <body class="cjkcms-{{page.content_type.model}} {% if page.get_parent %}parent-page-{{page.get_parent.id}}{% endif %} {% block body_class %}{% endblock %}" id="page-{{page.id}}">
+        {% block tracking_body %}
+            {# The noscript fallback can not wait for cookie consent, so it is left out when consent is required. #}
+            {% if "CJKCMS_GTM_ENABLED"|cjkcms_settings and settings.cjkcms.AnalyticsSettings.gtm_id and not settings.cjkcms.AnalyticsSettings.cookie_consent %}
+                {% include "cjkcms/snippets/tracking_gtm_noscript.html" %}
+            {% endif %}
+        {% endblock %}
+
         {% include "cjkcms/includes/cjkcms_banner.html" %}
 
         {% wagtailuserbar %}

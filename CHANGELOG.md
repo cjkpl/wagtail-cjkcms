@@ -61,6 +61,9 @@ migrated to this file.
 - `OEmbedFinderWithReferer` waits at most 10 seconds for a provider instead of
   indefinitely, and reports a video response without HTML as "embed not found"
   rather than failing with a server error.
+- Ordering child pages by a classifier no longer fails on PostgreSQL ("more than one row
+  returned by a subquery") when a child page has several terms of that classifier.
+  Such a page is placed by the first of its terms.
 ### Removed
 - Dropped the `wagtail-color-panel` dependency; internal color fields now use native widgets.
 

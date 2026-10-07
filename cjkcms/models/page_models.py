@@ -530,8 +530,12 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
                 # Reverse ManyToMany of `cjkcmspage.classifier_terms`.
                 cjkcmspage=models.OuterRef("pk"),
             )
+            # A page may have several terms of the classifier, while the subquery
+            # must return one row (PostgreSQL raises an error otherwise).
             query = query.annotate(
-                term_sort_order=models.Subquery(terms.values("sort_order"))
+                term_sort_order=models.Subquery(
+                    terms.order_by("sort_order").values("sort_order")[:1]
+                )
             )
             order.append("term_sort_order")
 

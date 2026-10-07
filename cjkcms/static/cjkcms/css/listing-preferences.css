@@ -1,55 +1,128 @@
-.cjkcms-listing-preferences > summary {
+.cjkcms-listing-options {
+    box-sizing: border-box;
+    width: min(17rem, calc(100vw - 2rem));
+    padding: 0.75rem;
+    color: var(--w-color-text-context);
+    font-size: 0.8125rem;
+}
+
+.cjkcms-listing-options fieldset,
+.cjkcms-listing-options legend {
+    margin: 0;
+    padding: 0;
+}
+
+.cjkcms-listing-options legend {
+    font-size: inherit;
+    font-weight: 600;
+}
+
+.cjkcms-listing-options__shortcuts {
+    display: flex;
+    gap: 0.75rem;
+    margin-block: 0.375rem;
+}
+
+/* Wagtail styles dropdown buttons as full-width menu items. */
+.cjkcms-listing-options__shortcuts button,
+.cjkcms-listing-options__shortcuts button:hover {
+    display: inline;
+    width: auto;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--w-color-text-link-default);
+    font-size: inherit;
+    font-weight: normal;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.cjkcms-listing-options__columns {
+    max-height: min(18rem, 45vh);
+    overflow-y: auto;
+    margin-block: 0.375rem;
+}
+
+.cjkcms-listing-options__columns label {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    list-style: none;
-    white-space: nowrap;
+    margin: 0;
+    padding-block: 0.25rem;
+    font-size: inherit;
+    font-weight: normal;
 }
 
-.cjkcms-listing-preferences > summary::-webkit-details-marker {
-    display: none;
-}
-
-.cjkcms-listing-preferences > summary .icon {
-    width: 1.1rem;
-    height: 1.1rem;
+.cjkcms-listing-options__columns input[type="checkbox"] {
     flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    margin: 0;
 }
 
-.cjkcms-listing-preferences__panel {
-    box-sizing: border-box;
-    position: fixed;
-    inset-inline-end: 1rem;
-    top: 4rem;
-    z-index: 100;
-    width: min(22rem, calc(100vw - 2rem));
-    max-height: calc(100vh - 5rem);
-    overflow: auto;
-    padding: 1.25rem;
-    background: var(--w-color-surface-page);
-    color: var(--w-color-text-context);
-    border: 1px solid var(--w-color-border-furniture);
-    border-radius: 0.5rem;
-    box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 20%);
+.cjkcms-listing-options__page-size {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
 }
 
-.cjkcms-listing-preferences__panel legend {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
+.cjkcms-listing-options fieldset + .cjkcms-listing-options__page-size {
+    border-top: 1px solid var(--w-color-border-furniture);
+    padding-top: 0.5rem;
+    margin-top: 0.5rem;
 }
 
-.cjkcms-listing-preferences__panel label {
-    display: block;
-    margin-block: 0.5rem;
+.cjkcms-listing-options__page-size label {
+    margin: 0;
+    font-size: inherit;
+    font-weight: normal;
 }
 
-.cjkcms-listing-preferences__panel input[type="checkbox"] {
-    margin-inline-end: 0.5rem;
+.cjkcms-listing-options__page-size select {
+    min-height: 2rem;
+    padding-block: 0.25rem;
+    font-size: inherit;
 }
 
-.cjkcms-listing-preferences__actions {
+.cjkcms-listing-options__footer {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: 0.5rem;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
+}
+
+.cjkcms-listing-options__footer .button {
+    width: auto;
+    margin: 0;
+}
+
+.cjkcms-listing-options__hint,
+.cjkcms-listing-options [data-listing-status] {
+    font-size: 0.75rem;
+    color: var(--w-color-text-meta);
+}
+
+.cjkcms-listing-options [data-listing-status][data-error] {
+    color: var(--w-color-text-error);
+}
+
+.cjkcms-listing-options [hidden] {
+    display: none !important;
+}
+
+/* Without JavaScript the dropdown cannot open; a native disclosure expands
+   in the header instead. */
+.cjkcms-listing-preferences-fallback > summary {
+    padding: 0.5rem;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+@media (scripting: none) {
+    .cjkcms-listing-preferences {
+        display: none;
+    }
 }

@@ -14,7 +14,7 @@ from cjkcms.admin_viewsets import (
     ListingPreferencesMixin,
 )
 from cjkcms.models.admin_preferences import AdminListingPreference
-from cjkcms.models.snippet_models import Footer, Navbar
+from cjkcms.models.snippet_models import EventCalendar, Footer, Navbar
 
 pytestmark = pytest.mark.django_db
 
@@ -273,3 +273,72 @@ def test_invalid_post_actions_and_results_endpoint(admin_client):
         == 400
     )
     assert not AdminListingPreference.objects.exists()
+
+
+def test_ajax_save_and_reset_return_json_without_redirects(admin_client, admin_user):
+    url = listing_url()
+    response = admin_client.post(
+        url,
+        {
+            "listing_preferences_action": "apply",
+            "visible_columns": ["custom_id"],
+            "page_size": "10",
+        },
+        HTTP_ACCEPT="application/json",
+    )
+    assert response.status_code == 200
+    assert response.json() == {"saved": True}
+    preference = AdminListingPreference.objects.get(user=admin_user)
+    assert preference.hidden_columns == ["custom_css_class"]
+    assert preference.page_size == 10
+    response = admin_client.get(listing_url(results=True))
+    assert "custom_css_class" not in response.context["table"].columns
+    assert response.context["paginator"].per_page == 10
+    response = admin_client.post(
+        url, {"listing_preferences_action": "reset"}, HTTP_ACCEPT="application/json"
+    )
+    assert response.status_code == 200
+    assert response.json() == {"saved": True}
+    assert not AdminListingPreference.objects.exists()
+
+
+def test_ajax_invalid_choices_leave_saved_preferences_unchanged(admin_client, admin_user):
+    preference = AdminListingPreference.objects.create(
+        user=admin_user, listing_key=preference_key(), page_size=20
+    )
+    response = admin_client.post(
+        listing_url(),
+        {
+            "listing_preferences_action": "apply",
+            "visible_columns": ["secret_field"],
+            "page_size": "999",
+        },
+        HTTP_ACCEPT="application/json",
+    )
+    assert response.status_code == 400
+    assert {"visible_columns", "page_size"} <= response.json().keys()
+    preference.refresh_from_db()
+    assert preference.page_size == 20
+    assert preference.hidden_columns == []
+
+
+def test_display_options_render_as_autosaving_wagtail_dropdown(admin_client):
+    content = admin_client.get(listing_url()).content.decode()
+    # An unknown theme leaves Wagtail's dropdown without styling or click-away.
+    assert 'data-w-dropdown-theme-value="drilldown"' in content
+    assert 'data-w-dropdown-keep-mounted-value="true"' in content
+    assert f'data-results-url="{listing_url(results=True)}"' in content
+    assert "data-listing-shortcuts" in content
+    # Wagtail replaces only the results on AJAX refreshes; the options stay in the header.
+    content = admin_client.get(listing_url(results=True)).content.decode()
+    assert "data-listing-preferences-form" not in content
+
+
+def test_listing_without_optional_columns_only_offers_page_size(admin_client):
+    response = admin_client.get(listing_url(EventCalendar))
+    assert response.context["listing_preferences_form"].fields["visible_columns"].choices == []
+    content = response.content.decode()
+    assert "data-listing-preferences-form" in content
+    assert 'name="page_size"' in content
+    assert "data-listing-shortcuts" not in content
+    assert 'name="visible_columns"' not in content

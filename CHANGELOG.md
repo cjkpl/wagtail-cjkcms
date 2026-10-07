@@ -13,6 +13,7 @@ migrated to this file.
 - Personal snippet listing display options: optional column visibility and rows
   per page, stored per user/listing without modifying project user models.
   Enabled for CMS snippets, with reusable viewset/mixin support for project snippets.
+  Changes save automatically and refresh the listing in place, without an Apply button.
   Deployment requires migrations and collectstatic.
 - Built-in Draftail character and word counters, adapted from `wagtail-character-counter`.
   The standalone app takes precedence while it remains in `INSTALLED_APPS`, avoiding duplicate counters.

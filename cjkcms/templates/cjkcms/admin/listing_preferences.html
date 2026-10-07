@@ -1,29 +1,14 @@
 {% load i18n wagtailadmin_tags %}
 {% if listing_preferences_form %}
-    <details class="cjkcms-listing-preferences">
-        <summary class="button button-secondary" aria-label="{% trans 'Display options' %}">
-            {% icon name="cog" %} {% trans "Display options" %}
-        </summary>
-        <div class="cjkcms-listing-preferences__panel">
-            <form method="post" action="{{ listing_preferences_url }}" data-listing-preferences-form data-page-parameter="{{ view.page_kwarg }}">
-                {% csrf_token %}
-                <fieldset>
-                    <legend>{% trans "Columns" %}</legend>
-                    <p class="help">{% trans "Title and action columns are always visible." %}</p>
-                    {{ listing_preferences_form.visible_columns }}
-                </fieldset>
-                <p>
-                    {{ listing_preferences_form.page_size.label_tag }}
-                    {{ listing_preferences_form.page_size }}
-                </p>
-                {% if view.show_ordering_column %}
-                    <p class="help">{% trans "All entries are shown while dragging to reorder. Your page size applies in other listing modes." %}</p>
-                {% endif %}
-                <div class="cjkcms-listing-preferences__actions">
-                    <button class="button" type="submit" name="listing_preferences_action" value="apply">{% trans "Apply" %}</button>
-                    <button class="button button-secondary" type="submit" name="listing_preferences_action" value="reset">{% trans "Reset to defaults" %}</button>
-                </div>
-            </form>
-        </div>
-    </details>
+    {% fragment as display_options %}
+        {% include "cjkcms/admin/listing_preferences_form.html" %}
+    {% endfragment %}
+    {% trans "Display options" as display_options_label %}
+    {% include "wagtailadmin/shared/dropdown/dropdown.html" with theme="drilldown" classname="cjkcms-listing-preferences" toggle_icon="cog" toggle_aria_label=display_options_label toggle_classname="w-slim-header-action-button" keep_mounted=True children=display_options %}
+    <noscript>
+        <details class="cjkcms-listing-preferences-fallback">
+            <summary>{{ display_options_label }}</summary>
+            {{ display_options }}
+        </details>
+    </noscript>
 {% endif %}

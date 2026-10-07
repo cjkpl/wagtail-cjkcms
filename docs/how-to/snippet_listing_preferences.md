@@ -6,8 +6,15 @@ page, and reset the listing to its defaults. Preferences belong to the signed-in
 user and listing and persist across browsers. They do not change other users'
 views or permissions. The title/edit link and action columns remain visible.
 
+Changes are saved as soon as a checkbox or the page size changes; there is no
+Apply button. The listing refreshes in place without a page reload, the menu
+stays open for further changes, and a status line reports **Saving…**, **Saved**,
+or an error with a **Retry** button. **Show all** and **Hide optional** switch
+every optional column at once. Listings without optional columns only offer the
+page size.
+
 Choosing **Default** uses the viewset's `list_per_page`. Wagtail's drag-and-drop
-reordering mode continues to show all entries. Applying options retains search,
+reordering mode continues to show all entries. Changing options retains search,
 filters, and ordering and returns to the first page. Hidden columns remain
 available for sorting and exports; this feature controls presentation, not access.
 
@@ -18,7 +25,7 @@ this release, then restart the application. No project user-model changes are
 required. CjkCMS owns an `AdminListingPreference` table with a foreign key to
 `settings.AUTH_USER_MODEL`, a unique user/listing key, hidden column identifiers,
 and an optional page size. It does not modify Wagtail's user profile or a site's
-custom profile. Rows are created only when an editor applies preferences and are
+custom profile. Rows are created only when an editor changes an option and are
 deleted when the user is deleted or the listing is reset.
 
 The key combines the model's `app_label.model_name` with the listing's URL name.
@@ -84,9 +91,13 @@ to the mixin; its default POST handler is reserved for these options.
 For a custom index template, extend `cjkcms/admin/snippets/index.html`, or include
 `cjkcms/admin/listing_preferences.html` in your header and load
 `cjkcms/css/listing-preferences.css` and `cjkcms/js/listing-preferences.js`.
-The JavaScript preserves the current search/filter query after AJAX updates and
-provides Escape/click-away dismissal. The form also works without JavaScript,
-using the query from its initial page render.
+The menu is a standard Wagtail dropdown, so Escape and click-away dismissal work
+as elsewhere in the admin. The JavaScript saves each change with a JSON request
+(`Accept: application/json`) to the listing URL, then reloads the listing's
+`index_results_url` into `#listing-results` using the search/filter query
+currently shown in the browser URL. Without JavaScript, or when the view has no
+results URL, the same form is submitted with an **Apply** button and redirects
+back to the listing.
 
 The reusable mixin may also be used with Wagtail model listing views that expose
 the same table, pagination, URL, and permission-policy interfaces. It does not

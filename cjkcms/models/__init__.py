@@ -1,5 +1,5 @@
 from .admin_sidebar import *  # noqa
-from .admin_preferences import AdminListingPreference
+from .admin_preferences import AdminListingPreference  # noqa
 from .integration_models import *
 from .page_models import *
 from .snippet_models import *

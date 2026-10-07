@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponseBadRequest, HttpResponseRedirect
+from django.http import HttpResponseBadRequest, HttpResponseRedirect, JsonResponse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from wagtail.admin.ui.tables import (
@@ -156,6 +156,8 @@ class ListingPreferencesMixin:
             )
         else:
             return HttpResponseBadRequest("Unknown display options action.")
+        if request.headers.get("Accept") == "application/json":
+            return JsonResponse({"saved": True})
         return HttpResponseRedirect(self.get_listing_preferences_url())
 
 

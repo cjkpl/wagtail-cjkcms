@@ -1,0 +1,33 @@
+{% load i18n %}
+<form class="cjkcms-listing-options" method="post" action="{{ listing_preferences_url }}"
+      data-listing-preferences-form data-page-parameter="{{ view.page_kwarg }}"
+      data-results-url="{{ view.index_results_url }}"
+      data-saving-message="{% trans 'Saving…' %}" data-saved-message="{% trans 'Saved' %}"
+      data-error-message="{% trans 'Could not update the listing. Retry your changes.' %}">
+    {% csrf_token %}
+    {% if listing_preferences_form.visible_columns.field.choices %}
+    <fieldset>
+        <legend>{% trans "Columns" %}</legend>
+        <div class="cjkcms-listing-options__shortcuts" data-listing-shortcuts hidden>
+            <button type="button" data-listing-show-all>{% trans "Show all" %}</button>
+            <button type="button" data-listing-hide-all>{% trans "Hide optional" %}</button>
+        </div>
+        <div class="cjkcms-listing-options__columns">
+            {{ listing_preferences_form.visible_columns }}
+        </div>
+    </fieldset>
+    {% endif %}
+    <div class="cjkcms-listing-options__page-size">
+        {{ listing_preferences_form.page_size.label_tag }}
+        {{ listing_preferences_form.page_size }}
+    </div>
+    {% if view.show_ordering_column %}
+        <p class="cjkcms-listing-options__hint">{% trans "All entries are shown while dragging to reorder." %}</p>
+    {% endif %}
+    <div class="cjkcms-listing-options__footer">
+        <button class="button button-small" type="submit" name="listing_preferences_action" value="apply" data-listing-apply>{% trans "Apply" %}</button>
+        <button class="button button-small button-secondary" type="submit" name="listing_preferences_action" value="reset">{% trans "Reset" %}</button>
+        <span role="status" aria-live="polite" data-listing-status></span>
+        <button class="button button-small button-secondary" type="button" data-listing-retry hidden>{% trans "Retry" %}</button>
+    </div>
+</form>

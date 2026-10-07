@@ -64,6 +64,8 @@ migrated to this file.
 - Ordering child pages by a classifier no longer fails on PostgreSQL ("more than one row
   returned by a subquery") when a child page has several terms of that classifier.
   Such a page is placed by the first of its terms.
+- Carousel block markup: the indicator buttons were missing the end of their opening tag,
+  slides got their custom ID prefixed with `#`, and the control labels had a stray quote.
 ### Removed
 - Dropped the `wagtail-color-panel` dependency; internal color fields now use native widgets.
 

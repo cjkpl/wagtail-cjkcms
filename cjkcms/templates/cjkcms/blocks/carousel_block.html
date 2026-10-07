@@ -16,7 +16,7 @@
                 data-bs-slide-to="{{forloop.counter0}}"
                 data-mdb-slide-to="{{forloop.counter0}}"
                 aria-label="Slide {{forloop.counter}}"
-             {% if forloop.counter0 == 0 %}class="active"{% endif %}
+             {% if forloop.counter0 == 0 %}class="active" aria-current="true"{% endif %}>
         </button>
     {% endfor %}
     </div>
@@ -26,7 +26,7 @@
     {% for item in self.carousel.carousel_slides.all %}
         {% block carousel_slide %}
         <div class="carousel-item {% if not item.image %}no-img{% endif %} {% if forloop.counter0 == 0 %}active{% endif %} {{item.custom_css_class}}"
-            {% if item.custom_id %}id="#{{item.custom_id}}"{% endif %} 
+            {% if item.custom_id %}id="{{item.custom_id}}"{% endif %} 
              style="{% if item.background_color %}background-color: {{item.background_color}};{% endif %}">
             {% block carousel_slide_image %}
                 {% if item.image %}
@@ -50,7 +50,7 @@
             data-mdb-target="#carousel-{{self.carousel.id}}"
             data-bs-target="#carousel-{{self.carousel.id}}">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden"">Previous</span>
+        <span class="visually-hidden">Previous</span>
     </button>
     <button class="carousel-control-next" 
             type="button" 
@@ -59,7 +59,7 @@
             data-mdb-target="#carousel-{{self.carousel.id}}"
             data-bs-target="#carousel-{{self.carousel.id}}">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden"">Next</span>
+        <span class="visually-hidden">Next</span>
     </button>
     {% endif %}
 

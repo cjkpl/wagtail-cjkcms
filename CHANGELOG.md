@@ -77,6 +77,8 @@ migrated to this file.
 - `robots.txt` gives the sitemap as an absolute URL built from the Wagtail site
   (e.g. `https://www.example.com/sitemap.xml`), as crawlers require, instead of
   `/sitemap.xml`. Projects with their own `cjkcms/robots.txt` template are not affected.
+- Page previews (`body_preview`, also used as the meta description of articles) no longer
+  contain the JavaScript or CSS code of blocks such as the countdown or icon with text.
 ### Removed
 - Dropped the `wagtail-color-panel` dependency; internal color fields now use native widgets.
 

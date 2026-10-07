@@ -56,3 +56,26 @@ class BodyPreviewTests(TestCase):
         page.save()
         page = ArticlePage.objects.get(pk=page.pk)
         self.assertEqual(page.body_preview.strip(), "Second version")
+
+    def test_preview_has_no_script_or_style_code(self):
+        page = ArticlePage.objects.get(pk=self.page.pk)
+        page.body = [
+            {
+                "type": "countdown",
+                "value": {"theme": "light", "start_date": "2029-01-01 00:00"},
+                "id": str(uuid.uuid4()),
+            },
+            {
+                "type": "icon_with_text",
+                "value": {"icon": "fa-solid fa-star", "icon_color": "#ff0000"},
+                "id": str(uuid.uuid4()),
+            },
+            *text_body("Only this is text"),
+        ]
+        page.save_revision().publish()
+
+        self.assertEqual(page.body_preview.strip(), "Only this is text")
+        html = Client().get(page.url).content.decode()
+        description = html.split('<meta name="description" content="')[1].split('"')[0]
+        self.assertEqual(description.strip(), "Only this is text")
+

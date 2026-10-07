@@ -90,3 +90,25 @@ class TestRichTextPreview(unittest.TestCase):
     def test_returns_full_text_when_within_limit(self):
         preview = get_richtext_preview("<p>Hello</p>", max_length=10)
         self.assertEqual(preview, "Hello")
+
+    def test_leaves_out_scripts_and_styles(self):
+        html = (
+            "<style scoped>.a { color: red; }</style>"
+            "<p>Before</p>"
+            '<script src="lib.js"></script>'
+            "<SCRIPT type='text/javascript'>\n  start('#x', {year: 2029});\n</SCRIPT >"
+            "<p>After</p>"
+        )
+        self.assertEqual(get_richtext_preview(html), "BeforeAfter")
+
+    def test_keeps_text_mentioning_scripts(self):
+        preview = get_richtext_preview("<p>A script and a style guide</p>")
+        self.assertEqual(preview, "A script and a style guide")
+
+    def test_accepts_non_string_content(self):
+        class Body:
+            def __str__(self):
+                return "<p>Rendered</p><script>code()</script>"
+
+        self.assertEqual(get_richtext_preview(Body()), "Rendered")
+

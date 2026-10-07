@@ -22,6 +22,11 @@ migrated to this file.
 - Isolated page template and child-page ordering choices per page/form instance,
   preventing intermittent validation errors when different page types are instantiated.
   Existing template settings and stored values are unchanged; no migration is needed.
+- Removed the CSRF token from the navbar search forms. They submit over GET, so the token
+  was never checked, but it leaked into search URLs and stopped the page cache from serving
+  anonymous visitors. Warning! Sites with the navbar search box enabled will now really be
+  served from the page cache: content rendered per request (e.g. blocks with "visible
+  from/to" dates) stays as cached until the cache expires or a page/snippet is saved.
 ### Removed
 - Dropped the `wagtail-color-panel` dependency; internal color fields now use native widgets.
 

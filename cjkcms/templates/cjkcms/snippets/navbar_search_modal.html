@@ -2,7 +2,6 @@
 
 
 <form action="{% url 'cjkcms_search' %}" method="GET" class="align-items-center">
-  {% csrf_token %}
   {% get_searchform request as form %}
   {% bootstrap_form_errors form type='non_fields' %}
         <div id="searchModal" class="modal fade" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">

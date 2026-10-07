@@ -13,8 +13,9 @@ from django.utils import timezone
 # from django.forms import ClearableFileInput
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
+from wagtail.images import get_image_model
 from wagtail.images.models import Image
-from wagtail.models import Collection, Page
+from wagtail.models import Page
 
 from cjkcms import __version__
 from cjkcms.blocks.base_blocks import CjkcmsAdvSettings
@@ -24,6 +25,14 @@ from cjkcms.models.wagtailsettings_models import LayoutSettings
 from cjkcms.settings import cms_settings
 
 register = template.Library()
+
+# Favicon sizes rendered by cjkcms/pages/base.html
+FAVICON_RENDITIONS = (
+    "fill-120x120|format-png",
+    "fill-180x180|format-png",
+    "fill-152x152|format-png",
+    "fill-167x167|format-png",
+)
 
 
 @register.simple_tag(takes_context=True)
@@ -133,12 +142,39 @@ def is_active_page(context, curr_page, other_page):
 
 
 @register.simple_tag
-def get_pictures(collection_id, tag=None):
-    collection = Collection.objects.get(id=collection_id)
-    images = Image.objects.filter(collection=collection)
+def get_pictures(collection_id, tag=None, renditions="fill-900x600 original"):
+    """
+    Returns the images of a collection, optionally limited to a tag.
+
+    ``renditions`` lists the image filters the template is going to use, separated
+    by spaces. They are loaded with one query instead of one per image and filter.
+    """
+    images = Image.objects.filter(collection_id=collection_id)
     if tag:
         images = images.filter(tags__name=tag)
+    if renditions:
+        images = images.prefetch_renditions(*renditions.split())
     return images
+
+
+@register.simple_tag(takes_context=True)
+def get_favicon(context):
+    """
+    Returns the favicon set in Settings->Layout, with the renditions used
+    by the base template loaded in a single query.
+    """
+    request = context.get("request")
+    if request is None:
+        return None
+    favicon_id = LayoutSettings.for_request(request).favicon_id
+    if not favicon_id:
+        return None
+    return (
+        get_image_model()
+        .objects.filter(pk=favicon_id)
+        .prefetch_renditions(*FAVICON_RENDITIONS)
+        .first()
+    )
 
 
 @register.simple_tag(takes_context=True)

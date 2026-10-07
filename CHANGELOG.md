@@ -26,6 +26,11 @@ migrated to this file.
   (default 1000), so a very broad query can no longer exhaust memory. Result counts still
   report every match. Set it to `None` to restore loading all matches. Models with fewer
   matches than the limit now also need one query instead of two.
+- The image gallery block and the favicon links load their image renditions with one
+  query each, instead of two per gallery image and four for the favicon. The
+  `get_pictures` tag accepts a `renditions` argument listing the image filters a
+  customised gallery template uses, and returns no pictures for a deleted collection
+  instead of raising an error. Projects overriding the `favicon` block are not affected.
 - Blocks hidden by their visibility settings are skipped before their template context
   is built, saving the queries of e.g. a hidden "Latest Pages" block.
 - `CjkcmsPage.get_site()` now looks the site up once per page instance, and the new

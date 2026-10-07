@@ -8,8 +8,9 @@ from django.apps import apps
 from django.core.paginator import EmptyPage, InvalidPage, PageNotAnInteger, Paginator
 from django.http import Http404, HttpResponsePermanentRedirect
 from django.shortcuts import render
+from django.urls import NoReverseMatch, reverse
 from django.utils import timezone, translation
-from wagtail.models import Locale, Page
+from wagtail.models import Locale, Page, Site
 from wagtail.search import index
 from wagtail.search.backends import get_search_backend
 
@@ -294,5 +295,24 @@ def favicon(request):
     raise Http404()
 
 
+def _sitemap_url(request):
+    """
+    Returns the absolute URL of the sitemap, as robots.txt requires one.
+    """
+    try:
+        path = reverse("cjkcms_sitemap")
+    except NoReverseMatch:  # project routes the sitemap by itself
+        path = "/sitemap.xml"
+    site = Site.find_for_request(request)
+    if site:
+        return f"{site.root_url}{path}"
+    return request.build_absolute_uri(path)
+
+
 def robots(request):
-    return render(request, "cjkcms/robots.txt", content_type="text/plain")
+    return render(
+        request,
+        "cjkcms/robots.txt",
+        {"sitemap_url": _sitemap_url(request)},
+        content_type="text/plain",
+    )

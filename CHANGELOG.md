@@ -74,6 +74,9 @@ migrated to this file.
 - A page with an image gallery whose collection or tag has been deleted no longer fails
   with a server error. Without its collection the gallery is empty; without its tag it
   shows the whole collection. The editor is asked to choose again when the page is edited.
+- `robots.txt` gives the sitemap as an absolute URL built from the Wagtail site
+  (e.g. `https://www.example.com/sitemap.xml`), as crawlers require, instead of
+  `/sitemap.xml`. Projects with their own `cjkcms/robots.txt` template are not affected.
 ### Removed
 - Dropped the `wagtail-color-panel` dependency; internal color fields now use native widgets.
 

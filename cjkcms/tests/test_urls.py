@@ -40,6 +40,29 @@ class TestSiteURLs(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["content-type"], "text/plain")
 
+    def test_robots_sitemap_url_is_absolute(self):
+        site = Site.objects.get(is_default_site=True)
+        site.hostname = "www.example.com"
+        site.port = 443
+        site.save()
+
+        response = self.client.get("/robots.txt")
+
+        self.assertIn(
+            "Sitemap: https://www.example.com/sitemap.xml",
+            response.content.decode().splitlines(),
+        )
+
+    def test_robots_sitemap_url_without_site(self):
+        Site.objects.all().delete()
+
+        response = self.client.get("/robots.txt")
+
+        self.assertIn(
+            "Sitemap: http://testserver/sitemap.xml",
+            response.content.decode().splitlines(),
+        )
+
     def test_search(self):
 
         # why does the ting below fail?

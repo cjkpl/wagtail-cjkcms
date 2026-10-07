@@ -3,4 +3,4 @@ Disallow: /backend/
 Disallow: /django-backend/
 Allow: /
 
-Sitemap: /sitemap.xml
+Sitemap: {{ sitemap_url|default:"/sitemap.xml" }}

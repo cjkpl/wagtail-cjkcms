@@ -335,11 +335,9 @@ class BaseBlock(blocks.StructBlock):
         )
         if not template:
             return self.render_basic(value, context=context)
-        if context is None:
-            new_context = self.get_context(value)
-        else:
-            new_context = self.get_context(value, parent_context=dict(context))
 
+        # Check visibility first: building the context of a hidden block is
+        # wasted work, and may run queries (e.g. the page list block).
         visibility = value["settings"]["visibility"]
         visibility_groups = value["settings"]["visibility_groups"]
         visible_from = value["settings"]["visible_from"]
@@ -348,6 +346,11 @@ class BaseBlock(blocks.StructBlock):
             context, visibility, visibility_groups, visible_from, visible_to
         ):
             return ""
+
+        if context is None:
+            new_context = self.get_context(value)
+        else:
+            new_context = self.get_context(value, parent_context=dict(context))
 
         return mark_safe(render_to_string(template, new_context))
 

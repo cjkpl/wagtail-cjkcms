@@ -26,6 +26,8 @@ migrated to this file.
   (default 1000), so a very broad query can no longer exhaust memory. Result counts still
   report every match. Set it to `None` to restore loading all matches. Models with fewer
   matches than the limit now also need one query instead of two.
+- Blocks hidden by their visibility settings are skipped before their template context
+  is built, saving the queries of e.g. a hidden "Latest Pages" block.
 - `CjkcmsPage.get_site()` now looks the site up once per page instance, and the new
   `CjkcmsPage.get_layout_settings()` does the same for the site's layout settings.
   Rendering a page no longer repeats these queries for each SEO property

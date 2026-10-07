@@ -78,6 +78,7 @@ class CardBlock(BaseBlock):
 
         if (
             context
+            and "self" in context
             and hasattr(context["self"], "__iter__")
             and "default_card_template" in context["self"]
             and context["self"]["default_card_template"]

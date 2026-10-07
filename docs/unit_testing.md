@@ -1,5 +1,14 @@
 # Testing
 
+## Character counter browser tests
+
+From the repository root, run `python -m http.server 8765` and open
+`http://localhost:8765/cjkcms/tests/js/character-counter.html` in a browser.
+The page reports passing checks and any error. It tests initial counts, edits,
+empty content, dynamically inserted editors, delayed editor initialization, and
+block reinsertion using real DOM mutation observers. No JavaScript dependencies
+are needed.
+
 ## Introduction
 
 Unit Tests for cjkcms are stored in `cjkcms/tests` folder.

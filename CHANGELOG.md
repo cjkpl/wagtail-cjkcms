@@ -10,6 +10,8 @@ migrated to this file.
 
 ## [Unreleased]
 ### Added
+- Built-in Draftail character and word counters, adapted from `wagtail-character-counter`.
+  The standalone app takes precedence while it remains in `INSTALLED_APPS`, avoiding duplicate counters.
 ### Changed
 ### Fixed
 ### Removed

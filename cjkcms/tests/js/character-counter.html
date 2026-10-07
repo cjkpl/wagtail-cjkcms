@@ -1,0 +1,64 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Character counter regression tests</title>
+<div id="initial" class="w-field--draftail_rich_text_area">
+  <div class="DraftEditor-editorContainer"><div contenteditable="true"><div data-block="true">Hello world</div><div data-block="true">Next line</div></div></div>
+</div>
+<div id="empty" class="w-field--draftail_rich_text_area">
+  <div class="DraftEditor-editorContainer"><div contenteditable="true"></div></div>
+</div>
+<div id="delayed" class="w-field--draftail_rich_text_area"></div>
+<pre id="results">Running…</pre>
+<script src="../../static/cjkcms/js/character-counter.js"></script>
+<script>
+  // Run in a browser so these tests exercise real MutationObserver delivery.
+  window.testResults = { passed: [], error: null };
+  const tick = () => new Promise((resolve) => setTimeout(resolve, 0));
+  const check = (editor, characters, words, name) => {
+    const actual = [editor.nextElementSibling.textContent,
+      editor.nextElementSibling.nextElementSibling.textContent];
+    const expected = [`Characters: ${characters}`, `Words: ${words}`];
+    if (JSON.stringify(actual) !== JSON.stringify(expected)) {
+      throw new Error(`${name}: ${actual} != ${expected}`);
+    }
+    window.testResults.passed.push(name);
+  };
+  document.addEventListener('DOMContentLoaded', async () => {
+    try {
+      const initial = document.getElementById('initial');
+      check(initial, 20, 4, 'Initial content counts paragraphs separately');
+      check(document.getElementById('empty'), 0, 0, 'Empty editor');
+
+      initial.querySelector('[data-block]').firstChild.data = 'Hello';
+      await tick();
+      check(initial, 14, 3, 'Typing updates character and word counts');
+
+      const added = document.createElement('div');
+      added.innerHTML = '<div class="w-field--draftail_rich_text_area"><div class="DraftEditor-editorContainer"><div contenteditable="true"><div data-block="true">Added block</div></div></div></div>';
+      document.body.append(added);
+      await tick();
+      check(added.firstElementChild, 11, 2, 'Dynamically inserted StreamField editor');
+
+      const delayed = document.getElementById('delayed');
+      delayed.innerHTML = '<div class="DraftEditor-editorContainer"><div contenteditable="true">Ready now</div></div>';
+      await tick();
+      check(delayed, 9, 2, 'Editor initialized after its field wrapper');
+
+      added.remove();
+      document.body.append(added);
+      await tick();
+      if (added.querySelectorAll('.character-counter').length !== 2) {
+        throw new Error('Reinserting a block duplicates counters');
+      }
+      window.testResults.passed.push('Reinserting a block does not duplicate counters');
+
+      initial.querySelector('[contenteditable]').replaceChildren();
+      await tick();
+      check(initial, 0, 0, 'Deleting content resets counts');
+    } catch (error) {
+      window.testResults.error = error.stack;
+    }
+    document.getElementById('results').textContent = JSON.stringify(window.testResults, null, 2);
+    window.testsComplete = true;
+  }, { once: true });
+</script>

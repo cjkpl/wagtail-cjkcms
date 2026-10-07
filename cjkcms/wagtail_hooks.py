@@ -1,4 +1,5 @@
 # from cjkcms.models.admin_sidebar import NavbarSnippet, EventCalendarSnippet
+from django.apps import apps
 from django.templatetags.static import static
 from django.utils.html import format_html
 from wagtail import hooks
@@ -97,6 +98,18 @@ def collapsible_js():
     return format_html(
         '<script src="{}?v={}"></script>',
         static("cjkcms/js/cjkcms-editor.js"),
+        __version__,
+    )
+
+
+@hooks.register("insert_editor_js")
+def character_counter_js():
+    # Let the standalone app own the counters until the site removes it.
+    if apps.is_installed("wagtail_character_counter"):
+        return ""
+    return format_html(
+        '<script src="{}?v={}"></script>',
+        static("cjkcms/js/character-counter.js"),
         __version__,
     )
 

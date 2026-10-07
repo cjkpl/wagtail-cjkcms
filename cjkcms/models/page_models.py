@@ -5,12 +5,14 @@ Based on CODEREDCMS
 """
 
 import logging
+from copy import copy
 from datetime import datetime
 from typing import TYPE_CHECKING, Any
 
 # import geocoder
 from django import forms
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.core.paginator import EmptyPage, InvalidPage, PageNotAnInteger, Paginator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -24,7 +26,6 @@ from wagtail.admin.panels import (
     FieldPanel,
     MultiFieldPanel,
     ObjectList,
-    TabbedInterface,
 )
 from wagtail.coreutils import resolve_model_string
 from wagtail.fields import StreamField
@@ -38,6 +39,7 @@ from wagtailseo.models import SeoMixin, TwitterCard
 from cjkcms.blocks import CONTENT_STREAMBLOCKS, LAYOUT_STREAMBLOCKS
 from cjkcms.models.snippet_models import ClassifierTerm
 from cjkcms.models.wagtailsettings_models import LayoutSettings
+from cjkcms.panels import CjkcmsTabbedInterface
 from cjkcms.settings import cms_settings
 from cjkcms.utils.richtext import get_richtext_preview
 from cjkcms.widgets import ClassifierSelectWidget
@@ -321,21 +323,53 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
 
     def __init__(self, *args, **kwargs):
         """
-        Inject custom choices and defaults into the form fields
-        to enable customization by subclasses.
+        Apply defaults for new pages without mutating shared model fields.
         """
         super().__init__(*args, **kwargs)
-        klassname = self.__class__.__name__.lower()
-        template_choices = cms_settings.CJKCMS_FRONTEND_TEMPLATES_PAGES.get(
-            "*", []
-        ) + cms_settings.CJKCMS_FRONTEND_TEMPLATES_PAGES.get(klassname, [])
-
-        self._meta.get_field("index_order_by").choices = self.index_order_by_choices  # type: ignore
-        self._meta.get_field("custom_template").choices = template_choices  # type: ignore
         if not self.id:  # type: ignore
             self.index_order_by = self.index_order_by_default
             self.index_show_subpages = self.index_show_subpages_default
             self.related_show = self.related_show_default
+
+    @classmethod
+    def get_custom_template_choices(cls):
+        templates = cms_settings.CJKCMS_FRONTEND_TEMPLATES_PAGES
+        return list(templates.get("*", [])) + list(
+            templates.get(cls.__name__.lower(), [])
+        )
+
+    def get_instance_field_choices(self):
+        return {
+            "custom_template": self.get_custom_template_choices(),
+            "index_order_by": self.index_order_by_choices,
+        }
+
+    def clean_fields(self, exclude=None):
+        exclude = set(exclude or ())
+        choices_by_field = self.get_instance_field_choices()
+        errors = {}
+        try:
+            super().clean_fields(exclude=exclude | choices_by_field.keys())
+        except ValidationError as error:
+            error.update_error_dict(errors)
+
+        for name, choices in choices_by_field.items():
+            if name in exclude:
+                continue
+            # Multi-table inheritance shares the original field across page types.
+            # Use a local copy to retain Django's normal field validation.
+            field = copy(self._meta.get_field(name))
+            field.choices = choices
+            value = getattr(self, field.attname)
+            if field.blank and value in field.empty_values:
+                continue
+            try:
+                setattr(self, field.attname, field.clean(value, self))
+            except ValidationError as error:
+                errors[name] = error.error_list
+
+        if errors:
+            raise ValidationError(errors)
 
     @classmethod
     def get_panels(cls):  # sourcery skip: instance-method-first-arg-name
@@ -370,7 +404,7 @@ class CjkcmsPage(WagtailCacheMixin, SeoMixin, Page, metaclass=CjkcmsPageMeta):
         Override to "lazy load" the panels overridden by subclasses.
         """
         panels = cls.get_panels()  # override e.g. by appending new panels
-        edit_handler = TabbedInterface(panels)
+        edit_handler = CjkcmsTabbedInterface(panels)
         return edit_handler.bind_to_model(cls)
 
     @property

@@ -14,6 +14,9 @@ migrated to this file.
   The standalone app takes precedence while it remains in `INSTALLED_APPS`, avoiding duplicate counters.
 ### Changed
 ### Fixed
+- Isolated page template and child-page ordering choices per page/form instance,
+  preventing intermittent validation errors when different page types are instantiated.
+  Existing template settings and stored values are unchanged; no migration is needed.
 ### Removed
 - Dropped the `wagtail-color-panel` dependency; internal color fields now use native widgets.
 
